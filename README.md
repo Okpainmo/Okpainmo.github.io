@@ -5,5 +5,5 @@ The project is a blog template built with the following basic web development to
 2. CSS
 3. Bootstrap 4
 4. I intend using Jquery too.
-You can see the porject live as i build on by following this link - Okpainmo.github.io
+You can see the project live as i build on by following this link - Okpainmo.github.io
 Thanks for reading.
