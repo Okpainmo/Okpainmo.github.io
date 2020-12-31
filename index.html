@@ -1,30 +1,340 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chen redirectory page</title>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="Styles/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="Styles/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/7d4093f05b.js"></script>
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="Styles/chenstyles.css">
+    <link rel="stylesheet" href="Styles/chenqueries.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+    <title>Chen theme</title>
     <style>
-        body {
-            font-family: Nunito,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        .lead-banner {
+            width: 100%;
+            min-height: 400px;
+            background-image: linear-gradient(to top left, purple, transparent), url(images/pix14.jpg);
+            background-size: cover;
         }
-        body a {
-            text-decoration: none;
-            font-size: 25px;
-            color: purple;
-        }
-        .chen-redirectory {
-            margin: 100px auto;
-            min-width: 300px;
+        .lead-content {
+            padding-top: 120px;
+            width: 100%;
+            min-height: 200px;
             text-align: center;
         }
+        .hype-text {
+            color: white;
+            font-size: 50px;
+        }
+        .button-case {
+            width: 100%;
+        }
+        .lead-buttons {
+            width: 200px;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 20px;
+        }
+        .purple {
+            color: white;
+            background-color: purple;
+            margin-left: 20px;
+        }
+        .green {
+            background-color: transparent;
+            color: greenyellow;
+            border: 2px solid greenyellow;
+        }
+        a.purple:hover {
+            color: white;
+            transform: scale(1.1);
+            transition: ease .7s;
+        }
+        a.green:hover {
+            color: white;
+            background-color: greenyellow;
+            transition: ease .6s;
+        }
+        .btn:focus {
+            box-shadow: none;
+        }
+        .theme-description {
+            width: 70%;
+            color: grey;
+            text-shadow: purple;
+            margin: 50px auto;
+            font-size: 22px;
+        }
+        .description-cards {
+            margin-bottom: 50px;
+        }
+        .card-icon-case, .card-image-case {
+            width: 100%;
+        }
+        .card-icons {
+            text-align: center;
+        }
+        .testimonials {
+            width: 100%;
+            min-height: 300px;
+            margin-top: 100px;
+            background-image: url(Images/pix7.jpg);
+        }
+        .testimonials-overlay {
+            background-image: linear-gradient(to right, black, transparent, black);
+            background-color: rgba(0, 0, 0, .5);
+            min-height: inherit;
+            color: rgb(224, 216, 216);
+            padding: 20px;
+        }
+        /* .testimonials-overlay h1::after {
+            display: block;
+            width: 100px;
+            height: 3px;
+            margin: 0 auto;
+            background-color: white;
+        } */
+        .follow-up {
+            width: 60%;
+            margin: 0 auto 70px;
+            font-weight: lighter;
+        }
+        .testimonials-overlay .card {
+            box-shadow: none;
+        } 
+        .card-image img {
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+            transform: translateY(-50px);
+        }
+        .testimonials-overlay .card-body {
+            padding: 0 20px 20px!important;
+        }
+        .testimonials-overlay .card-text {
+            font-size: 17px;
+        }
+        .testimonials-overlay .card-title {
+            margin: 0;
+        }
     </style>
-</head>
-<body>
-    <div class="chen-redirectory">
-        <h1>Hey, you're welcome.</h1>
-        <a href="/ChenPages/chen.html">Click to see Chen</a>
+  </head>
+  <body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+            <a class="navbar-brand ml-30" href="#">
+                <div class="my-brand">Chen</div>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mr-30">
+                    <li class="nav-item">
+                        <a class="nav-link" href="chen.html">Documentation<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="chenreviews.html">Pages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="chenevents.html">Buy Now</a>
+                    </li>
+                </ul>    
+            </div>
+        </nav>
+        <div class="lead-banner">
+            <div class="lead-content">
+                <div class="hype-text mb-20">
+                    Sleek, Simple, beautiful...
+                    <p class="font-20">The new elegant and simple Chen template</p>
+                </div>
+                <div class="button-case">
+                    <a role="button" class="btn green lead-buttons" href="Chen.html" target="_blank">Buy Now</a>
+                    <a role="button" class="btn purple lead-buttons" href="#">Documentation</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="theme-description text-center">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis et recusandae accusantium sequi voluptatibus hic deserunt exercitationem aliqua
+        m atque rerum! Fuga dolor accusantium sunt delectus, expedita architecto amet quisquam rerum.
     </div>
-</body>
+    <div class="description-cards">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <a href="#">
+                        <div class="card">
+                            <div class="card-icon-case">
+                                <div class="card-icons">
+                                    <span class="fab fa-facebook font-20"></span> 
+                                </div>
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title">One unique blog post?</h5>
+                                <p class="card-text sm-block">This part provides a hint on the blog post as an addition to the topic
+                                    This part is the apetizer of the post
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a href="#">
+                        <div class="card">
+                            <div class="card-icon-case">
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title">One unique blog post?</h5>
+                                <p class="card-text sm-block">This part provides a hint on the blog post as an addition to the topic
+                                    This part is the apetizer of the post
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a href="#">
+                        <div class="card">
+                            <div class="card-icon-case">
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title">One unique blog post?</h5>
+                                <p class="card-text sm-block">This part provides a hint on the blog post as an addition to the topic
+                                    This part is the apetizer of the post
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <a href="#">
+                        <div class="card">
+                            <div class="card-icon-case">
+                                <div class="card-icons">
+                                    <span class="fab fa-facebook font-20"></span> 
+                                </div>
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title">One unique blog post?</h5>
+                                <p class="card-text sm-block">This part provides a hint on the blog post as an addition to the topic
+                                    This part is the apetizer of the post
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a href="#">
+                        <div class="card">
+                            <div class="card-icon-case">
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title">One unique blog post?</h5>
+                                <p class="card-text sm-block">This part provides a hint on the blog post as an addition to the topic
+                                    This part is the apetizer of the post
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a href="#">
+                        <div class="card">
+                            <div class="card-icon-case">
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title">One unique blog post?</h5>
+                                <p class="card-text sm-block">This part provides a hint on the blog post as an addition to the topic
+                                    This part is the apetizer of the post
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="testimonials">
+        <div class="testimonials-overlay text-center">
+            <h1 class="mt-40">Testimonials</h1>
+            <p class="font-20 follow-up">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quisquam blanditiis quas aliquam nihil pariatur i
+                usto, minima illo eligendi animi enim nulla natus, quam corporis facere nemo veritatis quia ea molestias?
+            </p>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <a href="#">
+                            <div class="card">
+                                <div class="card-image-case">
+                                    <div class="card-image">
+                                        <img src="Images/pix14.jpg" alt="testimonials">
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <p class="card-text sm-block text-muted">" This part provides a hint on the blog post as an addition to the topic
+                                        This part is the apetizer of the post "
+                                    </p>
+                                    <h5 class="card-title">Alaba Mustapha</h5>
+                                    <h5 class="card-title">(Web Developer)</h5>
+                                    <span class="font-17 text-muted">@alabaMustapha</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4">
+                        <a href="#">
+                            <div class="card">
+                                <div class="card-image-case">
+                                    <div class="card-image">
+                                        <img src="Images/pix15.jpg" alt="testimonials">
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <p class="card-text sm-block text-muted">" This part provides a hint on the blog post as an addition to the topic
+                                        This part is the apetizer of the post "
+                                    </p>
+                                    <h5 class="card-title">Solomon Eyitene</h5>
+                                    <h5 class="card-title">(Developer/Designer)</h5>
+                                    <span class="font-17 text-muted">@solomoneyitene</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4">
+                        <a href="#">
+                            <div class="card">
+                                <div class="card-image-case">
+                                    <div class="card-image">
+                                        <img src="Images/pix12.jpg" alt="testimonials">
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <p class="card-text sm-block text-muted">" This part provides a hint on the blog post as an addition to the topic
+                                        This part is the apetizer of the post "
+                                    </p>
+                                    <h5 class="card-title">Ibrahim Adeshina</h5>
+                                    <h5 class="card-title">(Web Developer)</h5>
+                                    <span class="font-17 text-muted">@adeshinaibrahim</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>                 
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="Scripts/chenscript.js"></script>
+    <script src="Scripts/jquery-3.3.1.min.js"></script>
+    <script src="Scripts/popper.min.js"></script>
+    <script src="Scripts/js/bootstrap.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> -->
+  </body>
 </html>
