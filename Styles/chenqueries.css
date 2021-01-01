@@ -180,6 +180,14 @@
     .mail-section .main-details {
         margin: 15px auto;
     }
+    .testimonials p.card-text {
+        width: 70%;
+        margin-right:auto;
+        margin-left: auto;
+    }
+    .testimonials .col-lg-4 {
+        margin: 0 auto 70px;
+    }
 }
 @media screen and (max-width:880px) {
     .text-box {
@@ -193,7 +201,7 @@
     .post-banner {
         min-height: 300px;
     }
-    .search-form input {
+    /* .search-form input {
         border-top-left-radius: 50px!important;
         border-bottom-left-radius: 50px !important;
         padding: 2px 15px 5px!important;
@@ -212,6 +220,13 @@
         padding-right: 10px;
         padding-top: 0;
         padding-left: 8px;
+    } */
+    .follow-up {
+        width: 75%!important;
+    }
+    .testimonials .col-lg-4 {
+        margin: 0 auto 70px;
+        width: 80%;
     }
 }
 @media screen and (max-width:767px) {
@@ -246,6 +261,11 @@
     .review-name {
         font-size: 25px;
     }
+    .testimonials p.card-text {
+        width: 90%;
+        margin-right:auto;
+        margin-left: auto;
+    }
 }
 @media screen and (max-width:600px) {
     .reviews-page .card-text {
@@ -273,6 +293,29 @@
     .lead-post-title {
         font-weight: bold;
         font-size: 40px;
+    }
+    .button-case .btn{
+        display: block;
+        margin: 0 auto 30px;
+    }
+    .lead-content {
+        min-height: 500px!important;
+    }
+    .follow-up {
+        width: 90%!important;
+    }
+    .theme-description {
+        width: 80%!important;
+    }
+    .hype-text p {
+        width: 80%;
+        margin: 0 auto;
+    }
+    .theme {
+        text-align: center!important;
+    }
+    .testimonials .col-lg-4 {
+        width: 100%;
     }
     .main-banner-overlay {
         padding-top: 220px!important;

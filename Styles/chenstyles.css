@@ -565,7 +565,7 @@
         display: flex;
         justify-content: space-evenly;
     }
-    .about-blog, .about-owner, .blog-summary {
+    .about-blog, .about-owner, .blog-summary, .about-theme, .page-details {
         padding: 0 10px;
     }
     .about-title {
@@ -668,6 +668,9 @@
     }
     .font-30 {
         font-size: 30px;
+    }
+    .font-25 {
+        font-size: 25px;
     }
     .fa-map-marker-alt {
         padding-left: 1px;
