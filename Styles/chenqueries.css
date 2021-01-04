@@ -298,6 +298,9 @@
         display: block;
         margin: 0 auto 30px;
     }
+    .button-case {
+        padding-bottom: 20px;
+    }
     .lead-content {
         min-height: 500px!important;
     }

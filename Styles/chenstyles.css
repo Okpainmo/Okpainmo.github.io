@@ -603,10 +603,10 @@
     .categories-listing span:first-child {
         margin-top: 0;
     }
-    .categories-listing a {
+    .categories-listing a, .listings a {
         color: purple;
     }
-    .categories-listing a:hover {
+    .categories-listing a:hover, .listings a:hover {
         color: inherit;
     }
     .bb-1 {
