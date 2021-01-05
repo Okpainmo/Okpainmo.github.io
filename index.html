@@ -15,8 +15,14 @@
         .lead-banner {
             width: 100%;
             min-height: 400px;
-            background-image: linear-gradient(to top left, purple, transparent), url(images/pix13.jpg);
             background-size: cover;
+            background-image: url(Images/pix11.jpg);
+        }
+        .lead-banner-overlay {
+            width: inherit;
+            min-height: inherit;
+            background-image: linear-gradient(to top left, purple, transparent);
+            background-color: rgba(0, 0, 0, .5);
         }
         .lead-content {
             padding-top: 120px;
@@ -70,11 +76,10 @@
             margin-bottom: 50px;
         }
         .description-cards .card {
-            box-shadow: none;
             border: none;
+            box-shadow: 0 0 15px 1px #696464;
             background-size: cover;
             border-radius: 0.2rem!important;
-            min-height: 300px;
         }
         .description-cards .card .card-text {
             font-size: 16px;
@@ -84,24 +89,26 @@
         }
         .description-cards .card .card-body {
             padding: 0!important;
+            /* margin-bottom: 20px; */
         }
         .description-cards .card:hover {
             transform: scale(1.04);
-            box-shadow: 0 0 15px 1px #696464;
             transition: .5s ease-out;
         }
         .description-cards .layover {
             background-color: rgba(0, 0, 0, .6);
             width: inherit;
-            min-height: inherit;
+            min-height: 300px;
             color: white;
             border-radius: inherit;
             padding: 20px;
+            margin: auto 0;
         }
         .card-icon-case {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 30px;
+            width: 50px;
+            height: 50px;
+            margin: 35px auto 30px;
+            /* display: block; */
         }
         .card-icons {
             width: 70px;
@@ -114,7 +121,7 @@
             width: 100%;
             min-height: 300px;
             margin-top: 100px;
-            background-image: url(Images/pix7.jpg);
+            background-image: url(Images/pix10.jpg);
         }
         .testimonials-overlay {
             background-image: linear-gradient(to right, black, transparent, black);
@@ -160,8 +167,8 @@
             margin: 0 auto;
         } */
         .flaticon {
-            width: 100px;
-            height: 100px;
+            width: inherit;
+            height: inherit;
         }
         .listings ul {
             list-style-position: inside;
@@ -211,7 +218,7 @@
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="#">Something else here</a>
                         </div>
-                      </li>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="chenevents.html">Buy Now</a>
                     </li>
@@ -219,14 +226,16 @@
             </div>
         </nav>
         <div class="lead-banner">
-            <div class="lead-content">
-                <div class="hype-text mb-20">
-                    <span>Sleek, Simple, beautiful...</span> 
-                    <p class="font-20">The new elegant and simple Chen theme</p>
-                </div>
-                <div class="button-case">
-                    <a role="button" class="btn green lead-buttons" href="Chen.html" target="_blank">Buy Now</a>
-                    <a role="button" class="btn purple lead-buttons" href="#">Documentation</a>
+            <div class="lead-banner-overlay">
+                <div class="lead-content">
+                    <div class="hype-text mb-20">
+                        <span>Sleek, Simple, beautiful...</span> 
+                        <p class="font-20">The new elegant and simple Chen theme</p>
+                    </div>
+                    <div class="button-case">
+                        <a role="button" class="btn green lead-buttons" href="Chen.html" target="_blank">Buy Now</a>
+                        <a role="button" class="btn purple lead-buttons" href="#">Documentation</a>
+                    </div>
                 </div>
             </div>
         </div>
