@@ -37,6 +37,11 @@
         .button-case {
             width: 100%;
         }
+        .pages-button {
+            color: white!important;
+            background-color: purple;
+            width: 200px!important;
+        }
         .lead-buttons {
             width: 200px;
             padding: 10px;
@@ -52,6 +57,10 @@
             background-color: transparent;
             color: greenyellow;
             border: 2px solid greenyellow;
+        }
+        .pages-button:hover {
+            transform: scale(1.1);
+            transition: ease .7s;
         }
         a.purple:hover {
             color: white;
@@ -117,14 +126,19 @@
             margin: 0 auto;
             background-color: white;
         }
-        .testimonials {
+        .testimonials .image-array-section {
             width: 100%;
             min-height: 300px;
             margin-top: 100px;
-            background-image: url(Images/pix10.jpg);
         }
         .testimonials-overlay {
             background-image: linear-gradient(to right, black, transparent, black);
+            background-color: rgba(0, 0, 0, .5);
+            min-height: inherit;
+            color: rgb(224, 216, 216);
+            padding: 20px;
+        }
+        .image-array-section-overlay {
             background-color: rgba(0, 0, 0, .5);
             min-height: inherit;
             color: rgb(224, 216, 216);
@@ -140,11 +154,53 @@
         .follow-up {
             width: 60%;
             margin: 0 auto 70px;
-            font-weight: lighter;
+            /* font-weight: lighter; */
         }
-        .testimonials-overlay .card {
+        .image-array-section .follow-up {
+            margin: 30px auto 70px;
+        } 
+        .testimonials-overlay .card, .image-array-section-overlay .card {
             box-shadow: none;
         } 
+        .page-title {
+            width: 100%;
+            color: white;
+            padding: 10px;
+        }
+        .landing-pages-display {
+            min-height: 300px;
+            width: 100%;
+            padding: 30px 0;
+        } 
+        .first-image, .second-image, .third-image {
+            width: 250px;
+            height: 200px;
+            position: relative;
+            box-shadow: 0 0 15px 1px #696464;
+        }
+        .first-image:hover, .second-image:hover, .third-image:hover {
+            transform: scale(1.06);
+            transition: .7s ease-out;  
+        }
+        .first-image-case {
+            width: 60%;
+            padding-left: 50px;
+        }
+        .second-text-case {
+            width: 40%;
+        }
+        .second-image {
+            left: 10px ;
+        }
+        .third-image {
+            z-index: 2000;
+            top: -20px;
+            left: 140px;
+        }
+        .case-text {
+            font-size: 30px;
+            /* text-align: right; */
+        }
         .card-image img {
             width: 100px;
             height: 100px;
@@ -159,6 +215,18 @@
         }
         .testimonials-overlay .card-title {
             margin: 0;
+        }
+        .features-list {
+            min-height: 150px;
+            background-color: rgba(255, 255, 255, .7);
+            color: black;
+            padding: 30px;
+            font-size: 20px;
+            text-align: left;
+        }
+        .features-list li {
+            padding: 5px 10px;
+            list-style-type: square;
         }
         .footer-base {
             text-align: right;
@@ -182,6 +250,12 @@
         }
         .landing .row .col-lg-4:first-child {
             padding-top: 30px;
+        }
+        .image-array-item {
+            width: 250px;
+            height: 200px;
+            margin: 0 auto;
+            background-size: cover;
         }
     </style>
     <!-- <script>
@@ -249,6 +323,42 @@
             <div class="row">
                 <div class="col-lg-4">
                     <a href="#">
+                        <div class="card" style="background-image: url(Images/pix16.jpg);">
+                            <div class="layover">
+                                <div class="card-icon-case">
+                                    <img class="flaticon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGc+PHBhdGggZD0ibTQ4NS44ODQgNDkuNTk3aC0yMDkuODIzbC0xNi44NDktMTYuODQ4Yy0zLjY3My0zLjY3Mi04LjU2Ny01LjY5NS0xMy43ODEtNS42OTVzLTEwLjEwOCAyLjAyMy0xMy43OTUgNS43MDlsLTEuNTU3IDEuNTYzYy02LjY1OS0zLjU4Mi0xMy42MjItNi40NjgtMjAuODI2LTguNjMzdi0yLjIxNmMwLTEwLjc0LTguNzM3LTE5LjQ3Ny0xOS40NzgtMTkuNDc3aC0yNi41ODZjLTEwLjczOSAwLTE5LjQ3NyA4LjczNy0xOS40NzcgMTkuNDc3djIuMjE2Yy03LjIwNCAyLjE2NS0xNC4xNjggNS4wNTItMjAuODI2IDguNjMzbC0xLjU3LTEuNTc3Yy0zLjY3My0zLjY3My04LjU2Ny01LjY5Ni0xMy43ODItNS42OTYtNS4yMTQgMC0xMC4xMDggMi4wMjMtMTMuNzgxIDUuNjk1bC0xNi44NDcgMTYuODQ5aC01MC43OWMtMTQuNCAwLTI2LjExNiAxMS43MTYtMjYuMTE2IDI2LjExNnYyOTQuNjljMCAxNC40IDExLjcxNiAyNi4xMTYgMjYuMTE2IDI2LjExNmgxNDUuNTYybC0yMC4xNTUgNDAuODYyaC0xNi4zOTZjLTE5LjQ3IDAtMzUuMzEgMTUuODM5LTM1LjMxIDM1LjMwOXYyNS4zMWMwIDUuNTIzIDQuNDc4IDEwIDEwIDEwaDI0OC4yMTQgMTE1LjE2OWMyMS4zOTUgMCAzOC44LTE5LjIxMyAzOC44LTQyLjgyOXYtMjM5LjAyLTE1MC40MzhjMC0xNC40LTExLjcxNi0yNi4xMTYtMjYuMTE2LTI2LjExNnptLTQwMC41MyA2NC4wOTdjMi4zNTEtMTAuNDE0IDYuNDM3LTIwLjI2NyAxMi4xNDQtMjkuMjg1IDIuNDk4LTMuOTQ2IDEuOTMyLTkuMDk2LTEuMzYzLTEyLjQwNWwtNi42NjMtNi42ODkgMTguMDYyLTE4LjA2MiA2LjYzMyA2LjY2MWMzLjMwOCAzLjMyIDguNDc2IDMuODk5IDEyLjQzNSAxLjM5MyA5LjA2OC01Ljc0IDE4LjkyNC05LjgyNCAyOS4yOTEtMTIuMTM5IDQuNTctMS4wMjEgNy44Mi01LjA3NyA3LjgyLTkuNzZ2LTkuNDA4aDI1LjU0djkuNDA4YzAgNC42ODMgMy4yNSA4LjczOSA3LjgyIDkuNzYgMTAuMzY3IDIuMzE1IDIwLjIyMiA2LjM5OSAyOS4yOSAxMi4xMzkgMy45NiAyLjUwNiA5LjEyOCAxLjkyNyAxMi40MzQtMS4zOTNsNi42MzUtNi42NjEgMTguMDYyIDE4LjA2Mi02LjY2MyA2LjY4OWMtMy4yOTYgMy4zMDktMy44NjIgOC40NTktMS4zNjQgMTIuNDA1IDUuNzA3IDkuMDE4IDkuNzkzIDE4Ljg3MSAxMi4xNDQgMjkuMjg1IDEuMDI5IDQuNTYgNS4wOCA3Ljc5OCA5Ljc1NSA3Ljc5OGg5LjQwOHYyNS41NGgtOS40MDhjLTQuNjc1IDAtOC43MjYgMy4yMzgtOS43NTUgNy43OTgtMi4zNTcgMTAuNDQzLTYuNDQzIDIwLjMwNi0xMi4xNDQgMjkuMzEzLTIuNDk4IDMuOTQ2LTEuOTMyIDkuMDk2IDEuMzY0IDEyLjQwNWw2LjY0OCA2LjY3NS0xOC4wNDggMTguMDQ5LTYuNjQ4LTYuNjQ4Yy0zLjMwOS0zLjMwOC04LjQ2Ny0zLjg4LTEyLjQyLTEuMzc4LTkuMDY3IDUuNzM5LTE4LjkyMiA5LjgyNC0yOS4yOSAxMi4xMzktNC41NyAxLjAyMS03LjgyIDUuMDc3LTcuODIgOS43NnY5LjQwN2gtMjUuNTR2LTkuNDA3YzAtNC42ODMtMy4yNS04LjczOS03LjgyLTkuNzYtMTAuMzY4LTIuMzE1LTIwLjIyNC02LjM5OS0yOS4yOTEtMTIuMTM5LTMuOTUyLTIuNTAxLTkuMTEtMS45MjktMTIuNDIgMS4zNzlsLTYuNjQ3IDYuNjQ3LTE4LjA0OC0xOC4wNDkgNi42NDgtNi42NzVjMy4yOTUtMy4zMDkgMy44NjEtOC40NTggMS4zNjMtMTIuNDA1LTUuNy05LjAwNy05Ljc4Ni0xOC44Ny0xMi4xNDQtMjkuMzEzLTEuMDI5LTQuNTYtNS4wOC03Ljc5OC05Ljc1NS03Ljc5OGgtOS40MDd2LTI1LjU0aDkuNDA4YzQuNjc0IDAgOC43MjUtMy4yMzggOS43NTQtNy43OTh6bS02NS4zNTQgMjU2LjcwOXYtMjEuODYzaDI5OS4yMzJ2MjcuOThoLTI5My4xMTZjLTMuMzcyIDAtNi4xMTYtMi43NDQtNi4xMTYtNi4xMTd6bTE3My45OCAyNi4xMTdoMTI1LjI1M3Y0MC44NjJoLTE0NS40MDh6bS03NC4xNjIgNzYuMTdjMC04LjQ0MSA2Ljg2OC0xNS4zMDkgMTUuMzEtMTUuMzA5aDIyLjU2M2MuMDE0IDAgLjAyOS4wMDIuMDQzLjAwMi4wMTIgMCAuMDIzLS4wMDIuMDM1LS4wMDJoMTYxLjQ2M3Y3Ljc5YzAgOC4zODggMi4yMDUgMTYuMjE1IDUuOTk1IDIyLjgyOWgtMjA1LjQxdi0xNS4zMXptMzcyLjE4Mi03LjUxOWMwIDEyLjM3NS04LjYwOCAyMi44MjktMTguNzk5IDIyLjgyOWgtMTE1LjE2OWMtMTAuMTkgMC0xOC44LTEwLjQ1NC0xOC44LTIyLjgyOXYtMjM5LjAyYzAtMTIuMzc1IDguNjA5LTIyLjgyOSAxOC44LTIyLjgyOWgxMC4yODd2MjIuNDg4YzAgMTAuOTQzIDguOTE1IDE5Ljg0NiAxOS44NzQgMTkuODQ2aDU0Ljg0NmMxMC45NTkgMCAxOS44NzQtOC45MDMgMTkuODc0LTE5Ljg0NnYtMjIuNDg4aDEwLjI4OGMxMC4xOSAwIDE4Ljc5OSAxMC40NTQgMTguNzk5IDIyLjgyOXptLTEwMy42ODEtMjM5LjUxNXYtMjIuMzMzaDU0LjU5NHYyMi4zMzN6bTEwMy42ODEtMzYuOTUzYy01LjU3My0zLjQyMy0xMS45ODItNS4zOC0xOC43OTktNS4zOGgtMTE1LjE2OWMtMjEuMzk1IDAtMzguOCAxOS4yMTMtMzguOCA0Mi44Mjl2MTAyLjM4OGgtMjk5LjIzMnYtMjUyLjgyN2MwLTMuMzE1IDIuODAxLTYuMTE2IDYuMTE2LTYuMTE2aDQzLjY1M2MuNzc1IDMuNDgyIDIuNDkxIDYuNzkgNS4xODYgOS40ODRsMS41OCAxLjU4NmMtMy41NzEgNi42NDEtNi40NiAxMy42MDUtOC42MzggMjAuODI1aC0yLjJjLTEwLjc1NSAwLTE5LjUwNSA4Ljc1LTE5LjUwNSAxOS41MDV2MjYuNTU4YzAgMTAuNzQgOC43NSAxOS40NzcgMTkuNTA1IDE5LjQ3N2gyLjE5OWMyLjE4IDcuMjM2IDUuMDY5IDE0LjIxIDguNjQgMjAuODUzbC0xLjU2NiAxLjU3MmMtNy41OTEgNy41OTItNy41OTEgMTkuOTQ0IDAgMjcuNTM0bDE4Ljc4MyAxOC43ODRjNy42MDEgNy42IDE5Ljk2NSA3LjU5OSAyNy41NjMgMGwxLjU1Ni0xLjU1NmM2LjY2MiAzLjU4NCAxMy42MzIgNi40NzQgMjAuODQxIDguNjQxdjIuMjE2YzAgMTAuNzM5IDguNzM3IDE5LjQ3NyAxOS40NzcgMTkuNDc3aDI2LjU4NmMxMC43NCAwIDE5LjQ3OC04LjczNyAxOS40NzgtMTkuNDc3di0yLjIxNmM3LjIwOS0yLjE2NyAxNC4xNzgtNS4wNTYgMjAuODQtOC42NDFsMS41NTcgMS41NTdjNy41OTggNy41OTcgMTkuOTYyIDcuNTk5IDI3LjU2MyAwbDE4Ljc4My0xOC43ODNjNy41OTEtNy41OTEgNy41OTEtMTkuOTQzLjAxNC0yNy41MjFsLTEuNTgtMS41ODdjMy41NjktNi42NDMgNi40NTktMTMuNjE2IDguNjM5LTIwLjg1MmgyLjE5OWMxMC43NTYgMCAxOS41MDYtOC43MzcgMTkuNTA2LTE5LjQ3N3YtMjYuNTU4YzAtMTAuNzU1LTguNzUtMTkuNTA1LTE5LjUwNi0xOS41MDVoLTIuMmMtMi4xNzgtNy4yMi01LjA2Ni0xNC4xODQtOC42MzgtMjAuODI1bDEuNTY2LTEuNTcyYzIuNy0yLjcgNC40MjEtNi4wMTMgNS4xOTYtOS40OTloMjAyLjY5MmMzLjMxNSAwIDYuMTE2IDIuODAxIDYuMTE2IDYuMTE2djExMi45OXoiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48cGF0aCBkPSJtMTc2LjQ2OSAyMDMuOTQ2YzM4LjQzMiAwIDY5LjY5OC0zMS4yNTQgNjkuNjk4LTY5LjY3cy0zMS4yNjctNjkuNjctNjkuNjk4LTY5LjY3Yy0zOC40MTYgMC02OS42NyAzMS4yNTQtNjkuNjcgNjkuNjdzMzEuMjU0IDY5LjY3IDY5LjY3IDY5LjY3em0wLTExOS4zNGMyNy40MDMgMCA0OS42OTggMjIuMjgyIDQ5LjY5OCA0OS42N3MtMjIuMjk1IDQ5LjY3LTQ5LjY5OCA0OS42N2MtMjcuMzg4IDAtNDkuNjctMjIuMjgyLTQ5LjY3LTQ5LjY3czIyLjI4Mi00OS42NyA0OS42Ny00OS42N3oiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48L2c+PGc+PHBhdGggZD0ibTUwMiA0NTcuMzgxaC00MS40MjZjLTUuNTIyIDAtMTAtNC40NzctMTAtMTBzNC40NzgtMTAgMTAtMTBoNDEuNDI2YzUuNTIyIDAgMTAgNC40NzcgMTAgMTBzLTQuNDc4IDEwLTEwIDEwem0tMTMxLjM0MiAwaC00MS40MjZjLTUuNTIyIDAtMTAtNC40NzctMTAtMTBzNC40NzgtMTAgMTAtMTBoNDEuNDI2YzUuNTIyIDAgMTAgNC40NzcgMTAgMTBzLTQuNDc3IDEwLTEwIDEweiIgZmlsbD0iI2ZmZmZmZiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPjwvZz48Zz48cGF0aCBkPSJtNDE1LjYwMyA0NTcuMzgxYy01LjUyMiAwLTEwLjAxNS00LjQ3Ny0xMC4wMTUtMTBzNC40NjMtMTAgOS45ODUtMTBoLjAyOWM1LjUyMiAwIDEwIDQuNDc3IDEwIDEwcy00LjQ3NyAxMC05Ljk5OSAxMHoiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48L2c+PC9nPjwvZz48L3N2Zz4=" />
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">3 Complete blogs</h5>
+                                    <p class="card-text sm-block">
+                                        Enjoy flexibility with the 3 prebuilt blogs with 
+                                        different cross compatible sections/components.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a href="#">
+                        <div class="card" style="background-image: url(Images/pix9.jpg);">
+                            <div class="layover">
+                                <div class="card-icon-case">
+                                    <img class="flaticon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTUwNC41IDBoLTMxMi44MzIwMzFjLTQuMTQ0NTMxIDAtNy41IDMuMzU1NDY5LTcuNSA3LjVzMy4zNTU0NjkgNy41IDcuNSA3LjVoMzA1LjMzMjAzMXY2NWgtMzc0Ljc0MjE4OHYtNjVoMzguNWM0LjE0NDUzMiAwIDcuNS0zLjM1NTQ2OSA3LjUtNy41cy0zLjM1NTQ2OC03LjUtNy41LTcuNWgtNDZjLTQuMTQwNjI0IDAtNy41IDMuMzU1NDY5LTcuNSA3LjVsLjAwMzkwNyAxMTkuNWgtOTkuNzYxNzE5Yy00LjE0NDUzMSAwLTcuNSAzLjM1NTQ2OS03LjUgNy41djMxMy4xNjc5NjljMCA0LjE0MDYyNSAzLjM1NTQ2OSA3LjUgNy41IDcuNXM3LjUtMy4zNTkzNzUgNy41LTcuNXYtMjI1LjY2Nzk2OWg0MzNjNC4xNDQ1MzEgMCA3LjUtMy4zNTU0NjkgNy41LTcuNXMtMy4zNTU0NjktNy41LTcuNS03LjVoLTQzM3YtNjVoNDgydjY1aC0xNy4xNjc5NjljLTQuMTQwNjI1IDAtNy41IDMuMzU1NDY5LTcuNSA3LjVzMy4zNTkzNzUgNy41IDcuNSA3LjVoMTcuMTY3OTY5djI3NWgtNDgydi0xN2MwLTQuMTQ0NTMxLTMuMzU1NDY5LTcuNS03LjUtNy41cy03LjUgMy4zNTU0NjktNy41IDcuNXYyNC41YzAgNC4xNDQ1MzEgMy4zNTU0NjkgNy41IDcuNSA3LjVoNDk3YzQuMTQ0NTMxIDAgNy41LTMuMzU1NDY5IDcuNS03LjV2LTQ5N2MwLTQuMTQ0NTMxLTMuMzU1NDY5LTcuNS03LjUtNy41em0tMzgyLjIzODI4MSAxMjd2LTMyaDM3NC43MzgyODF2MzJ6bTAgMCIgZmlsbD0iI2ZmZmZmZiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTEzOC4yNTc4MTIgNDdjMCAxMi40MDYyNSAxMC4wOTM3NSAyMi41IDIyLjUgMjIuNXMyMi41LTEwLjA5Mzc1IDIyLjUtMjIuNS0xMC4wOTM3NS0yMi41LTIyLjUtMjIuNS0yMi41IDEwLjA5Mzc1LTIyLjUgMjIuNXptMzAgMGMwIDQuMTM2NzE5LTMuMzYzMjgxIDcuNS03LjUgNy41LTQuMTM2NzE4IDAtNy41LTMuMzYzMjgxLTcuNS03LjVzMy4zNjMyODItNy41IDcuNS03LjVjNC4xMzY3MTkgMCA3LjUgMy4zNjMyODEgNy41IDcuNXptMCAwIiBmaWxsPSIjZmZmZmZmIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjQzLjI1NzgxMiA0N2MwLTEyLjQwNjI1LTEwLjA5Mzc1LTIyLjUtMjIuNS0yMi41cy0yMi41IDEwLjA5Mzc1LTIyLjUgMjIuNSAxMC4wOTM3NSAyMi41IDIyLjUgMjIuNSAyMi41LTEwLjA5Mzc1IDIyLjUtMjIuNXptLTMwIDBjMC00LjEzNjcxOSAzLjM2MzI4Mi03LjUgNy41LTcuNSA0LjEzNjcxOSAwIDcuNSAzLjM2MzI4MSA3LjUgNy41cy0zLjM2MzI4MSA3LjUtNy41IDcuNWMtNC4xMzY3MTggMC03LjUtMy4zNjMyODEtNy41LTcuNXptMCAwIiBmaWxsPSIjZmZmZmZmIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMzAzLjI1NzgxMiA0N2MwLTEyLjQwNjI1LTEwLjA5Mzc1LTIyLjUtMjIuNS0yMi41cy0yMi41IDEwLjA5Mzc1LTIyLjUgMjIuNSAxMC4wOTM3NSAyMi41IDIyLjUgMjIuNSAyMi41LTEwLjA5Mzc1IDIyLjUtMjIuNXptLTMwIDBjMC00LjEzNjcxOSAzLjM2MzI4Mi03LjUgNy41LTcuNSA0LjEzNjcxOSAwIDcuNSAzLjM2MzI4MSA3LjUgNy41cy0zLjM2MzI4MSA3LjUtNy41IDcuNWMtNC4xMzY3MTggMC03LjUtMy4zNjMyODEtNy41LTcuNXptMCAwIiBmaWxsPSIjZmZmZmZmIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMzEgMTc0YzAgMTIuNDA2MjUgMTAuMDkzNzUgMjIuNSAyMi41IDIyLjVzMjIuNS0xMC4wOTM3NSAyMi41LTIyLjUtMTAuMDkzNzUtMjIuNS0yMi41LTIyLjUtMjIuNSAxMC4wOTM3NS0yMi41IDIyLjV6bTMwIDBjMCA0LjEzNjcxOS0zLjM2MzI4MSA3LjUtNy41IDcuNXMtNy41LTMuMzYzMjgxLTcuNS03LjUgMy4zNjMyODEtNy41IDcuNS03LjUgNy41IDMuMzYzMjgxIDcuNSA3LjV6bTAgMCIgZmlsbD0iI2ZmZmZmZiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTkxIDE3NGMwIDEyLjQwNjI1IDEwLjA5Mzc1IDIyLjUgMjIuNSAyMi41czIyLjUtMTAuMDkzNzUgMjIuNS0yMi41LTEwLjA5Mzc1LTIyLjUtMjIuNS0yMi41LTIyLjUgMTAuMDkzNzUtMjIuNSAyMi41em0zMCAwYzAgNC4xMzY3MTktMy4zNjMyODEgNy41LTcuNSA3LjVzLTcuNS0zLjM2MzI4MS03LjUtNy41IDMuMzYzMjgxLTcuNSA3LjUtNy41IDcuNSAzLjM2MzI4MSA3LjUgNy41em0wIDAiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiPjwvcGF0aD48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im0xNTEgMTc0YzAgMTIuNDA2MjUgMTAuMDkzNzUgMjIuNSAyMi41IDIyLjVzMjIuNS0xMC4wOTM3NSAyMi41LTIyLjUtMTAuMDkzNzUtMjIuNS0yMi41LTIyLjUtMjIuNSAxMC4wOTM3NS0yMi41IDIyLjV6bTMwIDBjMCA0LjEzNjcxOS0zLjM2MzI4MSA3LjUtNy41IDcuNXMtNy41LTMuMzYzMjgxLTcuNS03LjUgMy4zNjMyODEtNy41IDcuNS03LjUgNy41IDMuMzYzMjgxIDcuNSA3LjV6bTAgMCIgZmlsbD0iI2ZmZmZmZiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTIzMS45MDIzNDQgMjY4LjAyNzM0NGgtMTc2Yy00LjE0MDYyNSAwLTcuNSAzLjM1OTM3NS03LjUgNy41djE0OGMwIDQuMTQ0NTMxIDMuMzU5Mzc1IDcuNSA3LjUgNy41aDE3NmM0LjE0NDUzMSAwIDcuNS0zLjM1NTQ2OSA3LjUtNy41di0xNDhjMC00LjE0MDYyNS0zLjM1NTQ2OS03LjUtNy41LTcuNXptLTcuNSAxNXY2My4wODIwMzFsLTQ1Ljk2ODc1IDM5Ljk2MDkzNy02MC4zNTU0NjktNDYuMTgzNTkzYy00LjI4NTE1Ni0zLjI3NzM0NC0xMC4zMzk4NDQtMy4wNzgxMjUtMTQuMzk4NDM3LjQ4NDM3NWwtNDAuMjc3MzQ0IDM1LjM0Mzc1di05Mi42ODc1em0tMTYxIDEzM3YtMjAuMzU1NDY5bDQ3LjkyOTY4Ny00Mi4wNTg1OTQgODEuNTY2NDA3IDYyLjQxNDA2M3ptMTYxIDBoLTYuODE2NDA2bC0yNi45OTIxODgtMjAuNjQ4NDM4IDMzLjgwODU5NC0yOS4zOTQ1MzF6bTAgMCIgZmlsbD0iI2ZmZmZmZiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTE4NC4yMDMxMjUgMzQyLjIwNzAzMWMxNC41NjI1IDAgMjYuNDE0MDYzLTExLjg1MTU2MiAyNi40MTQwNjMtMjYuNDE3OTY5IDAtMTQuNTYyNS0xMS44NTE1NjMtMjYuNDE0MDYyLTI2LjQxNDA2My0yNi40MTQwNjItMTQuNTY2NDA2IDAtMjYuNDE3OTY5IDExLjg1MTU2Mi0yNi40MTc5NjkgMjYuNDE0MDYyIDAgMTQuNTY2NDA3IDExLjg1MTU2MyAyNi40MTc5NjkgMjYuNDE3OTY5IDI2LjQxNzk2OXptMC0zNy44MzIwMzFjNi4yOTI5NjkgMCAxMS40MTQwNjMgNS4xMjEwOTQgMTEuNDE0MDYzIDExLjQxNDA2MiAwIDYuMjk2ODc2LTUuMTIxMDk0IDExLjQxNzk2OS0xMS40MTQwNjMgMTEuNDE3OTY5LTYuMjk2ODc1IDAtMTEuNDE3OTY5LTUuMTIxMDkzLTExLjQxNzk2OS0xMS40MTc5NjkgMC02LjI5Mjk2OCA1LjEyMTA5NC0xMS40MTQwNjIgMTEuNDE3OTY5LTExLjQxNDA2MnptMCAwIiBmaWxsPSIjZmZmZmZmIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjgzLjcwMzEyNSAzNDQuNWgxNjMuOTY0ODQ0YzQuMTQwNjI1IDAgNy41LTMuMzU5Mzc1IDcuNS03LjUgMC00LjE0NDUzMS0zLjM1OTM3NS03LjUtNy41LTcuNWgtMTYzLjk2NDg0NGMtNC4xNDQ1MzEgMC03LjUgMy4zNTU0NjktNy41IDcuNSAwIDQuMTQwNjI1IDMuMzU1NDY5IDcuNSA3LjUgNy41em0wIDAiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiPjwvcGF0aD48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im0yODMuNzAzMTI1IDMwMS45NTMxMjVoODEuOTgwNDY5YzQuMTQ0NTMxIDAgNy41LTMuMzU1NDY5IDcuNS03LjUgMC00LjE0MDYyNS0zLjM1NTQ2OS03LjUtNy41LTcuNWgtODEuOTgwNDY5Yy00LjE0NDUzMSAwLTcuNSAzLjM1OTM3NS03LjUgNy41IDAgNC4xNDQ1MzEgMy4zNTU0NjkgNy41IDcuNSA3LjV6bTAgMCIgZmlsbD0iI2ZmZmZmZiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTI4My43MDMxMjUgMzgwLjVoMTYzLjk2NDg0NGM0LjE0MDYyNSAwIDcuNS0zLjM1OTM3NSA3LjUtNy41IDAtNC4xNDQ1MzEtMy4zNTkzNzUtNy41LTcuNS03LjVoLTE2My45NjQ4NDRjLTQuMTQ0NTMxIDAtNy41IDMuMzU1NDY5LTcuNSA3LjUgMCA0LjE0MDYyNSAzLjM1NTQ2OSA3LjUgNy41IDcuNXptMCAwIiBmaWxsPSIjZmZmZmZmIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjgzLjcwMzEyNSA0MTYuNWgxNjMuOTY0ODQ0YzQuMTQwNjI1IDAgNy41LTMuMzU5Mzc1IDcuNS03LjUgMC00LjE0NDUzMS0zLjM1OTM3NS03LjUtNy41LTcuNWgtMTYzLjk2NDg0NGMtNC4xNDQ1MzEgMC03LjUgMy4zNTU0NjktNy41IDcuNSAwIDQuMTQwNjI1IDMuMzU1NDY5IDcuNSA3LjUgNy41em0wIDAiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiPjwvcGF0aD48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im01NC40NzI2NTYgNDYzLjg5NDUzMWMwIDQuMTQwNjI1IDMuMzU1NDY5IDcuNSA3LjUgNy41aDM4NS42OTUzMTNjNC4xNDA2MjUgMCA3LjUtMy4zNTkzNzUgNy41LTcuNSAwLTQuMTQ0NTMxLTMuMzU5Mzc1LTcuNS03LjUtNy41aC0zODUuNjk1MzEzYy00LjE0NDUzMSAwLTcuNSAzLjM1NTQ2OS03LjUgNy41em0wIDAiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiPjwvcGF0aD48L2c+PC9zdmc+" />
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">11 Beautifully Crafted Pages</h5>
+                                    <p class="card-text sm-block">
+                                        Chen comes with 11 beautiful pages to ensure your every
+                                        story is beautifully told.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a href="#">
                         <div class="card" style="background-image: url(Images/pix3.jpg);">
                             <div class="layover">
                                 <div class="card-icon-case">
@@ -258,6 +368,26 @@
                                     <h5 class="card-title">Full Responsive Web Design</h5>
                                     <p class="card-text sm-block">
                                         Chen is built to adjust beautifully to different screen sizes.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <a href="#">
+                        <div class="card" style="background-image: url(Images/pix14.jpg);">
+                            <div class="layover">
+                                <div class="card-icon-case">
+                                    <img class="flaticon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGc+PHBhdGggZD0ibTQ4NS44ODQgNDkuNTk3aC0yMDkuODIzbC0xNi44NDktMTYuODQ4Yy0zLjY3My0zLjY3Mi04LjU2Ny01LjY5NS0xMy43ODEtNS42OTVzLTEwLjEwOCAyLjAyMy0xMy43OTUgNS43MDlsLTEuNTU3IDEuNTYzYy02LjY1OS0zLjU4Mi0xMy42MjItNi40NjgtMjAuODI2LTguNjMzdi0yLjIxNmMwLTEwLjc0LTguNzM3LTE5LjQ3Ny0xOS40NzgtMTkuNDc3aC0yNi41ODZjLTEwLjczOSAwLTE5LjQ3NyA4LjczNy0xOS40NzcgMTkuNDc3djIuMjE2Yy03LjIwNCAyLjE2NS0xNC4xNjggNS4wNTItMjAuODI2IDguNjMzbC0xLjU3LTEuNTc3Yy0zLjY3My0zLjY3My04LjU2Ny01LjY5Ni0xMy43ODItNS42OTYtNS4yMTQgMC0xMC4xMDggMi4wMjMtMTMuNzgxIDUuNjk1bC0xNi44NDcgMTYuODQ5aC01MC43OWMtMTQuNCAwLTI2LjExNiAxMS43MTYtMjYuMTE2IDI2LjExNnYyOTQuNjljMCAxNC40IDExLjcxNiAyNi4xMTYgMjYuMTE2IDI2LjExNmgxNDUuNTYybC0yMC4xNTUgNDAuODYyaC0xNi4zOTZjLTE5LjQ3IDAtMzUuMzEgMTUuODM5LTM1LjMxIDM1LjMwOXYyNS4zMWMwIDUuNTIzIDQuNDc4IDEwIDEwIDEwaDI0OC4yMTQgMTE1LjE2OWMyMS4zOTUgMCAzOC44LTE5LjIxMyAzOC44LTQyLjgyOXYtMjM5LjAyLTE1MC40MzhjMC0xNC40LTExLjcxNi0yNi4xMTYtMjYuMTE2LTI2LjExNnptLTQwMC41MyA2NC4wOTdjMi4zNTEtMTAuNDE0IDYuNDM3LTIwLjI2NyAxMi4xNDQtMjkuMjg1IDIuNDk4LTMuOTQ2IDEuOTMyLTkuMDk2LTEuMzYzLTEyLjQwNWwtNi42NjMtNi42ODkgMTguMDYyLTE4LjA2MiA2LjYzMyA2LjY2MWMzLjMwOCAzLjMyIDguNDc2IDMuODk5IDEyLjQzNSAxLjM5MyA5LjA2OC01Ljc0IDE4LjkyNC05LjgyNCAyOS4yOTEtMTIuMTM5IDQuNTctMS4wMjEgNy44Mi01LjA3NyA3LjgyLTkuNzZ2LTkuNDA4aDI1LjU0djkuNDA4YzAgNC42ODMgMy4yNSA4LjczOSA3LjgyIDkuNzYgMTAuMzY3IDIuMzE1IDIwLjIyMiA2LjM5OSAyOS4yOSAxMi4xMzkgMy45NiAyLjUwNiA5LjEyOCAxLjkyNyAxMi40MzQtMS4zOTNsNi42MzUtNi42NjEgMTguMDYyIDE4LjA2Mi02LjY2MyA2LjY4OWMtMy4yOTYgMy4zMDktMy44NjIgOC40NTktMS4zNjQgMTIuNDA1IDUuNzA3IDkuMDE4IDkuNzkzIDE4Ljg3MSAxMi4xNDQgMjkuMjg1IDEuMDI5IDQuNTYgNS4wOCA3Ljc5OCA5Ljc1NSA3Ljc5OGg5LjQwOHYyNS41NGgtOS40MDhjLTQuNjc1IDAtOC43MjYgMy4yMzgtOS43NTUgNy43OTgtMi4zNTcgMTAuNDQzLTYuNDQzIDIwLjMwNi0xMi4xNDQgMjkuMzEzLTIuNDk4IDMuOTQ2LTEuOTMyIDkuMDk2IDEuMzY0IDEyLjQwNWw2LjY0OCA2LjY3NS0xOC4wNDggMTguMDQ5LTYuNjQ4LTYuNjQ4Yy0zLjMwOS0zLjMwOC04LjQ2Ny0zLjg4LTEyLjQyLTEuMzc4LTkuMDY3IDUuNzM5LTE4LjkyMiA5LjgyNC0yOS4yOSAxMi4xMzktNC41NyAxLjAyMS03LjgyIDUuMDc3LTcuODIgOS43NnY5LjQwN2gtMjUuNTR2LTkuNDA3YzAtNC42ODMtMy4yNS04LjczOS03LjgyLTkuNzYtMTAuMzY4LTIuMzE1LTIwLjIyNC02LjM5OS0yOS4yOTEtMTIuMTM5LTMuOTUyLTIuNTAxLTkuMTEtMS45MjktMTIuNDIgMS4zNzlsLTYuNjQ3IDYuNjQ3LTE4LjA0OC0xOC4wNDkgNi42NDgtNi42NzVjMy4yOTUtMy4zMDkgMy44NjEtOC40NTggMS4zNjMtMTIuNDA1LTUuNy05LjAwNy05Ljc4Ni0xOC44Ny0xMi4xNDQtMjkuMzEzLTEuMDI5LTQuNTYtNS4wOC03Ljc5OC05Ljc1NS03Ljc5OGgtOS40MDd2LTI1LjU0aDkuNDA4YzQuNjc0IDAgOC43MjUtMy4yMzggOS43NTQtNy43OTh6bS02NS4zNTQgMjU2LjcwOXYtMjEuODYzaDI5OS4yMzJ2MjcuOThoLTI5My4xMTZjLTMuMzcyIDAtNi4xMTYtMi43NDQtNi4xMTYtNi4xMTd6bTE3My45OCAyNi4xMTdoMTI1LjI1M3Y0MC44NjJoLTE0NS40MDh6bS03NC4xNjIgNzYuMTdjMC04LjQ0MSA2Ljg2OC0xNS4zMDkgMTUuMzEtMTUuMzA5aDIyLjU2M2MuMDE0IDAgLjAyOS4wMDIuMDQzLjAwMi4wMTIgMCAuMDIzLS4wMDIuMDM1LS4wMDJoMTYxLjQ2M3Y3Ljc5YzAgOC4zODggMi4yMDUgMTYuMjE1IDUuOTk1IDIyLjgyOWgtMjA1LjQxdi0xNS4zMXptMzcyLjE4Mi03LjUxOWMwIDEyLjM3NS04LjYwOCAyMi44MjktMTguNzk5IDIyLjgyOWgtMTE1LjE2OWMtMTAuMTkgMC0xOC44LTEwLjQ1NC0xOC44LTIyLjgyOXYtMjM5LjAyYzAtMTIuMzc1IDguNjA5LTIyLjgyOSAxOC44LTIyLjgyOWgxMC4yODd2MjIuNDg4YzAgMTAuOTQzIDguOTE1IDE5Ljg0NiAxOS44NzQgMTkuODQ2aDU0Ljg0NmMxMC45NTkgMCAxOS44NzQtOC45MDMgMTkuODc0LTE5Ljg0NnYtMjIuNDg4aDEwLjI4OGMxMC4xOSAwIDE4Ljc5OSAxMC40NTQgMTguNzk5IDIyLjgyOXptLTEwMy42ODEtMjM5LjUxNXYtMjIuMzMzaDU0LjU5NHYyMi4zMzN6bTEwMy42ODEtMzYuOTUzYy01LjU3My0zLjQyMy0xMS45ODItNS4zOC0xOC43OTktNS4zOGgtMTE1LjE2OWMtMjEuMzk1IDAtMzguOCAxOS4yMTMtMzguOCA0Mi44Mjl2MTAyLjM4OGgtMjk5LjIzMnYtMjUyLjgyN2MwLTMuMzE1IDIuODAxLTYuMTE2IDYuMTE2LTYuMTE2aDQzLjY1M2MuNzc1IDMuNDgyIDIuNDkxIDYuNzkgNS4xODYgOS40ODRsMS41OCAxLjU4NmMtMy41NzEgNi42NDEtNi40NiAxMy42MDUtOC42MzggMjAuODI1aC0yLjJjLTEwLjc1NSAwLTE5LjUwNSA4Ljc1LTE5LjUwNSAxOS41MDV2MjYuNTU4YzAgMTAuNzQgOC43NSAxOS40NzcgMTkuNTA1IDE5LjQ3N2gyLjE5OWMyLjE4IDcuMjM2IDUuMDY5IDE0LjIxIDguNjQgMjAuODUzbC0xLjU2NiAxLjU3MmMtNy41OTEgNy41OTItNy41OTEgMTkuOTQ0IDAgMjcuNTM0bDE4Ljc4MyAxOC43ODRjNy42MDEgNy42IDE5Ljk2NSA3LjU5OSAyNy41NjMgMGwxLjU1Ni0xLjU1NmM2LjY2MiAzLjU4NCAxMy42MzIgNi40NzQgMjAuODQxIDguNjQxdjIuMjE2YzAgMTAuNzM5IDguNzM3IDE5LjQ3NyAxOS40NzcgMTkuNDc3aDI2LjU4NmMxMC43NCAwIDE5LjQ3OC04LjczNyAxOS40NzgtMTkuNDc3di0yLjIxNmM3LjIwOS0yLjE2NyAxNC4xNzgtNS4wNTYgMjAuODQtOC42NDFsMS41NTcgMS41NTdjNy41OTggNy41OTcgMTkuOTYyIDcuNTk5IDI3LjU2MyAwbDE4Ljc4My0xOC43ODNjNy41OTEtNy41OTEgNy41OTEtMTkuOTQzLjAxNC0yNy41MjFsLTEuNTgtMS41ODdjMy41NjktNi42NDMgNi40NTktMTMuNjE2IDguNjM5LTIwLjg1MmgyLjE5OWMxMC43NTYgMCAxOS41MDYtOC43MzcgMTkuNTA2LTE5LjQ3N3YtMjYuNTU4YzAtMTAuNzU1LTguNzUtMTkuNTA1LTE5LjUwNi0xOS41MDVoLTIuMmMtMi4xNzgtNy4yMi01LjA2Ni0xNC4xODQtOC42MzgtMjAuODI1bDEuNTY2LTEuNTcyYzIuNy0yLjcgNC40MjEtNi4wMTMgNS4xOTYtOS40OTloMjAyLjY5MmMzLjMxNSAwIDYuMTE2IDIuODAxIDYuMTE2IDYuMTE2djExMi45OXoiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48cGF0aCBkPSJtMTc2LjQ2OSAyMDMuOTQ2YzM4LjQzMiAwIDY5LjY5OC0zMS4yNTQgNjkuNjk4LTY5LjY3cy0zMS4yNjctNjkuNjctNjkuNjk4LTY5LjY3Yy0zOC40MTYgMC02OS42NyAzMS4yNTQtNjkuNjcgNjkuNjdzMzEuMjU0IDY5LjY3IDY5LjY3IDY5LjY3em0wLTExOS4zNGMyNy40MDMgMCA0OS42OTggMjIuMjgyIDQ5LjY5OCA0OS42N3MtMjIuMjk1IDQ5LjY3LTQ5LjY5OCA0OS42N2MtMjcuMzg4IDAtNDkuNjctMjIuMjgyLTQ5LjY3LTQ5LjY3czIyLjI4Mi00OS42NyA0OS42Ny00OS42N3oiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48L2c+PGc+PHBhdGggZD0ibTUwMiA0NTcuMzgxaC00MS40MjZjLTUuNTIyIDAtMTAtNC40NzctMTAtMTBzNC40NzgtMTAgMTAtMTBoNDEuNDI2YzUuNTIyIDAgMTAgNC40NzcgMTAgMTBzLTQuNDc4IDEwLTEwIDEwem0tMTMxLjM0MiAwaC00MS40MjZjLTUuNTIyIDAtMTAtNC40NzctMTAtMTBzNC40NzgtMTAgMTAtMTBoNDEuNDI2YzUuNTIyIDAgMTAgNC40NzcgMTAgMTBzLTQuNDc3IDEwLTEwIDEweiIgZmlsbD0iI2ZmZmZmZiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPjwvZz48Zz48cGF0aCBkPSJtNDE1LjYwMyA0NTcuMzgxYy01LjUyMiAwLTEwLjAxNS00LjQ3Ny0xMC4wMTUtMTBzNC40NjMtMTAgOS45ODUtMTBoLjAyOWM1LjUyMiAwIDEwIDQuNDc3IDEwIDEwcy00LjQ3NyAxMC05Ljk5OSAxMHoiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48L2c+PC9nPjwvZz48L3N2Zz4=" />
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Enjoy free client support</h5>
+                                    <p class="card-text sm-block">
+                                        Enjoy super client support with Chen. <br>
+                                        feel free to send bug reports and improvement requests.
                                     </p>
                                 </div>
                             </div>
@@ -283,74 +413,16 @@
                 </div>
                 <div class="col-lg-4">
                     <a href="#">
-                        <div class="card" style="background-image: url(Images/pix9.jpg);">
-                            <div class="layover">
-                                <div class="card-icon-case">
-                                    <img class="flaticon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTUwNC41IDBoLTMxMi44MzIwMzFjLTQuMTQ0NTMxIDAtNy41IDMuMzU1NDY5LTcuNSA3LjVzMy4zNTU0NjkgNy41IDcuNSA3LjVoMzA1LjMzMjAzMXY2NWgtMzc0Ljc0MjE4OHYtNjVoMzguNWM0LjE0NDUzMiAwIDcuNS0zLjM1NTQ2OSA3LjUtNy41cy0zLjM1NTQ2OC03LjUtNy41LTcuNWgtNDZjLTQuMTQwNjI0IDAtNy41IDMuMzU1NDY5LTcuNSA3LjVsLjAwMzkwNyAxMTkuNWgtOTkuNzYxNzE5Yy00LjE0NDUzMSAwLTcuNSAzLjM1NTQ2OS03LjUgNy41djMxMy4xNjc5NjljMCA0LjE0MDYyNSAzLjM1NTQ2OSA3LjUgNy41IDcuNXM3LjUtMy4zNTkzNzUgNy41LTcuNXYtMjI1LjY2Nzk2OWg0MzNjNC4xNDQ1MzEgMCA3LjUtMy4zNTU0NjkgNy41LTcuNXMtMy4zNTU0NjktNy41LTcuNS03LjVoLTQzM3YtNjVoNDgydjY1aC0xNy4xNjc5NjljLTQuMTQwNjI1IDAtNy41IDMuMzU1NDY5LTcuNSA3LjVzMy4zNTkzNzUgNy41IDcuNSA3LjVoMTcuMTY3OTY5djI3NWgtNDgydi0xN2MwLTQuMTQ0NTMxLTMuMzU1NDY5LTcuNS03LjUtNy41cy03LjUgMy4zNTU0NjktNy41IDcuNXYyNC41YzAgNC4xNDQ1MzEgMy4zNTU0NjkgNy41IDcuNSA3LjVoNDk3YzQuMTQ0NTMxIDAgNy41LTMuMzU1NDY5IDcuNS03LjV2LTQ5N2MwLTQuMTQ0NTMxLTMuMzU1NDY5LTcuNS03LjUtNy41em0tMzgyLjIzODI4MSAxMjd2LTMyaDM3NC43MzgyODF2MzJ6bTAgMCIgZmlsbD0iI2ZmZmZmZiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTEzOC4yNTc4MTIgNDdjMCAxMi40MDYyNSAxMC4wOTM3NSAyMi41IDIyLjUgMjIuNXMyMi41LTEwLjA5Mzc1IDIyLjUtMjIuNS0xMC4wOTM3NS0yMi41LTIyLjUtMjIuNS0yMi41IDEwLjA5Mzc1LTIyLjUgMjIuNXptMzAgMGMwIDQuMTM2NzE5LTMuMzYzMjgxIDcuNS03LjUgNy41LTQuMTM2NzE4IDAtNy41LTMuMzYzMjgxLTcuNS03LjVzMy4zNjMyODItNy41IDcuNS03LjVjNC4xMzY3MTkgMCA3LjUgMy4zNjMyODEgNy41IDcuNXptMCAwIiBmaWxsPSIjZmZmZmZmIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjQzLjI1NzgxMiA0N2MwLTEyLjQwNjI1LTEwLjA5Mzc1LTIyLjUtMjIuNS0yMi41cy0yMi41IDEwLjA5Mzc1LTIyLjUgMjIuNSAxMC4wOTM3NSAyMi41IDIyLjUgMjIuNSAyMi41LTEwLjA5Mzc1IDIyLjUtMjIuNXptLTMwIDBjMC00LjEzNjcxOSAzLjM2MzI4Mi03LjUgNy41LTcuNSA0LjEzNjcxOSAwIDcuNSAzLjM2MzI4MSA3LjUgNy41cy0zLjM2MzI4MSA3LjUtNy41IDcuNWMtNC4xMzY3MTggMC03LjUtMy4zNjMyODEtNy41LTcuNXptMCAwIiBmaWxsPSIjZmZmZmZmIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMzAzLjI1NzgxMiA0N2MwLTEyLjQwNjI1LTEwLjA5Mzc1LTIyLjUtMjIuNS0yMi41cy0yMi41IDEwLjA5Mzc1LTIyLjUgMjIuNSAxMC4wOTM3NSAyMi41IDIyLjUgMjIuNSAyMi41LTEwLjA5Mzc1IDIyLjUtMjIuNXptLTMwIDBjMC00LjEzNjcxOSAzLjM2MzI4Mi03LjUgNy41LTcuNSA0LjEzNjcxOSAwIDcuNSAzLjM2MzI4MSA3LjUgNy41cy0zLjM2MzI4MSA3LjUtNy41IDcuNWMtNC4xMzY3MTggMC03LjUtMy4zNjMyODEtNy41LTcuNXptMCAwIiBmaWxsPSIjZmZmZmZmIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMzEgMTc0YzAgMTIuNDA2MjUgMTAuMDkzNzUgMjIuNSAyMi41IDIyLjVzMjIuNS0xMC4wOTM3NSAyMi41LTIyLjUtMTAuMDkzNzUtMjIuNS0yMi41LTIyLjUtMjIuNSAxMC4wOTM3NS0yMi41IDIyLjV6bTMwIDBjMCA0LjEzNjcxOS0zLjM2MzI4MSA3LjUtNy41IDcuNXMtNy41LTMuMzYzMjgxLTcuNS03LjUgMy4zNjMyODEtNy41IDcuNS03LjUgNy41IDMuMzYzMjgxIDcuNSA3LjV6bTAgMCIgZmlsbD0iI2ZmZmZmZiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTkxIDE3NGMwIDEyLjQwNjI1IDEwLjA5Mzc1IDIyLjUgMjIuNSAyMi41czIyLjUtMTAuMDkzNzUgMjIuNS0yMi41LTEwLjA5Mzc1LTIyLjUtMjIuNS0yMi41LTIyLjUgMTAuMDkzNzUtMjIuNSAyMi41em0zMCAwYzAgNC4xMzY3MTktMy4zNjMyODEgNy41LTcuNSA3LjVzLTcuNS0zLjM2MzI4MS03LjUtNy41IDMuMzYzMjgxLTcuNSA3LjUtNy41IDcuNSAzLjM2MzI4MSA3LjUgNy41em0wIDAiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiPjwvcGF0aD48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im0xNTEgMTc0YzAgMTIuNDA2MjUgMTAuMDkzNzUgMjIuNSAyMi41IDIyLjVzMjIuNS0xMC4wOTM3NSAyMi41LTIyLjUtMTAuMDkzNzUtMjIuNS0yMi41LTIyLjUtMjIuNSAxMC4wOTM3NS0yMi41IDIyLjV6bTMwIDBjMCA0LjEzNjcxOS0zLjM2MzI4MSA3LjUtNy41IDcuNXMtNy41LTMuMzYzMjgxLTcuNS03LjUgMy4zNjMyODEtNy41IDcuNS03LjUgNy41IDMuMzYzMjgxIDcuNSA3LjV6bTAgMCIgZmlsbD0iI2ZmZmZmZiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTIzMS45MDIzNDQgMjY4LjAyNzM0NGgtMTc2Yy00LjE0MDYyNSAwLTcuNSAzLjM1OTM3NS03LjUgNy41djE0OGMwIDQuMTQ0NTMxIDMuMzU5Mzc1IDcuNSA3LjUgNy41aDE3NmM0LjE0NDUzMSAwIDcuNS0zLjM1NTQ2OSA3LjUtNy41di0xNDhjMC00LjE0MDYyNS0zLjM1NTQ2OS03LjUtNy41LTcuNXptLTcuNSAxNXY2My4wODIwMzFsLTQ1Ljk2ODc1IDM5Ljk2MDkzNy02MC4zNTU0NjktNDYuMTgzNTkzYy00LjI4NTE1Ni0zLjI3NzM0NC0xMC4zMzk4NDQtMy4wNzgxMjUtMTQuMzk4NDM3LjQ4NDM3NWwtNDAuMjc3MzQ0IDM1LjM0Mzc1di05Mi42ODc1em0tMTYxIDEzM3YtMjAuMzU1NDY5bDQ3LjkyOTY4Ny00Mi4wNTg1OTQgODEuNTY2NDA3IDYyLjQxNDA2M3ptMTYxIDBoLTYuODE2NDA2bC0yNi45OTIxODgtMjAuNjQ4NDM4IDMzLjgwODU5NC0yOS4zOTQ1MzF6bTAgMCIgZmlsbD0iI2ZmZmZmZiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTE4NC4yMDMxMjUgMzQyLjIwNzAzMWMxNC41NjI1IDAgMjYuNDE0MDYzLTExLjg1MTU2MiAyNi40MTQwNjMtMjYuNDE3OTY5IDAtMTQuNTYyNS0xMS44NTE1NjMtMjYuNDE0MDYyLTI2LjQxNDA2My0yNi40MTQwNjItMTQuNTY2NDA2IDAtMjYuNDE3OTY5IDExLjg1MTU2Mi0yNi40MTc5NjkgMjYuNDE0MDYyIDAgMTQuNTY2NDA3IDExLjg1MTU2MyAyNi40MTc5NjkgMjYuNDE3OTY5IDI2LjQxNzk2OXptMC0zNy44MzIwMzFjNi4yOTI5NjkgMCAxMS40MTQwNjMgNS4xMjEwOTQgMTEuNDE0MDYzIDExLjQxNDA2MiAwIDYuMjk2ODc2LTUuMTIxMDk0IDExLjQxNzk2OS0xMS40MTQwNjMgMTEuNDE3OTY5LTYuMjk2ODc1IDAtMTEuNDE3OTY5LTUuMTIxMDkzLTExLjQxNzk2OS0xMS40MTc5NjkgMC02LjI5Mjk2OCA1LjEyMTA5NC0xMS40MTQwNjIgMTEuNDE3OTY5LTExLjQxNDA2MnptMCAwIiBmaWxsPSIjZmZmZmZmIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjgzLjcwMzEyNSAzNDQuNWgxNjMuOTY0ODQ0YzQuMTQwNjI1IDAgNy41LTMuMzU5Mzc1IDcuNS03LjUgMC00LjE0NDUzMS0zLjM1OTM3NS03LjUtNy41LTcuNWgtMTYzLjk2NDg0NGMtNC4xNDQ1MzEgMC03LjUgMy4zNTU0NjktNy41IDcuNSAwIDQuMTQwNjI1IDMuMzU1NDY5IDcuNSA3LjUgNy41em0wIDAiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiPjwvcGF0aD48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im0yODMuNzAzMTI1IDMwMS45NTMxMjVoODEuOTgwNDY5YzQuMTQ0NTMxIDAgNy41LTMuMzU1NDY5IDcuNS03LjUgMC00LjE0MDYyNS0zLjM1NTQ2OS03LjUtNy41LTcuNWgtODEuOTgwNDY5Yy00LjE0NDUzMSAwLTcuNSAzLjM1OTM3NS03LjUgNy41IDAgNC4xNDQ1MzEgMy4zNTU0NjkgNy41IDcuNSA3LjV6bTAgMCIgZmlsbD0iI2ZmZmZmZiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTI4My43MDMxMjUgMzgwLjVoMTYzLjk2NDg0NGM0LjE0MDYyNSAwIDcuNS0zLjM1OTM3NSA3LjUtNy41IDAtNC4xNDQ1MzEtMy4zNTkzNzUtNy41LTcuNS03LjVoLTE2My45NjQ4NDRjLTQuMTQ0NTMxIDAtNy41IDMuMzU1NDY5LTcuNSA3LjUgMCA0LjE0MDYyNSAzLjM1NTQ2OSA3LjUgNy41IDcuNXptMCAwIiBmaWxsPSIjZmZmZmZmIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjgzLjcwMzEyNSA0MTYuNWgxNjMuOTY0ODQ0YzQuMTQwNjI1IDAgNy41LTMuMzU5Mzc1IDcuNS03LjUgMC00LjE0NDUzMS0zLjM1OTM3NS03LjUtNy41LTcuNWgtMTYzLjk2NDg0NGMtNC4xNDQ1MzEgMC03LjUgMy4zNTU0NjktNy41IDcuNSAwIDQuMTQwNjI1IDMuMzU1NDY5IDcuNSA3LjUgNy41em0wIDAiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiPjwvcGF0aD48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im01NC40NzI2NTYgNDYzLjg5NDUzMWMwIDQuMTQwNjI1IDMuMzU1NDY5IDcuNSA3LjUgNy41aDM4NS42OTUzMTNjNC4xNDA2MjUgMCA3LjUtMy4zNTkzNzUgNy41LTcuNSAwLTQuMTQ0NTMxLTMuMzU5Mzc1LTcuNS03LjUtNy41aC0zODUuNjk1MzEzYy00LjE0NDUzMSAwLTcuNSAzLjM1NTQ2OS03LjUgNy41em0wIDAiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiPjwvcGF0aD48L2c+PC9zdmc+" />
-                                </div>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">11 Beautifully Crafted Pages</h5>
-                                    <p class="card-text sm-block">
-                                        Enjoy a smooth blogging experience with you choice combination
-                                        of any of the 11 beautifully crafted Chen pages.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4">
-                    <a href="#">
-                        <div class="card" style="background-image: url(Images/pix14.jpg);">
-                            <div class="layover">
-                                <div class="card-icon-case">
-                                    <div class="card-icons">
-                                        <!-- <span class="fab fa-facebook font-20"></span>  -->
-                                    </div>
-                                </div>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">One unique blog post?</h5>
-                                    <p class="card-text sm-block">This part provides a hint on the blog post as an addition to the topic
-                                        This part is the apetizer of the post
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4">
-                    <a href="#">
                         <div class="card" style="background-image: url(Images/pix11.jpg);">
                             <div class="layover">
                                 <div class="card-icon-case">
-                                    <div class="card-icons">
-                                        <!-- <span class="fab fa-facebook font-20"></span>  -->
-                                    </div>
+                                    <img class="flaticon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGc+PHBhdGggZD0ibTQ4NS44ODQgNDkuNTk3aC0yMDkuODIzbC0xNi44NDktMTYuODQ4Yy0zLjY3My0zLjY3Mi04LjU2Ny01LjY5NS0xMy43ODEtNS42OTVzLTEwLjEwOCAyLjAyMy0xMy43OTUgNS43MDlsLTEuNTU3IDEuNTYzYy02LjY1OS0zLjU4Mi0xMy42MjItNi40NjgtMjAuODI2LTguNjMzdi0yLjIxNmMwLTEwLjc0LTguNzM3LTE5LjQ3Ny0xOS40NzgtMTkuNDc3aC0yNi41ODZjLTEwLjczOSAwLTE5LjQ3NyA4LjczNy0xOS40NzcgMTkuNDc3djIuMjE2Yy03LjIwNCAyLjE2NS0xNC4xNjggNS4wNTItMjAuODI2IDguNjMzbC0xLjU3LTEuNTc3Yy0zLjY3My0zLjY3My04LjU2Ny01LjY5Ni0xMy43ODItNS42OTYtNS4yMTQgMC0xMC4xMDggMi4wMjMtMTMuNzgxIDUuNjk1bC0xNi44NDcgMTYuODQ5aC01MC43OWMtMTQuNCAwLTI2LjExNiAxMS43MTYtMjYuMTE2IDI2LjExNnYyOTQuNjljMCAxNC40IDExLjcxNiAyNi4xMTYgMjYuMTE2IDI2LjExNmgxNDUuNTYybC0yMC4xNTUgNDAuODYyaC0xNi4zOTZjLTE5LjQ3IDAtMzUuMzEgMTUuODM5LTM1LjMxIDM1LjMwOXYyNS4zMWMwIDUuNTIzIDQuNDc4IDEwIDEwIDEwaDI0OC4yMTQgMTE1LjE2OWMyMS4zOTUgMCAzOC44LTE5LjIxMyAzOC44LTQyLjgyOXYtMjM5LjAyLTE1MC40MzhjMC0xNC40LTExLjcxNi0yNi4xMTYtMjYuMTE2LTI2LjExNnptLTQwMC41MyA2NC4wOTdjMi4zNTEtMTAuNDE0IDYuNDM3LTIwLjI2NyAxMi4xNDQtMjkuMjg1IDIuNDk4LTMuOTQ2IDEuOTMyLTkuMDk2LTEuMzYzLTEyLjQwNWwtNi42NjMtNi42ODkgMTguMDYyLTE4LjA2MiA2LjYzMyA2LjY2MWMzLjMwOCAzLjMyIDguNDc2IDMuODk5IDEyLjQzNSAxLjM5MyA5LjA2OC01Ljc0IDE4LjkyNC05LjgyNCAyOS4yOTEtMTIuMTM5IDQuNTctMS4wMjEgNy44Mi01LjA3NyA3LjgyLTkuNzZ2LTkuNDA4aDI1LjU0djkuNDA4YzAgNC42ODMgMy4yNSA4LjczOSA3LjgyIDkuNzYgMTAuMzY3IDIuMzE1IDIwLjIyMiA2LjM5OSAyOS4yOSAxMi4xMzkgMy45NiAyLjUwNiA5LjEyOCAxLjkyNyAxMi40MzQtMS4zOTNsNi42MzUtNi42NjEgMTguMDYyIDE4LjA2Mi02LjY2MyA2LjY4OWMtMy4yOTYgMy4zMDktMy44NjIgOC40NTktMS4zNjQgMTIuNDA1IDUuNzA3IDkuMDE4IDkuNzkzIDE4Ljg3MSAxMi4xNDQgMjkuMjg1IDEuMDI5IDQuNTYgNS4wOCA3Ljc5OCA5Ljc1NSA3Ljc5OGg5LjQwOHYyNS41NGgtOS40MDhjLTQuNjc1IDAtOC43MjYgMy4yMzgtOS43NTUgNy43OTgtMi4zNTcgMTAuNDQzLTYuNDQzIDIwLjMwNi0xMi4xNDQgMjkuMzEzLTIuNDk4IDMuOTQ2LTEuOTMyIDkuMDk2IDEuMzY0IDEyLjQwNWw2LjY0OCA2LjY3NS0xOC4wNDggMTguMDQ5LTYuNjQ4LTYuNjQ4Yy0zLjMwOS0zLjMwOC04LjQ2Ny0zLjg4LTEyLjQyLTEuMzc4LTkuMDY3IDUuNzM5LTE4LjkyMiA5LjgyNC0yOS4yOSAxMi4xMzktNC41NyAxLjAyMS03LjgyIDUuMDc3LTcuODIgOS43NnY5LjQwN2gtMjUuNTR2LTkuNDA3YzAtNC42ODMtMy4yNS04LjczOS03LjgyLTkuNzYtMTAuMzY4LTIuMzE1LTIwLjIyNC02LjM5OS0yOS4yOTEtMTIuMTM5LTMuOTUyLTIuNTAxLTkuMTEtMS45MjktMTIuNDIgMS4zNzlsLTYuNjQ3IDYuNjQ3LTE4LjA0OC0xOC4wNDkgNi42NDgtNi42NzVjMy4yOTUtMy4zMDkgMy44NjEtOC40NTggMS4zNjMtMTIuNDA1LTUuNy05LjAwNy05Ljc4Ni0xOC44Ny0xMi4xNDQtMjkuMzEzLTEuMDI5LTQuNTYtNS4wOC03Ljc5OC05Ljc1NS03Ljc5OGgtOS40MDd2LTI1LjU0aDkuNDA4YzQuNjc0IDAgOC43MjUtMy4yMzggOS43NTQtNy43OTh6bS02NS4zNTQgMjU2LjcwOXYtMjEuODYzaDI5OS4yMzJ2MjcuOThoLTI5My4xMTZjLTMuMzcyIDAtNi4xMTYtMi43NDQtNi4xMTYtNi4xMTd6bTE3My45OCAyNi4xMTdoMTI1LjI1M3Y0MC44NjJoLTE0NS40MDh6bS03NC4xNjIgNzYuMTdjMC04LjQ0MSA2Ljg2OC0xNS4zMDkgMTUuMzEtMTUuMzA5aDIyLjU2M2MuMDE0IDAgLjAyOS4wMDIuMDQzLjAwMi4wMTIgMCAuMDIzLS4wMDIuMDM1LS4wMDJoMTYxLjQ2M3Y3Ljc5YzAgOC4zODggMi4yMDUgMTYuMjE1IDUuOTk1IDIyLjgyOWgtMjA1LjQxdi0xNS4zMXptMzcyLjE4Mi03LjUxOWMwIDEyLjM3NS04LjYwOCAyMi44MjktMTguNzk5IDIyLjgyOWgtMTE1LjE2OWMtMTAuMTkgMC0xOC44LTEwLjQ1NC0xOC44LTIyLjgyOXYtMjM5LjAyYzAtMTIuMzc1IDguNjA5LTIyLjgyOSAxOC44LTIyLjgyOWgxMC4yODd2MjIuNDg4YzAgMTAuOTQzIDguOTE1IDE5Ljg0NiAxOS44NzQgMTkuODQ2aDU0Ljg0NmMxMC45NTkgMCAxOS44NzQtOC45MDMgMTkuODc0LTE5Ljg0NnYtMjIuNDg4aDEwLjI4OGMxMC4xOSAwIDE4Ljc5OSAxMC40NTQgMTguNzk5IDIyLjgyOXptLTEwMy42ODEtMjM5LjUxNXYtMjIuMzMzaDU0LjU5NHYyMi4zMzN6bTEwMy42ODEtMzYuOTUzYy01LjU3My0zLjQyMy0xMS45ODItNS4zOC0xOC43OTktNS4zOGgtMTE1LjE2OWMtMjEuMzk1IDAtMzguOCAxOS4yMTMtMzguOCA0Mi44Mjl2MTAyLjM4OGgtMjk5LjIzMnYtMjUyLjgyN2MwLTMuMzE1IDIuODAxLTYuMTE2IDYuMTE2LTYuMTE2aDQzLjY1M2MuNzc1IDMuNDgyIDIuNDkxIDYuNzkgNS4xODYgOS40ODRsMS41OCAxLjU4NmMtMy41NzEgNi42NDEtNi40NiAxMy42MDUtOC42MzggMjAuODI1aC0yLjJjLTEwLjc1NSAwLTE5LjUwNSA4Ljc1LTE5LjUwNSAxOS41MDV2MjYuNTU4YzAgMTAuNzQgOC43NSAxOS40NzcgMTkuNTA1IDE5LjQ3N2gyLjE5OWMyLjE4IDcuMjM2IDUuMDY5IDE0LjIxIDguNjQgMjAuODUzbC0xLjU2NiAxLjU3MmMtNy41OTEgNy41OTItNy41OTEgMTkuOTQ0IDAgMjcuNTM0bDE4Ljc4MyAxOC43ODRjNy42MDEgNy42IDE5Ljk2NSA3LjU5OSAyNy41NjMgMGwxLjU1Ni0xLjU1NmM2LjY2MiAzLjU4NCAxMy42MzIgNi40NzQgMjAuODQxIDguNjQxdjIuMjE2YzAgMTAuNzM5IDguNzM3IDE5LjQ3NyAxOS40NzcgMTkuNDc3aDI2LjU4NmMxMC43NCAwIDE5LjQ3OC04LjczNyAxOS40NzgtMTkuNDc3di0yLjIxNmM3LjIwOS0yLjE2NyAxNC4xNzgtNS4wNTYgMjAuODQtOC42NDFsMS41NTcgMS41NTdjNy41OTggNy41OTcgMTkuOTYyIDcuNTk5IDI3LjU2MyAwbDE4Ljc4My0xOC43ODNjNy41OTEtNy41OTEgNy41OTEtMTkuOTQzLjAxNC0yNy41MjFsLTEuNTgtMS41ODdjMy41NjktNi42NDMgNi40NTktMTMuNjE2IDguNjM5LTIwLjg1MmgyLjE5OWMxMC43NTYgMCAxOS41MDYtOC43MzcgMTkuNTA2LTE5LjQ3N3YtMjYuNTU4YzAtMTAuNzU1LTguNzUtMTkuNTA1LTE5LjUwNi0xOS41MDVoLTIuMmMtMi4xNzgtNy4yMi01LjA2Ni0xNC4xODQtOC42MzgtMjAuODI1bDEuNTY2LTEuNTcyYzIuNy0yLjcgNC40MjEtNi4wMTMgNS4xOTYtOS40OTloMjAyLjY5MmMzLjMxNSAwIDYuMTE2IDIuODAxIDYuMTE2IDYuMTE2djExMi45OXoiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48cGF0aCBkPSJtMTc2LjQ2OSAyMDMuOTQ2YzM4LjQzMiAwIDY5LjY5OC0zMS4yNTQgNjkuNjk4LTY5LjY3cy0zMS4yNjctNjkuNjctNjkuNjk4LTY5LjY3Yy0zOC40MTYgMC02OS42NyAzMS4yNTQtNjkuNjcgNjkuNjdzMzEuMjU0IDY5LjY3IDY5LjY3IDY5LjY3em0wLTExOS4zNGMyNy40MDMgMCA0OS42OTggMjIuMjgyIDQ5LjY5OCA0OS42N3MtMjIuMjk1IDQ5LjY3LTQ5LjY5OCA0OS42N2MtMjcuMzg4IDAtNDkuNjctMjIuMjgyLTQ5LjY3LTQ5LjY3czIyLjI4Mi00OS42NyA0OS42Ny00OS42N3oiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48L2c+PGc+PHBhdGggZD0ibTUwMiA0NTcuMzgxaC00MS40MjZjLTUuNTIyIDAtMTAtNC40NzctMTAtMTBzNC40NzgtMTAgMTAtMTBoNDEuNDI2YzUuNTIyIDAgMTAgNC40NzcgMTAgMTBzLTQuNDc4IDEwLTEwIDEwem0tMTMxLjM0MiAwaC00MS40MjZjLTUuNTIyIDAtMTAtNC40NzctMTAtMTBzNC40NzgtMTAgMTAtMTBoNDEuNDI2YzUuNTIyIDAgMTAgNC40NzcgMTAgMTBzLTQuNDc3IDEwLTEwIDEweiIgZmlsbD0iI2ZmZmZmZiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPjwvZz48Zz48cGF0aCBkPSJtNDE1LjYwMyA0NTcuMzgxYy01LjUyMiAwLTEwLjAxNS00LjQ3Ny0xMC4wMTUtMTBzNC40NjMtMTAgOS45ODUtMTBoLjAyOWM1LjUyMiAwIDEwIDQuNDc3IDEwIDEwcy00LjQ3NyAxMC05Ljk5OSAxMHoiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48L2c+PC9nPjwvZz48L3N2Zz4=" />
                                 </div>
                                 <div class="card-body text-center">
-                                    <h5 class="card-title">One unique blog post?</h5>
-                                    <p class="card-text sm-block">This part provides a hint on the blog post as an addition to the topic
-                                        This part is the apetizer of the post
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4">
-                    <a href="#">
-                        <div class="card" style="background-image: url(Images/pix16.jpg);">
-                            <div class="layover">
-                                <div class="card-icon-case">
-                                    <div class="card-icons">
-                                    </div>
-                                </div>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">One unique blog post?</h5>
-                                    <p class="card-text sm-block">This part provides a hint on the blog post as an addition to the topic
-                                        This part is the apetizer of the post
+                                    <h5 class="card-title">Built on Bootstrap 4</h5>
+                                    <p class="card-text sm-block">
+                                        Enjoy a sleek blogging experience with pages built with 
+                                        bootstrap - the Most popular html library in the world.
                                     </p>
                                 </div>
                             </div>
@@ -360,7 +432,163 @@
             </div>
         </div>
     </div>
-    <div class="testimonials">
+    <div class="image-array-section" style="background-image:url(Images/pix1.jpg)">
+        <div class="image-array-section-overlay text-center">
+            <!-- <h1 class="mt-40">Testimonials</h1> -->
+            <p class="font-30 follow-up mt-40">
+               <span>Beautiful pages for that dream blog...</span><br> 
+                <span>"to help you tell your every story"</span> 
+            </p>
+            <div class="description-cards">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6">
+                            <a href="#">
+                                <div class="card image-array-item" style="background-image: url(Images/pix-19.jpg);">
+                                </div>
+                            </a>
+                            <div class="page-title">
+                                Page-name (Capitalized)
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <a href="#">
+                                <div class="card image-array-item" style="background-image: url(Images/pix-18.JPG);">
+                                </div>
+                            </a>
+                            <div class="page-title">
+                                Page-name (Capitalized)
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <a href="#">
+                                <div class="card image-array-item" style="background-image: url(Images/pix3.jpg);">
+                                </div>
+                            </a>
+                            <div class="page-title">
+                                Page-name (Capitalized)
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <a href="#">
+                                <div class="card image-array-item" style="background-image: url(Images/pix3.jpg);">
+                                </div>
+                            </a>
+                            <div class="page-title">
+                                Page-name (Capitalized)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6">
+                            <a href="#">
+                                <div class="card image-array-item" style="background-image: url(Images/pix3.jpg);">
+                                </div>
+                            </a>
+                            <div class="page-title">
+                                Page-name (Capitalized)
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <a href="#">
+                                <div class="card image-array-item" style="background-image: url(Images/pix3.jpg);">
+                                </div>
+                            </a>
+                            <div class="page-title">
+                                Page-name (Capitalized)
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <a href="#">
+                                <div class="card image-array-item" style="background-image: url(Images/pix3.jpg);">
+                                </div>
+                            </a>
+                            <div class="page-title">
+                                Page-name (Capitalized)
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <a href="#">
+                                <div class="card image-array-item" style="background-image: url(Images/pix3.jpg);">
+                                </div>
+                            </a>
+                            <div class="page-title">
+                                Page-name (Capitalized)
+                            </div>
+                        </div>
+                    </div>
+                </div>      
+                <div class="features-list container mt-40">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <card>
+                                <ul>
+                                    <li>3 completely prebuilt blogs</li>
+                                    <li>11 beautiful pages</li>
+                                    <li>Google fonts</li>
+                                    <li>Neatly written codes</li>
+                                    <li>Built for everyone</li>
+                                </ul>
+                            </card>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <card>
+                                <ul>
+                                    <li>3 completely prebuilt blogs</li>
+                                    <li>11 beautiful pages</li>
+                                    <li>Google fonts</li>
+                                    <li>Neatly written codes</li>
+                                    <li>Built for everyone</li>
+                                </ul>
+                            </card>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <card>
+                                <ul>
+                                    <li>3 completely prebuilt blogs</li>
+                                    <li>11 beautiful pages</li>
+                                    <li>Google fonts</li>
+                                    <li>Neatly written codes</li>
+                                    <li>Built for everyone</li>
+                                </ul>
+                            </card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="landing-pages-display mt-40">
+        <div class="container">
+            <div class="row">
+                <div class="first-image-case">
+                    <img src="Images/pix-17.JPG" class="first-image" alt="landing-page">
+                    <img src="Images/pix-18.JPG" class="second-image" alt="landing-page">
+                    <img src="images/pix-19.jpg" class="third-image" alt="landing-page">
+                </div>
+                <div class="second-text-case">
+                    <div class="case-text">
+                        <span class="bold">Select from any of the 3 Awesome landing pages</span>
+                        <div class="font-17">
+                            Chen comes with 3 prebuilt blogs with different cross compatible sections/
+                            components for you to combine with flexibility just as you choose.
+                        </div>
+                        <ul>
+                            <li><a href="#" class="custom-link font-20">Vannilla-large</a></li>
+                            <li><a href="#" class="custom-link font-20">Crush</a></li>
+                            <li><a href="#" class="custom-link font-20">Matrix</a></li>
+                        </ul>
+                        <div class="button-case">
+                            <a href="#to-footer" role="button" class="btn font-20 pages-button" >
+                                View all pages
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="testimonials" style="background-image: url(Images/pix5.jpg);">
         <div class="testimonials-overlay text-center">
             <h1 class="mt-40">Testimonials</h1>
             <p class="font-20 follow-up">
@@ -430,7 +658,7 @@
             </div>
         </div>
     </div>
-    <footer class="Chen-footer landing bg-light width-all sm-center">
+    <footer class="Chen-footer landing bg-light width-all sm-center" id="to-footer">
         <div class="width-all">
             <div class="container">
                 <div class="row">
@@ -480,7 +708,7 @@
                             <div class="listings sm-no-margin">
                                 <ul>
                                     <li><a href="#"><span>Reviews page</span></a></li>
-                                    <li><a href="#"><span>Reviews page</span></a></li>
+                                    <li><a href="#"><span>Events page</span></a></li>
                                     <li><a href="#"><span>Purchase/Registration page</span></a></li>
                                 </ul> 
                             </div>
