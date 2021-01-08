@@ -1,3 +1,5 @@
+    /* go through all your styles during final code checkup and carefully see how to
+        remove some !importants */
     body {
         padding: 0;
         margin: 0;
