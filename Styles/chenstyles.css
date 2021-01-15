@@ -1,5 +1,8 @@
     /* go through all your styles during final code checkup and carefully see how to
         remove some !importants */
+    html {
+        scroll-behavior: smooth;
+    }
     body {
         padding: 0;
         margin: 0;

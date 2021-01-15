@@ -31,7 +31,7 @@
             text-align: center;
         }
         .hype-text {
-            color: black;
+            color: #545454;
             font-size: 50px;
         }
         .button-case {
@@ -53,10 +53,10 @@
             background-color: purple;
             margin-left: 20px;
         }
-        .blue {
+        .false-black {
             background-color: transparent;
-            color: blue;
-            border: 1px solid blue;
+            color: #545454;
+            border: 1px solid #545454;
         }
         .pages-button:hover {
             transform: scale(1.1);
@@ -67,9 +67,9 @@
             transform: scale(1.1);
             transition: ease .7s;
         }
-        a.blue:hover {
+        a.false-black:hover {
             color: white;
-            background-color: blue;
+            background-color: #545454;
             transition: ease .6s;
         }
         .btn:focus {
@@ -78,15 +78,15 @@
         .theme-description {
             width: 70%;
             /* color: grey; */
-            margin: 70px auto;
+            margin: 50px auto;
             font-size: 22px;
         }
-        .description-cards {
+        /* .description-cards {
             margin-bottom: 50px;
-        }
+        } */
         .description-cards .card {
             border: none;
-            box-shadow: 0 0 15px 1px hsl(0, 2%, 89%);   
+            box-shadow: 0 0 15px 1px #696464;
             background-size: cover;
             border-radius: 0.2rem!important;
         }
@@ -101,12 +101,15 @@
             /* margin-bottom: 20px; */
         }
         .description-cards .card:hover {
-            transform: scale(1.03);
+            transform: scale(1.05);
             transition: .5s ease-out;
         }
         .plain-cards {
-            min-height: 300px;
+            min-height: 290px;
             padding: 20px;
+            margin: 10px auto;
+            box-shadow: 0 0 15px 1px hsl(0, 2%, 89%)!important;   
+            /* width: 340px; */
         }
         .card-icon-case {
             width: 50px;
@@ -126,6 +129,14 @@
             width: 100%;
             min-height: 300px;
             margin-top: 100px;
+        }
+        .testimonials h1::after {
+            content: "";
+            width: 70px;
+            margin: 0 auto;
+            height: 5px;
+            background-color: purple;
+            display: block;
         }
         .testimonials-overlay {
             /* background-image: linear-gradient(to right, black, transparent, black); */
@@ -179,11 +190,11 @@
             transform: scale(1.06);
             transition: .7s ease-out;  
         }
-        .first-image-case {
+        .image-case {
             width: 60%;
             padding-left: 50px;
         }
-        .second-text-case {
+        .text-case {
             width: 40%;
         }
         .second-image {
@@ -221,9 +232,34 @@
             font-size: 20px;
             text-align: left;
         }
+        .features-list ul {
+            padding: 0;
+        }
+        .features-list::after, .features-list::before {
+            content: "";
+            width: 250px;
+            height: 1px;
+            display: block;
+            background-color: purple;
+            margin: 0 auto;
+        }
         .features-list li {
             padding: 5px 10px;
-            list-style-type: square;
+            text-align: center;
+            list-style-type: none;
+        }
+        .features-list li::after {
+            content: "";
+            display: block;
+            width: 10px;
+            background-color: purple;
+            margin: 0 auto;
+            height: 10px;
+            border-radius: 100%;
+            margin-top: 20px;
+        }
+        .features-list li:last-child::after {
+            display: none;
         }
         .footer-base {
             text-align: right;
@@ -237,6 +273,7 @@
         }
         .listings ul {
             list-style-position: inside;
+            list-style-type: circle;
             padding: 0;
         }
         .page-details {
@@ -258,16 +295,37 @@
             color: purple;
         }
         .nav-link {
-            color: black!important;
+            color: #545454!important;
             font-size: 17px;
         }
         nav li a:hover {
-            border-bottom: 2px solid black;
+            border-bottom: 2px solid #545454;
             transition: border .3s ease-in-out!important;
+        }
+        nav .page-details {
+            padding: 0 0 0 10px;
         }
         .mini-screen-image {
             width: 100%;
             height: 300px;
+        }
+        .dropdown-menu {
+            left: -535px;
+            opacity: 0!important;
+            animation: 2s opacity ease-in-out!important;
+        }
+        nav .listings ul {
+            margin: 0;
+        }
+        nav .row {
+            margin: 10px 0!important;
+        }
+        nav .row li {
+            min-width: 270px;
+        }
+        nav .dropdown:hover .dropdown-menu {
+            display: block;
+            opacity: 1!important;
         }
     </style>
     <!-- <script>
@@ -283,7 +341,7 @@
   <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-            <a class="navbar-brand ml-30" href="#">
+            <a class="navbar-brand ml-30" href="index.html">
                 <div class="my-brand">Chen</div>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -299,10 +357,53 @@
                           Pages
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="page-details col-lg-6">
+                                        <span class="font-20">Landing Pages</span>
+                                        <div class="sm-auto">
+                                            <div class="listings sm-no-margin">
+                                                <ul>
+                                                    <li><a href="#"><span>Vannilla</span></li>
+                                                    <li><a href="#"><span>Crush</span></li>
+                                                    <li><a href="#"><span>Matrix</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <span class="font-20">Article Pages</span>
+                                        <div class="sm-auto">
+                                            <div class="listings sm-no-margin">
+                                                <ul>
+                                                    <li><a href="#"><span>Vannilla (Articles)</span></a></li>
+                                                    <li><a href="#"><span>Crush (Articles)</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="page-details col-lg-6">
+                                        <span class="font-20">Categories Pages</span>
+                                        <div class="sm-auto">
+                                            <div class="listings sm-no-margin">
+                                                <ul>
+                                                    <li><a href="#"><span>Vannilla (Categories)</span></a></li>
+                                                    <li><a href="#"><span>Crush (Categories)</span></a></li>
+                                                    <li><a href="#"><span>Matrix (Categories)</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <span class="font-20">Auxilliary Pages</span>
+                                        <div class="sm-auto">
+                                            <div class="listings sm-no-margin">
+                                                <ul>
+                                                    <li><a href="#"><span>Reviews page</span></a></li>
+                                                    <li><a href="#"><span>Events page</span></a></li>
+                                                    <li><a href="#"><span>Purchase/Registration page</span></a></li>
+                                                </ul> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -319,16 +420,17 @@
                         <p class="font-20">The new elegant and simple Chen theme</p>
                     </div>
                     <div class="button-case">
-                        <a role="button" class="btn blue lead-buttons" href="Chen.html" target="_blank">Buy Now</a>
-                        <a role="button" class="btn purple lead-buttons" href="#">Documentation</a>
+                        <a role="button" class="btn false-black lead-buttons" href="theme-documentation.html" target="_blank">Documentation</a>
+                        <a role="button" class="btn purple lead-buttons" href="#">Buy Now</a>
                     </div>
                 </div>
             </div>
         </div>
     </header>
     <div class="theme-description text-center">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis et recusandae accusantium sequi voluptatibus hic deserunt exercitationem aliqua
-        m atque rerum! Fuga dolor accusantium sunt delectus, expedita architecto amet quisquam rerum.
+        Build awesome websites with a new theme you'll love. <br>
+        With 3 landing pages and 11 pages in all, chen has got all you need to build the blog of your 
+        dream.
     </div>
     <div class="description-cards">
         <div class="container">
@@ -342,7 +444,7 @@
                             <div class="card-body text-center">
                                 <h5 class="card-title">3 Complete blogs</h5>
                                 <p class="card-text sm-block">
-                                    Enjoy flexibility with the 3 prebuilt blogs with 
+                                    Enjoy flexibility with 3 prebuilt blogs with 
                                     different cross compatible sections/components.
                                 </p>
                             </div>
@@ -356,7 +458,7 @@
                                 <img class="flaticon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMS4yMDUgNTExLjIwNSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgY2xhc3M9IiI+PGc+PGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJtNy41IDEwOS4zNTFjNC4xNDIgMCA3LjUtMy4zNTggNy41LTcuNXYtMTMuNTkzaDQ0My41OTl2NzEuMDU0YzAgNC4xNDIgMy4zNTcgNy41IDcuNSA3LjVzNy41LTMuMzU4IDcuNS03LjV2LTEyNy43MDdjMC0xNy4zNzEtMTQuMTMyLTMxLjUwMy0zMS41MDMtMzEuNTAzaC00MTAuNTk0Yy0xNy4zNyAwLTMxLjUwMiAxNC4xMzItMzEuNTAyIDMxLjUwM3Y3MC4yNDZjMCA0LjE0MiAzLjM1OCA3LjUgNy41IDcuNXptMjQuMDAyLTk0LjI0OWg0MTAuNTk0YzkuMSAwIDE2LjUwMyA3LjQwMyAxNi41MDMgMTYuNTAzdjQxLjY1M2gtNDQzLjU5OXYtNDEuNjUzYzAtOS4xIDcuNDAzLTE2LjUwMyAxNi41MDItMTYuNTAzeiIgZmlsbD0iIzgwMDA4MCIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPjxwYXRoIGQ9Im0xNjUuMjkzIDQ1OC43MDFoLTEzMy43OTFjLTkuMSAwLTE2LjUwMi03LjQwMy0xNi41MDItMTYuNTAydi0zMDguMzg1YzAtNC4xNDItMy4zNTgtNy41LTcuNS03LjVzLTcuNSAzLjM1OC03LjUgNy41djMwOC4zODVjMCAxNy4zNzEgMTQuMTMyIDMxLjUwMiAzMS41MDIgMzEuNTAyaDEzMy43OTFjNC4xNDIgMCA3LjUtMy4zNTggNy41LTcuNXMtMy4zNTgtNy41LTcuNS03LjV6IiBmaWxsPSIjODAwMDgwIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggZD0ibTQ3NS45NjYgMTgxLjgxMWgtMjUyLjkzNWMtMTkuNDMxIDAtMzUuMjM4IDE1LjgwOC0zNS4yMzggMzUuMjM5djk3LjQ0NGMwIDQuMTQyIDMuMzU4IDcuNSA3LjUgNy41czcuNS0zLjM1OCA3LjUtNy41di01MC4zMzNoMjkzLjQxMnYyMTEuNzAzYzAgMTEuMTU5LTkuMDc5IDIwLjIzOC0yMC4yMzggMjAuMjM4aC0yNTIuOTM2Yy0xMS4xNTkgMC0yMC4yMzgtOS4wNzktMjAuMjM4LTIwLjIzOHYtMTI5LjQwN2MwLTQuMTQyLTMuMzU4LTcuNS03LjUtNy41cy03LjUgMy4zNTgtNy41IDcuNXYxMjkuNDA3YzAgMTkuNDMxIDE1LjgwOCAzNS4yMzggMzUuMjM4IDM1LjIzOGgyNTIuOTM1YzE5LjQzMSAwIDM1LjIzOC0xNS44MDggMzUuMjM4LTM1LjIzOHYtMjU4LjgxNGMuMDAxLTE5LjQzMS0xNS44MDctMzUuMjM5LTM1LjIzOC0zNS4yMzl6bS0yNzMuMTczIDY3LjM1di0zMi4xMTFjMC0xMS4xNiA5LjA3OS0yMC4yMzkgMjAuMjM4LTIwLjIzOWgyNTIuOTM1YzExLjE1OSAwIDIwLjIzOCA5LjA3OSAyMC4yMzggMjAuMjM5djMyLjExMXoiIGZpbGw9IiM4MDAwODAiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48cGF0aCBkPSJtNDUuOTYgNTEuMzAyaDUuNjMyYzQuMTQyIDAgNy41LTMuMzU4IDcuNS03LjVzLTMuMzU4LTcuNS03LjUtNy41aC01LjYzMmMtNC4xNDIgMC03LjUgMy4zNTgtNy41IDcuNXMzLjM1OCA3LjUgNy41IDcuNXoiIGZpbGw9IiM4MDAwODAiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48cGF0aCBkPSJtOTguMTI2IDUxLjMwMmg1LjYzMmM0LjE0MiAwIDcuNS0zLjM1OCA3LjUtNy41cy0zLjM1OC03LjUtNy41LTcuNWgtNS42MzJjLTQuMTQyIDAtNy41IDMuMzU4LTcuNSA3LjVzMy4zNTggNy41IDcuNSA3LjV6IiBmaWxsPSIjODAwMDgwIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggZD0ibTE1MC4yOTIgNTEuMzAyaDUuNjMyYzQuMTQyIDAgNy41LTMuMzU4IDcuNS03LjVzLTMuMzU4LTcuNS03LjUtNy41aC01LjYzMmMtNC4xNDIgMC03LjUgMy4zNTgtNy41IDcuNXMzLjM1OCA3LjUgNy41IDcuNXoiIGZpbGw9IiM4MDAwODAiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48cGF0aCBkPSJtNDM3LjgzNSAzNjUuMTY5aC0zMS41ODFjLTQuMTQzIDAtNy41IDMuMzU4LTcuNSA3LjVzMy4zNTcgNy41IDcuNSA3LjVoMzEuNTgxYzEyLjYwNSAwIDIyLjg2LTEwLjI1NSAyMi44Ni0yMi44NnYtMzEuODQxYzAtMTIuNjA1LTEwLjI1NS0yMi44Ni0yMi44Ni0yMi44NmgtMTc2LjY3MmMtMTIuNjA1IDAtMjIuODYxIDEwLjI1NS0yMi44NjEgMjIuODZ2MzEuODQxYzAgMTIuNjA1IDEwLjI1NSAyMi44NiAyMi44NjEgMjIuODZoMTEzLjEyOWM0LjE0MyAwIDcuNS0zLjM1OCA3LjUtNy41cy0zLjM1Ny03LjUtNy41LTcuNWgtMTEzLjEyOWMtNC4zMzQgMC03Ljg2MS0zLjUyNi03Ljg2MS03Ljg2di0zMS44NDFjMC00LjMzNCAzLjUyNy03Ljg2IDcuODYxLTcuODZoMTc2LjY3M2M0LjMzNCAwIDcuODYgMy41MjYgNy44NiA3Ljg2djMxLjg0MWMwIDQuMzM0LTMuNTI3IDcuODYtNy44NjEgNy44NnoiIGZpbGw9IiM4MDAwODAiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48cGF0aCBkPSJtNzguODU1IDE1MC4wNTFoMzE4LjAxMmM0LjE0MyAwIDcuNS0zLjM1OCA3LjUtNy41cy0zLjM1Ny03LjUtNy41LTcuNWgtMzE4LjAxMmMtOS4xNjIgMC0xNi42MTYgNy40NTQtMTYuNjE2IDE2LjYxNnY5My41M2MwIDkuMTYyIDcuNDU0IDE2LjYxNiAxNi42MTYgMTYuNjE2aDY3LjU2N2M0LjE0MiAwIDcuNS0zLjM1OCA3LjUtNy41cy0zLjM1OC03LjUtNy41LTcuNWgtNjcuNTY3Yy0uODkxIDAtMS42MTYtLjcyNS0xLjYxNi0xLjYxNnYtOTMuNTNjMC0uODkxLjcyNS0xLjYxNiAxLjYxNi0xLjYxNnoiIGZpbGw9IiM4MDAwODAiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48cGF0aCBkPSJtMTQ2LjE2OSAyOTMuNjA4aC03Ni40M2MtNC4xNDIgMC03LjUgMy4zNTgtNy41IDcuNXMzLjM1OCA3LjUgNy41IDcuNWg3Ni40M2M0LjE0MiAwIDcuNS0zLjM1OCA3LjUtNy41cy0zLjM1OC03LjUtNy41LTcuNXoiIGZpbGw9IiM4MDAwODAiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48cGF0aCBkPSJtMTQ2LjE2OSAzNDkuODMxaC03Ni40M2MtNC4xNDIgMC03LjUgMy4zNTgtNy41IDcuNXMzLjM1OCA3LjUgNy41IDcuNWg3Ni40M2M0LjE0MiAwIDcuNS0zLjM1OCA3LjUtNy41cy0zLjM1OC03LjUtNy41LTcuNXoiIGZpbGw9IiM4MDAwODAiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48cGF0aCBkPSJtMjQ1LjgwMiA0NDQuOTMzaDIwNy4zOTRjNC4xNDMgMCA3LjUtMy4zNTggNy41LTcuNXMtMy4zNTctNy41LTcuNS03LjVoLTIwNy4zOTRjLTQuMTQyIDAtNy41IDMuMzU4LTcuNSA3LjVzMy4zNTggNy41IDcuNSA3LjV6IiBmaWxsPSIjODAwMDgwIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PC9nPjwvZz48L3N2Zz4=" />
                             </div>
                             <div class="card-body text-center">
-                                <h5 class="card-title">11 Beautifully Crafted Pages</h5>
+                                <h5 class="card-title">11 Beautifully Pages</h5>
                                 <p class="card-text sm-block">
                                     Chen comes with 11 beautiful pages to ensure your every
                                     story is beautifully told.
@@ -389,10 +491,9 @@
                                 <img class="flaticon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMS4yMjMgNTExLjIyMyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgY2xhc3M9IiI+PGc+PGcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJtMzQwLjg0MyAyNjIuOTQxdjIwLjY2MWMwIDE1LjA3NSAyMy41NiAxLjM1NyAyOC45NDMtLjkxNyA2My40ODkgMjkuMTc0IDEzOC43NS0xOS42NDggMTM3LjkyLTg5LjYwOC4wMDEtNTQuMDYzLTQzLjk5MS05OC4wNDktOTguMDY1LTk4LjA0OS04Ny4xOS0uMTA2LTEzMC45NDIgMTA2Ljk1OC02OC43OTggMTY3LjkxM3ptNjguNzk5LTE1Mi45MTNjNDUuODAzIDAgODMuMDY1IDM3LjI1NiA4My4wNjUgODMuMDUuNzQgNjAuNDgzLTY1LjUxNiAxMDEuODQxLTExOS40NzcgNzQuNjYyLTIuMDU4LS45NTQtNC4xMjgtMS4wMTEtNi4yMTEtLjE3bC0xMS4xNzcgNC43MjJ2LTEyLjU2NGMwLTIuMDk4LS44NzktNC4xLTIuNDIzLTUuNTItNTUuMzY5LTUwLjgxNi0xOC45ODgtMTQ0LjIyMiA1Ni4yMjMtMTQ0LjE4eiIgZmlsbD0iIzgwMDA4MCIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPjxwYXRoIGQ9Im0zODYuMTEgMTgwLjA2MWM0LjE0MyAwIDcuNS0zLjM1NyA3LjUtNy41IDAtOC43MjYgNy42NTEtMTYuMTYgMTYuMzY3LTE2LjAyOSA4LjM1Ni4xNjggMTUuMjQyIDYuODMgMTUuNjc1IDE1LjE2Ni40NzEgOS4wNjQtNi45MjIgMTYuODk2LTE2LjAxIDE2Ljg5Ni00LjE0MyAwLTcuNSAzLjM1Ny03LjUgNy41djI0LjYwN2MuMzM5IDkuOTIxIDE0LjY1NyA5LjkzMiAxNSAwdi0xOC4wMzdjMTQuMjM1LTMuNTY5IDI0LjI1MS0xNy4wNzQgMjMuNDktMzEuNzQzLS44MzktMTYuMTUyLTE0LjE3Mi0yOS4wNi0zMC4zNTQtMjkuMzg1LTE3LjE2NS0uMzYyLTMxLjY2OSAxMy44NzYtMzEuNjY5IDMxLjAyNS4wMDEgNC4xNDMgMy4zNTggNy41IDcuNTAxIDcuNXoiIGZpbGw9IiM4MDAwODAiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiPjwvcGF0aD48cGF0aCBkPSJtNDA5LjY0MiAyMzYuMjAyYy05LjY1MiAwLTkuNjY4IDE1IDAgMTUgOS42NTIgMCA5LjY2OC0xNSAwLTE1eiIgZmlsbD0iIzgwMDA4MCIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPjxwYXRoIGQ9Im0xMDYuMzgzIDM4OC4xMTFoLTU3LjQwOGMtNC4xNDMgMC03LjUgMy4zNTctNy41IDcuNXYyOC43NTZjMCA0LjE0MyAzLjM1NyA3LjUgNy41IDcuNWg1Ny40MDhjNC4xNDMgMCA3LjUtMy4zNTcgNy41LTcuNXYtMjguNzU2YzAtNC4xNDItMy4zNTctNy41LTcuNS03LjV6bS03LjUgMjguNzU2aC00Mi40MDh2LTEzLjc1Nmg0Mi40MDh6IiBmaWxsPSIjODAwMDgwIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIj48L3BhdGg+PHBhdGggZD0ibTUwNi4wMjggMzMwLjE0Yy00LjI0Mi01LjE1MS0xMC41MDItOC4xMDYtMTcuMTc2LTguMTA2aC0yMTIuODE2Yy0zLjA0NyAwLTUuOTk2LjUxOC04Ljc1NCAxLjQ3Ni04Ljk4NC0xMi44MDktMjAuMDAyLTI0LjEzNC0zMi41NTYtMzMuNDY1aDQ5LjIwN2M0LjE0MyAwIDcuNS0zLjM1NyA3LjUtNy41di0xMzguODQ2YzEuMjk1LTEwNC4xNzQtMTEzLjQwMS0xNzUuNDE4LTIwNi45OTYtMTI5LjQ3OS04Ljc2IDQuMTU5LTIuMzI4IDE3LjcwOSA2LjQzNCAxMy41NTEgODMuODgyLTQxLjE0NiAxODYuNzEzIDIyLjU5NyAxODUuNTYxIDExNS45My4wMDEtLjAwMS4wMDEgMTMxLjM0My4wMDEgMTMxLjM0M2gtNTIuMzk4YzEwLjY1Ny0xMi4wNTUgMTguNTgzLTI2LjQxOCAyMS41NjUtMzguNDggMS4yMjEuMTE2IDIuNDQ3LjE5MiAzLjY3NC4yMjggMTQuODU4IDAgMjYuOTQ2LTEyLjA4OCAyNi45NDYtMjYuOTQ1di0yNC40NzRjMC0xMi4yODYtOC4yNjYtMjIuNjc4LTE5LjUyOS0yNS45MDcgNS4xNjktNjUuNzI1LTQzLjEyMS0xMjEuOTA2LTExMC4zMy0xMjIuMzI2LTY3LjIwNy40MjItMTE1LjUgNTYuNjAzLTExMC4zMjkgMTIyLjMyNi05Ljc1MyAyLjc5Ni0xNy4yNTkgMTAuOTY0LTE5LjA5NiAyMS4wODFsLjIzNC0zNi44NDdjMC0zNi4yMTkgMTUuNTUtNzAuOTQyIDQyLjY2My05NS4yNjcgNy4yMTgtNi40NzctMi43OTgtMTcuNjQtMTAuMDE4LTExLjE2Ni0zMC4yOCAyNy4xNjYtNDcuNjQ3IDY1Ljk1OS00Ny42NDcgMTA2LjM4NHYxMzguODQ1Yy40MDYgNC41OTYgMi4wMjYgNy4xMTIgNi42MTkgNy41NDhoNTAuMDk1Yy0zNi41OTIgMjcuMTk4LTU4Ljc2NSA3MC44NzMtNTguNzY1IDExNi40OTR2MjAuODg4YzAgOS42OTcgMTUgOS42OTcgMTUgMHYtMjAuODg4YzAtMzMuOTg4IDEzLjcxMi02Ny4xMzIgMzcuNTg2LTkxLjMwOWw1Mi41NCAzNS45NDNjMy40NSAyLjA5MyA2Ljc0MiAxLjY3NyA5Ljg3Ny0xLjI0OWwyNC4zNDctMjcuODAydjEwNS4zMDRjMCA5LjY5NyAxNSA5LjY5NyAxNSAwdi0xMDUuMzA0bDI0LjM0OCAyNy44MDNjMy4xMzUgMi45MjYgNi40MjcgMy4zNDIgOS44NzcgMS4yNDlsNTIuMzQ2LTM1LjgxYzUuMTEzIDUuMTkzIDkuODAyIDEwLjgxOCAxNC4wMTEgMTYuODI4LTIuNTk5IDMuMjcxLTQuNDYgNy4xNzktNS4zMDMgMTEuNDk0bC0yNC4yMiAxMjMuOTQ4aC05OC44OThjLTQuMTQzIDAtNy41IDMuMzU3LTcuNSA3LjV2MTIuOTI0YzAgMTIuNzczIDEwLjM5MyAyMy4xNjYgMjMuMTY2IDIzLjE2NmgzMTQuNTQ5YzEyLjc4MiAwIDIzLjgzOS05LjEwNSAyNi4yOS0yMS42NWw0LjMzLTIyLjE1NGMxLjg2MS05LjUxNS0xMi44NjEtMTIuMzk4LTE0LjcyMS0yLjg3N2wtNC4zMyAyMi4xNTRjLTEuMDc5IDUuNTIxLTUuOTQ0IDkuNTI3LTExLjU2OSA5LjUyN2gtMjEyLjgxOWMtNC41MjggMC03Ljk4My00LjE5Ni03LjExNS04LjY0bDI3LjU1Ny0xNDEuMDIxYzEuMDc5LTUuNTIxIDUuOTQ1LTkuNTI4IDExLjU3LTkuNTI4aDIxMi44MTZjNC41MjggMCA3Ljk4NCA0LjE5NyA3LjExNiA4LjY0MWwtMTUuNTcyIDc5LjY4OGMtMS44NjEgOS41MTYgMTIuODYxIDEyLjM5NiAxNC43MjEgMi44NzdsMTUuNTcyLTc5LjY4OGMxLjI4LTYuNTUtLjQxOS0xMy4yNjEtNC42NjEtMTguNDEyem0tMzU5LjA2Mi0zNS40NjhjLS4wMTUgMC0uMDI5IDAtLjA0NCAwLTQwLjAwOC0uMDItNzUuMDIxLTI3LjIxNi04NC44MS02NS4yNTEgNS4xOTgtNC45MTUgOC40NDYtMTEuODcyIDguNDQ2LTE5LjU3NHYtMjQuMzAxYzI0LjEyNS0uMDY3IDczLjk3NC02LjIxOSA5OS44MzktNTIuNDMgOC4zODQgMTQuODc2IDI0LjczIDM2LjggNTIuMTY3IDQ3LjU5Mi0uNzc3IDIuNzI3LS4yNjkgMjUuODMyLS40MDUgMjkuMTM5IDAgOC4xNzQgMy42NiAxNS41MSA5LjQyNiAyMC40NTYtLjAxNy4wNjQtLjAzNC4xMjgtLjA1Mi4xOTItMTAuMDg5IDEzLjU5MS0yNi4xNTkgMjEuNzc5LTQzLjUxMSAyMS43NzloLTE0LjE1Yy04LjI4Ni0yOC4wNTEtNDkuMTY0LTIyLjk4Ny00OS45MTggNi42LjU0OSAyOC40OTIgMzkuNTc1IDM0Ljc0NyA0OS4zNTIgOC40aDE0LjcxNWM5Ljc1NyAwIDE5LjE5OC0yLjAzMiAyNy44MS01Ljc5LTE2LjQ3NSAyMC43OTgtNDIuMzA3IDMzLjE4OC02OC44NjUgMzMuMTg4em0yLjM4OS0yNS41NTJjLTUuNzMzIDAtMTAuMzk4LTQuNTk3LTEwLjM5OC0xMC4yNDcuNTY5LTEzLjU5NCAyMC4yMzEtMTMuNTg5IDIwLjc5OCAwLS4wMDEgNS42NS00LjY2NiAxMC4yNDctMTAuNCAxMC4yNDd6bTExMS44NjMtODMuNzQ3djI0LjQ3NGMwIDYuNTg3LTUuMzU5IDExLjk0NS0xMS45NDYgMTEuOTQ1LTYuMzIyLS4yNTEtMTIuMTExLTUuMDMtMTIuMTExLTExLjk0NXYtMjQuNDc0Yy42MzktMTUuODY5IDIzLjQxNy0xNS44NjkgMjQuMDU3IDB6bS0xMTQuODU4LTEzMy4yMzNjNTIuNTY0IDAgOTUuMzI5IDQyLjM3MyA5NS4zMjkgOTQuNDU2djEyLjg3Yy00Ljg0NyAxLjM5LTkuMTM4IDQuMTA2LTEyLjQ1NSA3LjcyOC0zNy4yMi0xNC4wMTEtNTEuNjc4LTUzLjc5NS01MS44MjItNTQuMTk5LTIuMjM5LTYuNDExLTExLjY3Ny02LjU3NC0xNC4wOTYtLjE3OS05LjIzMyAyNC40MjMtMjYuMjQyIDQxLjQwOC01MC41NTQgNTAuNDg0LTE4LjMwNSA2LjgzMy0zNi4yNjQgNy41NDItNDYuNzAzIDcuMTgxLTMuNTA0LTUuMjY1LTguODEtOS4yMzItMTUuMDI5LTExLjAxNnYtMTIuODdjLjAwMS01Mi4wODIgNDIuNzY1LTk0LjQ1NSA5NS4zMy05NC40NTV6bS0xMTQuODU5IDEzMy4yMzNjMC02LjU4NyA1LjM1OS0xMS45NDUgMTEuOTQ2LTExLjk0NWguMTY2YzYuNTg3IDAgMTEuOTQ1IDUuMzU4IDExLjk0NSAxMS45NDV2MjQuNDc0YzAgNi41ODctNS4zNTggMTEuOTQ1LTExLjk0NSAxMS45NDVoLS4xNjZjLTYuNTg3IDAtMTEuOTQ2LTUuMzU4LTExLjk0Ni0xMS45NDV6bS0xNC43NzQgMjcuOTY0YzEuNzU3IDE0Ljk5IDE2LjY2MiAyNS45NjMgMzEuNzM5IDIzLjAxNyA0LjI3MSAxNC41NzYgMTEuNzIzIDI3LjcwNSAyMS40OTMgMzguNjloLTUzLjIzMnptOTEuNDkyIDEyMS42OTgtNDQuMDQ2LTMwLjEzM2M3LjAyLTUuNjExIDE0LjYyNi0xMC41MTEgMjIuNzE1LTE0LjYxMiAxMy4wMDggOS4zNDIgMjguMjM2IDE1LjcxMSA0NC41NzEgMTguMjA1em03Ny40OTUgMC0yMy4yNC0yNi41MzljMTYuMDI2LTIuNDQxIDMxLjMzNS04LjYyOSA0NC41MTgtMTguMDY3IDguMDQ1IDQuMTAyIDE1LjYwOSA4Ljk5NiAyMi41OTMgMTQuNTkzem0tNDMuNDIyIDE2MS4xODhjLTQuNTAzIDAtOC4xNjYtMy42NjMtOC4xNjYtOC4xNjZ2LTUuNDI0aDg4LjQ2N2MtMS4xNDYgNC40NDMtMS4xMTggOS4yMjYuMzg4IDEzLjU5eiIgZmlsbD0iIzgwMDA4MCIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPjxwYXRoIGQ9Im0zMzUuNDk4IDQxNi42MjhjMCAxNy4wNjEgMTMuODc5IDMwLjkzOSAzMC45MzkgMzAuOTM5IDQxLjA0Ni0xLjY5OSA0MS4wMzQtNjAuMTg2IDAtNjEuODc5LTE3LjA2IDAtMzAuOTM5IDEzLjg3OS0zMC45MzkgMzAuOTR6bTQ2Ljg3OSAwYzAgOC43ODktNy4xNSAxNS45MzktMTUuOTM5IDE1LjkzOS0yMS4xNDYtLjg3Ni0yMS4xNC0zMS4wMDcgMC0zMS44NzkgOC43ODkgMCAxNS45MzkgNy4xNTEgMTUuOTM5IDE1Ljk0eiIgZmlsbD0iIzgwMDA4MCIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+" />
                             </div>
                             <div class="card-body text-center">
-                                <h5 class="card-title">Enjoy free client support</h5>
+                                <h5 class="card-title">Free client support</h5>
                                 <p class="card-text sm-block">
-                                    Enjoy super client support with Chen. <br>
-                                    feel free to send bug reports and improvement requests.
+                                    Enjoy superb client support and free theme update with Chen.
                                 </p>
                             </div>
                         </div>
@@ -437,7 +538,7 @@
             <!-- <h1 class="mt-40">Testimonials</h1> -->
             <p class="font-30 follow-up mt-40">
                <span>Beautiful pages for that dream blog...</span><br> 
-                <span>"to help you tell your every story"</span> 
+                <span>"to help tell your every story"</span> 
             </p>
             <div class="description-cards">
                 <div class="container">
@@ -518,61 +619,25 @@
                         </div>
                     </div>
                 </div>      
-                <div class="features-list container mt-40">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6">
-                            <card>
-                                <ul>
-                                    <li>3 completely prebuilt blogs</li>
-                                    <li>11 beautiful pages</li>
-                                    <li>Google fonts</li>
-                                    <li>Neatly written codes</li>
-                                    <li>Built for everyone</li>
-                                </ul>
-                            </card>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <card>
-                                <ul>
-                                    <li>3 completely prebuilt blogs</li>
-                                    <li>11 beautiful pages</li>
-                                    <li>Google fonts</li>
-                                    <li>Neatly written codes</li>
-                                    <li>Built for everyone</li>
-                                </ul>
-                            </card>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <card>
-                                <ul>
-                                    <li>3 completely prebuilt blogs</li>
-                                    <li>11 beautiful pages</li>
-                                    <li>Google fonts</li>
-                                    <li>Neatly written codes</li>
-                                    <li>Built for everyone</li>
-                                </ul>
-                            </card>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
-    <div class="landing-pages-display mt-40">
+    <div class="landing-pages-display">
         <div class="container">
             <div class="row">
-                <div class="first-image-case">
+                <div class="image-case">
                     <img src="Images/pix-17.JPG" class="first-image" alt="landing-page">
                     <img src="Images/pix-18.JPG" class="second-image" alt="landing-page">
                     <img src="images/pix-19.jpg" class="third-image" alt="landing-page">
-                    <img src="Images/pix-22.JPG" class="mini-screen-image lg-hidden" alt="smaller-screens-only">
                 </div>
-                <div class="second-text-case">
+                <div class="text-case">
                     <div class="case-text">
-                        <span class="bold">Select from any of the 3 Awesome landing pages</span>
+                        <span class="bold">3 Awesome landing pages</span>
+                        <img src="Images/pix-22.JPG" class="mini-screen-image lg-hidden" alt="smaller-screens-only">
                         <div class="font-17">
-                            Chen comes with 3 prebuilt blogs with different cross compatible sections/
-                            components for you to combine with flexibility just as you choose.
+                            Chen gives you 3 beautiful landing pages, plus other cross compatible
+                            pages and sections/components for you to combine with 
+                            flexibility just as you choose.
                         </div>
                         <ul>
                             <li><a href="#" class="custom-link font-20">Vannilla-large</a></li>
@@ -588,13 +653,50 @@
                 </div>
             </div>
         </div>
+        <div class="features-list container mt-40">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <card>
+                        <ul>
+                            <li>Very comprehensive and detailed documentation</li>
+                            <li>11 beautiful pages</li>
+                            <li>Super affordable</li>
+                            <li>Neatly written codes</li>
+                            <li>Built for everyone</li>
+                        </ul>
+                    </card>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <card>
+                        <ul>
+                            <li>Simple customization using HTML classed and attribute</li>
+                            <li>Built on Bootstrap 4</li>
+                            <li>Free theme updates</li>
+                            <li>Super Responsive web design</li>
+                            <li>Demo pictures included</li>
+                        </ul>
+                    </card>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <card>
+                        <ul>
+                            <li>Well commented code to ease customization</li>
+                            <li>3 completely prebuilt blogs</li>
+                            <li>Free customer support</li>
+                            <li>Google fonts</li>
+                            <li>Cross compatible components</li>
+                        </ul>
+                    </card>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="testimonials" style="background-image: url(Images/pix15.jpg);">
         <div class="testimonials-overlay text-center">
             <h1 class="mt-40">Testimonials</h1>
             <p class="font-20 follow-up">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quisquam blanditiis quas aliquam nihil pariatur i
-                usto, minima illo eligendi animi enim nulla natus, quam corporis facere nemo veritatis quia ea molestias?
+                Chen is beautifully built with design simplicity an eye on best code practices
+                as much as possible. <br> See what these geeks think about Chen.
             </p>
             <div class="container">
                 <div class="row">
@@ -665,11 +767,12 @@
                 <div class="row">
                     <div class="about-theme col-lg-4">
                         <span class="font-30 block">
-                            ChenBlog
+                            Chen Theme
                         </span>
                         <span>
-                            is a blog Lorem ipsum, dolor sit amet consectetur adipisicing elit and lorem fdolollt sdjsjohfjdsh.
-                            Chen blog is owned by Ant Monkey.....<a href="aboutchen.html" class="custom-link">Read More</a>
+                            Chen is a beautiful blog template that is also suitable building beautiful blogs and 
+                            magazine websites....
+                            <a href="theme-documentation.html" class="custom-link">Read More</a>
                         </span>
                     </div>
                     <div class="page-details col-lg-4">
