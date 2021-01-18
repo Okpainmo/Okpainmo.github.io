@@ -39,7 +39,7 @@
         }
         .pages-button {
             color: white!important;
-            background-color: purple;
+            background-color: #61af57;
             width: 200px!important;
         }
         .lead-buttons {
@@ -77,7 +77,7 @@
         }
         .theme-description {
             width: 70%;
-            /* color: grey; */
+            color: #6c757d;
             margin: 50px auto;
             font-size: 22px;
         }
@@ -86,9 +86,9 @@
         } */
         .description-cards .card {
             border: none;
-            box-shadow: 0 0 15px 1px #696464;
+            box-shadow: 0 25px 20px -20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.06);
             background-size: cover;
-            border-radius: 0.2rem!important;
+            border-radius: 0.5rem!important;
         }
         .description-cards .card .card-text {
             font-size: 16px;
@@ -107,15 +107,18 @@
         .plain-cards {
             min-height: 290px;
             padding: 20px;
+            /* border-radius: 0.5rem!important; */
             margin: 10px auto;
             box-shadow: 0 0 15px 1px hsl(0, 2%, 89%)!important;   
             /* width: 340px; */
         }
         .card-icon-case {
-            width: 50px;
-            height: 50px;
-            margin: 35px auto 30px;
-            /* background-color: black; */
+            width: 70px;
+            height: 70px;
+            margin: 15px auto 30px;
+            padding: 15px;
+            border-radius: 100%;
+            background-color: rgba(224, 151, 222, .2);
             /* display: block; */
         }
         /* .card-icons {
@@ -132,20 +135,26 @@
         }
         .testimonials h1::after {
             content: "";
-            width: 70px;
+            width: 150px;
             margin: 0 auto;
-            height: 5px;
-            background-color: purple;
+            height: 1px;
+            background-color: white;
             display: block;
         }
         .testimonials-overlay {
-            /* background-image: linear-gradient(to right, black, transparent, black); */
-            background-color: rgba(255, 255, 255, .8);
+            background-image: linear-gradient(to right, black, transparent, black);
+            background-color: rgba(0, 0, 0, 0.8);
             min-height: inherit;
             padding: 20px;
         }
+        .testimonials .follow-up-text {
+            color: #d4d0d0;
+        }
+        .testimonials h1 {
+            color: white;
+        }
         .image-array-section-overlay {
-            background-color: rgba(255, 255, 255, .8);
+            /* background-color: rgba(255, 255, 255, .8); */
             /* background-image: linear-gradient(to right, black, transparent, black); */
             min-height: inherit;
             color: rgb(224, 216, 216);
@@ -158,18 +167,18 @@
             margin: 0 auto;
             background-color: white;
         } */
-        .follow-up {
+        .follow-up-text {
             width: 60%;
             margin: 0 auto 70px;
-            color: black;
+            color: purple;
             /* font-weight: lighter; */
         }
-        .image-array-section .follow-up {
+        .image-array-section .follow-up-text {
             margin: 30px auto 70px;
         } 
-        /* .testimonials-overlay .card, .image-array-section-overlay .card {
+        .testimonials-overlay .card {
             box-shadow: none;
-        }  */
+        } 
         .page-title {
             width: 100%;
             color: black;
@@ -184,7 +193,8 @@
             width: 250px;
             height: 200px;
             position: relative;
-            box-shadow: 0 0 15px 1px #696464;
+            box-shadow: 0 25px 20px -20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.06);
+            /* box-shadow: 0 0 15px 1px #696464; */
         }
         .first-image:hover, .second-image:hover, .third-image:hover {
             transform: scale(1.06);
@@ -196,6 +206,9 @@
         }
         .text-case {
             width: 40%;
+        }
+        .text-case ul {
+            list-style-type: circle;
         }
         .second-image {
             left: 10px ;
@@ -212,6 +225,15 @@
         .card-image img {
             width: 100px;
             height: 100px;
+            border-radius: 100%;
+            /* transform: translateY(-50px); */
+        }
+        .card-image {
+            width: 120px;
+            height: 120px;
+            padding: 10px;
+            margin: 0 auto;
+            /* border: green 2px solid; */
             border-radius: 100%;
             transform: translateY(-50px);
         }
@@ -235,14 +257,14 @@
         .features-list ul {
             padding: 0;
         }
-        .features-list::after, .features-list::before {
+        /* .features-list::after, .features-list::before {
             content: "";
             width: 250px;
             height: 1px;
             display: block;
-            background-color: purple;
+            background-color: black;
             margin: 0 auto;
-        }
+        } */
         .features-list li {
             padding: 5px 10px;
             text-align: center;
@@ -268,13 +290,18 @@
             margin: 0 auto;
         } */
         .flaticon {
-            width: inherit;
-            height: inherit;
+            width: 40px;
+            height: 40px;
+            /* margin: 20px; */
+            margin: 0 auto;
         }
         .listings ul {
             list-style-position: inside;
             list-style-type: circle;
             padding: 0;
+        }
+        .purple-text {
+            color: purple;
         }
         .page-details {
             padding: 0 0 0 70px;
@@ -533,12 +560,16 @@
             </div>
         </div>
     </div>
-    <div class="image-array-section" style="background-image:url(Images/pix15.jpg)">
+    <div class="image-array-section">
         <div class="image-array-section-overlay text-center">
             <!-- <h1 class="mt-40">Testimonials</h1> -->
-            <p class="font-30 follow-up mt-40">
-               <span>Beautiful pages for that dream blog...</span><br> 
-                <span>"to help tell your every story"</span> 
+            <p class="font-30 follow-up-text mt-40">
+               <span class="block"> Beautiful pages for that dream blog...</span> 
+                <span>"to help tell your every story"</span>
+                <span class="text-muted block font-20">
+                    Build beautiful blogs and create a thriling blogging experience with beautiful 
+                    Chen pages. 
+                </span> 
             </p>
             <div class="description-cards">
                 <div class="container">
@@ -632,9 +663,9 @@
                 </div>
                 <div class="text-case">
                     <div class="case-text">
-                        <span class="bold">3 Awesome landing pages</span>
+                        <span class="bold purple-text">3 Awesome landing pages</span>
                         <img src="Images/pix-22.JPG" class="mini-screen-image lg-hidden" alt="smaller-screens-only">
-                        <div class="font-17">
+                        <div class="font-17 text-muted">
                             Chen gives you 3 beautiful landing pages, plus other cross compatible
                             pages and sections/components for you to combine with 
                             flexibility just as you choose.
@@ -653,48 +684,11 @@
                 </div>
             </div>
         </div>
-        <div class="features-list container mt-40">
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <card>
-                        <ul>
-                            <li>Very comprehensive and detailed documentation</li>
-                            <li>11 beautiful pages</li>
-                            <li>Super affordable</li>
-                            <li>Neatly written codes</li>
-                            <li>Built for everyone</li>
-                        </ul>
-                    </card>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <card>
-                        <ul>
-                            <li>Simple customization using HTML classed and attribute</li>
-                            <li>Built on Bootstrap 4</li>
-                            <li>Free theme updates</li>
-                            <li>Super Responsive web design</li>
-                            <li>Demo pictures included</li>
-                        </ul>
-                    </card>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <card>
-                        <ul>
-                            <li>Well commented code to ease customization</li>
-                            <li>3 completely prebuilt blogs</li>
-                            <li>Free customer support</li>
-                            <li>Google fonts</li>
-                            <li>Cross compatible components</li>
-                        </ul>
-                    </card>
-                </div>
-            </div>
-        </div>
     </div>
-    <div class="testimonials" style="background-image: url(Images/pix15.jpg);">
+    <div class="testimonials" style="background-image: url(Images/pix11.jpg);">
         <div class="testimonials-overlay text-center">
             <h1 class="mt-40">Testimonials</h1>
-            <p class="font-20 follow-up">
+            <p class="font-20 follow-up-text">
                 Chen is beautifully built with design simplicity an eye on best code practices
                 as much as possible. <br> See what these geeks think about Chen.
             </p>
@@ -705,7 +699,7 @@
                             <div class="card">
                                 <div class="card-image-case">
                                     <div class="card-image">
-                                        <img src="Images/pix14.jpg" alt="testimonials">
+                                        <img src="Images/pix13.jpg" alt="testimonials">
                                     </div>
                                 </div>
                                 <div class="card-body text-center">
@@ -724,7 +718,7 @@
                             <div class="card">
                                 <div class="card-image-case">
                                     <div class="card-image">
-                                        <img src="Images/pix15.jpg" alt="testimonials">
+                                        <img src="Images/pix-8x.jpg" alt="testimonials">
                                     </div>
                                 </div>
                                 <div class="card-body text-center">
@@ -743,7 +737,7 @@
                             <div class="card">
                                 <div class="card-image-case">
                                     <div class="card-image">
-                                        <img src="Images/pix12.jpg" alt="testimonials">
+                                        <img src="Images/pix-6x.jpg" alt="testimonials">
                                     </div>
                                 </div>
                                 <div class="card-body text-center">
@@ -758,6 +752,43 @@
                         </a>
                     </div>                 
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="features-list container mt-40">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <card>
+                    <ul>
+                        <li>Very comprehensive and detailed documentation</li>
+                        <li>11 beautiful pages</li>
+                        <li>Super affordable</li>
+                        <li>Neatly written codes</li>
+                        <li>Built for everyone</li>
+                    </ul>
+                </card>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <card>
+                    <ul>
+                        <li>Simple customization using HTML classed and attribute</li>
+                        <li>Built on Bootstrap 4</li>
+                        <li>Free theme updates</li>
+                        <li>Super Responsive web design</li>
+                        <li>Demo pictures included</li>
+                    </ul>
+                </card>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <card>
+                    <ul>
+                        <li>Well commented code to ease customization</li>
+                        <li>3 completely prebuilt blogs</li>
+                        <li>Free customer support</li>
+                        <li>Google fonts</li>
+                        <li>Cross compatible components</li>
+                    </ul>
+                </card>
             </div>
         </div>
     </div>
@@ -831,7 +862,7 @@
     </footer>
     <script src="Scripts/chenscript.js"></script>
     <script src="Scripts/jquery-3.3.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script> -->
     <script src="Scripts/popper.min.js"></script>
     <script src="Scripts/js/bootstrap.min.js"></script>
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

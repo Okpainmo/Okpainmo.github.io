@@ -25,7 +25,7 @@
         text-align: center;
     }
     .text-case ul {
-        list-style-type: none;
+        list-style-type: none!important;
         padding: 0;
     }
     .second-image {
@@ -101,7 +101,7 @@
         padding-left: 50px;
     }
     .features-list .col-lg-4:nth-child(3) {
-        margin: 10px auto;
+        margin: 0 auto;
     }
     .landing .about-theme {
         padding-bottom: 30px;
@@ -297,7 +297,7 @@
         padding-top: 0;
         padding-left: 8px;
     } */
-    .follow-up {
+    .follow-up-text {
         width: 75%!important;
     }
     .testimonials .col-lg-4 {
@@ -309,11 +309,23 @@
     .reviews-page .card-text {
         margin-bottom: 0!important;
     }
+    .landing-pages-display {
+        padding-top: 0!important;
+    }
+    .landing-pages-display .row {
+        margin-top: 0!important;
+    }
+    .image-array-section .row:nth-child(2) {
+        margin-bottom: 0!important;
+    }
     .lead-review-details {
         width: 100%;
     }
     .features-list li:last-child::after {
         display: block!important;
+    }
+    .features-list .col-lg-4:last-child li:last-child:after {
+        display: none!important;
     }
     .doc-content {
         width: 85%!important;
@@ -429,7 +441,7 @@
     .lead-content {
         min-height: 500px!important;
     }
-    .follow-up {
+    .follow-up-text {
         width: 90%!important;
     }
     .theme-description {
@@ -659,7 +671,7 @@
     }
     .features-list {
         width: calc(100% - 20px);
-        margin-bottom: 40px!important;
+        /* margin-bottom: 40px!important; */
     }
     .features-list .col-lg-4:first-child {
         margin-top: 40px;
