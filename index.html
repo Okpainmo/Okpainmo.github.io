@@ -17,6 +17,7 @@
             min-height: 400px;
             background-size: cover;
             background-image: url(Images/pix11.jpg);
+            box-shadow: 0 0 15px 1px hsl(0, 2%, 89%)!important;   
         }
         .lead-banner-overlay {
             width: inherit;
@@ -157,7 +158,7 @@
             /* background-color: rgba(255, 255, 255, .8); */
             /* background-image: linear-gradient(to right, black, transparent, black); */
             min-height: inherit;
-            color: rgb(224, 216, 216);
+            /* color: rgb(224, 216, 216); */
             padding: 20px;
         }
         /* .testimonials-overlay h1::after {
@@ -170,7 +171,7 @@
         .follow-up-text {
             width: 60%;
             margin: 0 auto 70px;
-            color: purple;
+            /* color: purple; */
             /* font-weight: lighter; */
         }
         .image-array-section .follow-up-text {
@@ -178,7 +179,8 @@
         } 
         .testimonials-overlay .card {
             box-shadow: none;
-        } 
+            border-radius: 0.25rem!important;
+        }   
         .page-title {
             width: 100%;
             color: black;
@@ -226,6 +228,8 @@
             width: 100px;
             height: 100px;
             border-radius: 100%;
+            filter: grayscale(1);
+            box-shadow: 0 15px 45px 5px rgba(0, 0, 0, 0.3), 0 0 60px rgba(0, 0, 0, 0.06);
             transform: translateY(-50px);
         }
         /* .card-image {
@@ -243,12 +247,22 @@
         .testimonials .card-body {
             transform: translateY(-20px);
         }
+
         .testimonials-overlay .card-text {
             font-size: 17px;
         }
         .testimonials-overlay .card-title {
             margin: 0;
         }
+        /* .testimonials-overlay .card-title::before {
+            content: ' " ';
+            min-width: 20px;
+            min-height: 20px;
+            display: block;
+            margin: 0 auto;
+            font-size: 70px;
+            color: #61af57;
+        } */
         .features-list {
             min-height: 150px;
             background-color: rgba(255, 255, 255, .9);
@@ -341,8 +355,8 @@
         }
         .dropdown-menu {
             left: -535px;
-            opacity: 0!important;
-            animation: 2s opacity ease-in-out!important;
+            /* opacity: 0!important;
+            animation: 2s opacity ease-in-out!important; */
         }
         nav .listings ul {
             margin: 0;
@@ -353,10 +367,13 @@
         nav .row li {
             min-width: 270px;
         }
-        nav .dropdown:hover .dropdown-menu {
+        /* .testimonials .card-text:first-letter {
+            font-size: 25px;
+        } */
+        /* nav .dropdown:hover .dropdown-menu {
             display: block;
             opacity: 1!important;
-        }
+        } */
     </style>
     <!-- <script>
        var typed2 = new Typed('#typed2', {
@@ -458,7 +475,7 @@
         </div>
     </header>
     <div class="theme-description text-center">
-        Build awesome websites with a new theme you'll love. <br>
+        <span class="block font-30 purple-text">Build awesome websites with a new theme you'll love.</span>
         With 3 landing pages and 11 pages in all, chen has got all you need to build the blog of your 
         dream.
     </div>
@@ -566,14 +583,14 @@
     <div class="image-array-section">
         <div class="image-array-section-overlay text-center">
             <!-- <h1 class="mt-40">Testimonials</h1> -->
-            <p class="font-30 follow-up-text mt-40">
-               <span class="block"> Beautiful pages for that dream blog...</span> 
+            <div class="font-30 follow-up-text mt-40 purple-text">
+               <span class="block"> Beautiful pages...</span> 
                 <span>"to help tell your every story"</span>
                 <span class="text-muted block font-20">
                     Build beautiful blogs and create a thriling blogging experience with beautiful 
                     Chen pages. 
                 </span> 
-            </p>
+            </div>
             <div class="description-cards">
                 <div class="container">
                     <div class="row">
@@ -666,7 +683,7 @@
                 </div>
                 <div class="text-case">
                     <div class="case-text">
-                        <span class="bold purple-text">3 Awesome landing pages</span>
+                        <span class="purple-text">3 Awesome landing pages</span>
                         <img src="Images/pix-22.JPG" class="mini-screen-image lg-hidden" alt="smaller-screens-only">
                         <div class="font-17 text-muted">
                             Chen gives you 3 beautiful landing pages, plus other cross compatible
@@ -680,7 +697,7 @@
                         </ul>
                         <div class="button-case">
                             <a href="#to-footer" role="button" class="btn font-20 pages-button" >
-                                View all pages
+                                See all pages
                             </a>
                         </div>
                     </div>
@@ -702,7 +719,7 @@
                             <div class="card">
                                 <div class="card-image-case">
                                     <div class="card-image">
-                                        <img src="Images/pix13.jpg" alt="testimonials">
+                                        <img src="Images/pix-9x.jpg" alt="testimonials">
                                     </div>
                                 </div>
                                 <div class="card-body text-center">
@@ -710,8 +727,10 @@
                                         This part is the apetizer of the post "
                                     </p>
                                     <span class="card-title font-25 block">Alaba Mustapha</span>
-                                    <span class="card-title font-20 block">(Developer)</span>
-                                    <span class="font-17 text-muted">@alabaMustapha</span>
+                                    <span class="font-20 block">(Developer)</span>
+                                    <a href="#" class="text-muted">
+                                        <span class="font-17">@alabaMustapha</span>
+                                    </a>
                                 </div>
                             </div>
                         </a>
@@ -729,8 +748,10 @@
                                         This part is the apetizer of the post "
                                     </p>
                                     <span class="card-title font-25 block">Solomon Eyitene</span>
-                                    <span class="card-title font-20 block">(Designer/Developer)</span>
-                                    <span class="font-17 text-muted">@solomoneyitene</span>
+                                    <span class="font-20 block">(Designer/Developer)</span>
+                                    <a href="#" class="text-muted">
+                                        <span class="font-17">@solomoneyitene</span>
+                                    </a>
                                 </div>
                             </div>
                         </a>
@@ -748,8 +769,10 @@
                                         This part is the apetizer of the post "
                                     </p>
                                     <span class="card-title font-25 block">Adeshina Ibrahim</span>
-                                    <span class="card-title font-20 block">(Developer)</span>
-                                    <span class="font-17 text-muted">@adeshinaibrahim</span>
+                                    <span class="font-20 block">(Developer)</span>
+                                    <a href="#" class="text-muted">
+                                        <span class="font-17">@adeshinaibrahim</span>
+                                    </a>
                                 </div>
                             </div>
                         </a>
@@ -774,7 +797,7 @@
             <div class="col-lg-4 col-md-6">
                 <card>
                     <ul>
-                        <li>Simple customization using HTML classed and attribute</li>
+                        <li>Simple customization using HTML classes and attribute</li>
                         <li>Built on Bootstrap 4</li>
                         <li>Free theme updates</li>
                         <li>Super Responsive web design</li>
@@ -795,7 +818,7 @@
             </div>
         </div>
     </div>
-    <footer class="Chen-footer landing bg-light width-all sm-center" id="to-footer">
+    <footer class="Chen-footer landing bg-light width-all sm-center">
         <div class="width-all">
             <div class="container">
                 <div class="row">
@@ -804,8 +827,8 @@
                             Chen Theme
                         </span>
                         <span>
-                            Chen is a beautiful blog template that is also suitable building beautiful blogs and 
-                            magazine websites....
+                            Chen is a beautiful template for building beautiful blogs. it is
+                            also suitable for building magazine websites....
                             <a href="theme-documentation.html" class="custom-link">Read More</a>
                         </span>
                     </div>
@@ -857,7 +880,7 @@
         </div>
         <div class="width-all">
             <div class="footer-base theme">
-                <div class="sm-no-float">
+                <div class="sm-no-float" id="to-footer">
                     <span>Made with love by </span><a href="#" class="custom-link">Zoe's lead</a>
                 </div>
             </div>

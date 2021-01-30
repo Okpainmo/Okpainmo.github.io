@@ -12,298 +12,383 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
     <title>Chen documentations</title>
     <style>
-      .lead-banner {
-          width: 100%;
-          min-height: 400px;
-          background-size: cover;
-          background-image: url(Images/pix11.jpg);
-      }
-      .lead-banner-overlay {
-          width: inherit;
-          min-height: inherit;
-          /* background-image: linear-gradient(to top left, black, transparent); */
-          background-color: rgba(255, 255, 255, .7);
-      }
-      .lead-content {
-          padding-top: 120px;
-          width: 100%;
-          min-height: 200px;
-          text-align: center;
-      }
-      .hype-text {
-          color: black;
-          font-size: 50px;
-      }
-      .button-case {
-          width: 100%;
-      }
-      .pages-button {
-          color: white!important;
-          background-color: purple;
-          width: 200px!important;
-      }
-      .lead-buttons {
-          width: 200px;
-          padding: 10px;
-          border-radius: 10px;
-          font-size: 20px;
-      }
-      .purple {
-          color: white;
-          background-color: purple;
-          margin-left: 20px;
-      }
-      .blue {
-          background-color: transparent;
-          color: blue;
-          border: 1px solid blue;
-      }
-      .pages-button:hover {
-          transform: scale(1.1);
-          transition: ease .7s;
-      }
-      a.purple:hover {
-          color: white;
-          transform: scale(1.1);
-          transition: ease .7s;
-      }
-      a.blue:hover {
-          color: white;
-          background-color: blue;
-          transition: ease .6s;
-      }
-      .btn:focus {
-          box-shadow: none;
-      }
-      .theme-description {
-          width: 70%;
-          /* color: grey; */
-          margin: 70px auto;
-          font-size: 22px;
-      }
-      .description-cards {
-          margin-bottom: 50px;
-      }
-      .description-cards .card {
-          border: none;
-          box-shadow: 0 0 15px 1px hsl(0, 2%, 89%);   
-          background-size: cover;
-          border-radius: 0.2rem!important;
-      }
-      .description-cards .card .card-text {
-          font-size: 16px;
-      }
-      .description-cards .card .card-title {
-          font-size: 23px;
-      }
-      .description-cards .card .card-body {
-          padding: 0!important;
-          /* margin-bottom: 20px; */
-      }
-      .description-cards .card:hover {
-          transform: scale(1.03);
-          transition: .5s ease-out;
-      }
-      .plain-cards {
-          min-height: 300px;
-          padding: 20px;
-      }
-      .card-icon-case {
-          width: 50px;
-          height: 50px;
-          margin: 35px auto 30px;
-          background-color: black;
-          /* display: block; */
-      }
-      /* .card-icons {
-          width: 70px;
-          height: 70px;
-          border-radius: 100%;
-          margin: 0 auto;
-          background-color: white;
-      } */
-      .testimonials .image-array-section {
-          width: 100%;
-          min-height: 300px;
-          margin-top: 100px;
-      }
-      .testimonials-overlay {
-          /* background-image: linear-gradient(to right, black, transparent, black); */
-          background-color: rgba(255, 255, 255, .8);
-          min-height: inherit;
-          padding: 20px;
-      }
-      .image-array-section-overlay {
-          background-color: rgba(255, 255, 255, .8);
-          /* background-image: linear-gradient(to right, black, transparent, black); */
-          min-height: inherit;
-          color: rgb(224, 216, 216);
-          padding: 20px;
-      }
-      /* .testimonials-overlay h1::after {
-          display: block;
-          width: 100px;
-          height: 3px;
-          margin: 0 auto;
-          background-color: white;
-      } */
-      .follow-up-text {
-          width: 60%;
-          margin: 0 auto 70px;
-          color: black;
-          /* font-weight: lighter; */
-      }
-      .image-array-section .follow-up-text {
-          margin: 30px auto 70px;
-      } 
-      /* .testimonials-overlay .card, .image-array-section-overlay .card {
-          box-shadow: none;
-      }  */
-      .page-title {
-          width: 100%;
-          color: black;
-          padding: 10px;
-      }
-      .landing-pages-display {
-          min-height: 300px;
-          width: 100%;
-          padding: 30px 0;
-      } 
-      .first-image, .second-image, .third-image {
-          width: 250px;
-          height: 200px;
-          position: relative;
-          box-shadow: 0 0 15px 1px #696464;
-      }
-      .first-image:hover, .second-image:hover, .third-image:hover {
-          transform: scale(1.06);
-          transition: .7s ease-out;  
-      }
-      .first-image-case {
-          width: 60%;
-          padding-left: 50px;
-      }
-      .second-text-case {
-          width: 40%;
-      }
-      .second-image {
-          left: 10px ;
-      }
-      .third-image {
-          z-index: 2000;
-          top: -20px;
-          left: 140px;
-      }
-      .case-text {
-          font-size: 30px;
-          /* text-align: right; */
-      }
-      .card-image img {
-          width: 100px;
-          height: 100px;
-          border-radius: 100%;
-          transform: translateY(-50px);
-      }
-      .testimonials-overlay .card-body {
-          padding: 0 20px 20px!important;
-      }
-      .testimonials-overlay .card-text {
-          font-size: 17px;
-      }
-      .testimonials-overlay .card-title {
-          margin: 0;
-      }
-      .features-list {
-          min-height: 150px;
-          background-color: rgba(255, 255, 255, .9);
-          color: black;
-          padding: 30px;
-          font-size: 20px;
-          text-align: left;
-      }
-      .features-list li {
-          padding: 5px 10px;
-          list-style-type: square;
-      }
-      .footer-base {
-          text-align: right;
-      }
-      /* .row .col-md-6:nth-child(3) {
-          margin: 0 auto;
-      } */
-      .flaticon {
-          width: inherit;
-          height: inherit;
-      }
-      .listings ul {
-          list-style-position: inside;
-          padding: 0;
-      }
-      .page-details {
-          padding: 0 0 0 70px;
-      }
-      .landing .row {
-          margin-bottom: 0!important;
-      }
-      .landing .row .col-lg-4:first-child {
-          padding-top: 30px;
-      }
-      .image-array-item {
-          width: 250px;
-          height: 200px;
-          margin: 0 auto;
-          background-size: cover;
-      }
-      .my-brand {
-          color: purple;
-      }
-      .nav-link {
-          color: black!important;
-          font-size: 17px;
-      }
-      nav li a:hover {
-          border-bottom: 2px solid black;
-          transition: border .3s ease-in-out!important;
-      }
-      nav {
-        background-color: white;
-      }
-      .mini-screen-image {
-          width: 100%;
-          height: 300px;
-      }
-      /*  **Documetation styles**  */
-      /* .title {
-          color: purple;
-          margin-top: 70px;
-          text-align: center;
-      } */
-      .title h2 {
-          text-decoration: underline;
-      }
-      .doc-content {
-          width: 70%;
-          padding: 25px 15px;
-          margin: 50px auto 0;
-      }
-      .doc-sub-text {
-          font-size: 17px;
-      }
-      .doc-list {
-          padding: 0;
-          list-style-position: inside;
-      }
-      /* document nav only */
-      nav {
-        box-shadow: 0 0 15px 1px hsl(0, 2%, 89%);   
-      }
-      /* document nav only */
+        .lead-banner {
+            width: 100%;
+            min-height: 400px;
+            background-size: cover;
+            background-image: url(Images/pix11.jpg);
+        }
+        .lead-banner-overlay {
+            width: inherit;
+            min-height: inherit;
+            /* background-image: linear-gradient(to top left, black, transparent); */
+            background-color: rgba(255, 255, 255, .7);
+        }
+        .lead-content {
+            padding-top: 120px;
+            width: 100%;
+            min-height: 200px;
+            text-align: center;
+        }
+        .hype-text {
+            color: #545454;
+            font-size: 50px;
+        }
+        .button-case {
+            width: 100%;
+        }
+        .pages-button {
+            color: white!important;
+            background-color: #61af57;
+            width: 200px!important;
+        }
+        .lead-buttons {
+            width: 200px;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 20px;
+        }
+        .purple {
+            color: white;
+            background-color: purple;
+            margin-left: 20px;
+        }
+        .false-black {
+            background-color: transparent;
+            color: #545454;
+            border: 1px solid #545454;
+        }
+        .pages-button:hover {
+            transform: scale(1.1);
+            transition: ease .7s;
+        }
+        a.purple:hover {
+            color: white;
+            transform: scale(1.1);
+            transition: ease .7s;
+        }
+        a.false-black:hover {
+            color: white;
+            background-color: #545454;
+            transition: ease .6s;
+        }
+        .btn:focus {
+            box-shadow: none;
+        }
+        .theme-description {
+            width: 70%;
+            color: #6c757d;
+            margin: 50px auto;
+            font-size: 22px;
+        }
+        /* .description-cards {
+            margin-bottom: 50px;
+        } */
+        .description-cards .card {
+            border: none;
+            box-shadow: 0 25px 20px -20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.06);
+            background-size: cover;
+            border-radius: 0.5rem!important;
+        }
+        .description-cards .card .card-text {
+            font-size: 16px;
+        }
+        .description-cards .card .card-title {
+            font-size: 23px;
+        }
+        .description-cards .card .card-body {
+            padding: 0!important;
+            /* margin-bottom: 20px; */
+        }
+        .description-cards .card:hover {
+            transform: scale(1.05);
+            transition: .5s ease-out;
+        }
+        .plain-cards {
+            min-height: 290px;
+            padding: 20px;
+            /* border-radius: 0.5rem!important; */
+            margin: 10px auto;
+            box-shadow: 0 0 15px 1px hsl(0, 2%, 89%)!important;   
+            /* width: 340px; */
+        }
+        .card-icon-case {
+            width: 70px;
+            height: 70px;
+            margin: 15px auto 30px;
+            padding: 15px;
+            border-radius: 100%;
+            background-color: rgba(224, 151, 222, .2);
+            /* display: block; */
+        }
+        /* .card-icons {
+            width: 70px;
+            height: 70px;
+            border-radius: 100%;
+            margin: 0 auto;
+            background-color: white;
+        } */
+        .testimonials .image-array-section {
+            width: 100%;
+            min-height: 300px;
+            margin-top: 100px;
+        }
+        .testimonials h1::after {
+            content: "";
+            width: 150px;
+            margin: 0 auto;
+            height: 1px;
+            background-color: white;
+            display: block;
+        }
+        .testimonials-overlay {
+            background-image: linear-gradient(to right, black, transparent, black);
+            background-color: rgba(0, 0, 0, 0.7);
+            min-height: inherit;
+            padding: 20px;
+        }
+        .testimonials .follow-up-text {
+            color: #d4d0d0;
+        }
+        .testimonials h1 {
+            color: white;
+        }
+        .image-array-section-overlay {
+            /* background-color: rgba(255, 255, 255, .8); */
+            /* background-image: linear-gradient(to right, black, transparent, black); */
+            min-height: inherit;
+            color: rgb(224, 216, 216);
+            padding: 20px;
+        }
+        /* .testimonials-overlay h1::after {
+            display: block;
+            width: 100px;
+            height: 3px;
+            margin: 0 auto;
+            background-color: white;
+        } */
+        .follow-up-text {
+            width: 60%;
+            margin: 0 auto 70px;
+            color: purple;
+            /* font-weight: lighter; */
+        }
+        .image-array-section .follow-up-text {
+            margin: 30px auto 70px;
+        } 
+        .testimonials-overlay .card {
+            box-shadow: none;
+        } 
+        .page-title {
+            width: 100%;
+            color: black;
+            padding: 10px;
+        }
+        .landing-pages-display {
+            min-height: 300px;
+            width: 100%;
+            padding: 30px 0;
+        } 
+        .first-image, .second-image, .third-image {
+            width: 250px;
+            height: 200px;
+            position: relative;
+            box-shadow: 0 25px 20px -20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.06);
+            /* box-shadow: 0 0 15px 1px #696464; */
+        }
+        .first-image:hover, .second-image:hover, .third-image:hover {
+            transform: scale(1.06);
+            transition: .7s ease-out;  
+        }
+        .image-case {
+            width: 60%;
+            padding-left: 50px;
+        }
+        .text-case {
+            width: 40%;
+        }
+        .text-case ul {
+            list-style-type: circle;
+        }
+        .second-image {
+            left: 10px ;
+        }
+        .third-image {
+            z-index: 2000;
+            top: -20px;
+            left: 140px;
+        }
+        .case-text {
+            font-size: 30px;
+            /* text-align: right; */
+        }
+        .card-image img {
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+            transform: translateY(-50px);
+        }
+        /* .card-image {
+            width: 120px;
+            height: 120px;
+            padding: 10px;
+            margin: 0 auto;
+            border: green 2px solid;
+            border-radius: 100%;
+            transform: translateY(-50px);
+        } */
+        .testimonials-overlay .card-body {
+            padding: 0 20px 20px!important;
+        }
+        .testimonials .card-body {
+            transform: translateY(-20px);
+        }
+        .testimonials-overlay .card-text {
+            font-size: 17px;
+        }
+        .testimonials-overlay .card-title {
+            margin: 0;
+        }
+        .features-list {
+            min-height: 150px;
+            background-color: rgba(255, 255, 255, .9);
+            color: black;
+            padding: 30px;
+            font-size: 20px;
+            text-align: left;
+        }
+        .features-list ul {
+            padding: 0;
+        }
+        /* .features-list::after, .features-list::before {
+            content: "";
+            width: 250px;
+            height: 1px;
+            display: block;
+            background-color: black;
+            margin: 0 auto;
+        } */
+        .features-list li {
+            padding: 5px 10px;
+            text-align: center;
+            list-style-type: none;
+        }
+        .features-list li::after {
+            content: "";
+            display: block;
+            width: 10px;
+            background-color: purple;
+            margin: 0 auto;
+            height: 10px;
+            border-radius: 100%;
+            margin-top: 20px;
+        }
+        .features-list li:last-child::after {
+            display: none;
+        }
+        .footer-base {
+            text-align: right;
+        }
+        /* .row .col-md-6:nth-child(3) {
+            margin: 0 auto;
+        } */
+        .flaticon {
+            width: 40px;
+            height: 40px;
+            /* margin: 20px; */
+            margin: 0 auto;
+        }
+        .listings ul {
+            list-style-position: inside;
+            list-style-type: circle;
+            padding: 0;
+        }
+        .purple-text {
+            color: purple;
+        }
+        .page-details {
+            padding: 0 0 0 70px;
+        }
+        .landing .row {
+            margin-bottom: 0!important;
+        }
+        .landing .row .col-lg-4:first-child {
+            padding-top: 30px;
+        }
+        .image-array-item {
+            width: 250px;
+            height: 200px;
+            margin: 0 auto;
+            background-size: cover;
+        }
+        .my-brand {
+            color: purple;
+        }
+        .nav-link {
+            color: #545454!important;
+            font-size: 17px;
+        }
+        nav li a:hover {
+            border-bottom: 2px solid #545454;
+            transition: border .3s ease-in-out!important;
+        }
+        nav .page-details {
+            padding: 0 0 0 10px;
+        }
+        .mini-screen-image {
+            width: 100%;
+            height: 300px;
+        }
+        .dropdown-menu {
+            left: -535px;
+            /* opacity: 0!important;
+            animation: 2s opacity ease-in-out!important; */
+        }
+        nav .listings ul {
+            margin: 0;
+        }
+        nav .row {
+            margin: 10px 0!important;
+        }
+        nav .row li {
+            min-width: 270px;
+        }
+        /* nav .dropdown:hover .dropdown-menu {
+            display: block;
+            opacity: 1!important;
+        } */
+        /*  **Documetation styles**  */
+        /* .title {
+            color: purple;
+            margin-top: 70px;
+            text-align: center;
+        } */
+        .title h2 {
+            text-decoration: underline;
+        }
+        .doc-content {
+            width: 70%;
+            padding: 25px 15px;
+            margin: 50px auto 0;
+        }
+        .doc-sub-text {
+            font-size: 17px;
+        }
+        .doc-list {
+            padding: 0;
+            list-style-position: inside;
+        }
+        /* document nav only */
+        nav {
+            box-shadow: 0 0 15px 1px hsl(0, 2%, 89%);  
+            background-color: white; 
+        }
+        /* document nav only */
 
 
 
-      /*  **Documetation styles**  */
-
-  </style>
+        /*  **Documetation styles**  */
+    </style>
   </head>
   <body>
     <header>
@@ -320,15 +405,58 @@
                       <a class="nav-link" href="theme-documentation.html">Documentation<span class="sr-only">(current)</span></a>
                   </li>
                   <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Pages
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Pages
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div class="container">
+                            <div class="row">
+                                <div class="page-details col-lg-6">
+                                    <span class="font-20">Landing Pages</span>
+                                    <div class="sm-auto">
+                                        <div class="listings sm-no-margin">
+                                            <ul>
+                                                <li><a href="#"><span>Vannilla</span></li>
+                                                <li><a href="#"><span>Crush</span></li>
+                                                <li><a href="#"><span>Matrix</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <span class="font-20">Article Pages</span>
+                                    <div class="sm-auto">
+                                        <div class="listings sm-no-margin">
+                                            <ul>
+                                                <li><a href="#"><span>Vannilla (Articles)</span></a></li>
+                                                <li><a href="#"><span>Crush (Articles)</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="page-details col-lg-6">
+                                    <span class="font-20">Categories Pages</span>
+                                    <div class="sm-auto">
+                                        <div class="listings sm-no-margin">
+                                            <ul>
+                                                <li><a href="#"><span>Vannilla (Categories)</span></a></li>
+                                                <li><a href="#"><span>Crush (Categories)</span></a></li>
+                                                <li><a href="#"><span>Matrix (Categories)</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <span class="font-20">Auxilliary Pages</span>
+                                    <div class="sm-auto">
+                                        <div class="listings sm-no-margin">
+                                            <ul>
+                                                <li><a href="#"><span>Reviews page</span></a></li>
+                                                <li><a href="#"><span>Events page</span></a></li>
+                                                <li><a href="#"><span>Purchase/Registration page</span></a></li>
+                                            </ul> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="chenevents.html">Buy Now</a>
@@ -416,11 +544,12 @@
                 <div class="row">
                     <div class="about-theme col-lg-4">
                         <span class="font-30 block">
-                            ChenBlog
+                            Chen Theme
                         </span>
                         <span>
-                            is a blog Lorem ipsum, dolor sit amet consectetur adipisicing elit and lorem fdolollt sdjsjohfjdsh.
-                            Chen blog is owned by Ant Monkey.....<a href="aboutchen.html" class="custom-link">Read More</a>
+                            Chen is a beautiful template for building beautiful blogs. it is
+                            also suitable for building magazine websites....
+                            <a href="theme-documentation.html" class="custom-link">Read More</a>
                         </span>
                     </div>
                     <div class="page-details col-lg-4">
