@@ -353,6 +353,36 @@
         nav .row li {
             min-width: 270px;
         }
+        .float-top-button {
+            background-color: rgba(128, 0, 128, 0.7);
+            width: 50px;
+            height: 50px;
+            position: fixed;
+            padding: 8px;
+            border-radius: 100%;
+            text-align: center;
+            bottom: calc(1vh + 30px);
+            right: 20px;
+            color: white;
+            font-size: 25px;
+            box-shadow: 0 0 15px 1px #696464;        
+        }
+        .float-top-button:hover {
+            transform: scale(1.2);
+            transition: transform .5s ease-in-out;
+        }
+        .fas:hover {
+            color: white!important;
+            transform: scale(1.2);
+        }
+        .fa-heart {
+            color: purple;
+        }
+        .fa-heart:hover {
+            color: purple!important;
+            transform: scale(1.2);
+            transition: transform .5s ease-in-out;
+        }
         /* nav .dropdown:hover .dropdown-menu {
             display: block;
             opacity: 1!important;
@@ -372,7 +402,7 @@
             margin: 50px auto 0;
         }
         .doc-sub-text {
-            font-size: 17px;
+            font-size: 18px;
         }
         .doc-list {
             padding: 0;
@@ -547,7 +577,7 @@
                             Chen Theme
                         </span>
                         <span>
-                            Chen is a beautiful template for building beautiful blogs. it is
+                            Chen is an awesome template for building beautiful blogs. it is
                             also suitable for building magazine websites....
                             <a href="theme-documentation.html" class="custom-link">Read More</a>
                         </span>
@@ -601,12 +631,19 @@
         <div class="width-all">
             <div class="footer-base theme">
                 <div class="sm-no-float">
-                    <span>Made with love by </span><a href="#" class="custom-link">Zoe's lead</a>
+                    <span>Made with so much <span class="fas fa-heart"></span> by 
+                    </span><a href="https://ajokpainmo.netlify.app/" class="custom-link">Zoe's lead</a>
                 </div>
             </div>
         </div>
+        <a href="#top">
+            <div class="float-top-button" id="floatButton">
+              <span class="fas fa-arrow-up"></span>
+            </div>
+        </a>
     </footer>
     <script src="Scripts/chenscript.js"></script>
+    <script src="Scripts/Chen-landing.js"></script>
     <script src="Scripts/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
     <script src="Scripts/popper.min.js"></script>

@@ -249,7 +249,7 @@
         margin-left: auto;
     }
     .description-cards .col-lg-4 {
-        padding: 0;
+        padding: 5px;
     }
     .testimonials .col-lg-4 {
         margin: 0 auto 70px;
@@ -400,7 +400,7 @@
 }
 @media screen and (max-width:570px) {
     .my-brand {
-        font-size: 22px;
+        font-size: 24px;
     }
     .doc-content {
         width: 100%!important;
@@ -416,7 +416,7 @@
         font-size: 22px;
     }
     .doc-sub-text {
-        font-size: 16px!important;
+        font-size: 17px!important;
     }
     .navbar-toggler-icon {
         font-size: 17px;
@@ -685,10 +685,10 @@
     .top-banner-theme h1 {
         font-size: 2rem;
     }
-    .features-list {
+    /* .features-list {
         width: calc(100% - 20px);
-        /* margin-bottom: 40px!important; */
-    }
+        margin-bottom: 40px!important;
+    } */
     .features-list .col-lg-4:first-child {
         margin-top: 40px;
     }

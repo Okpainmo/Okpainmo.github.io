@@ -42,6 +42,7 @@
             color: white!important;
             background-color: #61af57;
             width: 200px!important;
+            box-shadow: 0 6px 9px -5px black;
         }
         .lead-buttons {
             width: 200px;
@@ -108,6 +109,7 @@
         .plain-cards {
             min-height: 290px;
             padding: 20px;
+            color: #6c757d;
             /* border-radius: 0.5rem!important; */
             margin: 10px auto;
             box-shadow: 0 0 15px 1px hsl(0, 2%, 89%)!important;   
@@ -151,6 +153,12 @@
         .testimonials .follow-up-text {
             color: #d4d0d0;
         }
+        .features-section .follow-up-text {
+            margin-bottom: 0;
+        }
+        .features-section .row {
+            margin-top: 0!important;
+        }
         .testimonials h1 {
             color: white;
         }
@@ -170,13 +178,14 @@
         } */
         .follow-up-text {
             width: 60%;
-            margin: 0 auto 70px;
+            margin: 0 auto 50px;
             /* color: purple; */
             /* font-weight: lighter; */
         }
         .image-array-section .follow-up-text {
             margin: 30px auto 70px;
         } 
+        .fea
         .testimonials-overlay .card {
             box-shadow: none;
             border-radius: 0.25rem!important;
@@ -195,6 +204,9 @@
             width: 250px;
             height: 200px;
             position: relative;
+            animation-duration: 1.5s;
+            animation-timing-function: ease-out;
+            animation-iteration-count: infinite;
             box-shadow: 0 25px 20px -20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.06);
             /* box-shadow: 0 0 15px 1px #696464; */
         }
@@ -374,6 +386,54 @@
             display: block;
             opacity: 1!important;
         } */
+        .float-top-button {
+            background-color: rgba(128, 0, 128, 0.7);
+            width: 50px;
+            display: none;
+            height: 50px;
+            position: fixed;
+            padding: 8px;
+            border-radius: 100%;
+            text-align: center;
+            bottom: calc(1vh + 30px);
+            right: 20px;
+            color: white;
+            font-size: 25px;
+            box-shadow: 0 0 15px 1px #696464; 
+            transition: transform .5s ease-in-out;       
+        }
+        .float-top-button:hover {
+            transform: scale(1.2);
+        }
+        .fas:hover {
+            color: white!important;
+            transform: scale(1.2);
+        }
+        .fa-heart {
+            color: purple;
+        }
+        .fa-heart:hover {
+            color: purple!important;
+            transform: scale(1.2);
+            transition: transform .5s ease-in-out;
+        }
+        /* nav {
+            background-color: transparent;
+        } */
+        .nav-clone {
+            display: none;
+        }
+        .col-lg-4 {
+            padding: 0 10px;
+        }
+        @keyframes scaleEffect{
+            0% {transform: scale(1);}
+            20% {transform: scale(1.04);}
+            40% {transform: scale(1.08);}
+            60% {transform: scale(1.08);}
+            80% {transform: scale(1.04);}
+            100% {transform: scale(1);}
+        }
     </style>
     <!-- <script>
        var typed2 = new Typed('#typed2', {
@@ -387,12 +447,84 @@
   </head>
   <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mynav">
             <a class="navbar-brand ml-30" href="index.html">
                 <div class="my-brand">Chen</div>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon" id="bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mr-30">
+                    <li class="nav-item">
+                        <a class="nav-link" href="theme-documentation.html">Documentation<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Pages
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="page-details col-lg-6">
+                                        <span class="font-20">Landing Pages</span>
+                                        <div class="sm-auto">
+                                            <div class="listings sm-no-margin">
+                                                <ul>
+                                                    <li><a href="#"><span>Vannilla</span></li>
+                                                    <li><a href="#"><span>Crush</span></li>
+                                                    <li><a href="#"><span>Matrix</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <span class="font-20">Article Pages</span>
+                                        <div class="sm-auto">
+                                            <div class="listings sm-no-margin">
+                                                <ul>
+                                                    <li><a href="#"><span>Vannilla (Articles)</span></a></li>
+                                                    <li><a href="#"><span>Crush (Articles)</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="page-details col-lg-6">
+                                        <span class="font-20">Categories Pages</span>
+                                        <div class="sm-auto">
+                                            <div class="listings sm-no-margin">
+                                                <ul>
+                                                    <li><a href="#"><span>Vannilla (Categories)</span></a></li>
+                                                    <li><a href="#"><span>Crush (Categories)</span></a></li>
+                                                    <li><a href="#"><span>Matrix (Categories)</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <span class="font-20">Auxilliary Pages</span>
+                                        <div class="sm-auto">
+                                            <div class="listings sm-no-margin">
+                                                <ul>
+                                                    <li><a href="#"><span>Reviews page</span></a></li>
+                                                    <li><a href="#"><span>Events page</span></a></li>
+                                                    <li><a href="#"><span>Purchase/Registration page</span></a></li>
+                                                </ul> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="chenevents.html">Buy Now</a>
+                    </li>
+                </ul>    
+            </div>
+        </nav>
+        <nav class="navbar navbar-expand-lg navbar-light nav-clone" id="navClone">
+            <a class="navbar-brand ml-30" href="index.html">
+                <div class="my-brand">Chen</div>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" id="bars"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mr-30">
@@ -476,7 +608,7 @@
     </header>
     <div class="theme-description text-center">
         <span class="block font-30 purple-text">Build awesome websites with a new theme you'll love.</span>
-        With 3 landing pages and 11 pages in all, chen has got all you need to build the blog of your 
+        With 11 pages in all, chen has got all you need to build the blog of your 
         dream.
     </div>
     <div class="description-cards">
@@ -491,7 +623,7 @@
                             <div class="card-body text-center">
                                 <h5 class="card-title">3 Complete blogs</h5>
                                 <p class="card-text sm-block">
-                                    Enjoy flexibility with 3 prebuilt blogs with 
+                                    Enjoy flexibility with 3 prebuilt blogs having 
                                     different cross compatible sections/components.
                                 </p>
                             </div>
@@ -523,7 +655,7 @@
                             <div class="card-body text-center">
                                 <h5 class="card-title">Full Responsive Web Design</h5>
                                 <p class="card-text sm-block">
-                                    Chen is built to adjust beautifully to different screen sizes.
+                                    Chen is also built to adjust smoothly on different screen sizes.
                                 </p>
                             </div>
                         </div>
@@ -540,7 +672,7 @@
                             <div class="card-body text-center">
                                 <h5 class="card-title">Free client support</h5>
                                 <p class="card-text sm-block">
-                                    Enjoy superb client support and free theme update with Chen.
+                                    You also get to enjoy superb client support and free theme update.
                                 </p>
                             </div>
                         </div>
@@ -584,11 +716,11 @@
         <div class="image-array-section-overlay text-center">
             <!-- <h1 class="mt-40">Testimonials</h1> -->
             <div class="font-30 follow-up-text mt-40 purple-text">
-               <span class="block"> Beautiful pages...</span> 
+                <span class="block"> Beautiful pages...</span> 
                 <span>"to help tell your every story"</span>
                 <span class="text-muted block font-20">
-                    Build beautiful blogs and create a thriling blogging experience with beautiful 
-                    Chen pages. 
+                    Build beautiful blogs and create a thriling blogging experience with these
+                    pages. 
                 </span> 
             </div>
             <div class="description-cards">
@@ -677,9 +809,9 @@
         <div class="container">
             <div class="row">
                 <div class="image-case">
-                    <img src="Images/pix-17.JPG" class="first-image" alt="landing-page">
-                    <img src="Images/pix-18.JPG" class="second-image" alt="landing-page">
-                    <img src="images/pix-19.jpg" class="third-image" alt="landing-page">
+                    <img src="Images/pix-17.JPG" class="first-image" alt="landing-page" id="firstImage">
+                    <img src="Images/pix-18.JPG" class="second-image" alt="landing-page" id="secondImage">
+                    <img src="images/pix-19.jpg" class="third-image" alt="landing-page" id="thirdImage">
                 </div>
                 <div class="text-case">
                     <div class="case-text">
@@ -687,13 +819,13 @@
                         <img src="Images/pix-22.JPG" class="mini-screen-image lg-hidden" alt="smaller-screens-only">
                         <div class="font-17 text-muted">
                             Chen gives you 3 beautiful landing pages, plus other cross compatible
-                            pages and sections/components for you to combine with 
+                            pages and sections for you to combine with 
                             flexibility just as you choose.
                         </div>
                         <ul>
-                            <li><a href="#" class="custom-link font-20">Vannilla-large</a></li>
-                            <li><a href="#" class="custom-link font-20">Crush</a></li>
-                            <li><a href="#" class="custom-link font-20">Matrix</a></li>
+                            <li><a href="#" class="custom-link font-20" id="hoverCraft1">Vannilla</a></li>
+                            <li><a href="#" class="custom-link font-20" id="hoverCraft2">Crush</a></li>
+                            <li><a href="#" class="custom-link font-20" id="hoverCraft3">Matrix</a></li>
                         </ul>
                         <div class="button-case">
                             <a href="#to-footer" role="button" class="btn font-20 pages-button" >
@@ -709,7 +841,7 @@
         <div class="testimonials-overlay text-center">
             <h1 class="mt-40">Testimonials</h1>
             <p class="font-20 follow-up-text">
-                Chen is beautifully built with design simplicity and an eye on best code practices
+                Chen is built with design simplicity and an eye on best code practices
                 as much as possible. <br> See what these geeks think about Chen.
             </p>
             <div class="container">
@@ -781,40 +913,52 @@
             </div>
         </div>
     </div>
-    <div class="features-list container mt-40">
-        <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <card>
-                    <ul>
-                        <li>Very comprehensive and detailed documentation</li>
-                        <li>11 beautiful pages</li>
-                        <li>Super affordable</li>
-                        <li>Neatly written codes</li>
-                        <li>Built for everyone</li>
-                    </ul>
-                </card>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <card>
-                    <ul>
-                        <li>Simple customization using HTML classes and attribute</li>
-                        <li>Built on Bootstrap 4</li>
-                        <li>Free theme updates</li>
-                        <li>Super Responsive web design</li>
-                        <li>Demo pictures included</li>
-                    </ul>
-                </card>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <card>
-                    <ul>
-                        <li>Well commented code to ease customization</li>
-                        <li>3 completely prebuilt blogs</li>
-                        <li>Free customer support</li>
-                        <li>Google fonts</li>
-                        <li>Cross compatible components</li>
-                    </ul>
-                </card>
+    <div class="features-section">
+        <div class="font-30 follow-up-text mt-40 text-center">
+            <span class="block purple-text"> Explore</span> 
+            <span class="purple-text">"these cool features"</span>
+            <span class="block font-20">
+                Though simple, Chen is loaded with these many cool features
+                to help you set up your blog as soon as possible.
+            </span> 
+         </div>
+        <div class="features-list">
+             <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <card>
+                            <ul>
+                                <li>Very comprehensive and detailed documentation</li>
+                                <li>11 beautiful pages</li>
+                                <li>Super affordable</li>
+                                <li>Neatly written codes</li>
+                                <li>Built with simple tools for everyone</li>
+                            </ul>
+                        </card>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <card>
+                            <ul>
+                                <li>Simple customization using HTML classes and attribute</li>
+                                <li>Built on Bootstrap 4</li>
+                                <li>Free theme updates</li>
+                                <li>Super Responsive web design</li>
+                                <li>Demo pictures included</li>
+                            </ul>
+                        </card>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <card>
+                            <ul>
+                                <li>Well commented code to ease customization</li>
+                                <li>3 completely prebuilt blogs</li>
+                                <li>Free customer support</li>
+                                <li>Google fonts</li>
+                                <li>Cross compatible components</li>
+                            </ul>
+                        </card>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -827,7 +971,7 @@
                             Chen Theme
                         </span>
                         <span>
-                            Chen is a beautiful template for building beautiful blogs. it is
+                            Chen is an awesome template for building beautiful blogs. it is
                             also suitable for building magazine websites....
                             <a href="theme-documentation.html" class="custom-link">Read More</a>
                         </span>
@@ -881,12 +1025,19 @@
         <div class="width-all">
             <div class="footer-base theme">
                 <div class="sm-no-float" id="to-footer">
-                    <span>Made with love by </span><a href="#" class="custom-link">Zoe's lead</a>
+                    <span>Made with so much <span class="fas fa-heart"></span> by 
+                    </span><a href="https://ajokpainmo.netlify.app/" class="custom-link">Zoe's lead</a>
                 </div>
             </div>
         </div>
+        <a href="#top">
+            <div class="float-top-button" id="floatButton">
+              <span class="fas fa-arrow-up"></span>
+            </div>
+        </a>
     </footer>
     <script src="Scripts/chenscript.js"></script>
+    <script src="Scripts/Chen-landing.js"></script>
     <script src="Scripts/jquery-3.3.1.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script> -->
     <script src="Scripts/popper.min.js"></script>
