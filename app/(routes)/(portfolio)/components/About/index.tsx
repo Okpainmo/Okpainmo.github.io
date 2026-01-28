@@ -6,11 +6,13 @@ function About() {
   return (
     <>
       <div className="py-10 flex flex-col min-h-screen">
-        <div className="brand text-2xl font-bold mb-12">/about-me</div>
+        <div className="brand text-2xl font-bold mb-8 text-black dark:text-zinc-50">
+          /about-me
+        </div>
         <div className="text-gray-600 dark:text-gray-400 leading-relaxed text-base">
           <div className="relative w-[150px] aspect-square float-left mr-6 mb-6">
             <Image
-              src="/images/about-me.png"
+              src="/images/me.jpg"
               alt="Andrew Okpainmo"
               fill
               className="object-cover rounded-2xl shadow-lg border border-zinc-200 dark:border-zinc-800"
@@ -50,7 +52,7 @@ function About() {
           {skills.map((skill) => (
             <div
               key={skill}
-              className="px-4 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 text-gray-700 dark:text-gray-300 text-sm hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
+              className="px-4 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-gray-700 dark:text-zinc-300 text-sm hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
             >
               {skill}
             </div>

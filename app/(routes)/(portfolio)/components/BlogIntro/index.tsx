@@ -8,7 +8,9 @@ function BlogIntro() {
   return (
     <div className="py-20 flex flex-col gap-12">
       <div className="flex flex-col gap-4">
-        <div className="brand text-2xl font-bold">/blog/select-posts</div>
+        <div className="brand text-2xl font-bold text-black dark:text-zinc-50">
+          /blog/select-posts
+        </div>
         <p className="text-zinc-600 dark:text-zinc-400 text-lg max-w-2xl">
           Thought leadership and technical deep dives into the worlds of
           development, blockchain architecture, and product design.
@@ -24,7 +26,7 @@ function BlogIntro() {
       <Link
         href="/blog"
         className="flex self-start h-12 items-center justify-center gap-3 rounded-full border border-zinc-200 px-8 
-          transition-all hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-900 font-medium"
+          transition-all hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:border-zinc-700 font-medium"
       >
         Visit full blog <HiArrowUpRight />
       </Link>

@@ -14,22 +14,38 @@ function Footer() {
             Connect With Me
           </span> */}
           <div className="social-links flex gap-4 items-center justify-center mt-4">
-            <a href="https://twitter.com/AJ_Okpainmo">
+            <a
+              href="https://twitter.com/AJ_Okpainmo"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <div className="social-link-item text-zinc-400 w-[40px] h-[40px] rounded-full flex items-center justify-center border-[1px] border-zinc-400 hover:border-black hover:text-black dark:hover:border-white dark:hover:text-white transition-colors">
                 <BiLogoTwitter className="text-[20px]" />
               </div>
             </a>
-            <a href="https://linkedin.com/in/okpainmo-andrew">
+            <a
+              href="https://linkedin.com/in/okpainmo-andrew"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <div className="social-link-item text-zinc-400 w-[40px] h-[40px] rounded-full flex items-center justify-center border-[1px] border-zinc-400 hover:border-black hover:text-black dark:hover:border-white dark:hover:text-white transition-colors">
                 <BiLogoLinkedinSquare className="text-[20px]" />
               </div>
             </a>
-            <a href="https://github.com/Okpainmo">
+            <a
+              href="https://github.com/Okpainmo"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <div className="social-link-item text-zinc-400 w-[40px] h-[40px] rounded-full flex items-center justify-center border-[1px] border-zinc-400 hover:border-black hover:text-black dark:hover:border-white dark:hover:text-white transition-colors">
                 <BiLogoGithub className="text-[20px]" />
               </div>
             </a>
-            <a href="https://www.youtube.com/@andrew_okpainmo">
+            <a
+              href="https://www.youtube.com/@andrew_okpainmo"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <div className="social-link-item text-zinc-400 w-[40px] h-[40px] rounded-full flex items-center justify-center border-[1px] border-zinc-400 hover:border-black hover:text-black dark:hover:border-white dark:hover:text-white transition-colors">
                 <BiLogoYoutube className="text-[20px]" />
               </div>

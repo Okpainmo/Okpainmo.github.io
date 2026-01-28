@@ -12,7 +12,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const Icon = project.icon;
 
   return (
-    <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 flex flex-col gap-6 shadow-sm hover:shadow-md transition-shadow group">
+    <div className="bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-700/50 rounded-2xl p-6 flex flex-col gap-6 shadow-sm hover:shadow-md transition-shadow group">
       {/* Icon at the top */}
       <div className="p-3 bg-zinc-50 dark:bg-zinc-800 rounded-xl w-fit">
         <Icon className="text-2xl text-black dark:text-white" />

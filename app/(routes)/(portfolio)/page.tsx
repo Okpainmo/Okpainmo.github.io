@@ -4,11 +4,10 @@ import OpensourceProjects from './components/OpensourceProjects';
 import ClientProjects from './components/ClientProjects';
 import TemplateProjects from './components/TemplateProjects';
 import BlogIntro from './components/BlogIntro';
-import PortfolioLayout from './components/layout/PortfolioLayout';
 
 export default function Home() {
   return (
-    <PortfolioLayout>
+    <>
       <section id="home">
         <Top />
       </section>
@@ -21,6 +20,6 @@ export default function Home() {
         <TemplateProjects />
       </section>
       <BlogIntro />
-    </PortfolioLayout>
+    </>
   );
 }
