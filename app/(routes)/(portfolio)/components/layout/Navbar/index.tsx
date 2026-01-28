@@ -16,7 +16,7 @@ const navItems = [
 
 function Navbar() {
   return (
-    <div className="fixed bottom-0 left-0 right-0 sm:bottom-8 flex justify-center z-50 px-3 sm:px-4 mb-6 sm:mb-0">
+    <div className="fixed left-0 right-0 bottom-4 sm:bottom-8 flex justify-center z-50 px-3 sm:px-4">
       <nav
         className="pointer-events-auto w-full sm:w-auto flex items-center justify-around sm:justify-center 
       gap-1 sm:gap-2 px-2 py-1 sm:px-4 sm:py-2 bg-black/70 dark:bg-white/70 backdrop-blur-md border border-white/20 dark:border-black/10 
