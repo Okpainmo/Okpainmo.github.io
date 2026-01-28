@@ -1,8 +1,8 @@
-# Okpainmo's Portfolio
+# Jabasah
 
-> A modern portfolio web-app with an in-built markdown(MDX)-powered blog.
+> Jabasah is a modern portfolio web-app template with an in-built markdown(MDX)-powered blog.
 
-## 🌐 Live Site
+## 🌐 Live(Demo) Site
 
 **[https://okpainmo.github.io/](https://okpainmo.github.io/)**
 
