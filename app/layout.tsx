@@ -5,8 +5,36 @@ import { Toaster } from 'react-hot-toast';
 import { AppProvider } from '@/app/rtk-base/provider';
 
 export const metadata: Metadata = {
-  title: '',
-  description: ''
+  title: 'Andrew Okpainmo | Portfolio',
+  description:
+    'Product engineer specializing in blockchain research and development - building scalable solutions at the intersection of product and engineering.',
+  openGraph: {
+    title: 'Andrew Okpainmo | Portfolio',
+    description:
+      'Product engineer specializing in blockchain research and development.',
+    url: 'https://okpainmo.github.io',
+    siteName: 'Andrew Okpainmo',
+    images: [
+      {
+        url: 'https://avatars.githubusercontent.com/u/42122017',
+        width: 800,
+        height: 800
+      }
+    ],
+    locale: 'en-US',
+    type: 'website'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Andrew Okpainmo | Portfolio',
+    description:
+      'Product engineer specializing in blockchain research and development - building scalable solutions at the intersection of product and engineering.',
+    creator: '@AJ_Okpainmo',
+    images: ['https://avatars.githubusercontent.com/u/42122017']
+  },
+  icons: {
+    icon: '/favicon.ico'
+  }
 };
 
 export default function RootLayout({
