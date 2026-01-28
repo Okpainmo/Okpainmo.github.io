@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Andrew Okpainmo | Portfolio',
     description:
-      'Product engineer specializing in blockchain research and development.',
+      'Product engineer specializing in blockchain research and development - building scalable solutions at the intersection of product and engineering.',
     url: 'https://okpainmo.github.io',
     siteName: 'Andrew Okpainmo',
     images: [
