@@ -1,0 +1,894 @@
+---
+postTitle: 'Complete NodeJs Back-end Deployment On AWS EC2(EC2, Nginx, SSL, Route 53, Systemd, NVM)'
+postDate: "May 26, 2025"
+postIndex: 9
+postCategory: "cloud-and-devops"
+postBrief: "A thorough and highly professional guide, that details a standard and complete deployment of
+a NodeJs API server on AWS EC2. Learn about AWS EC2, Nginx, and a whole lot more"
+postThumbnailUrl: "/post-banner_9.png"
+authorPhotoUrl: "/author_image-1.jpg"
+authorName: Andrew James Okpainmo
+authorBio: "Andrew James Okpainmo is a fullstack software engineer who is passionate about building 
+and scaling awesome products and startups. He currently works as a freelance software engineer 
+(with expertise in fullstack software development, cloud engineering, and DevOps), while leading the team 
+at Zed Labs."
+postTags: ["cloud-engineering", "devops", "aws", "systemd", "infrastructure", "nginx", "ssl", "nvm", "route 53", "nodejs", "expressjs"]
+postSlug: "complete_nodejs-back-end-deployment-on-aws-ec2"
+authorSocials:
+  twitter: https://twitter.com/AJ_Okpainmo
+  linkedin: https://www.linkedin.com/in/okpainmo-andrew/
+  github: https://github.com/Okpainmo
+---
+
+![post banner](/post-banner_9.png)
+_Image Credit: ©Vicky Design via Canva.com_
+
+Hello,
+
+Thanks for checking in to another awesome Zed Labs blog article.
+
+This tutorial is a thorough and highly professional guide, that details a standard and complete 
+deployment of a NodeJs API server on AWS EC2. 
+
+> It's a highly packed piece that'll expose you to some very important technologies, that you'll be using on 
+> different server/virtual-machine chores as a cloud/DevOps engineering professional.
+
+## What You'll Be Learning.
+
+In this tutorial, you'll learn:
+
+- About managing servers on AWS EC2.
+- About Nginx: how to deploy and use it as a reverse proxy, and as a tool for generating free SSL certificates for your domains.
+- About Route 53 - AWS' DNS management service.
+- How to make a standard virtual machine Node installation - with NVM, so as to 
+afford you the ability to use different Node versions whenever the need arises.
+- About "Systemd" - a Linux OS system and service manager. A very 
+powerful tool that if well understood, helps you stand-out as a cloud/DevOps engineer.
+- More...
+
+**We'll be deploying this Node/Express project that I already prepared. Access the project repository using 
+the link below**.
+
+<GitHubEmbed 
+  owner="Okpainmo" 
+  repo="aws-ec2-node-express-deployment-project" 
+/>
+
+> The above project that we'll be deploying, was bootstrapped from this fully-typed multi-database NodeJs/ExpressJs 
+> template that I created. Explore it, and feel free to use on you new Node/Express projects. Contributions, 
+> stars, and feedbacks are welcomed.
+
+<GitHubEmbed 
+  owner="Okpainmo" 
+  repo="multi-db-nodejs-express-with-typescript-and-zod-template" 
+/>
+
+> N.B: This guide assumes, that you already created an EC2 instance, and is ready for the API server deployment.
+> In case you haven't and need a guide to go about that, explore this 
+> [awesome Zed Labs blog article](https://blog.zedlabs.xyz/cloud-and-devops/how-to-create-an-aws-ec2-instance), in 
+> which I shared how to create an AWS EC2 instance from scratch. Awesome thing, the EC2 instance I created in that post, is 
+> the one I'll be performing this project server deployment on.
+
+## The Project To Be Deployed.
+
+The project to be deployed, is currently fully set up. It will connect to a live AWS RDS PostgreSQL database instance, and it
+currently has five active end-points. We'll handle environment secrets professionally of course.
+
+The below screenshot is a terminal instance that shows how things should look in our server/virtual machine logs after a 
+successful deployment.
+
+![(a post image sharing more information)](/9_img-71.png)
+
+The two screenshots below, reveal Postman interfaces with two requests that were made on the local/testing 
+deployment of the API on my machine. Once done with our deployment, we'll update the request URLs, and try out with our 
+live API URL.
+
+![(a post image sharing more information)](/9_img-67.png)
+![(a post image sharing more information)](/9_img-66.png)
+
+## Let's Get A Todo.
+
+1. Access EC2 instance via SSH and perform system updates/upgrades.
+2. Install NVM and the latest NodeJs LTS version.
+3. Clone project repo and explore the project.
+4. Make all project dependency installations, and run the API server.
+5. Create a temporary .env, and add environmental variables(not very secure, we will implement in a more secure way on step 11).
+6. Open VM port '5000' and temporarily test the API server on it.
+7. Install Nginx, set up as reverse proxy, and access the API server through it. Follow up and close the VM port 5000.
+8. Get a free SSL certificate for project domain(sub-domain) - api.tutorials.zedlabs.xyz.
+
+> A perfect sub-domain, would have been **api.zedlabs.xyz**, but unfortunately I already 
+> have that set up for another project. Also, feel free to skip every domain/sub-domain related parts in-case 
+> you don't have one.
+
+9. Test API server on the new sub-domain.
+10. Explaining what happens with the current setup if something goes wrong.
+11. Set up a system service(for server persistence) using **Systemd**.
+12. Finish deployment, and test API server on the live URL - inside Postman.
+
+## Now Let's Get To Work.
+
+### 1. The Access EC2 instance via SSH and perform system updates/upgrades.
+
+<HighlighterWrapper
+language="bash" 
+content={`ssh -i <path to SSH key-pair> ubuntu@<public IP or Public DNS of the instance>`}/>
+
+- Connect to the instance using your public key auth string. Mine would be as below.
+
+<HighlighterWrapper
+language="bash" 
+content={`ssh -i /c/directory-name/another-directory-name/SSH/tutorial-instance-key-pair.pem ubuntu@ec2-13-60-96-165.eu-north-1.compute.amazonaws.com`}/>
+
+![(a post image sharing more information)](/9_img-65.png)
+
+- Perform necessary system update/upgrades.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo apt update && sudo apt upgrade -y`}/>
+
+![(a post image sharing more information)](/9_img-64.png)
+
+
+### 2. Install NVM and the latest NodeJs LTS version.
+
+- Download and run the NVM install script - The VM comes pre-installed with Git.
+
+<HighlighterWrapper
+language="bash" 
+content={`curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash`}/>
+
+
+- Load NVM (add this to your shell config if needed).
+
+<HighlighterWrapper
+language="bash" 
+content={`
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+`}/>
+
+- Verify NVM installation.
+
+<HighlighterWrapper
+language="bash" 
+content={`nvm --version`}/>
+
+- Install latest Node LTS version.
+
+<HighlighterWrapper
+language="bash" 
+content={`nvm install --lts`}/>
+
+- Making sure to use the newly installed LTS NodeJs version.
+
+<HighlighterWrapper
+language="bash" 
+content={`nvm use --lts`}/>
+
+- Verify NodeJs.
+
+<HighlighterWrapper
+language="bash" 
+content={`node -v`}/>
+
+![(a post image sharing more information)](/9_img-58.png)
+
+- Verify NPM.
+
+<HighlighterWrapper
+language="bash" 
+content={`npm -v`}/>
+
+### 3. Clone project repo and explore the project.
+
+- Our EC2 VM comes with Git pre-installed, we'll now simply access and clone in the repo.
+
+<HighlighterWrapper
+language="git" 
+content={`git clone https://github.com/Okpainmo/aws-ec2-node-express-deployment-project`}/>
+
+- Explore the cloned project folder.
+
+<HighlighterWrapper
+language="bash" 
+content={`cd aws-ec2-node-express-deployment-project`}/>
+
+<HighlighterWrapper
+language="bash" 
+content={`ls`}/>
+
+
+### 4. Make all project dependency installations, and run the API server.
+
+- Make dependency installations.
+
+<HighlighterWrapper
+language="bash" 
+content={`npm install`}/>
+
+![(a post image sharing more information)](/9_img-54.png)
+
+- Run the project server.
+
+<HighlighterWrapper
+language="bash" 
+content={`npm run dev`}/>
+
+![(a post image sharing more information)](/9_img-53.png)
+
+As you can see from the screenshot above, our project server is currently running, but is throwing an error due to 
+absence of the PostgreSQL DB environmental variable.
+
+- Press CTRL + C to terminate the process, so we can fix that.
+
+### 5. Create A **Temporary .env**, And Add Environmental Variables - NOTE VERY SECURE - WE WILL REMOVE IT ON STEP 11.
+
+- Create a **temporary .env** file.
+
+<HighlighterWrapper
+language="bash" 
+content={`echo "KEY=value" > .env`}/>
+
+- On running the **ls** command, you won't find the **.env** file that was just created, because it's actually hidden.
+Run the below command, and you'll see that it was actually created.
+
+<HighlighterWrapper
+language="bash" 
+content={`cat .env`}/>
+
+![(a post image sharing more information)](/9_img-52.png)
+
+- Open the **.env** file with the Nano CLI editor, clear the previous insertion, and add the real environmental variables.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo nano .env`}/>
+
+In my case, it is as in the below screenshot.
+
+![(a post image sharing more information)](/9_img-50.png)
+
+- Save Nano and exit - **CTRL + o** then press **Enter** then **CTRL + x**
+
+Now restarting the server, you will see that everything works fine - with the database successfully connected.
+
+<HighlighterWrapper
+language="bash" 
+content={`npm run dev`}/>
+
+![(a post image sharing more information)](/9_img-49.png)
+
+> Environment shows undefined because I failed to add/specify it in the .env. Simply add it if you wish.
+
+<HighlighterWrapper
+language="bash" 
+content={`
+DEPLOY_ENV="production"
+`} />
+
+### 6. Open VM port '5000' and **temporarily** test the API server on it. Also open the VM port '80' and '443' for HTTP and HTTPS requests respectively.
+
+> With the current set up, our API server is already running on the VM port '5000'. But since the port is not
+> yet accessible, we still won't be able to reach the API server on any address.
+
+Now to help you understand things better, we will do something unsecure. But as expected, we will undo and clean it up later.
+
+Let's proceed to our VM security-groups on AWS, and open up port 5000. So that we can access our currently running API server
+from the outside.
+
+- Proceed to your VM dashboard on EC2.
+
+![(a post image sharing more information)](/9_img-48.png)
+
+- Scroll to the bottom of your instance page, and click on security from the menu.
+
+![(a post image sharing more information)](/9_img-47.png)
+
+Locate the **Security groups** link ("sg-021b78bebfd80c933 (launch-wizard-2)" in my case) and click on it.
+
+![(a post image sharing more information)](/9_img-46.png)
+
+On the Inbound rules section, click on the "Edit inbound rules" button that is towards the right side of the screen.
+
+![(a post image sharing more information)](/9_img-45.png)
+
+Click on the "Add rule" button, and open the VM port 5000 with the following update - as you can see below. Then click the 
+"Save rules" button to save the changes.
+
+- Type: Custom TCP
+- Port Range: 5000
+- Source: Anywhere-IPV4
+
+We'll also be opening the VM port 80(HTTP) and port 443(HTTPS) to accept incoming http and https requests respectively.
+
+![(a post image sharing more information)](/9_img-13.png)
+
+> Note that while doing that is similar to opening the VM port 5000, it's quite different and necessary, 
+> else our VM won't be able to accept incoming http and https requests.
+
+- Type: HTTP
+- Port Range: 80(will be automatically selected)
+- Source: Anywhere-IPV4
+
+Then
+
+- Type: HTTPS
+- Port Range: 443(will be automatically selected)
+- Source: Anywhere-IPV4
+
+![(a post image sharing more information)](/9_img-14.png)
+
+Now go back to the EC2 instance menu, and copy your instance public IPV4 address. 
+Simply use the left side menu. Click on the "instances" link.
+
+As can be seen just below, my public IPV4 instance address is: "13.60.96.165".
+
+![(a post image sharing more information)](/9_img-48.png)
+
+Now head to you browser, and add the following address to it: **http://your-instance-IPV4-address:port-number**.
+In my case, that will be: **http://13.60.96.165:5000**
+
+As you can see in the below screenshot, my request was successful, and the API server is actually 
+running and returning a response.
+
+![(a post image sharing more information)](/9_img-41.png)
+
+### 7. Install Nginx, set up as reverse proxy, and access the API server through it. Follow up and close the VM port 5000.
+
+Earlier on, we opened the VM port 5000 without any restrictions. That is an insecure practice that puts the VM in the way
+of some serious security threats. A way to remedy for that, is to install and route our connection via a reverse proxy. 
+For that, we'll be using Nginx.
+
+Nginx (pronounced "engine-x") is a high-performance, lightweight web server and reverse proxy used to serve web content, 
+handle load balancing, manage SSL, and route traffic efficiently.
+
+**Nginx use-cases:**
+
+1. As a web server – Serves static content like HTML, CSS, images, JS.
+
+2. As a reverse proxy – Forwards client requests to backend servers (e.g., Node.js, Python).
+
+3. As a load balancer – Distributes traffic across multiple servers for better performance and reliability.
+
+4. For SSL termination – Handles HTTPS encryption before passing traffic to your app.
+
+5. Caching – Caches responses to reduce load on backend services.
+
+> When we install Nginx on our server it sits in front of all direct http connections to our server. 
+> With that, we're able to re-route traffic internally with it - thereby having it serve the function 
+> of a "reverse-proxy". In our case, that means we'd then be able to redirect traffic to our VM port 
+> 5000 without needing to open that port as we did earlier.
+
+Earlier on, even though I didn't need to, I opened that VM port 5000, to help you fully grasp the flow of things. 
+
+Now, let's install Nginx, make good use of it, and close up the opened VM port 5000.
+
+- Terminate the API server if it is still running - **CTRL + c**.
+
+
+> Simply re-connect your instance in case you see a **client_loop: send disconnect: Connection reset by peer** 
+> error at any point.
+
+- Install Nginx.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo apt install nginx -y`}/>
+
+![(a post image sharing more information)](/9_img-40.png)
+
+- Refresh/Reload the system service manager - run the below commands.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl daemon-reexec`}/>
+
+then
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl daemon-reload`}/>
+
+- Enable and start the Nginx service.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl enable nginx`}/>
+
+then
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl start nginx`}/>
+
+- Now view the status of the Nginx system service.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl status nginx`}/>
+
+As can be seen below, Nginx is running perfectly.
+
+![(a post image sharing more information)](/9_img-39.png)
+
+Now visit your VM address directly without the port(http://vm-ip-address). In my case, that will be: **http://13.60.96.165**. 
+
+You can see that Nginx is now sitting in front and intercepting all http connections. 
+
+![(a post image sharing more information)](/9_img-36.png)
+
+Now that we have Nginx set up, let's configure it to handle routing to our port 5000 internally, so we can close up The
+open VM port 5000.
+
+- Open the Nginx config file using the Nano CLI editor.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo nano /etc/nginx/nginx.conf`}/>
+
+![(a post image sharing more information)](/9_img-35.png)
+
+- First thing, scroll(if you have a limited screen) and locate the line with this 
+text - "include /etc/nginx/sites-enabled/*;", then add a hash tag in front of the line to comment it out.
+
+I.e. 
+
+<HighlighterWrapper
+language="bash" 
+content={`# include /etc/nginx/sites-enabled/*;`}/>
+
+- Secondly, add the snippet below just after that line.
+
+<HighlighterWrapper
+language="bash" 
+content={`
+server {
+    listen      80;
+    listen   [::]:80;
+    server_name api.tutorials.zedlabs.xyz; 
+
+    location / {
+        proxy_pass http://localhost:5000/; 
+    }
+}
+`} />
+
+> The above snippet does two things.
+>
+> 1. It prepares our Nginx setup, to help us with getting a free SSL certificate for our domain or subdomain("api.tutorials.zedlabs.xyz"
+> in my case).
+> 2. It handles reverse-proxying our http traffic to port 5000.
+
+With some proper spacing arrangements, your Nginx config additions should look like this:
+
+![(a post image sharing more information)](/9_img-34.png)
+
+- Save and exit Nano - **CTRL + o** then press **Enter** then **CTRL + x**
+
+- Refresh/Reload the system service manager - run the below commands.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl daemon-reexec`}/>
+
+then
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl daemon-reload`}/>
+
+- Restart the Nginx service.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl restart nginx`}/>
+
+Now let's restart our API server and visit out VM IP directly(without the port number), you'll see that instead of 
+the Nginx home-screen that was initially showing due to Nginx intercepting our http traffic, we'll now be 
+automatically re-directed to our API server.
+
+
+> That will simply mean Nginx is now serving as our reverse proxy.
+
+- Restart the API server.
+
+<HighlighterWrapper
+language="bash" 
+content={`npm run dev`}/>
+
+![(a post image sharing more information)](/9_img-27.png)
+
+Ensure to be inside of the project(the git repo - "aws-ec2-node-express-deployment-project") directory 
+else you'll get an error. Carefully take note of that, in-case you lost your SSH connection at any point.
+
+- Visit the IP address - directly without the port. I.e. **http://13.60.96.165** in my case.
+
+![(a post image sharing more information)](/9_img-28.png)
+
+Just as stated, our reverse proxying is now working perfectly.
+
+### 8. Get a free SSL certificate for project domain(sub-domain).
+
+As stated earlier, we already prepared Nginx to help us get a free SSL certificate for our 
+domain/sub-domain(api.tutorials.zedlabs.xyz) - thanks to [Let's Encrypt](https://letsencrypt.org).
+
+> In simple terms:
+> An SSL certificate is a digital file that:
+>
+> - Encrypts data between a browser and server (HTTPS).
+> - Proves the website is real (identity verification).
+> - Uses a public-private key pair.
+>
+> In a summary(and for what we want), it turns "http://" into "https://" - providing secure connection for http.
+
+Before we proceed to get our SSL certificate, let's point our VM IP to our domain so that we can be able to receive traffic 
+on it instead of using our VM IP address. **Nginx will fail to provide the SSL certificate if that is not done first**.
+
+To do that, simply go to where ever your domain is hosted, and create an "A" DNS record that points your domain/sub-domain 
+to the VM IP address.
+
+My domain is currently hosted on AWS Route 53.
+
+> Route 53 is AWS' DNS management service.
+
+![(a post image sharing more information)](/9_img-19.png)
+
+Now visit your domain/sub-domain in a browser, but with "http". **"https"** will not work yet since we're yet to get
+an SSL certificate.
+
+You should see that it works perfectly, but with a "Not Secure" warning from the browser.
+
+![(a post image sharing more information)](/9_img-18.png)
+
+Now stop the API server, and let's get on SSL certificate for our sub-domain.
+
+- CTRL + c
+
+- Run the below commands
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo apt install certbot python3-certbot-nginx`}/>
+
+You'll get the below prompt about disk space usage, type "Y" to agree.
+
+![(a post image sharing more information)](/9_img-21.png)
+
+Now run:
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo certbot --nginx -d your-domain-or-sub-domain`}/>
+
+In my case, that would be:
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo certbot --nginx -d api.tutorials.zedlabs.xyz`}/>
+
+
+You'll be prompted to add an email address, proceed to add one.
+
+You'll get another prompt asking you to read and agree to the Let's Encrypt terms. Read and agree by typing a "Y".
+
+One more email marketing-related prompt, Type "Y" to agree.
+
+![(a post image sharing more information)](/9_img-20.png)
+
+You should then see a success message that looks similar to the one below.
+
+![(a post image sharing more information)](/9_img-17.png)
+
+**Congratulation!!! You just successfully got a free SSL certificate for your domain/sub-domain.**
+
+### 9. Test API server on the now SSL certified domain/sub-domain.
+
+- Refresh/Reload the system service manager - run the below commands.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl daemon-reexec`}/>
+
+then
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl daemon-reload`}/>
+
+- Restart the Nginx service.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl restart nginx`}/>
+
+- Check the Nginx service status.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl status nginx`}/>
+
+- Restart the API server server
+
+<HighlighterWrapper
+language="bash" 
+content={`npm run dev`}/>
+
+> Once again, ensure to be inside of the project(the git repo - "aws-ec2-node-express-deployment-project") directory 
+> before trying to restart the API server else you'll get an error. 
+
+![(a post image sharing more information)](/9_img-15.png)
+
+Now return to your browser, and try out an **"https"** connection with you domain/sub-domain.
+It should work just perfectly as mine below. No more "Not Secure" warnings.
+
+![(a post image sharing more information)](/9_img-5.png)
+
+Now Let's return to the security groups page on AWS, and close the VM port 5000 since we no longer need it. Hence
+also keeping our VM as secure as possible.
+
+Simply click the delete button, and remove the rule that permits access to the VM port 5000.
+
+![(a post image sharing more information)](/9_img-13.png)
+
+![(a post image sharing more information)](/9_img-10.png)
+
+Then save.
+
+### 10. Explaining what happens with the current setup if something goes wrong.
+
+With the current setup we have, while our API server can keep running since the VM will always be up, what happens if a 
+breaking-error occurs on it. What happens if something terrible goes wrong.
+
+If any such issues come up, our API server will simply crash with no system in place to restart it.
+
+That is where a tool like Systemd comes in handy once again. Another popular but less powerful alternative tool
+we could use is PM2.
+
+But stated just above, Systemd is a lot more powerful and capable option.
+
+We'll now simply create a system service to ensure that our API server is always up.
+
+### 11. Set up a system service(for server persistence) using **Systemd**.
+
+Run the below command to initialize the creation of the system service using Nano.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo nano /etc/systemd/system/node-express-tutorial-deployment.service`}/>
+
+Add the following into the Editor. 
+
+<HighlighterWrapper
+language="bash" 
+content={`
+[Unit]
+Description=Tutorial Project System Service
+After=network.target multi-user.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/aws-ec2-node-express-deployment-project/build
+ExecStart=/home/ubuntu/.nvm/versions/node/v22.16.0/bin/node /home/ubuntu/aws-ec2-node-express-deployment-project/build/app.js
+Restart=on-failure
+RestartSec=10
+Environment=NODE_ENV="production"
+EnvironmentFile=/etc/secrets.env
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=PlatformCore01
+
+[Install]
+WantedBy=multi-user.target
+`}/>
+
+
+![(a post image sharing more information)](/9_img-72.png)
+
+- Save and exit Nano - **CTRL + o** then press **Enter** then **CTRL + x**.
+
+> The above systemd service file defines how to run a Node.js app as a background system service on Linux. 
+> Below is a concise breakdown:
+
+**[Unit] section**:
+
+- **Description**: Describes the service.
+
+- **After=network.target multi-user.target**: Waits until network and system are ready.
+
+**[Service] section**:
+
+- **User=ubuntu**: Runs as the ubuntu user.
+
+- **WorkingDirectory=...**: Sets the working directory (app folder).
+
+- **ExecStart=...**: Starts the Node.js app with the specified version(which is the one we installed earlier), and entry file (app.js).
+
+- **Restart=on-failure**: Restarts only if the app crashes.
+
+- **RestartSec=10**: Waits 10 seconds before restart.
+
+- **Environment**: Sets NODE_ENV to "production".
+
+- **EnvironmentFile**: Loads additional environment variables from /etc/secrets.env.
+
+- **StandardOutput=syslog and StandardError=syslog**: Logs output to the system log.
+
+- **SyslogIdentifier=PlatformCore01**: Tags log entries for easier identification.
+
+**[Install] section**:
+
+- **WantedBy=multi-user.target**: Enables the service at boot in standard (non-GUI) mode.
+
+> In short: The file tells systemd how to run and manage the Node.js app as a persistent, auto-restarting service.
+
+### 12. Finish deployment, and test API server on the live URL - inside Postman.
+
+Now that we have our system service all set, let's create the environmental service file that will work on the service.
+As seen in the service file content, our environmental variables will be at "/etc/secrets.env".
+
+- Open the file with Nano.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo nano /etc/secrets.env`}/>
+
+- Add all the original ".env" file content into it - just like you did for the previous one we created.
+
+- Save and exit Nano - **CTRL + o** then press **Enter** then **CTRL + x**
+
+> Earlier on, I stated that adding a **.env** file directly on our project(as we earlier did) was insecure. This new setup 
+> keeps our systems more secure as bad actors will not easily detect where secrets are stored on our VMs.
+> Ensure to only place your secret in locations that can keep them as secure as possible.
+
+- Now let's delete the initial **env** file we created(ensure to be on the project root - inside the repo).
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo rm -rf .env`}/>
+
+- Ensure that the deletion was successful.
+
+<HighlighterWrapper
+language="bash" 
+content={`cat .env`}/>
+
+![(a post image sharing more information)](/9_img-8.png)
+
+You should see that the file no longer exist - as in the screenshot below.
+
+- Refresh/Reload the system service manager - run the below commands.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl daemon-reexec`}/>
+
+then
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl daemon-reload`}/>
+
+- Enable the API server system service.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl enable node-express-tutorial-deployment.service`}/>
+
+- Start the service.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl start node-express-tutorial-deployment.service`}/>
+
+- Check the service status.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl status node-express-tutorial-deployment.service`}/>
+
+As can be seen in the system service log below, your NodeJs API server is now successfully running as a system service.
+
+![(a post image sharing more information)](/9_img-6.png)
+
+Our API should also be responding perfectly.
+
+![(a post image sharing more information)](/9_img-5.png)
+
+> With this, even when you're there is any breaking error, the system
+> service will attempt to restart the API server without needing any manual intervention.
+
+- View the API server system service logs whenever you need to.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo journalctl -u node-express-tutorial-deployment.service`}/>
+
+Or 
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo journalctl -fu node-express-tutorial-deployment.service`}/>
+
+Now let's proceed to postman, and test the API end-points with the live URL.
+
+![(a post image sharing more information)](/9_img-3.png)
+
+![(a post image sharing more information)](/9_img-2.png)
+
+![(a post image sharing more information)](/9_img-1.png)
+
+It all works perfectly!!!
+
+**Just like that my friend, you just successfully created a standard and complete NodeJs API server 
+deployment on AWS EC2**.
+
+## The limitation of this kind of cloud deployment.
+
+While this API server deployment is superb and mind-blowing enough, it is still limited in the sense that, on every
+code/deployment update made to the project repository, the engineer in-charge still needs to:
+
+1. log into the EC2 instance, to pull in the code.
+2. Restart the system service.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl restart node-express-tutorial-deployment.service`}/>
+
+- Also view it's status to be sure it's okay.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl status node-express-tutorial-deployment.service`}/>
+
+3. As I'll recommend, also restart Nginx.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl restart nginx`}/>
+
+- And also view it's status to be sure it's okay.
+
+<HighlighterWrapper
+language="bash" 
+content={`sudo systemctl status nginx`}/>
+
+All of these processes, are not ideal and can be really tedious for engineers. 
+
+> What if the engineer in charge is not available. That simply means all the code/feature deployments will remain on hold
+> till he or she returns.
+
+The solution to this bottleneck, is to simply implement proper CI/CD pipelines that can automate deployments without any
+manual human intervention.
+
+All of that and more will be covered shortly in a subsequent Zed Labs blog series, that will teach how to set up 
+complete CI/CD pipelines with Jenkins and Github.
+
+You sure don't want to miss that.
+
+## Hire the Zed Labs Team - Let's bring your software and design projects to life.
+
+We've still got project/client slots for this month. The team at Zed Labs is open to having you on board, and 
+making you a happy client. We look forward to collaborating with you on any web or design project you have.
+
+- If you would love to have us build awesome stuff for you, simply [visit our website](https://zedlabs.xyz),
+  and fill the contact form. Alternatively, you can send us an email here: [hello.zedlabs@gmail.com](mailto:hello.zedlabs@gmail.com).
+
+- You can also send me a private email at [okpainmondrew@gmail.com](mailto:okpainmondrew@gmail.com) or a [DM via
+  Linkedin](https://www.linkedin.com/in/okpainmo-andrew) - just in case you prefer to contact me directly.
+
+We'll be excited to hop on a call and get on the way to bringing your software or design project to life.
+
+## Conclusion.
+
+That would be it for this article.
+
+It's been quite a lot in this guide, I do hope you found much value.
+
+> If you loved this post or any other Zed Labs blog post, and would love to send an appreciation, simply use this link to [buy us
+> some cups of coffee](https://paystack.com/pay/11tykgn4-s) 🤓.
+
+Thanks for reading.
+
+Cheers!!!

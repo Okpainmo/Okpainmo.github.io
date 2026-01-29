@@ -1,0 +1,925 @@
+---
+postTitle: 'Tailwind: The CSS Framework That Finally Won!!!'
+postDate: 'March 29, 2025'
+postIndex: 6
+postCategory: 'frontend-development'
+postBrief: "TailwindCSS has revolutionized the way we approach design systems. In this article, 
+I'll explore why it has become the preferred framework for many developers - sharing my beautiful
+experience with different CSS options before finally meeting Tailwind"
+postThumbnailUrl: '/post-banner_6.png'
+authorPhotoUrl: '/author_image-1.jpg'
+authorName: Andrew James Okpainmo
+authorBio: "Andrew James Okpainmo is a fullstack software engineer who is passionate about building 
+and scaling awesome products and startups. He currently works as a freelance software engineer 
+(with expertise in fullstack software development, cloud engineering, and DevOps), while leading the team 
+at Zed Labs."
+postTags: ['tailwind-css', 'frontend-development', 'css', 'web-development', 'design-systems']
+postSlug: "tailwind-the-css-framework-that-finally-won"
+authorSocials:
+  twitter: https://twitter.com/AJ_Okpainmo
+  linkedin: https://www.linkedin.com/in/okpainmo-andrew/
+  github: https://github.com/Okpainmo
+---
+
+![post banner](/post-banner_6.png)
+_Image Credit: ©Vicky Design via Canva.com_
+
+You must have heard of <WrapperLink href='https://tailwindcss.com' type="text">TailwindCSS</WrapperLink>, the big, awesome thing that seems to have finally become a standard in the Cascading Style Sheet(CSS) world.
+Chances are that you have used it - if no, then(in my opinion), you've been missing out - a lot.
+
+In this detailed piece, I trace the journey and key developments that positioned Tailwind
+CSS as a leading force in the frontend development landscape.
+
+By examining the evolution of web styling approaches and technical shifts in the industry(through the lens of
+my engineering experience over the years), this article highlights the pivotal moments that created the environment
+where Tailwind's utility-first methodology could flourish and gain widespread adoption.
+
+To make things all perfect, I'll be sharing extremely valuable code samples and screenshots along the way. I'll also be sharing
+some awesome features of Tailwind - showing you real reasons why hating it is simply a bad idea.
+
+<WrapperLink href='https://tailwindcss.com'>
+  ![a screenshot showing a section from the tailwindcss website landing
+  page](/06_img-1.png) _Image: a screenshot showing a section from the
+  tailwindcss website landing page._
+</WrapperLink>
+
+> The software development world is characterized by fast-paced innovations that lead to constant change, all in a bid to
+> make lives better for software engineers. Many times, a lot of these innovations come and go - passing only as trends.
+>
+> Yet, some stay on - stamping their awesomeness - and becoming industry standards.
+>
+> Tailwind is one of such!
+
+## CSS Over The Years - My Journey.
+
+It's been about half a decade or more, since I first wrote CSS. I remember the early days of my obsessive passion for coding.
+It was fascinating, and beautiful.
+
+### The Days Of Bootstrap.
+
+Fast forward a while, and I was building interfaces with <WrapperLink href='https://getbootstrap.com' type="text">Bootstrap</WrapperLink>.
+
+<WrapperLink href='https://getbootstrap.com'>
+  ![a screenshot showing a section from the bootstrap website landing
+  page](/06_img-2.png) _Image: a screenshot showing a section from the bootstrap
+  website landing page._
+</WrapperLink>
+
+Bootstrap was awesome - it saved lives in its prime, Its grid system(back then) was truly revolutionary.
+But one major complaint kept hitting hard on it - it produced interfaces that looked
+very similar. This flaw was simply because Bootstrap was not just a CSS library or framework. It was a complete(HTML, 
+CSS, and Javascript) package for building interfaces. As a UI Library, its components were neat, and beautiful. 
+They gave you so much power, but with the temptation to just copy-paste them, came other issues.
+
+With Bootstrap, developers seemed to get locked in - (my opinion), barely seeing the need to customize further, thereby 
+delivering interfaces that look similar.
+
+> With copy-pasting Bootstrap components(or simply using provided classes), also came the need to overwrite its CSS classes to obtain more unique UI looks. Overwriting
+> CSS classes was not all that easy. It often led to messy specificity bottlenecks, and other issues.
+
+With Bootstrap, I still often had to write custom CSS code. This was not always very convenient, but
+there was always going to be a way around.
+
+> Bootstrap was not the only front-end UI library around, there were quite a number of them(Material UI, Chakra UI, Bulma, and more -
+> which I didn't, or barely used). But
+> over the years, the problem seemed to be, that these libraries just couldn't figure out the perfect way to provide the one thing that UI
+> engineering needed most - **a highly FLEXIBLE design system that simply got it right**.
+
+Aside from the issues with Bootstrap that I've already discussed, there were other reported issues with Bootstrap which I
+never really bothered about back then - I guess due to my experience level.
+
+1. Bootstrap presented other significant challenges. Its file size was
+   substantial, leading to slower page loads, especially on mobile devices or in regions with limited bandwidth.
+   Even with the ability to select only specific components during installation, many projects ended up shipping
+   with unused CSS and JavaScript - which was a significant drawback.
+
+2. Version updates were another pain point. Upgrading from Bootstrap 3 to 4, for example, required
+   significant refactoring, as class names and behaviors changed substantially. This created technical debt for long-running
+   projects and made maintenance more challenging.
+
+> Bootstrap was great, but it just wasn't it!!!
+
+### CSS Preprocessors.
+
+With little or no choice but to write custom CSS(even with Bootstrap), coupled with my constant itch for growth and keeping up with trends,
+I upgraded from writing vanilla/raw CSS to using a CSS preprocessor - <WrapperLink href='https://sass-lang.com' type="text">Sass(Syntactically Awesome Style Sheets)</WrapperLink>.
+
+<WrapperLink href='https://sass-lang.com/'>
+  ![a screenshot showing a section from the sass website landing
+  page](/06_img-3.png) _Image: a screenshot showing a section from the sass
+  website landing page._
+</WrapperLink>
+
+> CSS preprocessors are scripting languages that extend the capabilities of standard CSS. They add features like
+> variables, nesting, mixins, functions, imports, and mathematical operations that make CSS more maintainable, reusable, and
+> organized. They produce code that compiles into regular CSS that browsers can understand.
+>
+> Created in 2006, Sass is one of the most popular CSS preprocessors. A quite popular alternative to Sass
+> is <WrapperLink href='https://lesscss.org' type="text">Less</WrapperLink>.
+
+#### Key Features of Sass.
+
+**Sass is simply mind-blowing**. It provides a CSS experience that can simply be described as 'being on steroids'.
+
+Below are some awesome features that Sass provides, with - real code screenshots from one of my old(ReactJs) project.
+
+**1. Variables(even though CSS later caught up with this): Sass enables you to store values for reuse throughout your stylesheet.**
+
+<HighlighterWrapper
+language="scss" 
+content={`
+    $primary-color: #3498db;
+    $font-stack: Helvetica, sans-serif;
+
+    body {
+      color: $primary-color;
+      font-family: $font-stack;
+    }
+
+`}/>
+
+**2. Nesting: Sass makes writing cleaner CSS possible, it enables you to write nested CSS that mirrors the HTML structure**. Just
+beautiful right?
+
+<HighlighterWrapper
+  language='scss'
+  content={`
+    nav {
+      background: #333;
+      
+      ul {
+        margin: 0;
+        padding: 0;
+        
+        li {
+          display: inline-block;
+          
+          a {
+            color: white;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+`}
+/>
+
+**3. Mixins: Mixins are Sass' special way of enabling you create reusable chunks of CSS.**
+
+<HighlighterWrapper
+language="scss" 
+content={`
+   @mixin border-radius($radius) {
+      -webkit-border-radius: $radius;
+      -moz-border-radius: $radius;
+      border-radius: $radius;
+    }
+
+    .box {
+      @include border-radius(10px);
+    }
+
+`}/>
+
+![a screenshot showing sass mixin declarations](/06_img-11.png)
+_Image: a screenshot showing sass mixin declarations._
+
+![a screenshot showing mixin import and use](/06_img-13.png)
+_Image: a screenshot showing mixin import and use._
+
+**4. Functions: Yeah! and this too. Sass enables you to perform calculations and return values.**
+
+<HighlighterWrapper
+language="scss" 
+content={`
+   @function calculate-width($col-span) {
+      @return $col-span * (100% / 12);
+    }
+
+    .sidebar {
+      width: calculate-width(4); // Returns 33.33%
+    }
+
+`}/>
+
+**5. Partials and Imports: This would probably be the best feature of Sass. It allows you to split CSS into smaller files and import them.**
+
+<HighlighterWrapper
+  language='scss'
+  content={`
+   // _reset.scss
+    * {
+      margin: 0;
+      padding: 0;
+    }
+`}
+/>
+
+Then import and use.
+
+<HighlighterWrapper
+  language='scss'
+  content={`
+    // main.scss
+    @use 'reset';
+`}
+/>
+
+![a screenshot showing sass imports](/06_img-12.png)
+_Image: a screenshot showing sass imports._
+
+**6. Inheritance: Sass also gives you the power to share CSS properties between selectors.**
+
+<HighlighterWrapper
+language="scss" 
+content={`
+  // This CSS will print because %button-base is extended.
+  %button-base {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+  }
+
+  // This CSS won't print because %equal-heights is never extended.
+  %equal-heights {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .primary-button {
+  @extend %button-base;
+  background: blue;
+  }
+
+  .secondary-button {
+  @extend %button-base;
+  background: gray;
+  }
+`}/>
+
+> Writing this article, I must confess to this feeling I'm having. I think to say that I honestly miss writing Sass 🤓.
+>
+> Sass is simply fascinating.
+
+#### Sass Workflow Benefits
+
+Sass provided quite a number of impressive work-flow benefits. It offers some very significant advantages which can easily be
+seen from the screenshots and code samples shared above.
+
+- **Modularity**: It breaks stylesheets into logical, manageable components.
+- **Maintainability**: Sass variables make global changes easier and prevent CSS duplication.
+- **Efficiency**: It empowered you to write less code mixins, extend, and very importantly - through nesting.
+- **Organization**: Sass enabled you to structure CSS in a more consistent, hierarchical way.
+
+#### Sass Implementations
+
+Sass comes in two syntax variants:
+
+- **.scss**: Newer syntax that's a superset of CSS (all valid CSS is valid SCSS)
+- **.sass**: Original syntax that uses indentation instead of braces
+
+Of course, I prefer the '.scss' syntax, which most modern projects use due to its similarity to standard CSS.
+
+#### Sass Compilation.
+
+As earlier stated, CSS preprocessors like Sass, produce code that compile into regular CSS that browsers can understand.
+
+> To use Sass, you need a compiler that transforms Sass files into standard CSS. This can be done with:
+>
+> - Command-line tools
+> - Build systems like Webpack, Gulp, or Grunt
+> - Integrated into frameworks like React, Vue, or Angular
+
+The preprocessing/compilation step occurs during development or build time, not in the browser.
+
+> My Go-to choice for Sass compilation was <WrapperLink href='https://gulpjs.com' type="text">Gulp</WrapperLink>. Gulp gives you the power to compile Sass into CSS in
+> build-time(in real-time during development).
+
+<WrapperLink href='https://gulpjs.com'>
+  ![a screenshot showing a section from the gulp website landing
+  page](/06_img-9.png) _Image: a screenshot showing a section from the gulp
+  website landing page._
+</WrapperLink>
+
+The code snippet below was my(life-saving) gulp-file - a simple Javascript file that guided gulp on how to handle
+Sass compilation and finalization.
+
+<HighlighterWrapper
+language='javascript'
+content={`
+    // 'use strict';
+
+    // variables
+    const gulp = require('gulp');
+    const sass = require('gulp-sass')(require('sass'));
+    const autoprefixer = require('gulp-autoprefixer');
+
+    // custom-hello task
+    gulp.task('hello', function (done) {
+      console.log('hello from gulp');
+      done();
+    });
+
+    // SCSS compilation task
+    function buildStyles() {
+      return gulp
+        .src('src/assets/stylesheets/scss/**/*.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('src/assets/stylesheets/css'));
+    }
+
+    ✅ Register the buildStyles task properly
+    gulp.task('buildStyles', buildStyles);
+    exports.buildStyles = buildStyles;
+
+    // autoprefixer task
+    exports.default = () =>
+      gulp
+        .src('src/assets/stylesheets/scss/**/*.scss')
+        .pipe(
+          autoprefixer({
+            cascade: false,
+          })
+        )
+        .pipe(gulp.dest('src/assets/stylesheets/css'));
+
+    // watch task
+    gulp.task('watch', function () {
+      gulp.watch(
+        'src/assets/stylesheets/scss/**/*.scss',
+        gulp.series('buildStyles')
+      );
+    });
+
+`}
+/>
+
+> P.S: I had to add lines 23 and 24 after checking the file with some AI help. 2025 is indeed an awesome time
+> to be alive as a software engineer.
+
+With the gulp-file in place(on the root of your project), Sass compilation(into CSS) could begin after running the below command and
+writing + saving any Sass file.
+
+<HighlighterWrapper language='shell' content={`gulp watch`} />
+
+Sass was nothing short of brilliant, and revolutionary, but it still had its flaws.
+
+Even though it did really help with easing the burdens of writing raw CSS, it still had issues.
+
+1. Saas was not a CSS framework. It was a preprocessor that required you to write custom CSS code. This meant that
+   you still had to deal with the same issues - selector(IDs, classes and more) conflicts, specificity, inheritance, and
+   browser compatibility that you would with regular CSS. **Lest I forget, you still needed to write media queries!!!**
+
+2. It was not a complete solution for building user interfaces. You still had to rely on other libraries or
+   frameworks for components, layout, and interactivity.
+
+> **Saas didn't give you a design system**.
+>
+> Except if you already came up with a foundational starter-kit/boiler-plate or design system,
+> you would still be stuck with a lot of the issues that came with writing regular CSS.
+
+3. Additionally, while Saas improved the organization of styles, it still required a solid understanding of CSS principles
+   to use effectively.
+
+4. The learning curve for Saas could be steep for beginners, especially those who were not familiar with programming concepts like
+   variables, functions, and mixins.
+
+5. Finally, the compilation step added complexity to the development process. Developers had to set up a build system or use a
+   task runner like Gulp or Webpack to compile their Sass files into CSS. This could be a barrier for entry for some developers,
+   especially those who were new to web development.
+
+> Sass was cool, but it still just wasn't it!!!
+
+## Then Came Perfection(At Least The Best I Know).
+
+Tailwind was simply It for me!!!
+
+I can't recall the first time I heard of Tailwind or the first time I used it. All I know is that I was blown away by the experience.
+
+> I don't recall the thought of ever seeking a better alternative, neither do I recall ever wanting to use something else ever since
+>
+> **It's been more than 2 years now**.
+
+Tailwind is simply the best CSS framework I had ever used. It was a game-changer for me, and I believe it has been for many others.
+
+> Tailwind is a utility-first CSS framework that provides low-level utility classes to build custom
+> designs without having to leave your HTML.
+>
+> The fact that you could just focus on writing HTML or JSX, consequently meant
+> one very important thing - **SPEED!!!**. Once good with it, Tailwind helps you built interfaces with so much speed.
+>
+> Tailwind got it right by focusing on CSS. It's simply a **CSS framework** that helps you build interfaces like no other.
+
+## Reasons why you 'simply' shouldn't hate it!
+
+Tailwind empowers you with **a design system**, and underlying infrastructure that definitely nailed it!!!
+
+It allows you to create unique designs without having to write custom CSS.
+It provides a set of pre-defined classes that can be combined to create complex designs,
+making it easy to build responsive and **adaptive user interfaces**. 
+
+Supporting provisions such as VS Code's tailwind
+CSS IntelliSense, and the it's JIT(Just In Time) compiler, make it even easier and more satisfying to work with.
+
+**P.S: The JIT compiler generates only the CSS you actually use, keeping your file sizes small.**
+
+> Created by Adam Wathan and released in 2017. Tailwind has gained immense popularity ever since. Nowadays, **Tailwind has simply
+> become a CSS standard**. From NextJs, to React with Vite, Remix, Astro, and even Laravel(PHP) - these frameworks/libraries all
+> appear to have accepted the fact that tailwind is not just a fad that'll fade with time, but a framework that has carved
+> its place as a standard in the realm of UI engineering.
+
+Aside all the other awesomeness of tailwind, in very simple terms, tailwind gives you
+a class for every single CSS property you can think of - even though it does combine properties in some very relevant instances.
+
+![a screenshot showing the free-tier section on the AWS website](/06_img-4.png)
+_Image: tailwind css intellisense helping with viewing the css content of a tailwind utility class._
+
+![a screenshot showing the free-tier section on the AWS website](/06_img-8.png)
+_Image: tailwind css intellisense helping with viewing the css content of a tailwind utility class._
+
+> Guided by a '4-unit to 1 rem' space system(0.25rem or 4px per 1 unit) for measurement, and other relevant standards for colours, and
+> other aspects, tailwind simplifies CSS by providing a class for everything(I hope I'm right) that you'll ever need to do with CSS.
+
+> To wrap it all up, and make you feel you're in dream land, tailwind perfectly handles media queries(a very critical aspect
+> of styling and UI engineering that many struggle to implement) with simplicity and style - keeping everything inline.
+
+With tailwind, all you need, is a single css file containing some declarations. Of course, you can still write custom CSS - if you wish.
+
+It has become a go-to choice for many developers and teams looking to build modern, responsive user interfaces.
+
+<HighlighterWrapper
+  language='css'
+  content=
+  {`
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+
+    /* add your extra/custom CSS here */
+
+`}
+/>
+
+Tailwind is designed to be highly customizable, allowing developers to create unique designs without having to write custom CSS.
+It promotes a workflow that encourages rapid prototyping and iteration, making it an excellent choice for both small projects
+and large-scale applications.
+
+Tailwind also supports a mobile-first approach, enabling developers to build responsive designs that look great
+on all devices.
+
+Its extensive documentation and community support make it easy for newcomers to get started and for
+experienced developers to find solutions to their challenges.
+
+For me, this <WrapperLink href='https://nerdcave.com/tailwind-cheat-sheet' type="text">Nerdcave tailwind cheatsheet</WrapperLink> has been of immense help over time. It helps
+with quickly grasping the fundamentals of tailwind, while helping you get up to speed with using its utility classes as fast
+as possible.
+
+## Answers To Reasons Why You Would Want To Hate It.
+
+Despite all the impressive features of tailwind, there are still reasons why some developers will seem to hate it, and say
+trash things about it. In this section, I'll be addressing some of these reasons, and providing answers to them.
+
+### 1. "The utility classes just fill up space - it's odd having to write so much utility classes"
+
+**Answer:** Such developers seem not to be aware of the **@apply** directive in Tailwind CSS.
+Simply use the **@apply** directive to extract repeated utility patterns into custom CSS classes.
+
+<HighlighterWrapper
+  language='css'
+  content=
+  {`
+  /* In your CSS file */
+
+.btn-primary {
+@apply py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md
+hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
+}
+`}
+/>
+
+Then in your HTML or JSX, you can simply use:
+
+<HighlighterWrapper
+  language='html'
+  content={`
+<button class="btn-primary">Save changes</button>
+`}
+/>
+
+> Ensure to use the **@apply** keyword very carefully, as this might get you caught in the web of needing to overwrite classes
+> that you create for repeating or custom components.
+
+### 2. "It makes your HTML look messy and unreadable"
+
+**Answer:** This is a valid concern initially, but considering modern approaches to UI development, this is
+not a problem any more. Most **modern** frameworks allow you to create reusable components, hiding complexity, and improving
+readability.
+
+Alternatively, you can use the **@apply** directive as explained above.
+
+<HighlighterWrapper
+  language='jsx'
+  content={`
+    // React component example
+
+    function PrimaryButton({ children }) {
+      return (
+        <button className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600
+        focus:outline-none focus:ring-2'>
+          {children}
+        </button>
+      );
+    }
+
+    // Usage
+    <PrimaryButton>Click Me</PrimaryButton>;
+
+`}
+/>
+
+### 3. "It doesn't follow separation of concerns - mixing presentation with content"
+
+**Answer:** While traditional CSS promotes separation of files, Tailwind promotes separation of responsibilities.
+With component-based architectures, the component itself encapsulates both structure and styling, creating more maintainable,
+self-contained units. This actually results in less context switching and better developer experience.
+
+For larger applications, you can still organize your styles as shown below, **even though this(if not well managed), might defeat
+the profit of using Tailwind in the first place, since stacking or grouping classes will cause the need to make custom CSS overwrites
+for certain elements that are different**.
+
+<HighlighterWrapper
+  language='javascript'
+  content={`
+    // styles.js 
+    
+    export const buttonStyles =
+    'px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600';
+    
+    export const cardStyles =
+    'bg-white shadow-md rounded-lg p-4';
+
+`}
+/>
+
+<HighlighterWrapper
+  language='jsx'
+  content={`
+    /* Button.jsx */
+    import { buttonStyles } from './styles';
+
+    function Button({ children }) {
+      return <button className={buttonStyles}>{children}</button>;
+    }
+
+`}
+/>
+
+> Do well to avoid overuse of **@apply** and the itch to create custom component styles. Doing so
+> might get you caught in the web of needing to overwrite classes that you create for repeating or custom components.;
+>
+> In case you disagree with my opinion, with time, you'll get to see and appreciate tailwind just the way it is, and for
+> the flexibility it provides when building user interfaces. Simply allow each element to have its own styling.
+>
+> After all, your final output css will certainly get purged - ensuring that all the repeated
+> classes are added only once into it.
+
+### 4. "There's a steep learning curve with all those class names"
+
+**Answer:** Tailwind's class names are actually quite intuitive once you understand the patterns:
+
+- `p-4` = padding: 1rem or padding: 16px
+- `mt-2` = margin-top: 0.5 or margin-top: 8px
+- `text-lg` = font-size: 1.125rem
+- `bg-blue-500` = background-color: #3b82f6
+
+> As earlier stated:
+>
+> - Tailwind uses a '4-unit to 1 rem' space system(0.25rem or 4px per 1 unit) for measurement.
+> - For sizes(e.g. font sizes and widths of media queries), it uses standard variants like sm, md, lg, and more.
+> - For colours, it uses a standard scale that starts from 50, and increments by 100 from the 100 point mark - for its selected custom colours.
+> - For co-ordinates, it simply uses the y and x axis. This means py-2 is a
+>   vertical(top and bottom) padding of 0.5rem(8px). It even handles effects like hover, and focus.
+> - For Media queries, simply call the class name with the prefix of the media query you want to use.
+>   For example, **lg:mt-2** means a margin-top of 0.5rem(8px) on large screens and above. A regular class, say, **mt-2** means
+>   a margin-top of 0.5rem(8px) on all screens, and **md:mt-3** means a margin-top of 0.75rem(12px) on medium screens and above.
+>
+> All these are reasons why tailwind is easy to grasp.
+
+<HighlighterWrapper
+  language='jsx'
+  content={`
+    // React component example
+
+    function PrimaryButton({ children }) {
+      return (
+        <button className='px-4 py-2 bg-blue-500 text-gray-100 lg:text-gray-50 rounded
+        hover:bg-blue-600'>
+          {children}
+        </button>
+      );
+    }
+
+`}
+/>
+
+> Furthermore, Tailwind also supports custom values. This is an awesome feature that comes in handy a lot if you
+> want some extra flexibility. **To use this feature, simply add the desired value within square brackets**.
+
+<HighlighterWrapper
+  language='jsx'
+  content={`
+    // React component example
+
+    function PrimaryButton({ children }) {
+      return (
+        <button className='px-[22px] py-[3rem] bg-blue-500 text-gray-100
+         lg:text-gray-50 rounded-[17px] hover:bg-blue-600'>
+          {children}
+        </button>
+      );
+    }
+
+`}
+/>
+
+> Tailwind comes with a special and very customizable configuration(**tailwind.config.js**) file, that helps you
+> set preferences like media query break-points, your content location, fonts, and more. This(tailwind.config.js) file
+> is the standard configuration/setup file for all tailwind projects.
+
+Below is a sample tailwind.config.js file that should work seamlessly for you. Feel free to copy-paste, and extend, and 
+use in your projects.
+
+<HighlighterWrapper
+  language='javascript'
+  content={`
+    import type { Config } from 'tailwindcss';
+
+    const config: Config = {
+      content: [
+      './pages/**/*.{js,ts,jsx,tsx,mdx}',
+      './components/**/*.{js,ts,jsx,tsx,mdx}',
+      './app/**/*.{js,ts,jsx,tsx,mdx}',
+      ],
+      theme: {
+      extend: {
+      // fontSize: {
+      // heading: ['48px', '64px', '36px', '24px', '18px', '16px'] // h1 to h6
+      // }
+      },
+      screens: {
+        xsm: '450px',
+        // => @media (min-width: 450px) { ... }
+
+        sm: '640px',
+        // => @media (min-width: 640px) { ... }
+
+        md: '768px',
+        // => @media (min-width: 770px) { ... }
+
+        lg: '1150px',
+        // => @media (min-width: 1150px) { ... }
+
+        xl: '1280px',
+        // => @media (min-width: 1280px) { ... }
+
+        '2xl': '1536px',
+        // => @media (min-width: 1536px) { ... }
+      },
+    },
+    // plugins: [],
+
+};
+
+export default config;
+
+`}
+/>
+
+Tailwind's documentation is excellent, and tools like:
+
+- The [Tailwind CSS IntelliSense for VS Code]().
+- Third-party cheat sheets like <WrapperLink href='https://www.creative-tim.com/twcomponents/cheatsheet' type="text">this one by Creative Tim</WrapperLink>,
+
+<WrapperLink href='https://www.creative-tim.com/twcomponents/cheatsheet'>
+  ![a screenshot showing the tailwind cheatsheet section on the creative tim
+  website](/06_img-10.png) _Image: a screenshot showing the tailwind cheatsheet
+  section on the creative tim website._
+</WrapperLink>
+
+and <WrapperLink href='https://nerdcave.com/tailwind-cheat-sheet' type="text">this one on the Nerdcave website by Jay Elaraj</WrapperLink>.
+
+<WrapperLink href='https://nerdcave.com/tailwind-cheat-sheet'>
+  ![a screenshot showing the tailwind cheatsheet section on the nerdcave website
+  ](/06_img-5.png) _Image: a screenshot showing the tailwind cheatsheet section
+  on the nerdcave website._
+</WrapperLink>
+
+All help to flatten the learning curve significantly.
+
+### 5. "It generates large CSS files"
+
+**Answer:** This concern is outdated. In older versions, tailwind uses PurgeCSS to scan your files and remove unused classes.
+In Tailwind 3.0+, this is handled by default with JIT (Just-In-Time) mode, which only generates the CSS you actually use.
+
+<HighlighterWrapper
+  language='javascript'
+  content={`
+    import type { Config } from 'tailwindcss';
+
+    const config: Config = {
+      content: [
+      './pages/**/*.{js,ts,jsx,tsx,mdx}',
+      './components/**/*.{js,ts,jsx,tsx,mdx}',
+      './app/**/*.{js,ts,jsx,tsx,mdx}',
+      ],
+
+     // remaining part of the config file...
+    };
+
+    export default config;
+
+`}
+/>
+
+With this setup, production builds are typically very small, often under 10KB when gzipped.
+
+### 6. "It's hard to customize and extend"
+
+**Answer:** This couldn't be further from the truth. Tailwind is built for customization:
+
+<HighlighterWrapper
+  language='javascript'
+  content={`
+   // tailwind.config.js
+     ...
+   
+      theme: {
+        extend: {
+          colors: {
+            brand: '#FF4785',
+            'brand-dark': '#FF1A53',
+          },
+          spacing: {
+            72: '18rem',
+            84: '21rem',
+          },
+          borderRadius: {
+            xl: '1rem',
+          },
+          fontSize: {
+          'xxs': '0.625rem', // 10px
+          'huge': '5rem',    // 80px
+          },
+        },
+      },
+
+    ...
+
+`}
+/>
+
+Usage:
+
+<HighlighterWrapper
+  language='html'
+  content={`
+  <section class="p-4 sm:p-72 bg-brand hover:bg-brand-dark text-white rounded-xl">
+    <h2 class="text-2xl mb-4">Welcome</h2>
+    <p>Thanks for using custom Tailwind values</p>
+    <p class="text-xxs">Tiny text</p>
+  </section>
+
+`}
+/>
+
+You can even create your own plugins:
+
+<HighlighterWrapper
+  language='javascript'
+  content={`
+   // tailwind.config.js
+     ...
+   
+      plugins: [
+        plugin(function ({ addUtilities }) {
+          const newUtilities = {
+            '.text-shadow-sm': {
+              textShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+            },
+            '.text-shadow': {
+              textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+            },
+          };
+          addUtilities(newUtilities);
+        }),
+      ],
+
+    ...
+
+`}
+/>
+
+**What the plugin does:**
+
+It extends tailwind with two custom utility classes. Basically, you're manually injecting them into tailwind for use in your
+project.
+
+Usage:
+
+<HighlighterWrapper
+  language='html'
+  content={`
+  <h2 class="text-2xl font-bold text-brand text-shadow-sm md:text-shadow">
+    Glowing Title
+  </h2>
+`}
+/>
+
+### 7. "It doesn't work well for larger teams"
+
+**Answer:** Actually, Tailwind shines in larger teams for some good reasons:
+
+1. **Consistent design system:** Tailwind enforces a design system with predefined spacing, colors, and typography.
+2. **Reduced conflicts:** Less chance of CSS specificity wars and unexpected side effects.
+3. **Standardized patterns:** Teams develop consistent component patterns.
+
+Many large companies including Netflix, Algolia, and Shopify use Tailwind in production with large development teams.
+
+### 8. "Traditional CSS is more performant"
+
+**Answer:** When properly configured, Tailwind can produce smaller CSS bundles than hand-written CSS. The JIT compiler ensures only the classes you use get included in your final bundle. Additionally, since all styles are inlined as classes, there's no need for the browser to parse complex CSS selectors.
+
+For complex applications, Tailwind often results in better performance due to:
+
+- Smaller file sizes after purging, and
+- No unused CSS
+
+### 9. "It only works on the web after all".
+
+**Answer:** Tailwind's utility-first approach isn't limited to just web development. There are several
+adaptations and implementations for other platforms:
+
+1. **React Native**: Libraries like [tailwind-rn](https://www.npmjs.com/package/tailwind-rn) and
+   [nativewind](https://www.nativewind.dev) bring Tailwind's utility classes to React Native development.
+
+<WrapperLink href='https://nerdcave.com/'>
+  ![a screenshot showing a section from the nativewind website landing
+  page](/06_img-6.png) _Image: a screenshot showing a section from the
+  nativewind website landing page._
+</WrapperLink>
+
+I've worked on multiple mobile app projects with nativewind and React Native. The experience is simply awesome.
+
+2. **Desktop Applications**: Frameworks like [Electron](https://www.electronjs.org) and [Tauri](https://v2.tauri.app) can use
+   Tailwind directly since they're web-based. I can't wait to try them out.
+
+3. Even though I'm not very certain, my research showed the use of tailwind CSS in **Flutter**, with libraries
+   like [flutter_tailwind](https://pub.dev/packages/flutter_tailwind) that bring Tailwind-like utilities to Flutter development.
+
+The utility-first methodology that Tailwind pioneered has influenced styling approaches across multiple platforms and frameworks,
+showing its value beyond just web development.
+
+## Wrapping Up.
+
+Pheeeew!!!
+
+That was quite a lot, and thanks for reading thus far.
+
+Writing this piece took quite a lot. But then its all worth it. While this piece was more about tailwind, I resolved to
+make it as value-packed as possible - sharing valuable information and insights along the way.
+
+I do hope you learnt a lot, and now appreciate TailwindCSS for its beauty and perfection, and for how much improvement
+it has added to the experience of UI engineers all around the world.
+
+## Hire the Zed Labs Team - Let's bring your software and design projects to life.
+
+We've still got project/client slots for this month.
+
+We invite you to come hire us to build and deliver your software or design projects. Whether it's web, mobile, or a desktop
+platform project in any domain such as AI or Web3, we've got you covered. From MVPs, to large scale enterprise projects, we're open
+to having you on board, and making you a happy client. We look forward to collaborating with you!
+
+- If you would love to work with the team at Zed Labs and have us build awesome stuff for you, simply [visit our website](https://zedlabs.xyz),
+  and fill the contact form. Alternatively, you can send us an email here: [hello.zedlabs@gmail.com](mailto:hello.zedlabs@gmail.com).
+
+- You can also send me a private email at [okpainmondrew@gmail.com](mailto:okpainmondrew@gmail.com) or a [DM via
+  Linkedin](https://www.linkedin.com/in/okpainmo-andrew) - just in case you prefer to contact me directly.
+
+We'll be excited to hop on a call and get on the way to bringing your software or design project to life.
+
+## Conclusion.
+
+Even though the Zed Labs blog is new. We hope to make it a haven where top-level engineers come to read, learn and get inspired -
+through smashing articles/content like this one.
+
+Do well to bookmark the Zed Labs blog, and stroll over to read new and exciting stories, plus top-notch mid-to-senior level engineering
+content in your free time.
+
+> If you loved this post or any other Zed Labs blog post, and would love to send an appreciation, simply use this link to [buy us
+> some cups of coffee](https://paystack.com/pay/11tykgn4-s) 🤓.
+
+Thanks for reading.
+
+Cheers!!!

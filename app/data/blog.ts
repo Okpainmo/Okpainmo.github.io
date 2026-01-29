@@ -1,38 +1,82 @@
-export interface Post {
-  id: string;
-  title: string;
-  intro: string;
-  category: string;
-  tags: string[];
-  slug: string;
-}
+// import { Post } from '@/globals';
 
-export const posts: Post[] = [
+export const categories = [
   {
-    id: '1',
-    title: 'Mastering Next.js 15: The Ultimate Guide for Senior Engineers',
-    intro:
-      'Exploring the new features in Next.js 15, from improved caching to the new compiler, and how they impact large-scale applications...',
-    category: 'Next.js',
-    tags: ['Frontend', 'JavaScript', 'Performance'],
-    slug: 'mastering-nextjs-15'
+    categoryName: 'Blockchain/Ethereum',
+    categoryBrief: `Explore awesome content on Ethereum, including insights into decentralized applications (dApps), smart contracts, and the vibrant Ethereum ecosystem.`,
+    categoryRoute: '/ethereum',
+    categoryId: 'ethereum'
   },
   {
-    id: '2',
-    title: 'Architecting Scalable DApps with Rust and Anchor',
-    intro:
-      'A deep dive into building production-ready Solana programs using Anchor, focusing on security, efficiency, and state management...',
-    category: 'Solana',
-    tags: ['Blockchain', 'Rust', 'Web3'],
-    slug: 'scaling-dapps-rust-anchor'
+    categoryName: 'Blockchain/Solana',
+    categoryBrief: `Read from our list of perfectly curated articles about Solana, featuring its high-performance blockchain capabilities and rapidly growing ecosystem.`,
+    categoryRoute: '/solana',
+    categoryId: 'solana'
   },
   {
-    id: '3',
-    title: 'The Future of Zero-Knowledge Proofs in Product Engineering',
-    intro:
-      'How ZKPs are moving from theoretical research to practical applications in privacy-preserving user interfaces and secure data verification...',
-    category: 'Cryptography',
-    tags: ['ZKP', 'Security', 'Engineering'],
-    slug: 'zkp-product-engineering'
+    categoryName: 'Blockchain/Pi Network',
+    categoryBrief: `Discover engaging content on the Pi Network and learn how this innovative project is making cryptocurrency accessible through mobile devices.`,
+    categoryRoute: '/pi-network',
+    categoryId: 'pi-network'
+  },
+  {
+    categoryName: 'Front-End Development',
+    categoryBrief: `Explore expertly written articles on front-end development, covering tools, frameworks, and best practices to create exceptional user experiences.`,
+    categoryRoute: '/frontend-development',
+    categoryId: 'frontend-development'
+  },
+  {
+    categoryName: 'Back-End Development',
+    categoryBrief: `Read our in-depth content on back-end development, featuring guides on server-side architecture, database management, and modern frameworks.`,
+    categoryRoute: '/backend-development',
+    categoryId: 'backend-development'
+  },
+  {
+    categoryName: 'Full-Stack Development',
+    categoryBrief: `Dive into our collection of full-stack development articles, offering insights and tutorials for building robust, end-to-end applications.`,
+    categoryRoute: '/fullstack-development',
+    categoryId: 'fullstack-development'
+  },
+  {
+    categoryName: 'Design',
+    categoryBrief: `Discover thoughtfully curated articles on design principles, UI/UX best practices, and how to create visually compelling digital experiences.`,
+    categoryRoute: '/design',
+    categoryId: 'design'
+  },
+  {
+    categoryName: 'Cloud/DevOps',
+    categoryBrief: `Explore comprehensive content on Cloud and DevOps, including automation strategies, CI/CD pipelines, and scalable cloud solutions.`,
+    categoryRoute: '/cloud-and-devops',
+    categoryId: 'cloud-and-devops'
+  },
+  {
+    categoryName: 'AI/ML',
+    categoryBrief: `Read through expertly curated articles on Artificial Intelligence and Machine Learning, including deep dives into real-world applications and emerging technologies.`,
+    categoryRoute: '/artificial-intelligence-and-machine-learning',
+    categoryId: 'artificial-intelligence-and-machine-learning'
+  },
+  {
+    categoryName: 'Zed Labs/People',
+    categoryBrief: `Explore awesome articles about our people at Zed Labs. Learn about the stories, expertise, and achievements of our talented team members.`,
+    categoryRoute: '/people-at-zed-labs',
+    categoryId: 'people-at-zed-labs'
+  },
+  {
+    categoryName: 'Zed Labs/Culture',
+    categoryBrief: `Read from our list of curated content about the culture at Zed Labs. Discover how we foster creativity, collaboration, and innovation in everything we do.`,
+    categoryRoute: '/culture-at-zed-labs',
+    categoryId: 'culture-at-zed-labs'
+  },
+  {
+    categoryName: 'Zed Labs/Project Stories',
+    categoryBrief: `Discover engaging content on our project stories at Zed Labs. Learn about the challenges, breakthroughs, and successes that define our journey.`,
+    categoryRoute: '/project-stories',
+    categoryId: 'project-stories'
+  },
+  {
+    categoryName: 'Engineering Leadership',
+    categoryBrief: `Explore awesome content on engineering leadership, featuring actionable insights into team management, innovation, and technical decision-making.`,
+    categoryRoute: '/engineering-leadership',
+    categoryId: 'engineering-leadership'
   }
 ];
