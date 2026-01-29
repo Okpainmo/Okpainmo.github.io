@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import PortfolioLayout from '../(portfolio)/components/layout/PortfolioLayout';
+import BlogLayout from './components/layout/BlogLayout';
 
 export const metadata: Metadata = {
   title: 'Andrew Okpainmo - Blog',
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 function layout({ children }: { children: React.ReactNode }) {
-  return <PortfolioLayout>{children}</PortfolioLayout>;
+  return <BlogLayout>{children}</BlogLayout>;
 }
 
 export default layout;
