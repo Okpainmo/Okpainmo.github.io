@@ -1,18 +1,29 @@
 export const skills = [
-  'JavaScript',
-  'TypeScript',
-  'React',
-  'Next.js',
-  'Tailwind CSS',
-  'Node.js',
-  'Solidity',
   'Rust',
-  'Blockchain',
-  'Smart Contracts',
-  'Web3.js',
+  'Solidity',
+  'JavaScript/Typescript',
+  'NodeJs/ExpressJs',
+  'Python(Django)',
+  'Next.js',
+  'React',
+  'React Native',
+  'Tailwind CSS',
   'Ethers.js',
-  'Git',
+  'Git/Github',
   'Docker',
   'PostgreSQL',
-  'MongoDB'
+  'MongoDB',
+  'AWS',
+  'Jenkins',
+  'Prometheus',
+  'Grafana'
+];
+
+export const expertiseDomains = [
+  'Microservices',
+  'Cloud Engineering/DevOps',
+  'Smart-contract Development',
+  'E-commerce',
+  'Smart-contract Integration',
+  'Blockchain Protocol Design/Architecture'
 ];
