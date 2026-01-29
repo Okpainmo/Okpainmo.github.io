@@ -26,6 +26,8 @@ function Navbar() {
           <Link
             key={item.name}
             href={item.href}
+            target={item.href == '/blog' ? '_blank' : undefined}
+            rel={item.href == '/blog' ? 'noopener noreferrer' : undefined}
             className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 rounded-full 
             text-white dark:text-black hover:text-white/70 dark:hover:text-black/70 hover:bg-white/10 dark:hover:bg-black/10 transition-all duration-300 group"
           >
