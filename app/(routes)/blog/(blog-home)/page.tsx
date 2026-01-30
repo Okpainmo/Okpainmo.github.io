@@ -4,6 +4,7 @@ import CategoriesListWrapper from '../components/CategoriesListWrapper';
 import type { Metadata } from 'next';
 import matter from 'gray-matter';
 import fs from 'fs';
+import BlogLayout from '../components/layout/BlogLayout';
 
 export const metadata: Metadata = {
   title: 'Andrew Okpainmo | Blog',
@@ -51,7 +52,7 @@ function BlogHomePage() {
   );
 
   return (
-    <>
+    <BlogLayout>
       <header>
         <div className="brand text-2xl font-bold pt-10 pb-0 sm:pt-32 sm:pb-0 text-black dark:text-zinc-50">
           ./Okpainmo/blog
@@ -79,7 +80,7 @@ function BlogHomePage() {
           })}
         </section>
       </div>
-    </>
+    </BlogLayout>
   );
 }
 

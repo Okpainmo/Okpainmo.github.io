@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 function layout({ children }: { children: React.ReactNode }) {
-  return <BlogLayout>{children}</BlogLayout>;
+  return <>{children}</>;
 }
 
 export default layout;
