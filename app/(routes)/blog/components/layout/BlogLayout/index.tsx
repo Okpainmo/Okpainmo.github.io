@@ -7,7 +7,7 @@ function BlogLayout({ children }: { children: React.ReactNode }) {
     <div className="relative">
       <main className="flex justify-center min-h-screen bg-zinc-50 font-sans dark:bg-black text-center">
         <Navbar />
-        <div className="min-h-screen w-full max-w-6xl px-6 sm:px-16 bg-white dark:bg-black">
+        <div className="min-h-screen w-full max-w-6xl px-0 sm:px-16 bg-white dark:bg-black">
           {children}
           <Footer />
         </div>

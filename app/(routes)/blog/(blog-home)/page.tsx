@@ -61,7 +61,7 @@ function BlogHomePage() {
       <div className="flex flex-col gap-12 py-10">
         <CategoriesListWrapper />
         <section
-          className="px-3 sm:px-[20px] lg:max-w-6xl lg:px-0 grid gap-y-[40px] gap-x-[30px] text-left lg:w-full lg:mb-0
+          className="px-3 sm:px-[20px] lg:px-0 lg:max-w-6xl grid gap-y-[40px] gap-x-[30px] text-left lg:w-full lg:mb-0
         sm:grid-cols-2 lg:grid-cols-3 lg:text-left"
         >
           {sortedBlogPosts.map((each: any) => {

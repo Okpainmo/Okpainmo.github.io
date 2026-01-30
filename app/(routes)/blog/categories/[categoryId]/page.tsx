@@ -96,7 +96,7 @@ async function CategoryPage({ params }: Props) {
         {sortedCategoryPosts?.length > 0 ? (
           <section
             className="px-3 sm:px-[20px] lg:px-0 grid gap-y-[40px] gap-x-[30px] text-left lg:w-full lg:mb-0
-          sm:grid-cols-2 lg:grid-cols-3 lg:text-left pt-[20px] pb-[50px] mx-auto"
+          sm:grid-cols-2 lg:grid-cols-3 lg:text-left pt-[10px] pb-[50px] mx-auto"
           >
             {sortedCategoryPosts?.map((each: any) => {
               const post = {
