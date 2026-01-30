@@ -7,11 +7,11 @@ import { AppProvider } from '@/app/rtk-base/provider';
 export const metadata: Metadata = {
   title: 'Andrew Okpainmo | Portfolio',
   description:
-    'Product engineer specializing in blockchain research and development - building cutting-edge solutions at the intersection of product and engineering.',
+    'Product engineer specializing in blockchain research and development - delivering cutting-edge solutions at the intersection of product and engineering.',
   openGraph: {
     title: 'Andrew Okpainmo | Portfolio',
     description:
-      'Product engineer specializing in blockchain research and development - building cutting-edge solutions at the intersection of product and engineering.',
+      'Product engineer specializing in blockchain research and development - delivering cutting-edge solutions at the intersection of product and engineering.',
     url: 'https://okpainmo.github.io',
     siteName: 'Andrew Okpainmo',
     images: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Andrew Okpainmo | Portfolio',
     description:
-      'Product engineer specializing in blockchain research and development - building cutting-edge solutions at the intersection of product and engineering.',
+      'Product engineer specializing in blockchain research and development - delivering cutting-edge solutions at the intersection of product and engineering.',
     creator: '@AJ_Okpainmo',
     images: ['https://avatars.githubusercontent.com/u/42122017']
   },
