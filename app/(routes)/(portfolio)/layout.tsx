@@ -5,7 +5,7 @@ import PortfolioLayout from './components/layout/PortfolioLayout';
 export const metadata: Metadata = {
   title: 'Andrew Okpainmo - Portfolio',
   description:
-    'Product engineer specializing in blockchain research and development - building scalable solutions at the intersection of product and engineering.'
+    'Product engineer specializing in blockchain research and development - building cutting-edge solutions at the intersection of product and engineering.'
 };
 
 function layout({ children }: { children: React.ReactNode }) {
