@@ -12,7 +12,7 @@ function About() {
         <div className="text-gray-600 dark:text-gray-400 leading-relaxed text-base">
           <div className="relative w-[150px] aspect-square float-left mr-6 mb-6">
             <Image
-              src="/images/me.jpg"
+              src="/_/me.jpg"
               alt="Andrew Okpainmo"
               fill
               className="object-cover rounded-2xl shadow-lg border border-zinc-200 dark:border-zinc-800"

@@ -39,7 +39,9 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           {post.intro}
         </p>
         <Link
-          href={`/blog/posts/${post.slug}`}
+          href={`/blog/categories/${post.category}/${post.slug
+            .replace(/\s/g, '-')
+            .toLowerCase()}`}
           className="flex items-center gap-1 text-sm font-semibold text-black dark:text-white hover:underline group/story"
         >
           Read post
