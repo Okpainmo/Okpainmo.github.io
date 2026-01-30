@@ -10,8 +10,8 @@ export const metadata: Metadata = {
     title: 'Andrew Okpainmo | Blog',
     description:
       'Thoughtful deep dives into systems engineering, blockchain architecture, and product development — grounded in real-world ownership and execution',
-    url: 'https://okpainmo.github.io',
-    siteName: 'Andrew Okpainmo',
+    url: 'https://okpainmo.github.io/blog',
+    siteName: 'Andrew Okpainmo | Blog',
     images: [
       {
         url: 'https://okpainmo.github.io/_/okpainmo__the-logo.png',

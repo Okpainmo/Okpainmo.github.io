@@ -27,6 +27,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: currentCategoryData?.categoryName,
     description: currentCategoryData?.categoryBrief,
+    openGraph: {
+      title: `Andrew Okpainmo | Blog - ${currentCategoryData?.categoryName}`,
+      description: currentCategoryData?.categoryBrief,
+      url: 'https://okpainmo.github.io/blog',
+      siteName: 'Andrew Okpainmo | Blog',
+      images: [
+        {
+          url: 'https://okpainmo.github.io/_/okpainmo__the-logo.png',
+          width: 800,
+          height: 800
+        }
+      ],
+      locale: 'en-US',
+      type: 'website'
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `Andrew Okpainmo | Blog - ${currentCategoryData?.categoryName}`,
+      description: currentCategoryData?.categoryBrief,
+      creator: '@AJ_Okpainmo',
+      images: ['https://okpainmo.github.io/_/okpainmo__the-logo.png']
+    },
+    icons: {
+      icon: 'https://okpainmo.github.io/_/okpainmo__the-logo.png'
+    },
     keywords: [
       'Technology',
       'Software Development',

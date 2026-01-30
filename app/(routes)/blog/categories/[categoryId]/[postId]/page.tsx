@@ -79,7 +79,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     );
   }
 
-  const postImage = `https://zed-labs-blog-files-bucket.s3.eu-north-1.amazonaws.com${postThumbnailUrl}`;
+  // const postImage = `https://zed-labs-blog-files-bucket.s3.eu-north-1.amazonaws.com${postThumbnailUrl}`;
+  const postImage = `https://okpainmo.github.io/_/okpainmo__the-logo.png`;
   // console.log(postImage);
 
   return {
@@ -87,7 +88,29 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: postTitle,
     description: postBrief,
     openGraph: {
-      images: [postImage]
+      title: postTitle,
+      description: postBrief,
+      url: 'https://okpainmo.github.io/blog',
+      siteName: 'Andrew Okpainmo | Blog',
+      images: [
+        {
+          url: 'https://okpainmo.github.io/_/okpainmo__the-logo.png',
+          width: 800,
+          height: 800
+        }
+      ],
+      locale: 'en-US',
+      type: 'website'
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: postTitle,
+      description: postBrief,
+      creator: '@AJ_Okpainmo',
+      images: ['https://okpainmo.github.io/_/okpainmo__the-logo.png']
+    },
+    icons: {
+      icon: 'https://okpainmo.github.io/_/okpainmo__the-logo.png'
     },
     keywords: [
       'Technology',
