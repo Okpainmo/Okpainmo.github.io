@@ -20,7 +20,8 @@ const eslintConfig = defineConfig([
       '@typescript-eslint/ban-ts-comment': 'off',
       'react/no-unescaped-entities': 'off',
       '@next/next/no-img-element': 'off',
-      'jsx-a11y/alt-text': 'off'
+      'jsx-a11y/alt-text': 'off',
+      'react-hooks/exhaustive-deps': 'off'
     },
   },
 ]);
