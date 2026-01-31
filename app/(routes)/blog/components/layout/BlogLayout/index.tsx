@@ -1,8 +1,11 @@
 import Navbar from '../Navbar';
-import Ad from '../../../../components/Ad';
+import Ad from '../../../../../components/Ad';
 import Footer from '../Footer';
+import { getBlogAds } from '@/app/lib/get-ads__blog-posts';
 
-function BlogLayout({ children }: { children: React.ReactNode }) {
+async function BlogLayout({ children }: { children: React.ReactNode }) {
+  const ads = await getBlogAds();
+
   return (
     <div className="relative">
       <main className="flex justify-center min-h-screen bg-zinc-50 font-sans dark:bg-black text-center">
@@ -12,7 +15,7 @@ function BlogLayout({ children }: { children: React.ReactNode }) {
           <Footer />
         </div>
       </main>
-      <Ad />
+      <Ad initialAds={ads} />
     </div>
   );
 }

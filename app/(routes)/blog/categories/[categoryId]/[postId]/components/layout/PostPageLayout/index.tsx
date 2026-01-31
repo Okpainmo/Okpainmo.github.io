@@ -1,8 +1,11 @@
 import Navbar from '../../../../../../components/layout/Navbar';
 import Footer from '../../../../../../components/layout/Footer';
-import Ad from '@/app/(routes)/components/Ad';
+import Ad from '@/app/components/Ad';
+import { getBlogAds } from '@/app/lib/blog-ads';
 
-function PostPageLayout({ children }: { children: React.ReactNode }) {
+async function PostPageLayout({ children }: { children: React.ReactNode }) {
+  const ads = await getBlogAds();
+
   return (
     <div className="relative">
       <main className="flex min-h-screen bg-white font-sans dark:bg-black">
@@ -14,7 +17,7 @@ function PostPageLayout({ children }: { children: React.ReactNode }) {
           </section>
         </div>
       </main>
-      <Ad />
+      <Ad initialAds={ads} />
     </div>
   );
 }
