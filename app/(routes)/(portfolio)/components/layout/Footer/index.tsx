@@ -23,7 +23,7 @@ function Footer() {
         </div>
 
         <div className="text-zinc-500 dark:text-zinc-400 text-center">
-          built with so much ❤️ and{' '}
+          Built with so much ❤️ and{' '}
           <Link className="underline" href="/get-jabasah">
             The Jabasah Template
           </Link>
