@@ -44,7 +44,7 @@ function BlogIntro() {
       </div>
 
       <section
-        className="px-3 sm:px-[20px] lg:max-w-6xl lg:px-0 grid gap-y-[40px] gap-x-[30px] text-left lg:w-full 
+        className="sm:px-[20px] lg:max-w-6xl lg:px-0 grid gap-y-[40px] gap-x-[30px] text-left lg:w-full 
       lg:mb-0 sm:grid-cols-2 lg:text-left"
       >
         {sortedBlogPosts.map((each: any) => {
@@ -65,8 +65,8 @@ function BlogIntro() {
 
       <Link
         href="/blog"
-        target="_blank"
-        rel="noopener noreferrer"
+        // target="_blank"
+        // rel="noopener noreferrer"
         className="flex self-start h-12 items-center justify-center gap-3 rounded-full border border-zinc-200 px-8 
           transition-all hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:border-zinc-700 font-medium"
       >

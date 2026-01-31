@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { skills } from '@/app/data/skills';
+import { skills, expertiseDomains } from '@/app/data/skills';
 
 function About() {
   return (
@@ -55,6 +55,16 @@ function About() {
               className="px-4 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-gray-700 dark:text-zinc-300 text-sm hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
             >
               {skill}
+            </div>
+          ))}
+        </div>
+        <div className="flex flex-wrap gap-2 mt-5">
+          {expertiseDomains.map((each) => (
+            <div
+              key={each}
+              className="px-4 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-gray-700 dark:text-zinc-300 text-sm hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
+            >
+              {each}
             </div>
           ))}
         </div>

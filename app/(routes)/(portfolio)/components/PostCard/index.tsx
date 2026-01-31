@@ -32,9 +32,14 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       )} */}
 
       <div className="flex flex-col gap-3">
-        <h3 className="text-xl font-bold text-black dark:text-white poppins">
+        <Link
+          href={`/blog/categories/${post.category}/${post.slug
+            .replace(/\s/g, '-')
+            .toLowerCase()}`}
+          className="text-xl font-bold text-black dark:text-white poppins"
+        >
           {post.title}
-        </h3>
+        </Link>
         <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed line-clamp-2">
           {post.intro}
         </p>
