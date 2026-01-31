@@ -5,16 +5,31 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { HiXMark, HiArrowRight } from 'react-icons/hi2';
 import { useAppDispatch, useAppSelector } from '@/app/rtk-base/store';
-import { closeAd, showNextAd } from '@/app/rtk-base/slices/adSlice';
+import {
+  closeAd,
+  showNextAd,
+  syncAdPool,
+  Ad as AdType
+} from '@/app/rtk-base/slices/adSlice';
 
-function Ad() {
+interface AdProps {
+  initialAds: AdType[];
+}
+
+function Ad({ initialAds }: AdProps) {
   const dispatch = useAppDispatch();
   const { currentAd, isVisible } = useAppSelector((state) => state.ad);
 
   useEffect(() => {
+    if (initialAds && initialAds.length > 0) {
+      dispatch(syncAdPool(initialAds));
+    }
+  }, [initialAds, dispatch]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       dispatch(showNextAd());
-    }, 15000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, [dispatch]);
@@ -33,36 +48,39 @@ function Ad() {
         {/* Close Button */}
         <button
           onClick={() => dispatch(closeAd())}
-          className="absolute top-2 right-2 p-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:text-black dark:hover:text-white transition-colors z-10"
+          className="absolute cursor-pointer top-2 right-2 p-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:text-black dark:hover:text-white transition-colors z-10"
         >
           <HiXMark className="text-lg" />
         </button>
 
         <div className="flex gap-4 items-center">
           {/* Ad Image */}
-          <div className="relative w-20 h-20 shrink-0 overflow-hidden rounded-xl">
+          <div className="relative w-[90] h-[90px] shrink-0 overflow-hidden rounded-xl">
             <Image
               src={currentAd.imageUrl}
               alt={currentAd.title}
               fill
-              className="object-cover group-hover:scale-110 transition-transform duration-500"
+              className="object-cover w-full group-hover:scale-110 transition-transform duration-500"
             />
           </div>
 
           {/* Ad Content */}
           <div className="flex flex-col gap-1 pr-4">
-            <h3 className="text-sm font-bold text-black dark:text-white line-clamp-1 poppins">
+            <Link
+              href={currentAd.link}
+              className="text-[12px] font-bold text-black dark:text-white line-clamp-2 poppins"
+            >
               {currentAd.title}
-            </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 line-clamp-2 leading-tight">
+            </Link>
+            <p className="text-[12px] text-zinc-500 dark:text-zinc-400 line-clamp-2 leading-tight">
               {currentAd.intro}
             </p>
             <Link
               href={currentAd.link}
-              className="text-xs font-semibold text-black dark:text-white flex items-center gap-1 mt-1 hover:underline group/link"
+              className="text-[12px] font-semibold text-black dark:text-white flex items-center gap-1 mt-1 hover:underline group/link"
               onClick={() => dispatch(closeAd())}
             >
-              Learn more
+              Read Post
               <HiArrowRight className="text-[10px] group-hover/link:translate-x-1 transition-transform" />
             </Link>
           </div>

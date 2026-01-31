@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ads } from '@/app/data/ads';
+// import { ads } from '@/app/data/ads';
 
 export interface Ad {
   id: string;
@@ -16,7 +16,7 @@ interface AdState {
   nextAdIndex: number;
 }
 
-const dummyAds: Ad[] = ads;
+const dummyAds: Ad[] = [];
 
 const initialState: AdState = {
   currentAd: null,
@@ -29,6 +29,9 @@ const adSlice = createSlice({
   name: 'ad',
   initialState,
   reducers: {
+    syncAdPool: (state, action) => {
+      state.adPool = action.payload;
+    },
     showNextAd: (state) => {
       state.currentAd = state.adPool[state.nextAdIndex];
       state.isVisible = true;
@@ -40,5 +43,5 @@ const adSlice = createSlice({
   }
 });
 
-export const { showNextAd, closeAd } = adSlice.actions;
+export const { showNextAd, closeAd, syncAdPool } = adSlice.actions;
 export default adSlice.reducer;
