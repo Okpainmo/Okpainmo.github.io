@@ -1,4 +1,4 @@
-import Contacts from '@/app/(routes)/components/Contacts';
+import Contacts from '@/app/components/Contacts';
 import React from 'react';
 import {
   BiLogoTwitter,
@@ -7,6 +7,8 @@ import {
   BiLogoYoutube
 } from 'react-icons/bi';
 import { HiEnvelope } from 'react-icons/hi2';
+import Link from 'next/link';
+
 function Footer() {
   return (
     <footer className="pt-20 pb-[200px] border-t border-zinc-100 dark:border-zinc-800">
@@ -21,7 +23,10 @@ function Footer() {
         </div>
 
         <div className="text-zinc-500 dark:text-zinc-400">
-          built with so much ❤️ by Me
+          built with so much ❤️ and{' '}
+          <Link className="underline" href="/get-jabasah">
+            The Jabasah Template
+          </Link>
         </div>
       </div>
     </footer>

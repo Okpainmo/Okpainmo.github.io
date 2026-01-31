@@ -35,6 +35,23 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         </Link>
       </div>
 
+      {/* Role Section */}
+      <div className="flex flex-col gap-2">
+        <span className="text-[10px] uppercase tracking-widest font-bold text-zinc-400 dark:text-zinc-500">
+          Role
+        </span>
+        <div className="flex flex-wrap gap-2">
+          {project.role.map((role) => (
+            <span
+              key={role}
+              className="px-3 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 text-xs rounded-full font-medium"
+            >
+              {role}
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* Skills Section */}
       <div className="flex flex-col gap-2">
         <span className="text-[10px] uppercase tracking-widest font-bold text-zinc-400 dark:text-zinc-500">
