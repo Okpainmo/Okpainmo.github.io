@@ -1,7 +1,7 @@
 import Navbar from '../Navbar';
 import Ad from '../../../../../components/Ad';
 import Footer from '../Footer';
-import { getBlogAds } from '@/app/lib/blog-ads';
+import { getBlogAds } from '@/app/lib/get-ads__blog-posts';
 
 async function PortfolioLayout({ children }: { children: React.ReactNode }) {
   const ads = await getBlogAds();
