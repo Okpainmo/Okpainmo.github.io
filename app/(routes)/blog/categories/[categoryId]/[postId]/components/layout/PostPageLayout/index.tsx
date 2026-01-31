@@ -1,7 +1,7 @@
 import Navbar from '../../../../../../components/layout/Navbar';
 import Footer from '../../../../../../components/layout/Footer';
 import Ad from '@/app/components/Ad';
-import { getBlogAds } from '@/app/lib/blog-ads';
+import { getBlogAds } from '@/app/lib/get-ads__blog-posts';
 
 async function PostPageLayout({ children }: { children: React.ReactNode }) {
   const ads = await getBlogAds();
