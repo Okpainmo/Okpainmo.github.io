@@ -12,6 +12,8 @@ import PostPageHeadSection from './components/PostPageHeadSection';
 import AboutAuthorSection from './components/AboutAuthorSection';
 import { categories } from '@/app/data/blog';
 import PostPageLayout from './components/layout/PostPageLayout';
+import PostImageZoomModal from './components/PostImageZoomModal';
+import postPageSlice from '@/app/rtk-base/slices/postPageSlice';
 // below import is nextjs specific
 export const dynamicParams = false;
 const basePath = 'content';
@@ -135,26 +137,6 @@ async function PostPage({ params }: Props) {
 
   const mdxPosts = files.filter((file) => file.endsWith('.mdx'));
 
-  // const postFilePathsWithExtension = mdxPosts.map((each) => {
-  //   // remove the initial number and hyphen from the start of each post path
-  //   return each.split('_')[1];
-  // });
-
-  // const postFilePathsWithOutExtension = postFilePathsWithExtension.map(
-  //   (each) => {
-  //     // remove the file extension from all the paths
-  //     return each.split('.')[0];
-  //   }
-  // );
-
-  // const currentPostFilePath = postFilePathsWithOutExtension.find((each) => {
-  //   // remove the file extension
-  //   return each.split('.')[0] == postId;
-  // });
-  // console.log(currentPostFilePath);
-
-  // const currentPostFilePath = mdxPosts.find((item) => item.includes(postId));
-
   const currentPostFilePath = mdxPosts.find((item) => {
     // Extract the part after '_' and before '.mdx'
     const part = item.substring(item.indexOf('_') + 1, item.lastIndexOf('.'));
@@ -169,7 +151,8 @@ async function PostPage({ params }: Props) {
   );
   // console.log(fileContent);
 
-  const matterResult = matter(fileContent);
+  const currentPost = matter(fileContent);
+  // console.log('current post', currentPost);
   const {
     authorPhotoUrl,
     authorName,
@@ -179,7 +162,7 @@ async function PostPage({ params }: Props) {
     postIndex,
     authorSocials,
     postCategory
-  } = matterResult.data;
+  } = currentPost.data;
 
   const postData = {
     authorPhotoUrl,
@@ -205,30 +188,45 @@ async function PostPage({ params }: Props) {
   });
 
   const sortedPosts = allPostFileContent.sort(
-    (a: any, b: any) => b.postIndex - a.postIndex
+    // use the now known currentPostIndex to sort the posts
+    (a: any, b: any) =>
+      allPostFileContent.findIndex(
+        (post) => post.data.postSlug === b.data.postSlug
+      ) -
+      allPostFileContent.findIndex(
+        (post) => post.data.postSlug === a.data.postSlug
+      )
+  );
+  // console.log('sorted posts', sortedPosts);
+
+  // smiles: I used js indexing pattern setup on the posts YAML front matter at the top of each
+  // // const previousPostIndex = Number(postIndex) - 1;
+
+  // // const nextPostIndex = Number(postIndex) + 1;
+
+  // // const previousPostData = sortedPosts[previousPostIndex]?.data;
+
+  // // const nextPostData = sortedPosts[nextPostIndex]?.data;
+
+  /* safer: using direct posts(array) indexing in-case en post is deleted from queue, and the YAML post matter
+   setup(for 'postIndex') becomes invalid */
+  const currentPostIndex = allPostFileContent.findIndex(
+    (post) => post.data.postSlug === postId
   );
 
-  // console.log(allPostFileContent);
-  // console.log(allPostFileContent.length);
+  // console.log('current post index', currentPostIndex);
 
-  /* set the category of content on the posts navigation to only show those for the 
-  category that this current post is on */
-  // const categoryPosts = allPostFileContent.filter((post) => {
-  //   return post.postCategory === postData.postCategory;
-  // });
-  // console.log(categoryPosts);
+  const previousPostIndex = currentPostIndex - 1;
 
-  // smiles: I used js indexing pattern on the posts
-  const previousPostIndex = Number(postIndex) - 1;
-  // console.log(previousPostIndex);
-  const nextPostIndex = Number(postIndex) + 1;
-  // console.log(nextPostIndex);
+  const nextPostIndex = currentPostIndex + 1;
 
   const previousPostData = sortedPosts[previousPostIndex]?.data;
+
   const nextPostData = sortedPosts[nextPostIndex]?.data;
 
   return (
     <PostPageLayout>
+      <PostImageZoomModal />
       <main className="mt-[75px] post-page px-3 sm:px-[20px]">
         <PostPageHeadSection
           authorPhotoUrl={postData.authorPhotoUrl}
@@ -238,7 +236,7 @@ async function PostPage({ params }: Props) {
         />
         <PostWrapper>
           <article className="sm:mt-[30px]">
-            <MDXRemote source={matterResult?.content} components={components} />
+            <MDXRemote source={currentPost?.content} components={components} />
           </article>
         </PostWrapper>
         <PageNavigator

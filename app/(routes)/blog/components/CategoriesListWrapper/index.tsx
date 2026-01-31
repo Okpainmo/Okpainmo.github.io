@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 function CategoriesListWrapper() {
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 px-2">
       <div className="flex flex-wrap justify-center gap-3">
         {categories.map((category) => (
           <Link

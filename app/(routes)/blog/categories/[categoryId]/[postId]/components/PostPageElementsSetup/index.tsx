@@ -56,7 +56,7 @@ export const presetComponents = {
     />
   ),
   img: (props: any) => (
-    <span className="block my-10 overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800">
+    <span className="block my-4 overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 cursor-pointer">
       <img className="w-full h-auto" {...props} />
     </span>
   ),
