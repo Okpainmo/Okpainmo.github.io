@@ -6,8 +6,11 @@ export const skills = [
   'Python(Django)',
   'Next.js',
   'React',
+  'Anchor(Solana)',
   'React Native',
   'Tailwind CSS',
+  'Bootstrap',
+  'SCSS',
   'Ethers.js',
   'Git/Github',
   'Docker',
@@ -16,13 +19,17 @@ export const skills = [
   'AWS',
   'Jenkins',
   'Prometheus',
-  'Grafana'
+  'Grafana',
+  'Redis',
+  'RabbitMQ'
 ];
 
 export const expertiseDomains = [
-  'Microservices',
-  'Cloud Engineering/DevOps',
+  'Distributed Systems',
+  'Cloud Engineering & DevOps',
   'Smart-contract Development',
+  'Ethereum',
+  'Solana',
   'E-commerce',
   'Smart-contract Integration',
   'Blockchain Protocol Design/Architecture'

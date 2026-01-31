@@ -1,82 +1,74 @@
-// import { Post } from '@/globals';
-
 export const categories = [
   {
-    categoryName: 'Blockchain/Ethereum',
-    categoryBrief: `Explore awesome content on Ethereum, including insights into decentralized applications (dApps), smart contracts, and the vibrant Ethereum ecosystem.`,
+    categoryName: 'Ethereum',
+    categoryBrief: `Deep dives into Ethereum - from smart contract design and protocol mechanics to real-world dApps and ecosystem evolution.`,
     categoryRoute: '/ethereum',
     categoryId: 'ethereum'
   },
   {
-    categoryName: 'Blockchain/Solana',
-    categoryBrief: `Read from our list of perfectly curated articles about Solana, featuring its high-performance blockchain capabilities and rapidly growing ecosystem.`,
+    categoryName: 'Solana',
+    categoryBrief: `Technical explorations of Solana’s high-performance architecture, tooling, and the trade-offs behind its design decisions.`,
     categoryRoute: '/solana',
     categoryId: 'solana'
   },
   {
-    categoryName: 'Blockchain/Pi Network',
-    categoryBrief: `Discover engaging content on the Pi Network and learn how this innovative project is making cryptocurrency accessible through mobile devices.`,
-    categoryRoute: '/pi-network',
-    categoryId: 'pi-network'
-  },
-  {
-    categoryName: 'Front-End Development',
-    categoryBrief: `Explore expertly written articles on front-end development, covering tools, frameworks, and best practices to create exceptional user experiences.`,
-    categoryRoute: '/frontend-development',
-    categoryId: 'frontend-development'
-  },
-  {
-    categoryName: 'Back-End Development',
-    categoryBrief: `Read our in-depth content on back-end development, featuring guides on server-side architecture, database management, and modern frameworks.`,
-    categoryRoute: '/backend-development',
-    categoryId: 'backend-development'
-  },
-  {
-    categoryName: 'Full-Stack Development',
-    categoryBrief: `Dive into our collection of full-stack development articles, offering insights and tutorials for building robust, end-to-end applications.`,
-    categoryRoute: '/fullstack-development',
-    categoryId: 'fullstack-development'
-  },
-  {
-    categoryName: 'Design',
-    categoryBrief: `Discover thoughtfully curated articles on design principles, UI/UX best practices, and how to create visually compelling digital experiences.`,
-    categoryRoute: '/design',
-    categoryId: 'design'
-  },
-  {
     categoryName: 'Cloud/DevOps',
-    categoryBrief: `Explore comprehensive content on Cloud and DevOps, including automation strategies, CI/CD pipelines, and scalable cloud solutions.`,
+    categoryBrief: `Practical insights into cloud infrastructure, DevOps workflows, CI/CD pipelines, reliability, and operating systems at scale.`,
     categoryRoute: '/cloud-and-devops',
     categoryId: 'cloud-and-devops'
   },
   {
     categoryName: 'AI/ML',
-    categoryBrief: `Read through expertly curated articles on Artificial Intelligence and Machine Learning, including deep dives into real-world applications and emerging technologies.`,
+    categoryBrief: `Clear, engineering-focused discussions on AI and machine learning - covering concepts, systems integration, and real production use cases.`,
     categoryRoute: '/artificial-intelligence-and-machine-learning',
     categoryId: 'artificial-intelligence-and-machine-learning'
   },
   {
-    categoryName: 'Zed Labs/People',
-    categoryBrief: `Explore awesome articles about our people at Zed Labs. Learn about the stories, expertise, and achievements of our talented team members.`,
-    categoryRoute: '/people-at-zed-labs',
-    categoryId: 'people-at-zed-labs'
+    categoryName: 'Front-End Development',
+    categoryBrief: `Modern front-end engineering topics, including frameworks, performance, accessibility, and building resilient user interfaces.`,
+    categoryRoute: '/frontend-development',
+    categoryId: 'frontend-development'
   },
   {
-    categoryName: 'Zed Labs/Culture',
-    categoryBrief: `Read from our list of curated content about the culture at Zed Labs. Discover how we foster creativity, collaboration, and innovation in everything we do.`,
-    categoryRoute: '/culture-at-zed-labs',
-    categoryId: 'culture-at-zed-labs'
+    categoryName: 'System Design',
+    categoryBrief: `Thoughtful breakdowns of system design concepts - scalability, reliability, trade-offs, and architecture decisions in real systems.`,
+    categoryRoute: '/system-design',
+    categoryId: 'system-design'
   },
   {
-    categoryName: 'Zed Labs/Project Stories',
-    categoryBrief: `Discover engaging content on our project stories at Zed Labs. Learn about the challenges, breakthroughs, and successes that define our journey.`,
+    categoryName: 'Back-End Development',
+    categoryBrief: `In-depth articles on backend systems, APIs, databases, and the patterns behind maintainable, scalable server-side software.`,
+    categoryRoute: '/backend-development',
+    categoryId: 'backend-development'
+  },
+  {
+    categoryName: 'Full-Stack Development',
+    categoryBrief: `End-to-end engineering perspectives that connect front-end, backend, infrastructure, and product thinking.`,
+    categoryRoute: '/fullstack-development',
+    categoryId: 'fullstack-development'
+  },
+  {
+    categoryName: 'Design',
+    categoryBrief: `Design thinking for engineers - covering UI/UX principles, usability, and building products that feel intentional and intuitive.`,
+    categoryRoute: '/design',
+    categoryId: 'design'
+  },
+  {
+    categoryName: 'Project Stories',
+    categoryBrief: `Behind-the-scenes narratives from real projects, highlighting technical challenges, decisions made, and lessons learned.`,
     categoryRoute: '/project-stories',
     categoryId: 'project-stories'
   },
   {
     categoryName: 'Engineering Leadership',
-    categoryBrief: `Explore awesome content on engineering leadership, featuring actionable insights into team management, innovation, and technical decision-making.`,
+    categoryBrief: `Perspectives on engineering leadership, decision-making, mentorship, and building high-performing technical teams.`,
     categoryRoute: '/engineering-leadership',
     categoryId: 'engineering-leadership'
+  },
+  {
+    categoryName: 'Data Structure And Algorithms',
+    categoryBrief: `Conceptual and practical explanations of data structures and algorithms, with a focus on problem-solving and reasoning.`,
+    categoryRoute: '/dsa',
+    categoryId: 'dsa'
   }
 ];
