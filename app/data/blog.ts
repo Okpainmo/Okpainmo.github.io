@@ -1,5 +1,11 @@
 export const categories = [
   {
+    categoryName: 'General',
+    categoryBrief: `Thoughts, updates, and explorations that don’t fit neatly into a single category — from reflections to broader tech and product discussions.`,
+    categoryRoute: '/general',
+    categoryId: 'general'
+  },
+  {
     categoryName: 'Ethereum',
     categoryBrief: `Deep dives into Ethereum - from smart contract design and protocol mechanics to real-world dApps and ecosystem evolution.`,
     categoryRoute: '/ethereum',
