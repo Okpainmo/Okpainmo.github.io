@@ -42,8 +42,8 @@ html {
   .nunito_sans {
     font-family: var(--font-nunito_sans);
   }
+}
 
-  .text_teal-core {
-    color: #3da08d;
-  }
+code {
+  @apply text-gray-700 dark:text-gray-200;
 }
