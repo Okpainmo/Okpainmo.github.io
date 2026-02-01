@@ -17,7 +17,7 @@ import {
 function Top() {
   return (
     <section className="min-h-screen" id="home">
-      <div className="brand text-2xl font-bold pt-12 pb-20 sm:py-20 md::py-32 text-black dark:text-zinc-50">
+      <div className="brand text-2xl font-bold pt-12 pb-20 sm:py-20 md:py-32 text-black dark:text-zinc-50">
         ./Okpainmo
       </div>
       <div className="flex flex-col gap-6 items-start">
