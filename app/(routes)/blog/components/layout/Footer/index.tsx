@@ -11,7 +11,7 @@ import Link from 'next/link';
 
 function Footer() {
   return (
-    <footer className="pt-20 pb-[200px] border-t border-zinc-100 dark:border-zinc-800">
+    <footer className="pt-20 px-3 pb-[200px] border-t border-zinc-100 dark:border-zinc-800">
       <div className="flex flex-col justify-between items-center gap-12">
         <div className="flex flex-col gap-6 items-center md:items-start">
           {/* <span className="text-sm uppercase tracking-widest font-bold text-zinc-400 dark:text-zinc-500">

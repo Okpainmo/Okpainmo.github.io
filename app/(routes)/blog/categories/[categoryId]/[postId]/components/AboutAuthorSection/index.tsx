@@ -23,7 +23,7 @@ function AboutAuthorSection({
       <h3 className="text-base poppins font-bold text-black dark:text-white uppercase tracking-wider">
         About The Author
       </h3>
-      <div className="text-zinc-800 dark:text-zinc-400 leading-relaxed">
+      <div className="text-zinc-800 dark:text-zinc-300 leading-relaxed">
         {authorBio}
       </div>
       <div className="social-links flex items-center justify-start gap-4">

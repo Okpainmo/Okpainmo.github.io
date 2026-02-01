@@ -51,18 +51,18 @@ export const presetComponents = {
   li: (props: any) => <li className="pl-2" {...props} />,
   em: (props: any) => (
     <em
-      className="text-zinc-700 dark:text-zinc-500 text-sm italic"
+      className="text-zinc-700 dark:text-zinc-300 text-sm italic"
       {...props}
     />
   ),
   img: (props: any) => (
-    <span className="block my-4 overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 cursor-pointer">
+    <span className="block my-4 overflow-hidden rounded-[5px] border border-zinc-200 dark:border-zinc-800 cursor-pointer">
       <img className="w-full h-auto" {...props} />
     </span>
   ),
   p: (props: any) => (
     <p
-      className="my-6 leading-relaxed text-zinc-800 dark:text-zinc-400"
+      className="my-6 leading-relaxed text-zinc-800 dark:text-zinc-300"
       {...props}
     />
   ),

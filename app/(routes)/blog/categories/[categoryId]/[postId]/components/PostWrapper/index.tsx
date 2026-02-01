@@ -39,7 +39,7 @@ function PostWrapper({ children }: { children: React.ReactNode }) {
     <div
       ref={wrapperRef}
       className="post-wrapper w-full md:w-[65%] lg:w-[50%] xl:w-[40%] 2xl:w-[35%] md:mx-auto text-base text-zinc-800
-       dark:text-zinc-400 leading-relaxed"
+       dark:text-zinc-300 leading-relaxed"
     >
       {children}
     </div>

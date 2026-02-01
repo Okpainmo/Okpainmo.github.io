@@ -61,23 +61,23 @@ const RepoCard = async ({ owner, repo }: { owner: string; repo: string }) => {
         />
         <div className="flex-1 min-w-0">
           <h2 className="text-lg font-bold poppins truncate flex items-center gap-1 group-hover:underline">
-            <span className="text-zinc-700 dark:text-zinc-500 font-medium">
+            <span className="text-zinc-700 dark:text-zinc-300 font-medium">
               {repoData.owner.login} /
             </span>
             <span className="text-black dark:text-white">{repoData.name}</span>
           </h2>
-          <p className="text-sm text-zinc-800 dark:text-zinc-400 mt-2 line-clamp-2 leading-relaxed">
+          <p className="text-sm text-zinc-800 dark:text-zinc-300 mt-2 line-clamp-2 leading-relaxed">
             {repoData.description}
           </p>
         </div>
       </div>
 
       <div className="flex items-center gap-6 pt-4 border-t border-zinc-50 dark:border-zinc-800/50">
-        <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-zinc-700">
+        <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
           <BiGitRepoForked className="text-base" />
           <span>{repoData.forks_count} Forks</span>
         </div>
-        <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-zinc-700">
+        <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
           <HiOutlineStar className="text-base" />
           <span>{repoData.stargazers_count} Stars</span>
         </div>
