@@ -25,9 +25,9 @@ function Top() {
           Hi 👋🏾, I’m Andrew Okpainmo.
         </h1>
         <div className="leading-[30px] text-zinc-600 dark:text-zinc-400">
-          A product engineer with deep experience owning systems end-to-end -
-          from architecture and full-stack development to cloud infrastructure,
-          on-chain deployments, and product leadership.
+          A product engineer with deep experience owning on-chain and off-chain
+          systems end-to-end - from architecture and full-stack development to
+          cloud infrastructure, on-chain deployments, and product leadership.
         </div>
         <div className="flex gap-4 items-center justify-start">
           <a
