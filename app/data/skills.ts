@@ -18,6 +18,7 @@ export const skills = [
   'MongoDB',
   'AWS',
   'Jenkins',
+  'Github Actions',
   'Prometheus',
   'Grafana',
   'Redis',
