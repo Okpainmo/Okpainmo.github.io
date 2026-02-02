@@ -99,7 +99,7 @@ function GetJabasahPage() {
           </div>
 
           <Link
-            href="https://paystack.shop/pay/t0vsuerka4"
+            href="https://paystack.shop/pay/get-jabasah"
             className="flex items-center justify-center gap-2 w-full py-4 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-semibold hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg hover:shadow-xl"
           >
             <HiOutlineCreditCard className="text-xl" />
