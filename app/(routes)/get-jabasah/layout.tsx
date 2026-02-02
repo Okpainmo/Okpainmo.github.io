@@ -5,11 +5,11 @@ import ThemeSegmentLayout from './components/layout/ThemeSegmentLayout';
 export const metadata: Metadata = {
   title: 'Jabasah - Premium Portfolio Template For Senior Software Engineers',
   description:
-    'Elevate your professional presence with the Jabasah Portfolio Template. A premium, developer-focused masterpiece with an in-built MDX-powered and more.',
+    'Elevate your professional presence with the Jabasah Portfolio Template. A premium, developer-focused masterpiece with an in-built MDX-powered blog and more other awesome features.',
   openGraph: {
     title: 'Jabasah - Premium Portfolio Template For Senior Software Engineers',
     description:
-      'Elevate your professional presence with the Jabasah Portfolio Template. A premium, developer-focused masterpiece with an in-built MDX-powered and more.',
+      'Elevate your professional presence with the Jabasah Portfolio Template. A premium, developer-focused masterpiece with an in-built MDX-powered blog and more other awesome features.',
     images: [
       {
         url: 'https://okpainmo.github.io/_/okpainmo__the-logo.png',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Jabasah - Premium Portfolio Template For Senior Software Engineers',
     description:
-      'Elevate your professional presence with the Jabasah Portfolio Template. A premium, developer-focused masterpiece with an in-built MDX-powered and more.',
+      'Elevate your professional presence with the Jabasah Portfolio Template. A premium, developer-focused masterpiece with an in-built MDX-powered blog and more other awesome features.',
     images: ['https://okpainmo.github.io/_/okpainmo__the-logo.png']
   }
 };
