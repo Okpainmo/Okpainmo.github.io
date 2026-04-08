@@ -25,9 +25,9 @@ function Top() {
           Hi 👋🏾, I’m Andrew Okpainmo.
         </h1>
         <div className="leading-[30px] text-zinc-600 dark:text-zinc-400">
-          A product engineer with deep experience owning on-chain and off-chain
-          systems end-to-end - from architecture and full-stack development to
-          cloud infrastructure, on-chain deployments, and product leadership.
+          A senior product engineer with deep experience owning systems
+          end-to-end - from architecture and full-stack development to cloud
+          infrastructure and product leadership.
         </div>
         <div className="flex gap-4 items-center justify-start">
           <a
@@ -89,7 +89,7 @@ function Top() {
         <a
           className="flex  self-start h-12 items-center justify-center gap-3 rounded-full bg-black px-8 text-white 
           transition-all hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
-          href="/resume.pdf"
+          href="https://drive.google.com/file/d/1aVNvGsfz9BDdIVfdXRpUnX3qb7-SEUtD/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
         >
