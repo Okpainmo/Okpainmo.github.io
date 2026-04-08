@@ -3,7 +3,7 @@ export const skills = [
   'Solidity',
   'JavaScript/Typescript',
   'NodeJs/ExpressJs',
-  'Python(Django)',
+  'Python/Django',
   'Next.js',
   'React',
   'Anchor(Solana)',
@@ -32,6 +32,7 @@ export const expertiseDomains = [
   'Ethereum',
   'Solana',
   'E-commerce',
+  'Real-time Communication Systems',
   'Smart-contract Integration',
   'Blockchain Protocol Design/Architecture'
 ];
