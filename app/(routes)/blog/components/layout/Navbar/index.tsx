@@ -10,7 +10,7 @@ import {
 const navItems = [
   { name: 'Home', href: '/#home', icon: HiOutlineHome },
   { name: 'About', href: '/#about', icon: HiOutlineUser },
-  { name: 'Projects', href: '/#projects', icon: HiOutlineBriefcase },
+  // { name: 'Projects', href: '/#projects', icon: HiOutlineBriefcase },
   { name: 'Blog', href: '/blog', icon: HiOutlinePencilSquare }
 ];
 

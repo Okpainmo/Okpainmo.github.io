@@ -55,11 +55,21 @@ export const presetComponents = {
       {...props}
     />
   ),
-  img: (props: any) => (
-    <span className="block my-4 overflow-hidden rounded-[5px] border border-zinc-200 dark:border-zinc-800 cursor-pointer">
-      <img className="w-full h-auto" {...props} />
-    </span>
-  ),
+  img: (props: any) => {
+    const isBanner = props.src?.includes('post-banner_');
+    return (
+      <span
+        className={`block my-4 overflow-hidden rounded-[5px] border border-zinc-200 dark:border-zinc-800 cursor-pointer ${
+          isBanner ? 'relative w-full h-[250px] sm:h-[300px] lg:h-[350px]' : ''
+        }`}
+      >
+        <img
+          className={`w-full ${isBanner ? 'h-full object-cover' : 'h-auto'}`}
+          {...props}
+        />
+      </span>
+    );
+  },
   p: (props: any) => (
     <p
       className="my-6 leading-relaxed text-zinc-800 dark:text-zinc-300"

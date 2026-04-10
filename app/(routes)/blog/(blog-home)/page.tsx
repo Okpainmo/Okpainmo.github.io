@@ -1,6 +1,6 @@
 import React from 'react';
 import PostCard from '../components/PostCard';
-import CategoriesListWrapper from '../components/CategoriesListWrapper';
+import CategoriesListWrapper from '@/app/components/CategoriesListWrapper';
 import type { Metadata } from 'next';
 import matter from 'gray-matter';
 import fs from 'fs';
@@ -74,6 +74,7 @@ function BlogHomePage() {
               slug: each.postSlug,
               thumbnailUrl: each.postThumbnailUrl,
               date: each.postDate,
+              lastUpdated: each.postLastUpdated,
               author: each.authorName
             };
             return <PostCard key={post.id} post={post} />;

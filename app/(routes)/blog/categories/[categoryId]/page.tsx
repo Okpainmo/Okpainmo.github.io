@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import fs from 'fs';
 import matter from 'gray-matter';
 import { categories } from '@/app/data/blog';
-import CategoriesListWrapper from '../../components/CategoriesListWrapper';
+import CategoriesListWrapper from '@/app/components/CategoriesListWrapper';
 import PostCard from '../../components/PostCard';
 import BlogLayout from '../../components/layout/BlogLayout';
 
@@ -133,6 +133,7 @@ async function CategoryPage({ params }: Props) {
                 slug: each.postSlug,
                 thumbnailUrl: each.postThumbnailUrl,
                 date: each.postDate,
+                lastUpdated: each.postLastUpdated,
                 author: each.authorName
               };
               return <PostCard key={post.id} post={post} />;

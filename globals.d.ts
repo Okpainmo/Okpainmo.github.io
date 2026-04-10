@@ -7,6 +7,7 @@ export interface AuthorSocials {
 export interface Post {
   postTitle: string;
   postDate: string; // e.g. "March 25, 2025"
+  postLastUpdated?: string;
   postIndex: number;
   postCategory: string;
   postBrief: string;

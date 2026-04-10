@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { skills, expertiseDomains } from '@/app/data/skills';
+import Link from 'next/link';
 
 function About() {
   return (
@@ -20,30 +21,79 @@ function About() {
           </div>
 
           <p className="mb-6">
-            Driven by a passion for precision and a deep-seated curiosity for
-            emerging technologies, I've spent the last several years
-            architecting scalable solutions at the intersection of blockchain
-            and product engineering. My journey began with a simple fascination
-            for how things work, which quickly evolved into a career dedicated
-            to building robust, decentralized systems that solve real-world
-            problems.
+            Driven by a deep-seated curiosity for emerging technologies and a
+            strong itch for entrepreneurship, I spent a good chunk of the last
+            couple years making passionate attempts at founding and building
+            startups. With multiple 'failures' and priceless lessons learned, I
+            pivoted and founded{' '}
+            <Link
+              href="https://www.linkedin.com/company/zedlabs-hq"
+              className="italic underline decoration-dotted underline-offset-4 text-zinc-900 dark:text-zinc-100"
+            >
+              Zed Labs
+            </Link>{' '}
+            - a creative digital agency delivering software and other services
+            to clients. In less than 2 years we've worked on some pretty cool
+            stuff, like{' '}
+            <Link
+              href="/blog/categories/project-stories/how-we-built-the-king-of-pi-mall-blockchain-ecommerce-project"
+              className="italic underline decoration-dotted underline-offset-4 text-zinc-900 dark:text-zinc-100"
+            >
+              this blockchain e-commerce project
+            </Link>
+            , and{' '}
+            <Link
+              href="/blog/categories/project-stories/the-private-practice-project-so-far"
+              className="italic underline decoration-dotted underline-offset-4 text-zinc-900 dark:text-zinc-100"
+            >
+              this amazing health-tech startup project.
+            </Link>
           </p>
           <p className="mb-6">
-            I specialize in creating seamless user experiences powered by
-            complex back-end logic. Whether it's developing secure smart
-            contracts, optimizing high-performance DApps, or leading
-            cross-functional teams toward a unified vision, I thrive on the
-            challenge of pushing the boundaries of what's possible in the
-            digital space.
+            Thanks to years of valuable experiences marked by leadership and
+            keeping up with new technologies - intentionally optimizing my
+            software development career to efficiently deliver across the entire
+            engineering stack, I excel and specialize in leading teams -
+            spearheading the delivery of world-class software from ideation and
+            design-direction, to full-stack development,
+            deployments(cloud/DevOps), maintenance, scaling, and product
+            leadership.
           </p>
-          <p>
-            When I'm not deep in code, you'll find me exploring the latest in
-            cryptographic research, mentoring aspiring developers, or
-            contributing to open-source projects that move the needle forward
-            for the global tech community. I believe that the best products are
-            born from collaboration, transparency, and an unwavering commitment
-            to excellence.
+          <p className="mb-6">
+            Strongly goal oriented, you'll hardly ever find me without a project
+            I'm working on. <br /> Right now, my primary interests lie in
+            blockchain/web3 technologies. I'm passionate about decentralization,
+            and believe it holds the key to a more equitable and transparent
+            future. <br /> About Artificial Intelligence, I think it's cool -
+            absolutely the biggest thing the tech world has ever seen. I
+            actively utilize AI in my engineering workflows and day-to-day
+            processes, but I unfortunately do not believe AI is ever going to
+            make software engineers obsolete - certainly not one like me.
           </p>
+          <p className="mb-6">
+            Thank you for taking the time to go through my profile. I'm always
+            open to connecting with like-minded individuals, so feel free to
+            reach out. Up next, you can check out some of my{' '}
+            <Link
+              href="#projects"
+              className="italic underline decoration-dotted underline-offset-4 text-zinc-900 dark:text-zinc-100"
+            >
+              projects
+            </Link>
+            , or read some posts from my{' '}
+            <Link
+              href="/blog"
+              className="italic underline decoration-dotted underline-offset-4 text-zinc-900 dark:text-zinc-100"
+            >
+              blog
+            </Link>
+            .
+          </p>
+          <p className="mb-6">
+            Also, just below is an array of skills and expertise domains I
+            possess. Do check them out to learn more about me.
+          </p>
+          <p>Cheers!</p>
         </div>
 
         <div className="border-b border-zinc-200 dark:border-zinc-800 my-10"></div>

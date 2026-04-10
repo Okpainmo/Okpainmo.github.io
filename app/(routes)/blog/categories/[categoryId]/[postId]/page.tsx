@@ -158,6 +158,7 @@ async function PostPage({ params }: Props) {
     authorName,
     postTitle,
     postDate,
+    postLastUpdated,
     authorBio,
     postIndex,
     authorSocials,
@@ -169,6 +170,7 @@ async function PostPage({ params }: Props) {
     authorName,
     postTitle,
     postDate,
+    postLastUpdated,
     authorBio,
     authorSocials,
     postCategory
@@ -233,6 +235,7 @@ async function PostPage({ params }: Props) {
           authorName={postData.authorName}
           postTitle={postData.postTitle}
           postDate={postData.postDate}
+          postLastUpdated={postData.postLastUpdated}
         />
         <PostWrapper>
           <article className="sm:mt-[30px]">

@@ -13,6 +13,7 @@ interface PostCardProps {
     slug: string;
     thumbnailUrl: string;
     date: string;
+    lastUpdated?: string;
     author: string;
   };
 }
@@ -64,16 +65,28 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
               {post.category}
             </span>
           </div>
-          {(post.date || post.author) && (
-            <div className="flex flex-col gap-1">
-              <span className="text-[10px] uppercase tracking-widest font-bold text-zinc-400 dark:text-zinc-500">
-                Published
-              </span>
-              <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
-                {post.date} {post.author && `by ${post.author}`}
-              </span>
-            </div>
-          )}
+          <div className="flex flex-wrap gap-x-8 gap-y-4">
+            {(post.date || post.author) && (
+              <div className="flex flex-col gap-1">
+                <span className="text-[10px] uppercase tracking-widest font-bold text-zinc-400 dark:text-zinc-500">
+                  Published
+                </span>
+                <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
+                  {post.date} {post.author && `by ${post.author}`}
+                </span>
+              </div>
+            )}
+            {post.lastUpdated && (
+              <div className="flex flex-col gap-1">
+                <span className="text-[10px] uppercase tracking-widest font-bold text-zinc-400 dark:text-zinc-500">
+                  Last Updated
+                </span>
+                <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
+                  {post.lastUpdated}
+                </span>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="flex flex-wrap gap-2">

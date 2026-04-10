@@ -57,6 +57,7 @@ function BlogIntro() {
             slug: each.postSlug,
             thumbnailUrl: each.postThumbnailUrl,
             date: each.postDate,
+            lastUpdated: each.postLastUpdated,
             author: each.authorName
           };
           return <PostCard key={post.id} post={post} />;
