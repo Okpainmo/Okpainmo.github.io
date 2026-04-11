@@ -30,7 +30,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="hidden text-zinc-500 dark:text-zinc-400 text-center">
+        <div className="text-zinc-500 dark:text-zinc-400 text-center">
           Built with so much ❤️ and{' '}
           <Link className="underline" href="/get-jabasah">
             The Jabasah Template
