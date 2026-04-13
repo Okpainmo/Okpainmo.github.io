@@ -10,6 +10,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import adReducer from './slices/adSlice';
 import postPageReducer from './slices/postPageSlice';
+import menuReducer from './slices/menuSlice';
 
 export const store = configureStore({
   reducer: {
@@ -21,7 +22,8 @@ export const store = configureStore({
     // formTab: formTabReducer,
     // explore: exploreReducer,
     ad: adReducer,
-    postPage: postPageReducer
+    postPage: postPageReducer,
+    menu: menuReducer
   }
 });
 
