@@ -1,20 +1,27 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import {
   HiOutlineHome,
   HiOutlineUser,
   HiOutlineBriefcase,
-  HiOutlinePencilSquare
+  HiOutlinePencilSquare,
+  HiOutlineSquares2X2
 } from 'react-icons/hi2';
+import { useAppDispatch } from '@/app/rtk-base/store';
+import { openMenu } from '@/app/rtk-base/slices/menuSlice';
 
 const navItems = [
-  { name: 'Home', href: '/#home', icon: HiOutlineHome },
-  { name: 'About', href: '/#about', icon: HiOutlineUser },
-  // { name: 'Projects', href: '/#projects', icon: HiOutlineBriefcase },
+  { name: 'Home', href: '#home', icon: HiOutlineHome },
+  { name: 'About', href: '#about', icon: HiOutlineUser },
+  { name: 'Projects', href: '#projects', icon: HiOutlineBriefcase },
   { name: 'Blog', href: '/blog', icon: HiOutlinePencilSquare }
 ];
 
 function Navbar() {
+  const dispatch = useAppDispatch();
+
   return (
     <div className="fixed left-0 right-0 bottom-4 sm:bottom-8 flex justify-center z-50 px-3 sm:px-4">
       <nav
@@ -22,10 +29,22 @@ function Navbar() {
       gap-1 sm:gap-2 px-2 py-1 sm:px-4 sm:py-2 bg-black/70 dark:bg-white/70 backdrop-blur-md border border-white/20 dark:border-black/10 
       rounded-full shadow-lg transition-all duration-500"
       >
+        {/* New Menu Button */}
+        <button
+          onClick={() => dispatch(openMenu())}
+          className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 rounded-full 
+          bg-white/10 dark:bg-black/10 text-white dark:text-black hover:bg-white/20 dark:hover:bg-black/20 
+          transition-all duration-300 group cursor-pointer"
+        >
+          <HiOutlineSquares2X2 className="text-2xl sm:text-2xl group-hover:scale-110 transition-transform" />
+        </button>
+
         {navItems.map((item) => (
           <Link
             key={item.name}
             href={item.href}
+            // target={item.href == '/blog' ? '_blank' : undefined}
+            // rel={item.href == '/blog' ? 'noopener noreferrer' : undefined}
             className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 rounded-full 
             text-white dark:text-black hover:text-white/70 dark:hover:text-black/70 hover:bg-white/10 dark:hover:bg-black/10 transition-all duration-300 group"
           >

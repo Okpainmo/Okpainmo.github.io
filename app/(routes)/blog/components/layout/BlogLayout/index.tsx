@@ -2,6 +2,7 @@ import Navbar from '../Navbar';
 import Ad from '../../../../../components/Ad';
 import Footer from '../Footer';
 import { getBlogAds } from '@/app/lib/get-ads__blog-posts';
+import MenuOverlay from '../../../../../components/MenuOverlay';
 
 async function BlogLayout({ children }: { children: React.ReactNode }) {
   const ads = await getBlogAds();
@@ -16,6 +17,7 @@ async function BlogLayout({ children }: { children: React.ReactNode }) {
         </div>
       </main>
       <Ad initialAds={ads} />
+      <MenuOverlay />
     </div>
   );
 }
