@@ -1,5 +1,6 @@
 import Navbar from '../Navbar';
 import Ad from '../../../../../components/Ad';
+import MenuOverlay from '../../../../../components/MenuOverlay';
 import Footer from '../Footer';
 import { getBlogAds } from '@/app/lib/get-ads__blog-posts';
 
@@ -16,6 +17,7 @@ async function PortfolioLayout({ children }: { children: React.ReactNode }) {
         </div>
       </main>
       <Ad initialAds={ads} />
+      <MenuOverlay />
     </div>
   );
 }

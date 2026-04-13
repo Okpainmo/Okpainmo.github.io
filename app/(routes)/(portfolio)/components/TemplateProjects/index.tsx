@@ -4,7 +4,7 @@ import { templateProjects } from '@/app/data/projects';
 
 function TemplateProjects() {
   return (
-    <div className="py-20 hidden flex flex-col gap-12">
+    <div className="py-20 flex flex-col gap-12">
       <div className="flex flex-col gap-4">
         <div className="brand text-2xl font-bold mb-4 sm:mb-6 text-black dark:text-zinc-50">
           /projects/templates
