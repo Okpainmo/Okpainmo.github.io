@@ -27,7 +27,7 @@ function Footer() {
                 </span>
               </div>
               <h3 className="text-xl font-bold text-zinc-900 dark:text-white poppins">
-                Deep Dives & Research
+                Deep Dives - Research & Development
               </h3>
             </div>
 
@@ -85,11 +85,15 @@ function Footer() {
           </div>
         </div>
 
-        <div className="text-zinc-500 dark:text-zinc-400 text-center">
+        {/* <div className="text-zinc-500 dark:text-zinc-400 text-center">
           Built with so much ❤️ and{' '}
           <Link className="underline" href="/get-jabasah">
             The Jabasah Template
           </Link>
+        </div> */}
+
+        <div className="text-zinc-500 dark:text-zinc-400 text-center">
+          © 2026 Andrew James Okpainmo • All Rights Reserved.
         </div>
       </div>
     </footer>

@@ -13,9 +13,9 @@ import { useAppDispatch } from '@/app/rtk-base/store';
 import { openMenu } from '@/app/rtk-base/slices/menuSlice';
 
 const navItems = [
-  { name: 'Home', href: '#home', icon: HiOutlineHome },
-  { name: 'About', href: '#about', icon: HiOutlineUser },
-  { name: 'Projects', href: '#projects', icon: HiOutlineBriefcase },
+  { name: 'Home', href: '/#home', icon: HiOutlineHome },
+  { name: 'About', href: '/#about', icon: HiOutlineUser },
+  { name: 'Projects', href: '/#projects', icon: HiOutlineBriefcase },
   { name: 'Blog', href: '/blog', icon: HiOutlinePencilSquare }
 ];
 
