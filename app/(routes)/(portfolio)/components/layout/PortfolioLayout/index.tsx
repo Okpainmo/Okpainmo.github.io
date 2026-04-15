@@ -11,7 +11,7 @@ async function PortfolioLayout({ children }: { children: React.ReactNode }) {
     <div className="relative">
       <main className="flex justify-center min-h-screen bg-zinc-50 font-sans dark:bg-black text-left">
         <Navbar />
-        <div className="min-h-screen w-full max-w-3xl px-3 sm:px-16 bg-white dark:bg-black">
+        <div className="min-h-screen w-full max-w-4xl px-3 sm:px-16 bg-white dark:bg-black">
           {children}
           <Footer />
         </div>

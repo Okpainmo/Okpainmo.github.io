@@ -59,9 +59,9 @@ function About() {
             keeping up with new technologies(intentionally optimizing my career
             to enable me deliver efficiently across the entire engineering
             stack), I excel and specialize in leading teams - spearheading the
-            delivery of world-class software from ideation and design-direction,
-            to full-stack development, deployments(cloud/DevOps), and product
-            leadership.
+            delivery of world-class software from ideation, to architecture and
+            design-direction, full-stack development, deployments(cloud/DevOps),
+            and product leadership.
           </p>
           <p className="mb-6">
             Strongly goal oriented, you'll hardly ever find me without a project
