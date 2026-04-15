@@ -12,7 +12,7 @@ type Props = {
   params: Promise<{ categoryId: string }>;
 };
 
-const basePath = 'blockchain_content_publications';
+const basePath = 'blockchain_publications';
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { categoryId } = await params;

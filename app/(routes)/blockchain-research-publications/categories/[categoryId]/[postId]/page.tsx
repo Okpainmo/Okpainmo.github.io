@@ -16,7 +16,7 @@ import PostImageZoomModal from './components/PostImageZoomModal';
 import postPageSlice from '@/app/rtk-base/slices/postPageSlice';
 // below import is nextjs specific
 export const dynamicParams = false;
-const basePath = 'blockchain_content_publications';
+const basePath = 'blockchain_publications';
 
 type Props = {
   params: Promise<{ postId: string }>;

@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 };
 
 // to get publications
-const publicationsBasePath = 'blockchain_content_publications';
+const publicationsBasePath = 'blockchain_publications';
 
 function PublicationsHomePage() {
   const publicationFiles = fs.readdirSync(publicationsBasePath);
