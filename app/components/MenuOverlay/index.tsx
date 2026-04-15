@@ -29,12 +29,16 @@ function MenuOverlay() {
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 lg:p-6">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-3xl transition-opacity duration-500 animate-in fade-in"
+        className="absolute inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-3xl transition-opacity 
+        duration-500 animate-in fade-in"
         onClick={() => dispatch(closeMenu())}
       />
 
       {/* Content Container */}
-      <div className="relative w-full h-[97vh] sm:h-full max-w-6xl bg-zinc-100/10 dark:bg-zinc-900/20 backdrop-blur-2xl border border-white/10 rounded-[2rem] sm:rounded-[3rem] shadow-2xl overflow-hidden flex flex-col transform transition-all duration-500 animate-in zoom-in fade-in">
+      <div
+        className="relative w-full h-[97vh] sm:h-full max-w-6xl bg-zinc-100/10 dark:bg-zinc-900/20 backdrop-blur-2xl 
+      border border-white/10 rounded-2xl shadow-2xl overflow-hidden flex flex-col transform transition-all duration-500 animate-in zoom-in fade-in"
+      >
         {/* Header */}
         <div className="sticky top-0 z-50 flex items-center justify-between px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-6 border-b border-white/5 bg-white/5 backdrop-blur-md">
           <div className="flex items-center gap-3">
@@ -46,15 +50,16 @@ function MenuOverlay() {
                 Core R&D
               </h2>
               <p className="text-xs text-white/50 lato mt-1">
-                Blockchain Research & Development
+                Deep Dives - Research & Development
               </p>
             </div>
           </div>
           <button
             onClick={() => dispatch(closeMenu())}
-            className="p-3 rounded-full bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-all duration-300 group"
+            className="p-1.5 sm:p-3 rounded-full bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-all 
+            duration-300 group"
           >
-            <HiXMark className="text-2xl group-hover:rotate-90 transition-transform duration-300" />
+            <HiXMark className="text-xl sm:text-2xl group-hover:rotate-90 transition-transform duration-300" />
           </button>
         </div>
 
@@ -69,7 +74,7 @@ function MenuOverlay() {
                 rel={segment.isExternal ? 'noopener noreferrer' : undefined}
                 onClick={() => !segment.isExternal && dispatch(closeMenu())}
                 className="group relative flex flex-col bg-white/5 hover:bg-white/10 border border-white/5 
-                hover:border-white/20 rounded-[2rem] overflow-hidden transition-all duration-500 
+                hover:border-white/20 rounded-2xl overflow-hidden transition-all duration-500 
                 hover:-translate-y-2 hover:shadow-2xl hover:shadow-white/5"
               >
                 {/* Banner wrapper */}
@@ -117,8 +122,7 @@ function MenuOverlay() {
         {/* Footer info */}
         <div className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-6 bg-white/5 border-t border-white/5 text-center">
           <p className="text-[10px] text-white/30 uppercase tracking-[0.2em] font-medium poppins">
-            © {new Date().getFullYear()} Andrew Okpainmo • System Design &
-            Blockchain R&D
+            © {new Date().getFullYear()} Andrew Okpainmo • Core R&D
           </p>
         </div>
       </div>
