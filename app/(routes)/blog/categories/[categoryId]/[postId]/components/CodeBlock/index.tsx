@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { IoIosCopy, IoIosCheckmark } from 'react-icons/io';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 
-export const HighlighterWrapper = ({
+export const CodeBlock = ({
   language,
   content
 }: {
@@ -26,7 +26,7 @@ export const HighlighterWrapper = ({
   }
 
   return (
-    <section className="highlighter-wrapper w-full mt-10 mb-8 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800">
+    <section className="code-block w-full mt-10 mb-8 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800">
       <div className="px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 flex justify-between items-center">
         <div className="text-xs font-bold uppercase tracking-widest text-zinc-700 dark:text-zinc-300">
           {language || 'code'}

@@ -1,12 +1,12 @@
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { HighlighterWrapper } from '../HighlighterWrapper';
+import { CodeBlock } from '../CodeBlock';
 import YoutubeEmbed from '../YoutubeEmbed';
 import TwitterEmbed from '../TwitterEmbed';
 import WrapperLink from '../WrapperLink';
 import GitHubEmbed from '../GitHubEmbed';
 
 export const presetComponents = {
-  HighlighterWrapper,
+  CodeBlock,
   YoutubeEmbed,
   SyntaxHighlighter,
   TwitterEmbed,
@@ -38,7 +38,7 @@ export const presetComponents = {
   ),
   a: (props: any) => (
     <a
-      className="text-black dark:text-white underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-4 hover:decoration-black dark:hover:decoration-white transition-colors"
+      className="text-black dark:text-white underline decoration-zinc-500 dark:decoration-zinc-400 underline-offset-4 hover:decoration-black dark:hover:decoration-white transition-colors"
       {...props}
     />
   ),

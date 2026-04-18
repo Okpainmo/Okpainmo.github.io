@@ -1,12 +1,12 @@
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { HighlighterWrapper } from '../HighlighterWrapper';
+import { CodeBlock } from '../CodeBlock';
 import YoutubeEmbed from '../YoutubeEmbed';
 import TwitterEmbed from '../TwitterEmbed';
 import WrapperLink from '../WrapperLink';
 import GitHubEmbed from '../GitHubEmbed';
 
 export const presetComponents = {
-  HighlighterWrapper,
+  CodeBlock,
   YoutubeEmbed,
   SyntaxHighlighter,
   TwitterEmbed,
