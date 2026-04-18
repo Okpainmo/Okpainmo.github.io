@@ -162,7 +162,8 @@ async function PostPage({ params }: Props) {
     authorBio,
     postIndex,
     authorSocials,
-    postCategory
+    postCategory,
+    postTags
   } = currentPost.data;
 
   const postData = {
@@ -173,7 +174,8 @@ async function PostPage({ params }: Props) {
     postLastUpdated,
     authorBio,
     authorSocials,
-    postCategory
+    postCategory,
+    postTags
   };
 
   const allPostFilePaths = mdxPosts.map((each) => {
@@ -236,6 +238,7 @@ async function PostPage({ params }: Props) {
           postTitle={postData.postTitle}
           postDate={postData.postDate}
           postLastUpdated={postData.postLastUpdated}
+          postTags={postData.postTags}
         />
         <PostWrapper>
           <article className="sm:mt-[30px]">

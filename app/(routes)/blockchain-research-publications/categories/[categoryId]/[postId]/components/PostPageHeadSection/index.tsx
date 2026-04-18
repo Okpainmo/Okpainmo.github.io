@@ -6,13 +6,15 @@ function PostPageHeadSection({
   authorName,
   postDate,
   postLastUpdated,
-  postTitle
+  postTitle,
+  postTags
 }: {
   authorPhotoUrl: string;
   authorName: string;
   postDate: string;
   postLastUpdated?: string;
   postTitle: string;
+  postTags?: string[];
 }) {
   return (
     <>
@@ -41,9 +43,29 @@ function PostPageHeadSection({
             </span>
           )}
         </div>
-        <h3 className="text-2xl sm:text-3xl poppins mb-5 capitalize w-full md:w-[65%] lg:w-[50%] xl:w-[40%] font-semibold mx-auto md:leading-[40px] text-black dark:text-zinc-50">
-          {postTitle}
-        </h3>
+        <div className="flex flex-col gap-3 items-center">
+          <h3
+            className="text-2xl sm:text-3xl poppins capitalize w-full md:w-[65%] lg:w-[50%] xl:w-[40%] 2xl:w-[35%] 
+          font-semibold mx-auto md:leading-[40px] text-black dark:text-zinc-50"
+          >
+            {postTitle}
+          </h3>
+          <section>
+            {postTags && postTags.length > 0 && (
+              <div className="flex flex-wrap gap-2 justify-center w-full md:w-[65%] lg:w-[50%] xl:w-[40%] 2xl:w-[35%] md:mx-auto">
+                {postTags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1 text-[10px] uppercase font-medium tracking-wider bg-zinc-100 dark:bg-zinc-800 
+                  text-zinc-600 dark:text-zinc-400 rounded-full border border-zinc-200 dark:border-zinc-700"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </section>
+        </div>
       </section>
     </>
   );
