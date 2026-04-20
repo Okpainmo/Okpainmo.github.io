@@ -1,7 +1,7 @@
 ---
 postTitle: 'Complete(Docker) Python Back-end Deployment On AWS EC2'
 postDate: "May 26, 2025"
-postLastUpdated: 'April 15, 2026'
+postLastUpdated: 'April 20, 2026'
 postIndex: 10
 postCategory: "cloud-and-devops"
 postBrief: "A highly professional guide, that details a standard and complete deployment of
@@ -13,7 +13,8 @@ authorBio: "Andrew James Okpainmo is a fullstack software engineer who is passio
 and scaling awesome products and startups. He currently works as a freelance software engineer 
 (with expertise in fullstack software development, cloud engineering, and DevOps), while leading the team 
 at Zed Labs."
-postTags: ["clickops", "cloud-engineering", "devops", "aws", "systemd", "nginx", "ssl", "route 53", "docker", "python", "django"]
+postTags: ['docker', 'python', 'django', 'aws', 'ec2', 'nginx', 'ssl', 'devops', 'deployment']
+subCategories: ['backend-development']
 postSlug: "complete-docker-python-back-end-deployment-on-aws-ec2"
 authorSocials:
   twitter: https://twitter.com/AJ_Okpainmo
@@ -22,8 +23,6 @@ authorSocials:
 ---
 
 ![post banner](/post-banners/post-banner_10.png)
-
-Welcome to another value-packed cloud/DevOps article on the Zed Labs blog.
 
 This article is a highly professional guide, that details a standard and complete(containerized)
 deployment of a Python(Django - Django Ninja) API server on AWS EC2.
@@ -53,8 +52,8 @@ The project to be deployed, is open and free to access - visit
 <GitHubEmbed owner="Okpainmo" repo="fast-django-backend-template" />
 
 > N.B: This guide assumes, that you already created an EC2 instance, and is ready for the API server deployment.
-> In case you haven't and need a guide to go about that, explore this
-> [awesome Zed Labs blog article](https://blog.zedlabs.xyz/cloud-and-devops/how-to-create-an-aws-ec2-instance), in
+> In case you haven't and need a guide to go about that, 
+> [explore this other article](/blog/categories/cloud-and-devops/how-to-create-an-aws-ec2-instance), in
 > which I shared how to create an AWS EC2 instance from scratch. Awesome thing, the EC2 instance I created in that post, is
 > the one I'll be performing this project server deployment on.
 
@@ -217,10 +216,11 @@ We actually don't need to do that in this tutorial by the way. **We will be impl
 
 In case you want a more beginner-friendly guide that provides much detail - explaining the dynamics involved in opening
 and using custom VM ports, feel free to
-[read this previous Zed Labs article](https://blog.zedlabs.xyz/cloud-and-devops/complete_nodejs-back-end-deployment-on-aws-ec2). **Even though that article was a NodeJs/Express
-project deployment, it'll certainly be very helpful, as a result of it's more in-depth and beginner-friendly approach**.
+[read this previous article](/blog/categories/cloud-and-devops/complete-nodejs-back-end-deployment-on-aws-ec2). Even though 
+that article was a NodeJs/Express project deployment, it'll certainly be very helpful, as a result of it's more in-depth and 
+beginner-friendly approach.
 
-> Even though we won't be opening the **8000** port to access the API directly, we'll need to open port
+> While we won't be opening the **8000** port to access the API directly, we'll need to open port
 > **80**(for HTTP requests) and port **443**(for HTTPS requests).
 
 - Proceed to your VM dashboard on EC2.
@@ -922,7 +922,7 @@ All of these processes, are not ideal and can be really tedious for engineers.
 The solution to this bottleneck, is to simply implement proper CI/CD pipelines that can automate code integrations and
 deployments without any manual human intervention.
 
-All of that and more will be covered shortly in a subsequent Zed Labs blog series, that will teach how to set up
+All of that and more will be covered later in a subsequent series, that will teach how to set up
 complete CI/CD pipelines with Jenkins and Github.
 
 You sure don't want to miss those articles.
@@ -935,7 +935,7 @@ It's been quite a lot in this guide, I do hope you found much value.
 
 Thanks for reading, see you in the next couple of smashing cloud engineering and DevOps articles.
 
-> If you loved this post and would love to send an appreciation, simply use this link to [buy me
-> some cups of coffee](https://paystack.com/pay/11tykgn4-s) 🤓.
+> If you loved this post and would want to send an appreciation, simply use this link to [buy me
+> a cup of coffee](https://paystack.com/pay/11tykgn4-s).
 
 Cheers!!!

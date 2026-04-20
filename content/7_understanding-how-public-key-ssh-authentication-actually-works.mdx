@@ -1,18 +1,19 @@
 ---
 postTitle: 'Understanding How Public Key SSH Authentication Actually Works'
 postDate: "May 23, 2025"
-postLastUpdated: 'April 10, 2026'
+postLastUpdated: 'April 20, 2026'
 postIndex: 7
 postCategory: "cloud-and-devops"
 postBrief: "A detailed article that explains SSH, and how it's most used authentication method(the public key authentication) works"
-postThumbnailUrl: "/post-banner_7.png"
+postThumbnailUrl: "/post-banners/post-banner_7.png"
 authorPhotoUrl: "/author_image-1.jpg"
 authorName: Andrew James Okpainmo
 authorBio: "Andrew James Okpainmo is a fullstack software engineer who is passionate about building 
 and scaling awesome products and startups. He currently works as a freelance software engineer 
 (with expertise in fullstack software development, cloud engineering, and DevOps), while leading the team 
 at Zed Labs."
-postTags: ["cloud-engineering", "devops", "aws", "ec2", "ssh", "infrastructure"]
+postTags: ['ssh', 'cryptography', 'security', 'linux', 'cloud-engineering', 'devops', 'authentication']
+subCategories: []
 postSlug: "understanding-how-public-key-ssh-authentication-actually-works"
 authorSocials:
   twitter: https://twitter.com/AJ_Okpainmo
@@ -20,7 +21,7 @@ authorSocials:
   github: https://github.com/Okpainmo
 ---
 
-![post banner](/post-banner_7.png)
+![post banner](/post-banners/post-banner_7.png)
 
 So, 
 
@@ -29,8 +30,6 @@ engineer on the team - the one who always checks into the server to restart buil
 
 > If the latter is the case with you, please do well to dive a little deeper into DevOps, so you can learn
 > how to set up CI/CD pipelines that will handle deployment automations. 
-
-Back to main talk.
 
 Whether you're a full-fledged cloud engineer, the senior engineer on a product team, or just a person in tech who
 finds themselves having to initiate remote server connections now and then via SSH, you really want to ask yourself if 
@@ -42,7 +41,7 @@ I remember back then, how I used to see AWS(EC2) SSH **public key** authenticati
 Those strings were certainly strange to me at first, but I got used to seeing them, and with time, I also got 
 used to accessing remote servers with them.
 
-<HighlighterWrapper
+<CodeBlock
 language="bash" 
 content={`
 ssh -i "my-platform-key-pair.pem" ubuntu@ec2-16-16-182-160.eu-north-1.compute.amazonaws.com
@@ -92,7 +91,7 @@ While they have their differences, both methods are similar in how they operate(
 
 **The Similarities Between Password And Public-key SSH Auth**.
 
-![an image showing the similarities between password and public-key SSH auth](/7_img-1.png)
+![an image showing the similarities between password and public-key SSH auth](/_7/7_img-1.png)
 _Image: an image showing the similarities between password and public-key SSH auth(https://chatgpt.com)._
 
 > The process generally follows a similar flow, but it's important to note that **public key auth** is a much safer option, and
@@ -100,17 +99,17 @@ _Image: an image showing the similarities between password and public-key SSH au
 
 **Other available SSH authentication options**.
 
-![an image showing other SSH authentication methods](/7_img-2.png)
+![an image showing other SSH authentication methods](/_7/7_img-2.png)
 _Image: an image showing other SSH authentication methods(https://chatgpt.com)._
 
 **Difference Between Password And Public Key SSH Authentication Methods**.
 
-![an image showing the difference between password and public key SSH auth methods](/7_img-3.png)
+![an image showing the difference between password and public key SSH auth methods](/_7/7_img-3.png)
 _Image: an image showing the difference between password and public key SSH auth methods(https://chatgpt.com)._
 
 **Advantages Of The Public Key Authentication Method Over The Password Method For SSH**.
 
-![an image showing the advantage of the public key SSH auth method over it's password counterpart](/7_img-4.png)
+![an image showing the advantage of the public key SSH auth method over it's password counterpart](/_7/7_img-4.png)
 _Image: an image showing the advantage of the public key SSH auth method over it's password counterpart(https://chatgpt.com)._
 
 ## The SSH Public Key Authentication Method.
@@ -125,7 +124,7 @@ CI/CD.
 
 Once again, below is the **public key** SSH string pattern for accessing an AWS EC2 VM from my local machine(computer).
 
-<HighlighterWrapper
+<CodeBlock
 language="bash" 
 content={`
 ssh -i "path_to_private_key_file" user@remote-host
@@ -134,7 +133,7 @@ ssh -i "path_to_private_key_file" user@remote-host
 
 E.g.
 
-<HighlighterWrapper
+<CodeBlock
 language="bash" 
 content={`
 ssh -i "path_to_private_key_file" ubuntu@ip_of_the_vm
@@ -157,7 +156,7 @@ to create a connection on the machine-to-connect-from(client).
 > (machine you’re connecting **from**) uses its **private key** to respond to a **challenge** from the **server** 
 > (machine you're connecting **to**).
 >
-> The **server** checks the client's **public key** (which must have been pre-added to the server’s **~/.ssh/authorized_keys** file) and 
+> The **server** checks the client's **public key**(which must have been pre-added to it's own(the server's) **~/.ssh/authorized_keys** file) and 
 > uses it to verify the response.
 >
 > If the response **validates correctly**, it means the client holds the **matching private key**, so the server grants access.
@@ -171,11 +170,11 @@ to create a connection on the machine-to-connect-from(client).
 **Summary**:
 
 * **Client** has **private key** → signs a challenge.
-* **Server** has **public key** → verifies the signed challenge.
+* **Server** has **public key** of the client → verifies the signed challenge.
 * ✅ If it matches → Access granted.
 * ❌ If it doesn’t → Access denied.
 
-![a diagram showing the public key SSH authentication process](/7_img-5.png)
+![a diagram showing the public key SSH authentication process](/_7/7_img-5.png)
 _Image: a diagram showing the public key SSH authentication process(https://chatgpt.com)._
 
 ## Delegated SSH Connections.
@@ -205,7 +204,7 @@ service provider, and the operating system of the virtual machine.
 
 1. Generate the key pair on the client. 
 
-<HighlighterWrapper
+<CodeBlock
 language="bash" 
 content={`
 ssh-keygen -t rsa -b 4096 -C "comment" -f ~/.ssh/name-of-key
@@ -213,7 +212,7 @@ ssh-keygen -t rsa -b 4096 -C "comment" -f ~/.ssh/name-of-key
 
 E.g.
 
-<HighlighterWrapper
+<CodeBlock
 language="bash" 
 content={`
 # creates the keys.
@@ -222,7 +221,7 @@ ssh-keygen -t rsa -b 4096 -C "jenkins@agent" -f ~/.ssh/id_rsa_jenkins_agent`}/>
 
 2. Access and copy the public key.
 
-<HighlighterWrapper
+<CodeBlock
 language="bash" 
 content={`
 # assuming I'm on an Ubuntu OS virtual machine - ubuntu user.
@@ -233,7 +232,7 @@ cat /home/ubuntu/.ssh/name-of-key.pub # this reveals the public key - copy it.
 
 Or
 
-<HighlighterWrapper
+<CodeBlock
 language="bash" 
       content={`
 cat ~/.ssh/name-of-key.pub 
@@ -242,7 +241,7 @@ cat ~/.ssh/name-of-key.pub
 Similarly, the private key should be here. Copy if you're delegating the SSH connection to another machine
 that will serve as the client. 
 
-<HighlighterWrapper
+<CodeBlock
 language="bash" 
 content={`
 # assuming I'm on an Ubuntu OS virtual machine - ubuntu user.
@@ -252,7 +251,7 @@ cat /home/ubuntu/.ssh/name-of-key # this reveals the private key.
 
 Or
 
-<HighlighterWrapper
+<CodeBlock
 language="bash" 
 content={`
 cat ~/.ssh/name-of-key 
@@ -260,7 +259,7 @@ cat ~/.ssh/name-of-key
 
 3. Head to the remote machine that you'll be connecting to, and run this - to edit with nano.
 
-<HighlighterWrapper
+<CodeBlock
 language="bash" 
 content={`
 nano ~/.ssh/authorized_keys
@@ -273,7 +272,7 @@ nano ~/.ssh/authorized_keys
 
 6. Return to the host/client machine that now has the private key, and run:
 
-<HighlighterWrapper
+<CodeBlock
 language="bash" 
 content={`
 ssh -i path-to-private-key user@ip-of-remote-server-to-connect-to
@@ -288,7 +287,7 @@ ssh -i ~/.ssh/id_rsa_jenkins_agent user@12.54.153.100`}/>
 
 By default, when you run:
 
-<HighlighterWrapper
+<CodeBlock
 language="bash" 
 content={`
 ssh-keygen
@@ -312,13 +311,13 @@ Of course, these are stored in the `~/.ssh/` directory in your home folder.
 
 Access them:
 
-<HighlighterWrapper
+<CodeBlock
 language="bash" 
 content={`
 cat ~/.ssh/id_rsa # this reveals the private key.
 `}/>
 
-<HighlighterWrapper
+<CodeBlock
 language="bash" 
 content={`
 cat ~/.ssh/id_rsa.pub # this reveals the public key.
@@ -332,7 +331,7 @@ automatically look for **~/.ssh/id_rsa** when connecting.
 
 E.g.
 
-<HighlighterWrapper
+<CodeBlock
 language="bash" 
 content={`
 ssh ubuntu@ec2-12-34-56-78.compute-1.amazonaws.com
@@ -342,7 +341,7 @@ Unless explicitly told to use another key (via **-i** flag or config file).
 
 E.g.
 
-<HighlighterWrapper
+<CodeBlock
 language="bash" 
 content={`
 ssh -i ~/.ssh/id_rsa_jenkins_agent ubuntu@ec2-12-34-56-78.compute-1.amazonaws.com
@@ -365,8 +364,8 @@ Especially those specializing in infra-related roles like cloud engineering and 
 
 I trust this piece has indeed enhanced your knowledge of SSH and some of it's underlying concepts.
 
-> If you loved this post and would love to send an appreciation, simply use this link to [buy me
-> some cups of coffee](https://paystack.com/pay/11tykgn4-s) 🤓.
+> If you loved this post and would want to send an appreciation, simply use this link to [buy me
+> a cup of coffee](https://paystack.com/pay/11tykgn4-s) 🤓.
 
 Thanks for reading.
 

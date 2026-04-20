@@ -1,20 +1,21 @@
 ---
 postTitle: 'Tailwind: The CSS Framework That Finally Won!!!'
 postDate: 'March 29, 2025'
-postLastUpdated: 'April 10, 2026'
+postLastUpdated: 'April 20, 2026'
 postIndex: 6
 postCategory: 'frontend-development'
 postBrief: "TailwindCSS has revolutionized the way we approach design systems. In this article, 
 I'll explore why it has become the preferred framework for many developers - sharing my beautiful
 experience with different CSS options before finally meeting Tailwind"
-postThumbnailUrl: '/post-banner_6.png'
+postThumbnailUrl: '/post-banners/post-banner_6.png'
 authorPhotoUrl: '/author_image-1.jpg'
 authorName: Andrew James Okpainmo
 authorBio: "Andrew James Okpainmo is a fullstack software engineer who is passionate about building 
 and scaling awesome products and startups. He currently works as a freelance software engineer 
 (with expertise in fullstack software development, cloud engineering, and DevOps), while leading the team 
 at Zed Labs."
-postTags: ['tailwind-css', 'frontend-development', 'css', 'web-development', 'design-systems']
+postTags: ['tailwindcss', 'css', 'frontend-development', 'ui-design', 'web-development', 'styling']
+subCategories: ['design']
 postSlug: "tailwind-the-css-framework-that-finally-won"
 authorSocials:
   twitter: https://twitter.com/AJ_Okpainmo
@@ -22,9 +23,10 @@ authorSocials:
   github: https://github.com/Okpainmo
 ---
 
-![post banner](/post-banner_6.png)
+![post banner](/post-banners/post-banner_6.png)
 
-You must have heard of <WrapperLink href='https://tailwindcss.com' type="text">TailwindCSS</WrapperLink>, the big, awesome thing that seems to have finally become a standard in the Cascading Style Sheet(CSS) world.
+You must have heard of <WrapperLink href='https://tailwindcss.com' type="text">TailwindCSS</WrapperLink>, the big, awesome 
+thing that have finally become a standard in the Cascading Style Sheet(CSS) world.
 Chances are that you have used it - if no, then(in my opinion), you've been missing out - a lot.
 
 In this detailed piece, I trace the journey and key developments that positioned Tailwind
@@ -39,7 +41,7 @@ some awesome features of Tailwind - showing you real reasons why hating it is si
 
 <WrapperLink href='https://tailwindcss.com'>
   ![a screenshot showing a section from the tailwindcss website landing
-  page](/06_img-1.png) _Image: a screenshot showing a section from the
+  page](/_6/06_img-1.png) _Image: a screenshot showing a section from the
   tailwindcss website landing page._
 </WrapperLink>
 
@@ -61,17 +63,17 @@ Fast forward a while, and I was building interfaces with <WrapperLink href='http
 
 <WrapperLink href='https://getbootstrap.com'>
   ![a screenshot showing a section from the bootstrap website landing
-  page](/06_img-2.png) _Image: a screenshot showing a section from the bootstrap
+  page](/_6/06_img-2.png) _Image: a screenshot showing a section from the bootstrap
   website landing page._
 </WrapperLink>
 
 Bootstrap was awesome - it saved lives in its prime, Its grid system(back then) was truly revolutionary.
-But one major complaint kept hitting hard on it - it produced interfaces that looked
-very similar. This flaw was simply because Bootstrap was not just a CSS library or framework. It was a complete(HTML, 
+But one major complaint kept hitting it hard - it produced interfaces that looked
+very similar. This flaw is because Bootstrap is not just a CSS library or framework. It is a complete(HTML, 
 CSS, and Javascript) package for building interfaces. As a UI Library, its components were neat, and beautiful. 
 They gave you so much power, but with the temptation to just copy-paste them, came other issues.
 
-With Bootstrap, developers seemed to get locked in - (my opinion), barely seeing the need to customize further, thereby 
+With Bootstrap, developers seemed to get locked in, barely seeing the need to customize further, thereby 
 delivering interfaces that look similar.
 
 > With copy-pasting Bootstrap components(or simply using provided classes), also came the need to overwrite its CSS classes to obtain more unique UI looks. Overwriting
@@ -86,7 +88,7 @@ there was always going to be a way around.
 > engineering needed most - **a highly FLEXIBLE design system that simply got it right**.
 
 Aside from the issues with Bootstrap that I've already discussed, there were other reported issues with Bootstrap which I
-never really bothered about back then - I guess due to my experience level.
+likely never bothered about back then - I guess due to my experience level.
 
 1. Bootstrap presented other significant challenges. Its file size was
    substantial, leading to slower page loads, especially on mobile devices or in regions with limited bandwidth.
@@ -106,7 +108,7 @@ I upgraded from writing vanilla/raw CSS to using a CSS preprocessor - <WrapperLi
 
 <WrapperLink href='https://sass-lang.com/'>
   ![a screenshot showing a section from the sass website landing
-  page](/06_img-3.png) _Image: a screenshot showing a section from the sass
+  page](/_6/06_img-3.png) _Image: a screenshot showing a section from the sass
   website landing page._
 </WrapperLink>
 
@@ -125,7 +127,7 @@ Below are some awesome features that Sass provides, with - real code screenshots
 
 **1. Variables(even though CSS later caught up with this): Sass enables you to store values for reuse throughout your stylesheet.**
 
-<HighlighterWrapper
+<CodeBlock
 language="scss" 
 content={`
     $primary-color: #3498db;
@@ -141,7 +143,7 @@ content={`
 **2. Nesting: Sass makes writing cleaner CSS possible, it enables you to write nested CSS that mirrors the HTML structure**. Just
 beautiful right?
 
-<HighlighterWrapper
+<CodeBlock
   language='scss'
   content={`
     nav {
@@ -168,7 +170,7 @@ beautiful right?
 
 **3. Mixins: Mixins are Sass' special way of enabling you create reusable chunks of CSS.**
 
-<HighlighterWrapper
+<CodeBlock
 language="scss" 
 content={`
    @mixin border-radius($radius) {
@@ -183,15 +185,15 @@ content={`
 
 `}/>
 
-![a screenshot showing sass mixin declarations](/06_img-11.png)
+![a screenshot showing sass mixin declarations](/_6/06_img-11.png)
 _Image: a screenshot showing sass mixin declarations._
 
-![a screenshot showing mixin import and use](/06_img-13.png)
+![a screenshot showing mixin import and use](/_6/06_img-13.png)
 _Image: a screenshot showing mixin import and use._
 
 **4. Functions: Yeah! and this too. Sass enables you to perform calculations and return values.**
 
-<HighlighterWrapper
+<CodeBlock
 language="scss" 
 content={`
    @function calculate-width($col-span) {
@@ -206,7 +208,7 @@ content={`
 
 **5. Partials and Imports: This would probably be the best feature of Sass. It allows you to split CSS into smaller files and import them.**
 
-<HighlighterWrapper
+<CodeBlock
   language='scss'
   content={`
    // _reset.scss
@@ -219,7 +221,7 @@ content={`
 
 Then import and use.
 
-<HighlighterWrapper
+<CodeBlock
   language='scss'
   content={`
     // main.scss
@@ -227,12 +229,12 @@ Then import and use.
 `}
 />
 
-![a screenshot showing sass imports](/06_img-12.png)
+![a screenshot showing sass imports](/_6/06_img-12.png)
 _Image: a screenshot showing sass imports._
 
 **6. Inheritance: Sass also gives you the power to share CSS properties between selectors.**
 
-<HighlighterWrapper
+<CodeBlock
 language="scss" 
 content={`
   // This CSS will print because %button-base is extended.
@@ -299,14 +301,14 @@ The preprocessing/compilation step occurs during development or build time, not 
 
 <WrapperLink href='https://gulpjs.com'>
   ![a screenshot showing a section from the gulp website landing
-  page](/06_img-9.png) _Image: a screenshot showing a section from the gulp
+  page](/_6/06_img-9.png) _Image: a screenshot showing a section from the gulp
   website landing page._
 </WrapperLink>
 
 The code snippet below was my(life-saving) gulp-file - a simple Javascript file that guided gulp on how to handle
 Sass compilation and finalization.
 
-<HighlighterWrapper
+<CodeBlock
 language='javascript'
 content={`
     // 'use strict';
@@ -362,7 +364,7 @@ content={`
 With the gulp-file in place(on the root of your project), Sass compilation(into CSS) could begin after running the below command and
 writing + saving any Sass file.
 
-<HighlighterWrapper language='shell' content={`gulp watch`} />
+<CodeBlock language='shell' content={`gulp watch`} />
 
 Sass was nothing short of brilliant, and revolutionary, but it still had its flaws.
 
@@ -402,7 +404,7 @@ I can't recall the first time I heard of Tailwind or the first time I used it. A
 >
 > **It's been more than 2 years now**.
 
-Tailwind is simply the best CSS framework I had ever used. It was a game-changer for me, and I believe it has been for many others.
+Tailwind is by far the best CSS framework I have ever used. It was a game-changer for me, and I believe it has been for many others.
 
 > Tailwind is a utility-first CSS framework that provides low-level utility classes to build custom
 > designs without having to leave your HTML.
@@ -433,10 +435,10 @@ CSS IntelliSense, and the it's JIT(Just In Time) compiler, make it even easier a
 Aside all the other awesomeness of tailwind, in very simple terms, tailwind gives you
 a class for every single CSS property you can think of - even though it does combine properties in some very relevant instances.
 
-![a screenshot showing the free-tier section on the AWS website](/06_img-4.png)
+![a screenshot showing the free-tier section on the AWS website](/_6/06_img-4.png)
 _Image: tailwind css intellisense helping with viewing the css content of a tailwind utility class._
 
-![a screenshot showing the free-tier section on the AWS website](/06_img-8.png)
+![a screenshot showing the free-tier section on the AWS website](/_6/06_img-8.png)
 _Image: tailwind css intellisense helping with viewing the css content of a tailwind utility class._
 
 > Guided by a '4-unit to 1 rem' space system(0.25rem or 4px per 1 unit) for measurement, and other relevant standards for colours, and
@@ -449,7 +451,7 @@ With tailwind, all you need, is a single css file containing some declarations. 
 
 It has become a go-to choice for many developers and teams looking to build modern, responsive user interfaces.
 
-<HighlighterWrapper
+<CodeBlock
   language='css'
   content=
   {`
@@ -486,7 +488,7 @@ trash things about it. In this section, I'll be addressing some of these reasons
 **Answer:** Such developers seem not to be aware of the **@apply** directive in Tailwind CSS.
 Simply use the **@apply** directive to extract repeated utility patterns into custom CSS classes.
 
-<HighlighterWrapper
+<CodeBlock
   language='css'
   content=
   {`
@@ -501,7 +503,7 @@ hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring
 
 Then in your HTML or JSX, you can simply use:
 
-<HighlighterWrapper
+<CodeBlock
   language='html'
   content={`
 <button class="btn-primary">Save changes</button>
@@ -519,7 +521,7 @@ readability.
 
 Alternatively, you can use the **@apply** directive as explained above.
 
-<HighlighterWrapper
+<CodeBlock
   language='jsx'
   content={`
     // React component example
@@ -549,7 +551,7 @@ For larger applications, you can still organize your styles as shown below, **ev
 the profit of using Tailwind in the first place, since stacking or grouping classes will cause the need to make custom CSS overwrites
 for certain elements that are different**.
 
-<HighlighterWrapper
+<CodeBlock
   language='javascript'
   content={`
     // styles.js 
@@ -563,7 +565,7 @@ for certain elements that are different**.
 `}
 />
 
-<HighlighterWrapper
+<CodeBlock
   language='jsx'
   content={`
     /* Button.jsx */
@@ -607,7 +609,7 @@ for certain elements that are different**.
 >
 > All these are reasons why tailwind is easy to grasp.
 
-<HighlighterWrapper
+<CodeBlock
   language='jsx'
   content={`
     // React component example
@@ -627,14 +629,14 @@ for certain elements that are different**.
 > Furthermore, Tailwind also supports custom values. This is an awesome feature that comes in handy a lot if you
 > want some extra flexibility. **To use this feature, simply add the desired value within square brackets**.
 
-<HighlighterWrapper
+<CodeBlock
   language='jsx'
   content={`
     // React component example
 
     function PrimaryButton({ children }) {
       return (
-        <button className='px-[22px] py-[3rem] bg-blue-500 text-gray-100
+        <button className='px-[22px] py-12 bg-blue-500 text-gray-100
          lg:text-gray-50 rounded-[17px] hover:bg-blue-600'>
           {children}
         </button>
@@ -651,7 +653,7 @@ for certain elements that are different**.
 Below is a sample tailwind.config.js file that should work seamlessly for you. Feel free to copy-paste, and extend, and 
 use in your projects.
 
-<HighlighterWrapper
+<CodeBlock
   language='javascript'
   content={`
     import type { Config } from 'tailwindcss';
@@ -704,7 +706,7 @@ Tailwind's documentation is excellent, and tools like:
 
 <WrapperLink href='https://www.creative-tim.com/twcomponents/cheatsheet'>
   ![a screenshot showing the tailwind cheatsheet section on the creative tim
-  website](/06_img-10.png) _Image: a screenshot showing the tailwind cheatsheet
+  website](/_6/06_img-10.png) _Image: a screenshot showing the tailwind cheatsheet
   section on the creative tim website._
 </WrapperLink>
 
@@ -712,7 +714,7 @@ and <WrapperLink href='https://nerdcave.com/tailwind-cheat-sheet' type="text">th
 
 <WrapperLink href='https://nerdcave.com/tailwind-cheat-sheet'>
   ![a screenshot showing the tailwind cheatsheet section on the nerdcave website
-  ](/06_img-5.png) _Image: a screenshot showing the tailwind cheatsheet section
+  ](/_6/06_img-5.png) _Image: a screenshot showing the tailwind cheatsheet section
   on the nerdcave website._
 </WrapperLink>
 
@@ -723,7 +725,7 @@ All help to flatten the learning curve significantly.
 **Answer:** This concern is outdated. In older versions, tailwind uses PurgeCSS to scan your files and remove unused classes.
 In Tailwind 3.0+, this is handled by default with JIT (Just-In-Time) mode, which only generates the CSS you actually use.
 
-<HighlighterWrapper
+<CodeBlock
   language='javascript'
   content={`
     import type { Config } from 'tailwindcss';
@@ -749,7 +751,7 @@ With this setup, production builds are typically very small, often under 10KB wh
 
 **Answer:** This couldn't be further from the truth. Tailwind is built for customization:
 
-<HighlighterWrapper
+<CodeBlock
   language='javascript'
   content={`
    // tailwind.config.js
@@ -782,7 +784,7 @@ With this setup, production builds are typically very small, often under 10KB wh
 
 Usage:
 
-<HighlighterWrapper
+<CodeBlock
   language='html'
   content={`
   <section class="p-4 sm:p-72 bg-brand hover:bg-brand-dark text-white rounded-xl">
@@ -796,7 +798,7 @@ Usage:
 
 You can even create your own plugins:
 
-<HighlighterWrapper
+<CodeBlock
   language='javascript'
   content={`
    // tailwind.config.js
@@ -828,7 +830,7 @@ project.
 
 Usage:
 
-<HighlighterWrapper
+<CodeBlock
   language='html'
   content={`
   <h2 class="text-2xl font-bold text-brand text-shadow-sm md:text-shadow">
@@ -864,18 +866,18 @@ adaptations and implementations for other platforms:
 1. **React Native**: Libraries like [tailwind-rn](https://www.npmjs.com/package/tailwind-rn) and
    [nativewind](https://www.nativewind.dev) bring Tailwind's utility classes to React Native development.
 
-<WrapperLink href='https://nerdcave.com/'>
+<WrapperLink href='https://www.nativewind.dev/'>
   ![a screenshot showing a section from the nativewind website landing
-  page](/06_img-6.png) _Image: a screenshot showing a section from the
+  page](/_6/06_img-6.png) _Image: a screenshot showing a section from the
   nativewind website landing page._
 </WrapperLink>
 
 I've worked on multiple mobile app projects with nativewind and React Native. The experience is simply awesome.
 
 2. **Desktop Applications**: Frameworks like [Electron](https://www.electronjs.org) and [Tauri](https://v2.tauri.app) can use
-   Tailwind directly since they're web-based. I can't wait to try them out.
+   Tailwind directly since they're web-based. Even though I am yet to try them out.
 
-3. Even though I'm not very certain, my research showed the use of tailwind CSS in **Flutter**, with libraries
+3. While I'm not very certain, my research showed the use of tailwind CSS in **Flutter**, with libraries
    like [flutter_tailwind](https://pub.dev/packages/flutter_tailwind) that bring Tailwind-like utilities to Flutter development.
 
 The utility-first methodology that Tailwind pioneered has influenced styling approaches across multiple platforms and frameworks,
@@ -895,8 +897,8 @@ it has added to the experience of UI engineers all around the world.
 
 ## Conclusion.
 
-> If you loved this post and would love to send an appreciation, simply use this link to [buy me
-> some cups of coffee](https://paystack.com/pay/11tykgn4-s) 🤓.
+> If you loved this post and would want to send an appreciation, simply use this link to [buy me
+> a cup of coffee](https://paystack.com/pay/11tykgn4-s) 🤓.
 
 Thanks for reading.
 

@@ -1,32 +1,33 @@
 ---
 postTitle: 'Why We Prefer AWS(As Cloud Service Provider) At Zed Labs'
 postDate: 'March 29, 2025'
-postLastUpdated: 'April 10, 2026'
+postLastUpdated: 'April 20, 2026'
 postIndex: 5
 postCategory: 'cloud-and-devops'
 postBrief: 'Amazon Web Services(AWS) remains our preferred cloud service provider at Zed Labs. Our CTO 
 shares the reasons why in this informative article'
-postThumbnailUrl: '/post-banner_5.png'
+postThumbnailUrl: '/post-banners/post-banner_5.png'
 authorPhotoUrl: '/author_image-1.jpg'
 authorName: Andrew James Okpainmo
 authorBio: "Andrew James Okpainmo is a fullstack software engineer who is passionate about building 
 and scaling awesome products and startups. He currently works as a freelance software engineer 
 (with expertise in fullstack software development, cloud engineering, and DevOps), while leading the team 
 at Zed Labs."
-postTags: ['solidity', 'blockchain-development', 'javascript', 'typescript', 'software-development']
+postTags: ['aws', 'cloud-computing', 'devops', 'infrastructure', 'zed-labs', 'cloud-strategy']
+subCategories: []
 postSlug: "why-we-prefer-aws-as-cloud-service-provider-at-zed-labs"
-authorSocials:
+authorSocials:  
   twitter: https://twitter.com/AJ_Okpainmo
   linkedin: https://www.linkedin.com/in/okpainmo-andrew/
   github: https://github.com/Okpainmo
 ---
 
-![post banner](/post-banner_5.png)
+![post banner](/post-banners/post-banner_5.png)
 
 We live in a day and age where many of the software engineering operations we perform depend on cloud solutions.
 
 From Infrastructure provisioning, to all the other cloud and DevOps chores like deployments and integration(CI/CD), 
-logging and monitoring, containerization and container orchestration, and a lot more, it's simply obvious that software engineering 
+logging and monitoring, containerization and container orchestration, etcetera, it's simply obvious that software engineering 
 cannot survive without the cloud.
 
 Whether you're self-hosting a private cloud(on premises), or using a service provider, it all falls back to the cloud somehow.
@@ -47,7 +48,7 @@ This fact keeps us open to using other technologies(other cloud options in this 
 
 For instance, a [Firebase](https://firebase.google.com) or [Supabase](https://supabase.com) backend will be a better option for a mobile app MVP over a traditional backend with virtual machines(VMs) 
 and all the other complexity headaches. Similarly, a front-end deployment on [Vercel](https://vercel.com) might be preferred over a 
-similar deployment on an AWS service like Amplify - especially thanks to Vercel's easy-to-use frontend monitoring and analytics.
+similar deployment on an AWS service like Amplify - especially when you consider Vercel's easy-to-use frontend monitoring and analytics.
 
 > Addressing the benefit of speed that comes with using less-complex cloud options over AWS, it makes sense 
 > to understand and agree that speed is very much relative. Due to mastery and repetitive use, going through the drills
@@ -68,6 +69,9 @@ cloud service provider at Zed Labs, **and why you should**.
 
 ### 1. AWS is Startup-Launch Friendly.
 
+> Update: AWS has made some changes to its free-tier provisions since this article was published. Kindly do some extract
+> research, to ensure you're up to date with what's currently possible/available.
+
 This reason might be the most important reason why we'll still stick with AWS even when other less complex cloud services 
 appear to be better options. 
 
@@ -86,7 +90,7 @@ Firstly, AWS has a number of it's services that are free-tier eligible.
 > **The best part being that, some of these free-tier 
 > services, come with usage/access that last up to 12 months for new users - a whole year!!!**
 
-![a screenshot showing the free-tier section on the AWS website](/05_img-1.png)
+![a screenshot showing the free-tier section on the AWS website](/_5/05_img-1.png)
 _Image: a screenshot showing the free-tier section on the AWS website._
 
 To learn more about AWS free-tier services, simply head to the [free tier section on 
@@ -95,14 +99,14 @@ the AWS website](https://aws.amazon.com/free/), and explore all the available fr
 **P.S: A knowledge of what each service does will be necessary. E.g. AWS S3 for file storage, and AWS EC2 for creating and managing 
 VMs in the cloud.**
 
-![a screenshot showing the free-tier section on the AWS website](/05_img-2.png)
+![a screenshot showing the free-tier section on the AWS website](/_5/05_img-2.png)
 _Image: a screenshot showing the free-tier section on the AWS website._
 
 These free-tier services are so good to points where(if your product is still in development phase), you might end up paying less than
 one dollar($1) as your monthly AWS cloud bill. I don't mean the bill for using a single service, I mean the bill you pay AWS for 
 all services for that month.
 
-![a screenshot showing the free-tier section on the AWS website](/05_img-3.png)
+![a screenshot showing the free-tier section on the AWS website](/_5/05_img-3.png)
 _Image: a screenshot showing the bill for the previous month, on of the project AWS accounts I manage. This is 
 precisely how low AWS bills can be on new in-progress/in-development projects for some months._
 
@@ -125,13 +129,13 @@ The credits will then be applied to your AWS account once your request is approv
 > From my experience so far, the credit approval terms are not strict. As long as your project makes enough sense. You'll
 > easily pass to get the $300 credit for free. 
 
-![a screenshot showing an invitation email, inviting an AWS user account to apply for the free $300 AWS credit](/05_img-4.png)
+![a screenshot showing an invitation email, inviting an AWS user account to apply for the free $300 AWS credit](/_5/05_img-4.png)
 _Image: a screenshot showing an invitation email, inviting an AWS user account to apply for the free $300 AWS credit._
 
-![a screenshot showing the success status of an application for the free $300 AWS credit](/05_img-5.png)
+![a screenshot showing the success status of an application for the free $300 AWS credit](/_5/05_img-5.png)
 _Image: a screenshot showing the success status of an application for the free $300 AWS credit._
 
-![a screenshot showing the successful approval and grant of the free $300 AWS credit](/05_img-6.png)
+![a screenshot showing the successful approval and grant of the free $300 AWS credit](/_5/05_img-6.png)
 _Image: a screenshot showing the successful approval and grant of the free $300 AWS credit._
 
 With all of these, you get to end-up building and launching a complete product for almost zero cost. 
@@ -144,21 +148,25 @@ Unbelievable right?**
 
 #### A Little Comparison.
 
-Now, let's make a comparison with Vercel(a more developer friendly cloud service provider), **for only the front-end 
+Now, let's make a comparison with Vercel(a more developer friendly cloud service provider) - **for only the front-end 
 deployment** of the said client project(which of course consist of a massive backend which will not be considered).
 
+> Update: Due to changes that might have been implemented on Vercel's pricing and free-tier offerings since this article
+> was published, this comparison might not be entirely accurate at this point. Kindly do your own research to ensure you're up 
+> to date with what's currently possible/available.
+
 As much as I know, For new users on it's Pro plan(which is what you should use for production workloads to avoid issues), Vercel gives you
-one month(14 days * 2) of free hosting and more benefits like advanced monitoring and analytics. But here's the catch, Vercel begins 
+one month(14 days * 2) of free hosting and other benefits like advanced monitoring and analytics. But here's the catch, Vercel begins 
 charging $20(**base** fee) per month afterwards. **Remember that this only accounts for the frontend deployment**.
 
 While vercel also offers a generous non-expiring free-tier and some other special offerings, it does not seem to match 
 the benefits of using a core cloud service like AWS.
 
 > Even though I must admit that both platforms have their advantages and disadvantages, 
-> When the benefits of being able to build, launch, validate your startup idea, and even generate massive revenue, 
+> When the benefits of being able to build, launch, validate your startup idea, and even generate massive revenue - 
 > for almost zero cloud cost is brought on the table, you might as well want to ignore using simpler cloud services 
-> that will likely cost you quite a lot, and simply get AWS cloud professionals who will get the job done with 
-> relatively similar speed - on a more robust, scalable, and future-proof platform.
+> that will likely cost you quite a lot, and just get AWS cloud professionals who will get the job done with 
+> relatively same speed - but on a more robust, scalable, and future-proof platform.
 
 ### 2. AWS Is What's Hottest In The Current Core Cloud Services Provider Market.
 
@@ -179,8 +187,8 @@ While other considerations come into play when talking software delivery, it sti
 stick with low-level options for reasons such as software performance/speed, privacy, and security.
 
 As much as I'm aware, a good number of the easier, faster-delivery and less complex cloud platforms like 
-like Vercel, [Uploadthing](https://uploadthing.com), and Supabase build upon existing cloud infrastructure providers 
-such as AWS, Azure, or Google Cloud. 
+like Vercel, [Uploadthing](https://uploadthing.com), and Supabase, all build on top of existing cloud infrastructure providers 
+like AWS, Azure, or Google Cloud. 
 
 > It's clear that these platforms offer specialized tools, simplified workflows, and abstraction layers that solve specific problems 
 > while handling the underlying complexity of infrastructure management, but
@@ -217,8 +225,8 @@ deliver awesome software and services to clients.
 
 I do hope this article gave you a good reason to try out AWS.
 
-> If you loved this post and would love to send an appreciation, simply use this link to [buy me
-> some cups of coffee](https://paystack.com/pay/11tykgn4-s) 🤓.
+> If you loved this post and would want to send an appreciation, simply use this link to [buy me
+> a cup of coffee](https://paystack.com/pay/11tykgn4-s) 🤓.
 
 Thanks for reading.
 
