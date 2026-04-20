@@ -1,16 +1,11 @@
 export const categories = [
   {
-    categoryName: 'Blockchain Research',
-    categoryBrief: `Deep dives into consensus protocols, peer-to-peer networking, and decentralized state machine research.`,
-    categoryRoute: '/blockchain-research',
-    categoryId: 'blockchain-research'
+    categoryName: 'Zero Knowledge(ZK) Cryptography',
+    categoryBrief: `Deep dives into ZK-SNARKs, ZK-STARKs, and their applications in blockchain.`,
+    categoryRoute: '/zero-knowledge-cryptography',
+    categoryId: 'zero-knowledge-cryptography'
   },
-  {
-    categoryName: 'Distributed Systems',
-    categoryBrief: `Exploring the theoretical foundations and practical challenges of building resilient distributed infrastructure.`,
-    categoryRoute: '/distributed-systems',
-    categoryId: 'distributed-systems'
-  },
+
   {
     categoryName: 'Blockchain Infrastructure',
     categoryBrief: `Technical analysis of layer 1 and layer 2 infrastructure, storage protocols, and network scale.`,
