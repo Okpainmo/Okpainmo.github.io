@@ -2,7 +2,7 @@ import Contacts from '@/app/components/Contacts';
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { portfolioSegments } from '@/app/data/portfolioSegments';
+import { portfolioSegments } from '@/app/data/core-research-and-development';
 import { HiArrowTopRightOnSquare } from 'react-icons/hi2';
 import CategoriesListWrapper from '@/app/components/CategoriesListWrapper';
 

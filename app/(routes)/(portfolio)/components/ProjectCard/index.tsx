@@ -27,10 +27,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           {project.description}
         </p>
         <Link
-          href={project.storyLink}
+          href={
+            project.storyLink ? `${project.storyLink}` : `${project.githubLink}`
+          }
           className="flex items-center gap-1 text-sm font-semibold text-black dark:text-white hover:underline group/story"
         >
-          Read project story
+          {project.storyLink ? 'Read project story' : 'View on GitHub'}
           <HiArrowUpRight className="text-xs group-hover/story:translate-x-0.5 group-hover/story:-translate-y-0.5 transition-transform" />
         </Link>
       </div>
@@ -38,15 +40,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       {/* Role Section */}
       <div className="flex flex-col gap-2">
         <span className="text-[10px] uppercase tracking-widest font-bold text-zinc-400 dark:text-zinc-500">
-          Role
+          Role/Contributions
         </span>
         <div className="flex flex-wrap gap-2">
-          {project.role.map((role) => (
+          {project.contributions.map((contributions) => (
             <span
-              key={role}
+              key={contributions}
               className="px-3 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 text-xs rounded-full font-medium"
             >
-              {role}
+              {contributions}
             </span>
           ))}
         </div>
@@ -72,7 +74,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       {/* Tags Section */}
       <div className="flex flex-col gap-2">
         <span className="text-[10px] uppercase tracking-widest font-bold text-zinc-400 dark:text-zinc-500">
-          Focus
+          Tags
         </span>
         <div className="flex flex-wrap gap-2">
           {project.tags.map((tag) => (

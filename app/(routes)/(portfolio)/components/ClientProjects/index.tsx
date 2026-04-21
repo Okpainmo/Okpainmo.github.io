@@ -6,13 +6,11 @@ function ClientProjects() {
   return (
     <div className="py-20 flex flex-col gap-12">
       <div className="flex flex-col gap-4">
-        <div className="brand text-2xl font-bold mb-4 sm:mb-6 text-black dark:text-zinc-50">
+        <div className="brand text-2xl font-bold text-black dark:text-zinc-50">
           /projects/client-projects
         </div>
         <p className="text-zinc-600 dark:text-zinc-400 text-lg max-w-2xl">
-          High-impact solutions delivered for enterprise clients and startups,
-          ranging from decentralized exchange interfaces to secure backend
-          infrastructure.
+          High-impact solutions for clients.
         </p>
       </div>
 

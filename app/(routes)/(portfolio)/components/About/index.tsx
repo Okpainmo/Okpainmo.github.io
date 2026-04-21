@@ -48,10 +48,11 @@ function About() {
             </Link>
             , and{' '}
             <Link
-              href="/blog/categories/project-stories/the-private-practice-project-so-far"
+              href="/blog/categories/project-stories/building-private-practice"
               className="italic underline underline-offset-4 text-zinc-900 dark:text-zinc-100"
             >
-              this amazing health-tech startup project.
+              this other amazing client project called &quot;Private
+              Practice&quot;.
             </Link>
           </p>
           <p className="mb-6">

@@ -25,7 +25,7 @@ function Top() {
           Hi 👋🏾, I’m Andrew Okpainmo.
         </h1>
         <div className="leading-[30px] text-zinc-600 dark:text-zinc-400">
-          A senior product engineer with deep experience owning systems
+          A senior software engineer with deep experience owning systems
           end-to-end - from architecture and full-stack development to cloud
           infrastructure and product leadership.
         </div>
