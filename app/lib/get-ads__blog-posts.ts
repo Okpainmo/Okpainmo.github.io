@@ -2,7 +2,7 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
 
-const blogPostsBasePath = path.join(process.cwd(), 'content');
+const blogPostsBasePath = path.join(process.cwd(), 'blog-content');
 
 export async function getBlogAds() {
   if (!fs.existsSync(blogPostsBasePath)) {

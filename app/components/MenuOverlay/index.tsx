@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { HiXMark, HiArrowTopRightOnSquare } from 'react-icons/hi2';
-import { portfolioSegments } from '@/app/data/portfolioSegments';
+import { portfolioSegments } from '@/app/data/core-research-and-development';
 import { useAppDispatch, useAppSelector } from '@/app/rtk-base/store';
 import { closeMenu } from '@/app/rtk-base/slices/menuSlice';
 import Image from 'next/image';
