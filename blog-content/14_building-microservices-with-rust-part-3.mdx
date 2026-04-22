@@ -1,0 +1,666 @@
+---
+postTitle: 'Building Microservices With Rust(Part 3: Gateway - Service Discovery)'
+postDate: "April 18, 2026"
+postLastUpdated: 'April 18, 2026'
+postIndex: 14
+postCategory: 'backend-development'
+subCategories: ['system-design', 'cloud-and-devops']
+postBrief: "Part 3 focuses on implementing Service Discovery for our Rust-based microservices, a critical component for dynamic scaling and routing."
+postThumbnailUrl: "/blog/post-banners/post-banner_14.png"
+authorPhotoUrl: "/author_image-1.jpg"
+authorName: Andrew James Okpainmo
+authorBio: "Andrew James Okpainmo is a fullstack software engineer who is passionate about building 
+and scaling awesome products and startups. He currently works as a freelance software engineer 
+(with expertise in fullstack software development, cloud engineering, and DevOps), while leading the team 
+at Zed Labs."
+postTags: ["click-ops", "cloud-engineering", "devops", "aws", "ec2", "route 53", "systemd", "nginx", "ssl", "rust", "axum"]
+postSlug: "building-microservices-with-rust-part-3"
+authorSocials:
+  twitter: https://twitter.com/AJ_Okpainmo
+  linkedin: https://www.linkedin.com/in/okpainmo-andrew/
+  github: https://github.com/Okpainmo
+---
+
+![post banner](/blog/post-banners/post-banner_14.png)
+
+This article is an end-to-end guide that goes from local Rust development to implementing the standard deployment of a high
+performance rust-binary on AWS cloud infrastructure. It details the production-grade deployment of a real Rust(Axum) API
+on an Ubuntu EC2 instance.
+
+While this guide is perfectly suitable for small engineering teams using ClickOps deployment strategies(via the AWS console), it is
+also a great resource for teams and DevOps engineers working on more complex workflows, as it clearly explains the fundamentals involved in
+deploying raw binaries on any cloud infrastructure of their choice.
+
+## What You'll Be Learning.
+
+In this tutorial, you'll learn:
+
+- About managing servers on AWS EC2.
+- Why deploy binaries instead of running servers: when performance and scalability matters.
+- About Nginx: how to deploy and use it as a reverse proxy, and as a tool for generating free SSL certificates for your domains.
+- About Route 53 - AWS' DNS management service.
+- About "Systemd" - a Linux OS system and service manager that every cloud/DevOps engineer should know.
+- More...
+
+## The Project To Be Deployed.
+
+The project to be deployed, is open and free to access. Visit
+[this link](https://github.com/Okpainmo/rust-axum-aws-deployment-demo) to see and explore it.
+
+<GitHubEmbed owner="Okpainmo" repo="rust-axum-aws-deployment-demo" />
+
+> N.B: This guide assumes that you already created an EC2 instance, and is ready for the API server deployment.
+> In case you haven't and need a guide to go about that, check out this
+> [other article](/blog/categories/cloud-and-devops/how-to-create-an-aws-ec2-instance), in
+> which I shared how to create an AWS EC2 instance from scratch.
+
+The below image is an IDE screenshot revealing how the API server looks on my local machine, and very much how its log output
+will look like after a successful deployment to the cloud.
+
+![a post image sharing more information](/blog/_11/11_img-1.png)
+
+The three screenshots below, reveal Postman interfaces with three requests that were made on the local
+deployment of the API on my machine. Once done with our cloud deployment, we'll update the request URLs, and try out with the
+live one.
+
+![a post image sharing more information](/blog/_11/11_img-2.png)
+![a post image sharing more information](/blog/_11/11_img-3.png)
+![a post image sharing more information](/blog/_11/11_img-4.png)
+
+## Let's Get A Todo.
+
+1. Why deploy binaries instead of running servers.
+2. Access The EC2 instance via SSH and perform system updates/upgrades.
+3. Build the project in release mode, and copy the needed files to the server.
+4. Create temporary .env files, and add in all the needed environmental variables(not very secure, we
+   will make a clean implementation later on - step 11).
+5. Run the binary.
+6. Ensure all the necessary virtual machine ports(port "80" and port "443") are open.
+7. Install Nginx, and set up as reverse proxy.
+8. Get a free SSL certificate for project domain/sub-domain.
+9. Test the API server on the now SSL certified domain/sub-domain.
+10. Explaining what happens with the current setup if something goes wrong.
+11. Create a system service to run the project/API binary - along with a standard environmental variables setup.
+    **Follow-up, and delete the previously created environmental variables setup**.
+12. Finish deployment, and test API server on the live URL - inside Postman.
+
+Now, let's dive in.
+
+### 1. Why Deploy Binaries Instead of Running Servers.
+
+Regular high-level language server deployments(e.g Python/Node.js) usually involve preparing the target machine
+with the language's runtime environment, and then running the project's server using a process manager like PM2, or Systemd.
+
+But Rust, being a low-level programming language, compiles to a native binary, which means the compiled binary can be run
+directly on the target machine without any need for an interpreter or runtime environment. This makes Rust a great choice for building
+high performance API servers, and also eases the deployment process.
+
+### 2. Access The EC2 instance via SSH and perform system updates/upgrades.
+
+Up next, let's access the EC2 instance via SSH and perform system updates/upgrades.
+
+<CodeBlock language="bash" content={`ssh <your-vm-username>@<your-vm-ip>`} />
+
+If you're using a key.
+
+<CodeBlock
+  language="bash"
+  content={`ssh -i <path to SSH key-pair> <your-vm-username>@<your-vm-ip>`}
+/>
+
+![(a post image sharing more information)](/blog/_10/10_img-1.png)
+
+- Perform necessary system update/upgrades.
+
+<CodeBlock language="bash" content={`sudo apt update && sudo apt upgrade -y`} />
+
+### 3. Build The Project In Release Mode, and Copy The Needed Files To The Server.
+
+- Build for release - on your local machine.
+
+<CodeBlock language="bash" content={`cargo build --release`} />
+
+- Ensure that you're in the project's root directory on your local machine, and that the project is already built in release mode. **We will be
+  copying both the config directory, and the compiled binary to the EC2 instance**
+
+<CodeBlock
+  language="bash"
+  content={`scp -r config target/release/rust_axum_aws_deployment_demo <your-vm-username>@<your-vm-ip>:<desired-path-to-push-to>`}
+/>
+
+**Or as below, if you use a key:**
+
+<CodeBlock
+  language="bash"
+  content={`scp -i ~/.ssh/your_key.pem -r config target/release/rust_axum_aws_deployment_demo <your-vm-username>@<your-vm-ip>:<desired-path-to-push-to>`}
+/>
+
+### 4. Create Temporary Environment Variables Files, And Add In All The Needed Environmental Variables.
+
+As stated earlier, this is not very secure. We will delete all the temporary `.env` files at a later step. For now, we simply need to
+run the server temporarily and ensure that our progress is going well.
+
+- Create a temporary `.env` file and add in it's content.
+
+> The base environmental variables file(`.env`) - as seen in the project setup locally - is strictly for declaring
+> the [current] working/deployment environment.
+
+<CodeBlock language="bash" content={`sudo nano .env`} />
+
+- Add the content:
+
+<CodeBlock
+  language="bash"
+  content={`# Environment Selection
+# APP__DEPLOY__ENV=development
+# APP__DEPLOY__ENV=staging
+APP__DEPLOY__ENV=production`}
+/>
+
+- Save Nano and exit - **CTRL + o** then press **Enter** then **CTRL + x**
+
+Same for the `.env.production` - which holds other relevant project secrets.
+
+<CodeBlock language="bash" content={`sudo nano .env.production`} />
+
+- Then
+
+<CodeBlock
+  language="bash"
+  content={`# Environment
+APP__ENV=production
+
+# Server
+
+APP\_\_SERVER\_\_PORT=8080`}
+/>
+
+- Save Nano and exit - **CTRL + o** then press **Enter** then **CTRL + x**
+
+![(a post image sharing more information)](/blog/_10/10_img-10.png)
+
+### 5. Run The Binary.
+
+> We're run the binary on port 8080 - as defined in the `production.env` file.
+
+<CodeBlock language="bash" content={`./rust_axum_aws_deployment_demo`} />
+
+![(a post image sharing more information)](/blog/_10/10_img-10.png)
+
+Great! the server runs successfully.
+
+### 6. Ensure all the necessary virtual machine ports(port "80" and port "443") are open.
+
+With the current set up, our API server(the binary) already runs **internally** on the '8080' port of our EC2 instance.
+Now let's bring in `Nginx`, to help us implement reverse proxying and also get a free SSL certificate for our project domain.
+
+But before we do that, let's ensure all the necessary virtual machine ports(port "80" and port "443") are open.
+
+> In case you want a more beginner-friendly guide that provides much detail - explaining the dynamics involved in opening
+> and using custom VM ports, feel free to
+> [read this other article](/blog/categories/cloud-and-devops/complete_nodejs-back-end-deployment-on-aws-ec2).
+
+The steps below, details clearly how to open the necessary VM ports via the AWS EC2 dashboard. **If you've implemented any low-level `UFW`
+restriction(s) that affects any of those ports, ensure to also undo such**.
+
+- Proceed to your VM dashboard on EC2.
+
+![(a post image sharing more information)](/blog/_9/9_img-48.png)
+
+- Scroll to the bottom of your instance page, and click on **security** from the menu.
+
+![(a post image sharing more information)](/blog/_9/9_img-47.png)
+
+Locate the **Security groups** link ("sg-021b78bebfd80c933 (launch-wizard-2)" in my case) and click on it.
+
+![(a post image sharing more information)](/blog/_9/9_img-46.png)
+
+On the Inbound rules section, click on the **Edit inbound rules** button that is towards the right side of the screen.
+
+![(a post image sharing more information)](/blog/_9/9_img-45.png)
+
+Click on the **Add rule** button, and update to expose the VM ports **80** and **443**.
+
+![(a post image sharing more information)](/blog/_10/10_img-11.png)
+
+- Type: HTTP
+- Port Range: 80(will be automatically selected)
+- Source: Anywhere-IPV4
+
+Then
+
+- Type: HTTPS
+- Port Range: 443(will be automatically selected)
+- Source: Anywhere-IPV4
+
+![(a post image sharing more information)](/blog/_9/9_img-10.png)
+
+> Note carefully that the access IPs for all the setup above is not very secure as it is set to permit access from any IP
+> from anywhere in the world(**Source: 0.0.0.0/0**). In a production environment, you would want to restrict IP access accordingly(e.g., granting access
+> only to the servers that you expect connections from).
+
+### 7. Install Nginx, and set up as reverse proxy.
+
+> Nginx (pronounced "engine-x") is a high-performance, lightweight web server and reverse proxy used to serve web content,
+> handle load balancing, manage SSL, and route traffic efficiently.
+
+**Nginx use-cases:**
+
+1. As a web server – Serves static content like HTML, CSS, images, JS.
+
+2. As a reverse proxy – Forwards client requests to backend servers (e.g. Node.js, Python, Rust, ...).
+
+3. As a load balancer – Distributes traffic across multiple servers for better performance and reliability.
+
+4. For SSL termination – Handles HTTPS encryption before passing traffic to your app.
+
+5. Caching – Caches responses to reduce load on backend services.
+
+> When we install Nginx on our server, it sits in front of all direct http connections to our server.
+> With that, we're able to re-route traffic internally with it - thereby having it serve the function
+> of a "reverse-proxy". In our case, that means we'd then be able to redirect traffic to our VM port
+> 8080 without needing to expose it directly.
+
+- Terminate the API server if it is still running - **CTRL + c**.
+
+- Install Nginx.
+
+<CodeBlock language="bash" content={`sudo apt install nginx -y`} />
+
+- Refresh/Reload the system service manager - run the below commands.
+
+<CodeBlock language="bash" content={`sudo systemctl daemon-reexec`} />
+
+then
+
+<CodeBlock language="bash" content={`sudo systemctl daemon-reload`} />
+
+- Enable and start the Nginx service.
+
+<CodeBlock language="bash" content={`sudo systemctl enable nginx`} />
+
+then
+
+<CodeBlock language="bash" content={`sudo systemctl start nginx`} />
+
+- Now view the status of the Nginx system service.
+
+<CodeBlock language="bash" content={`sudo systemctl status nginx`} />
+
+As can be seen below, Nginx is running perfectly.
+
+![(a post image sharing more information)](/blog/_9/9_img-39.png)
+
+Now visit your VM address directly without the port(http://vm-ip-address).
+
+You should now see a response like the one below - which indicates as earlier stated, that Nginx is
+now sitting in front and intercepting all http connections on our server.
+
+![(a post image sharing more information)](/blog/_9/9_img-36.png)
+
+Now that we have Nginx set up, let's configure it to handle routing to our port 8080 internally.
+
+- Create a new config:
+
+<CodeBlock
+  language="bash"
+  content={`sudo nano /etc/nginx/sites-available/<config-name>`}
+/>
+
+E.g.
+
+<CodeBlock
+  language="bash"
+  content={`sudo nano /etc/nginx/sites-available/rust-api-deployment`}
+/>
+
+- Paste this:
+
+<CodeBlock
+  language="bash"
+  content={`
+server {
+    listen 80;
+    server_name <your-domain-or-sub-domain>;
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+
+        # Forward real client info
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+}
+`}
+/>
+
+> The `<your-domain-or-sub-domain>` part on line 4 of the above Nginx config setup should be replaced with a real domain or sub-domain
+> that you intend to obtain an SSL certificate for - later(step 8) in the tutorial.
+
+- Save and exit Nano - **CTRL + o** then press **Enter** then **CTRL + x**
+
+- Enable the config
+
+<CodeBlock
+  language="bash"
+  content={`sudo ln -s /etc/nginx/sites-available/<config-name> /etc/nginx/sites-enabled/`}
+/>
+
+E.g.
+
+<CodeBlock
+  language="bash"
+  content={`sudo ln -s /etc/nginx/sites-available/rust-api-deployment /etc/nginx/sites-enabled/`}
+/>
+
+- Remove default site(important):
+
+<CodeBlock
+  language="bash"
+  content={`sudo rm /etc/nginx/sites-enabled/default`}
+/>
+
+- Test the config:
+
+<CodeBlock language="bash" content={`sudo nginx -t`} />
+
+If OK:
+
+<CodeBlock language="bash" content={`syntax is ok\ntest is successful`} />
+
+- Refresh/Reload the system service manager - run the below commands.
+
+<CodeBlock language="bash" content={`sudo systemctl daemon-reexec`} />
+
+then
+
+<CodeBlock language="bash" content={`sudo systemctl daemon-reload`} />
+
+- Restart the Nginx service.
+
+<CodeBlock language="bash" content={`sudo systemctl restart nginx`} />
+
+Now let's restart our API server and visit the VM IP directly just like previously(still without the port number), you'll see
+that instead of the Nginx home-screen that was initially showing due to Nginx intercepting our http traffic, we'll now be
+automatically re-directed to our API server.
+
+> That will mean Nginx is now serving as our reverse proxy.
+
+- Rerun the binary.
+
+<CodeBlock language="bash" content={`./rust_axum_aws_deployment_demo`} />
+
+- Now visit the IP address directly again(still without a port numbber) to verify.
+
+### 8. Get a free SSL certificate for project domain/sub-domain.
+
+As stated earlier, we already prepared Nginx to help us get a free SSL certificate for which ever
+domain/sub-domain you added in the config - thanks to [Let's Encrypt](https://letsencrypt.org).
+
+> In simple terms:
+>
+> An SSL certificate is a digital file that:
+>
+> - Encrypts data between a browser and server(HTTPS).
+> - Proves the service is real(identity verification).
+> - Uses a public-private key pair.
+>
+> In a summary(and for what we want), it turns "http://" into "https://" - providing secure connection for http.
+
+Before we proceed to get our SSL certificate, let's point our **VM's public IP address** to our domain so that we can receive traffic
+on it instead of using the IP address. **Nginx will fail to provide the SSL certificate if that is not done first**.
+
+To do that, simply go to where ever your domain is hosted, and create an `"A" DNS record` that points your domain/sub-domain
+to the VM IP address.
+
+My domain is currently hosted on AWS Route 53.
+
+> Route 53 is AWS' DNS management service. The screenshot below shows how to create an `A` DNS record on the Route53 dashboard.
+
+![(a post image sharing more information)](/blog/_9/9_img-19.png)
+
+- Next, run the below command to install certbot
+
+<CodeBlock
+  language="bash"
+  content={`sudo apt install certbot python3-certbot-nginx`}
+/>
+
+Next, run:
+
+<CodeBlock
+  language="bash"
+  content={`sudo certbot --nginx -d <your-domain-or-sub-domain>`}
+/>
+
+You'll get some prompts. Proceed to respond to them appropriately.
+
+If everything goes well, you should then see a success message as confirmation.
+
+**Congratulation!!! You just successfully got a free SSL certificate for your domain/sub-domain.**
+
+### 9. Test the API server on the now SSL certified domain/sub-domain.
+
+- Refresh/Reload the system service manager - run the below commands.
+
+<CodeBlock language="bash" content={`sudo systemctl daemon-reexec`} />
+
+then
+
+<CodeBlock language="bash" content={`sudo systemctl daemon-reload`} />
+
+- Restart the Nginx service.
+
+<CodeBlock language="bash" content={`sudo systemctl restart nginx`} />
+
+- Check the Nginx service status.
+
+<CodeBlock language="bash" content={`sudo systemctl status nginx`} />
+
+- Restart the API server server
+
+<CodeBlock language="bash" content={`./rust_axum_aws_deployment_demo`} />
+
+Now return to your browser, and try out an **"https"** connection with you domain/sub-domain.
+It should work just fine.
+
+### 10. Explaining what happens with the current setup if something goes wrong.
+
+With the current setup we have, while our API binary deployment can keep running since the VM will
+always be up, what happens if a breaking-error occurs on it. What happens if something terrible goes wrong.
+
+If any such issues come up, our API server will simply crash with no system in place to restart it.
+
+That is where a tool like Systemd comes in handy once again. If we were making a Javascript/NodeJs deployment, an
+alternative tool we could use is PM2. Systemd remains the mode robust option either way.
+
+We'll now need to create a system service to ensure that the API server is always up.
+
+### 11. Create a system service to run the project/API binary - along with a standard environmental variables setup. Follow-up, and delete the previously created environmental variables files.
+
+- Run the below command to initialize the creation of the system service using Nano.
+
+<CodeBlock
+  language="bash"
+  content={`sudo nano /etc/systemd/system/rust-axum-aws-deployment-demo.service`}
+/>
+
+- Add the following into the Editor.
+
+<CodeBlock
+language="bash" 
+content={`
+[Unit]
+Description=Rust Axum API Server
+After=network.target
+
+[Service]
+Type=simple
+User=<your-vm-username>
+WorkingDirectory=<path-to-your-project-directory>
+
+EnvironmentFile=/etc/secrets.env
+
+ExecStart=<path-to-your-project-directory>/rust_axum_aws_deployment_demo
+
+Restart=always
+RestartSec=5
+
+# Graceful shutdown
+
+KillSignal=SIGINT
+TimeoutStopSec=10
+
+# Logging
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+`} />
+
+- Save and exit Nano - **CTRL + o** then press **Enter** then **CTRL + x**.
+
+> The above **Systemd** service file defines how to run the **API binary** as a persistent background service on Linux.
+> it tells **systemd** how to run, restart, and manage the **API binary** deployment as a reliable, self-healing background service.
+
+### 15. Finish deployment, and test API server on the live URL - inside Postman.
+
+Now that we have our system service all set, let's create the environmental variables file that will work on the service.
+As seen in the service file content above, our environmental variables which will be injected into the project by **Systemd**,
+will stay in a secure/secret location - **"/etc/secrets.env"**.
+
+> Keeping our environmental variables off the project root, provides better security for valuable project credentials.
+> Feel free to add the file to any location you feel will be most secure.
+
+- Open the file with Nano.
+
+<CodeBlock language="bash" content={`sudo nano /etc/secrets.env`} />
+
+- Add all the content of the initial `".env.production"` file into it.
+
+<CodeBlock
+  language="bash"
+  content={`# Environment
+APP__ENV=production
+
+# Server
+
+APP\_\_SERVER\_\_PORT=8080`}
+/>
+
+- Save and exit Nano - **CTRL + o** then press **Enter** then **CTRL + x**
+
+- Now delete all the initial **env** file we created(ensure to be on the project root).
+
+<CodeBlock language="bash" content={`sudo rm -rf .env .env.production.env`} />
+
+- Ensure that the deletion was successful.
+
+<CodeBlock language="bash" content={`cat .env`} />
+
+<CodeBlock language="bash" content={`cat .env.production`} />
+
+> You should see that the files no longer exist.
+
+- Refresh/Reload the system service manager - run the below commands.
+
+<CodeBlock language="bash" content={`sudo systemctl daemon-reexec`} />
+
+then
+
+<CodeBlock language="bash" content={`sudo systemctl daemon-reload`} />
+
+- Enable the API server system service.
+
+<CodeBlock
+  language="bash"
+  content={`sudo systemctl enable rust-axum-aws-deployment-demo.service`}
+/>
+
+- Start the service.
+
+<CodeBlock
+  language="bash"
+  content={`sudo systemctl start rust-axum-aws-deployment-demo.service`}
+/>
+
+- Check the service status.
+
+<CodeBlock
+  language="bash"
+  content={`sudo systemctl status rust-axum-aws-deployment-demo.service`}
+/>
+
+As can be seen in the system service log below, your deployed Rust API(binary) is now successfully running
+as a system service.
+
+![(a post image sharing more information)](/blog/_10/10_img-31.png)
+
+Our API should also be responding perfectly on the secure url when called via a browser or an API client like postman.
+
+> With this setup, whenever something goes wrong, the service will attempt to restart the API server
+> without needing any manual intervention.
+
+- View the API server system service logs whenever you need to.
+
+<CodeBlock
+  language="bash"
+  content={`sudo journalctl -fu rust-axum-aws-deployment-demo.service`}
+/>
+
+Or
+
+<CodeBlock
+  language="bash"
+  content={`sudo journalctl u rust-axum-aws-deployment-demo.service`}
+/>
+
+Now let's proceed to postman, and test the API end-points with the live URL.
+
+![a post image sharing more information](/blog/_11/11_img-5.png)
+![a post image sharing more information](/blog/_11/11_img-6.png)
+![a post image sharing more information](/blog/_11/11_img-7.png)
+
+Great if it all works perfectly!!!
+
+**And with that, you just successfully completed a highly professional Rust API binary
+deployment on AWS EC2.**
+
+## The limitation of this kind of cloud deployment.
+
+While this API server deployment is honestly a feat on it's own, it is still quite limited, and cannot
+meet the needs of a very professional engineering team whose demands can be only be met by more advanced DevOps workflows.
+
+With this current implementation, on every code/deployment update made to the project repository, the
+engineer in-charge still needs to:
+
+1. log into the EC2 instance, to pull in the updates.
+
+2. Restart and view the status of the system service.
+
+3. As I'll recommend, also restart and view the status of Nginx.
+
+All of these processes are not ideal, and can be really tedious for engineers while also slowing down execution for the whole team.
+
+## Conclusion.
+
+That would be it for this article.
+
+It's been quite a lot in this guide, I do hope you found much value.
+
+Thanks for reading, see you in the next article.
+
+> If you loved this post and would love to send an appreciation, simply use this link to [buy me
+> some cups of coffee](https://paystack.com/pay/11tykgn4-s) 🤓.
+
+Cheers!!!

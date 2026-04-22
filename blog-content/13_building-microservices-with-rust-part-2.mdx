@@ -1,27 +1,27 @@
 ---
-postTitle: 'End-To-End Rust Back-end(Binary) Deployment On AWS EC2'
-postDate: "April 15, 2026"
-postLastUpdated: 'April 20, 2026'
-postIndex: 11
-postCategory: "cloud-and-devops"
-postBrief: "An end-to-end guide to bridging the gap between local Rust development and scalable AWS cloud infrastructure"
-postThumbnailUrl: "/post-banners/post-banner_11.png"
+postTitle: 'Building Microservices With Rust(Part 2: Gateway - Base Server And Config Implementation)'
+postDate: "April 18, 2026"
+postLastUpdated: 'April 18, 2026'
+postIndex: 13
+postCategory: 'backend-development'
+postBrief: "Continuing the series, we dive into implementing the API Gateway's base server and managing configurations in a Rust microservices architecture."
+postThumbnailUrl: "/blog/post-banners/post-banner_13.png"
 authorPhotoUrl: "/author_image-1.jpg"
 authorName: Andrew James Okpainmo
 authorBio: "Andrew James Okpainmo is a fullstack software engineer who is passionate about building 
 and scaling awesome products and startups. He currently works as a freelance software engineer 
 (with expertise in fullstack software development, cloud engineering, and DevOps), while leading the team 
 at Zed Labs."
-postTags: ['rust', 'axum', 'aws', 'ec2', 'ssh', 'nginx', 'ssl', 'devops', 'deployment', 'linux']
-subCategories: ['backend-development']
-postSlug: "end-to-end-rust-back-end-binary-deployment-on-aws-ec2"
+postTags: ['rust', 'microservices', 'software-architecture', 'backend-development', 'distributed-systems']
+subCategories: ['system-design', 'cloud-and-devops']
+postSlug: "building-microservices-with-rust-part-2"
 authorSocials:
   twitter: https://twitter.com/AJ_Okpainmo
   linkedin: https://www.linkedin.com/in/okpainmo-andrew/
   github: https://github.com/Okpainmo
 ---
 
-![post banner](/post-banners/post-banner_11.png)
+![post banner](/blog/post-banners/post-banner_13.png)
 
 This article is an end-to-end guide that goes from local Rust development to implementing the standard deployment of a high
 performance rust-binary on AWS cloud infrastructure. It details the production-grade deployment of a real Rust(Axum) API
@@ -57,15 +57,15 @@ The project to be deployed, is open and free to access. Visit
 The below image is an IDE screenshot revealing how the API server looks on my local machine, and very much how its log output
 will look like after a successful deployment to the cloud.
 
-![a post image sharing more information](/_11/11_img-1.png)
+![a post image sharing more information](/blog/_11/11_img-1.png)
 
 The three screenshots below, reveal Postman interfaces with three requests that were made on the local
 deployment of the API on my machine. Once done with our cloud deployment, we'll update the request URLs, and try out with the
 live one.
 
-![a post image sharing more information](/_11/11_img-2.png)
-![a post image sharing more information](/_11/11_img-3.png)
-![a post image sharing more information](/_11/11_img-4.png)
+![a post image sharing more information](/blog/_11/11_img-2.png)
+![a post image sharing more information](/blog/_11/11_img-3.png)
+![a post image sharing more information](/blog/_11/11_img-4.png)
 
 ## Let's Get A Todo.
 
@@ -108,7 +108,7 @@ If you're using a key.
   content={`ssh -i <path to SSH key-pair> <your-vm-username>@<your-vm-ip>`}
 />
 
-![a post image sharing more information](/_11/11_img-8.png)
+![(a post image sharing more information)](/blog/_10/10_img-1.png)
 
 - Perform necessary system update/upgrades.
 
@@ -177,7 +177,7 @@ APP\_\_SERVER\_\_PORT=8080`}
 
 - Save Nano and exit - **CTRL + o** then press **Enter** then **CTRL + x**
 
-![a post image sharing more information](/_11/11_img-9.png)
+![(a post image sharing more information)](/blog/_10/10_img-10.png)
 
 ### 5. Run The Binary.
 
@@ -185,7 +185,7 @@ APP\_\_SERVER\_\_PORT=8080`}
 
 <CodeBlock language="bash" content={`./rust_axum_aws_deployment_demo`} />
 
-![a post image sharing more information](/_11/11_img-10.png)
+![(a post image sharing more information)](/blog/_10/10_img-10.png)
 
 Great! the server runs successfully.
 
@@ -205,23 +205,23 @@ restriction(s) that affects any of those ports, ensure to also undo such**.
 
 - Proceed to your VM dashboard on EC2.
 
-![(a post image sharing more information)](/_9/9_img-48.png)
+![(a post image sharing more information)](/blog/_9/9_img-48.png)
 
 - Scroll to the bottom of your instance page, and click on **security** from the menu.
 
-![(a post image sharing more information)](/_9/9_img-47.png)
+![(a post image sharing more information)](/blog/_9/9_img-47.png)
 
 Locate the **Security groups** link ("sg-021b78bebfd80c933 (launch-wizard-2)" in my case) and click on it.
 
-![(a post image sharing more information)](/_9/9_img-46.png)
+![(a post image sharing more information)](/blog/_9/9_img-46.png)
 
 On the Inbound rules section, click on the **Edit inbound rules** button that is towards the right side of the screen.
 
-![(a post image sharing more information)](/_9/9_img-45.png)
+![(a post image sharing more information)](/blog/_9/9_img-45.png)
 
 Click on the **Add rule** button, and update to expose the VM ports **80** and **443**.
 
-![(a post image sharing more information)](/_10/10_img-11.png)
+![(a post image sharing more information)](/blog/_10/10_img-11.png)
 
 - Type: HTTP
 - Port Range: 80(will be automatically selected)
@@ -233,10 +233,10 @@ Then
 - Port Range: 443(will be automatically selected)
 - Source: Anywhere-IPV4
 
-![(a post image sharing more information)](/_9/9_img-10.png)
+![(a post image sharing more information)](/blog/_9/9_img-10.png)
 
-> Note carefully that the access IPs for all the setup above is not very secure as it is set to permit access to any IP
-> address globally(**Source: 0.0.0.0/0**). In a production environment, you would want to restrict IP access accordingly(e.g., granting access
+> Note carefully that the access IPs for all the setup above is not very secure as it is set to permit access from any IP
+> from anywhere in the world(**Source: 0.0.0.0/0**). In a production environment, you would want to restrict IP access accordingly(e.g., granting access
 > only to the servers that you expect connections from).
 
 ### 7. Install Nginx, and set up as reverse proxy.
@@ -289,14 +289,14 @@ then
 
 As can be seen below, Nginx is running perfectly.
 
-![a post image sharing more information](/_11/11_img-11.png)
+![(a post image sharing more information)](/blog/_9/9_img-39.png)
 
-Now visit your VM address directly without the port(http://vm-public-ip-address).
+Now visit your VM address directly without the port(http://vm-ip-address).
 
 You should now see a response like the one below - which indicates as earlier stated, that Nginx is
 now sitting in front and intercepting all http connections on our server.
 
-![(a post image sharing more information)](/_11/11_img-13.png)
+![(a post image sharing more information)](/blog/_9/9_img-36.png)
 
 Now that we have Nginx set up, let's configure it to handle routing to our port 8080 internally.
 
@@ -425,7 +425,7 @@ My domain is currently hosted on AWS Route 53.
 
 > Route 53 is AWS' DNS management service. The screenshot below shows how to create an `A` DNS record on the Route53 dashboard.
 
-![(a post image sharing more information)](/_9/9_img-19.png)
+![(a post image sharing more information)](/blog/_9/9_img-19.png)
 
 - Next, run the below command to install certbot
 
@@ -604,7 +604,7 @@ then
 As can be seen in the system service log below, your deployed Rust API(binary) is now successfully running
 as a system service.
 
-![a post image sharing more information](/_11/11_img-12.png)
+![(a post image sharing more information)](/blog/_10/10_img-31.png)
 
 Our API should also be responding perfectly on the secure url when called via a browser or an API client like postman.
 
@@ -627,9 +627,9 @@ Or
 
 Now let's proceed to postman, and test the API end-points with the live URL.
 
-![a post image sharing more information](/_11/11_img-5.png)
-![a post image sharing more information](/_11/11_img-6.png)
-![a post image sharing more information](/_11/11_img-7.png)
+![a post image sharing more information](/blog/_11/11_img-5.png)
+![a post image sharing more information](/blog/_11/11_img-6.png)
+![a post image sharing more information](/blog/_11/11_img-7.png)
 
 Great if it all works perfectly!!!
 
@@ -660,7 +660,7 @@ It's been quite a lot in this guide, I do hope you found much value.
 
 Thanks for reading, see you in the next article.
 
-> If you loved this post and would want to send an appreciation, simply use this link to [buy me
-> a cup of coffee](https://paystack.com/pay/11tykgn4-s).
+> If you loved this post and would love to send an appreciation, simply use this link to [buy me
+> some cups of coffee](https://paystack.com/pay/11tykgn4-s) 🤓.
 
 Cheers!!!

@@ -6,7 +6,7 @@ postIndex: 9
 postCategory: "cloud-and-devops"
 postBrief: "A thorough and highly professional guide, that details a standard and complete deployment of
 a NodeJs API server on AWS EC2. Learn about AWS EC2, Nginx, and a whole lot more"
-postThumbnailUrl: "/post-banners/post-banner_9.png"
+postThumbnailUrl: "/blog/post-banners/post-banner_9.png"
 authorPhotoUrl: "/author_image-1.jpg"
 authorName: Andrew James Okpainmo
 authorBio: "Andrew James Okpainmo is a fullstack software engineer who is passionate about building 
@@ -22,7 +22,7 @@ authorSocials:
   github: https://github.com/Okpainmo
 ---
 
-![post banner](/post-banners/post-banner_9.png)
+![post banner](/blog/post-banners/post-banner_9.png)
 
 This tutorial is a thorough and highly professional guide, that details a standard and complete
 deployment of a NodeJs API server on AWS EC2.
@@ -71,14 +71,14 @@ currently has five active end-points. We'll handle environment secrets professio
 The below screenshot is a terminal instance that shows how things should look in our server/virtual machine logs after a
 successful deployment.
 
-![(a post image sharing more information)](/_9/9_img-71.png)
+![(a post image sharing more information)](/blog/_9/9_img-71.png)
 
 The two screenshots below, reveal Postman interfaces with two requests that were made on the local/testing
 deployment of the API on my machine. Once done with our deployment, we'll update the request URLs, and try out with our
 live API URL.
 
-![(a post image sharing more information)](/_9/9_img-67.png)
-![(a post image sharing more information)](/_9/9_img-66.png)
+![(a post image sharing more information)](/blog/_9/9_img-67.png)
+![(a post image sharing more information)](/blog/_9/9_img-66.png)
 
 ## Let's Get A Todo.
 
@@ -116,13 +116,13 @@ live API URL.
   content={`ssh -i /c/directory-name/another-directory-name/SSH/tutorial-instance-key-pair.pem ubuntu@ec2-13-60-96-165.eu-north-1.compute.amazonaws.com`}
 />
 
-![(a post image sharing more information)](/_9/9_img-65.png)
+![(a post image sharing more information)](/blog/_9/9_img-65.png)
 
 - Perform necessary system update/upgrades.
 
 <CodeBlock language="bash" content={`sudo apt update && sudo apt upgrade -y`} />
 
-![(a post image sharing more information)](/_9/9_img-64.png)
+![(a post image sharing more information)](/blog/_9/9_img-64.png)
 
 ### 2. Install NVM and the latest NodeJs LTS version.
 
@@ -159,7 +159,7 @@ export NVM_DIR="$HOME/.nvm"
 
 <CodeBlock language="bash" content={`node -v`} />
 
-![(a post image sharing more information)](/_9/9_img-58.png)
+![(a post image sharing more information)](/blog/_9/9_img-58.png)
 
 - Verify NPM.
 
@@ -189,13 +189,13 @@ export NVM_DIR="$HOME/.nvm"
 
 <CodeBlock language="bash" content={`npm install`} />
 
-![(a post image sharing more information)](/_9/9_img-54.png)
+![(a post image sharing more information)](/blog/_9/9_img-54.png)
 
 - Run the project server.
 
 <CodeBlock language="bash" content={`npm run dev`} />
 
-![(a post image sharing more information)](/_9/9_img-53.png)
+![(a post image sharing more information)](/blog/_9/9_img-53.png)
 
 As you can see from the screenshot above, our project server is currently running, but is throwing an error due to
 absence of the PostgreSQL DB environmental variable.
@@ -213,7 +213,7 @@ absence of the PostgreSQL DB environmental variable.
 
 <CodeBlock language="bash" content={`cat .env`} />
 
-![(a post image sharing more information)](/_9/9_img-52.png)
+![(a post image sharing more information)](/blog/_9/9_img-52.png)
 
 - Open the **.env** file with the Nano CLI editor, clear the previous insertion, and add the real environmental variables.
 
@@ -221,7 +221,7 @@ absence of the PostgreSQL DB environmental variable.
 
 In my case, it is as in the below screenshot.
 
-![(a post image sharing more information)](/_9/9_img-50.png)
+![(a post image sharing more information)](/blog/_9/9_img-50.png)
 
 - Save Nano and exit - **CTRL + o** then press **Enter** then **CTRL + x**
 
@@ -229,7 +229,7 @@ Now restarting the server, you will see that everything works fine - with the da
 
 <CodeBlock language="bash" content={`npm run dev`} />
 
-![(a post image sharing more information)](/_9/9_img-49.png)
+![(a post image sharing more information)](/blog/_9/9_img-49.png)
 
 > Environment shows undefined because I failed to add/specify it in the .env. Simply add it if you wish.
 
@@ -252,19 +252,19 @@ from the outside.
 
 - Proceed to your VM dashboard on EC2.
 
-![(a post image sharing more information)](/_9/9_img-48.png)
+![(a post image sharing more information)](/blog/_9/9_img-48.png)
 
 - Scroll to the bottom of your instance page, and click on security from the menu.
 
-![(a post image sharing more information)](/_9/9_img-47.png)
+![(a post image sharing more information)](/blog/_9/9_img-47.png)
 
 Locate the **Security groups** link ("sg-021b78bebfd80c933 (launch-wizard-2)" in my case) and click on it.
 
-![(a post image sharing more information)](/_9/9_img-46.png)
+![(a post image sharing more information)](/blog/_9/9_img-46.png)
 
 On the Inbound rules section, click on the "Edit inbound rules" button that is towards the right side of the screen.
 
-![(a post image sharing more information)](/_9/9_img-45.png)
+![(a post image sharing more information)](/blog/_9/9_img-45.png)
 
 Click on the "Add rule" button, and open the VM port 5000 with the following update - as you can see below. Then click the
 "Save rules" button to save the changes.
@@ -275,7 +275,7 @@ Click on the "Add rule" button, and open the VM port 5000 with the following upd
 
 We'll also be opening the VM port 80(HTTP) and port 443(HTTPS) to accept incoming http and https requests respectively.
 
-![(a post image sharing more information)](/_9/9_img-13.png)
+![(a post image sharing more information)](/blog/_9/9_img-13.png)
 
 > Note that while doing that is similar to opening the VM port 5000, it's quite different and necessary,
 > else our VM won't be able to accept incoming http and https requests.
@@ -290,14 +290,14 @@ Then
 - Port Range: 443(will be automatically selected)
 - Source: Anywhere-IPV4
 
-![(a post image sharing more information)](/_9/9_img-14.png)
+![(a post image sharing more information)](/blog/_9/9_img-14.png)
 
 Now go back to the EC2 instance menu, and copy your instance public IPV4 address.
 Simply use the left side menu. Click on the "instances" link.
 
 As can be seen just below, my public IPV4 instance address is: "13.60.96.165".
 
-![(a post image sharing more information)](/_9/9_img-48.png)
+![(a post image sharing more information)](/blog/_9/9_img-48.png)
 
 Now head to you browser, and add the following address to it: **http://your-instance-IPV4-address:port-number**.
 In my case, that will be: **http://13.60.96.165:5000**
@@ -305,7 +305,7 @@ In my case, that will be: **http://13.60.96.165:5000**
 As you can see in the below screenshot, my request was successful, and the API server is actually
 running and returning a response.
 
-![(a post image sharing more information)](/_9/9_img-41.png)
+![(a post image sharing more information)](/blog/_9/9_img-41.png)
 
 ### 7. Install Nginx, set up as reverse proxy, and access the API server through it. Follow up and close the VM port 5000.
 
@@ -346,7 +346,7 @@ Now, let's install Nginx, make good use of it, and close up the opened VM port 5
 
 <CodeBlock language="bash" content={`sudo apt install nginx -y`} />
 
-![(a post image sharing more information)](/_9/9_img-40.png)
+![(a post image sharing more information)](/blog/_9/9_img-40.png)
 
 - Refresh/Reload the system service manager - run the below commands.
 
@@ -370,13 +370,13 @@ then
 
 As can be seen below, Nginx is running perfectly.
 
-![(a post image sharing more information)](/_9/9_img-39.png)
+![(a post image sharing more information)](/blog/_9/9_img-39.png)
 
 Now visit your VM address directly without the port(http://vm-ip-address). In my case, that will be: **http://13.60.96.165**.
 
 You can see that Nginx is now sitting in front and intercepting all http connections.
 
-![(a post image sharing more information)](/_9/9_img-36.png)
+![(a post image sharing more information)](/blog/_9/9_img-36.png)
 
 Now that we have Nginx set up, let's configure it to handle routing to our port 5000 internally, so we can close up The
 open VM port 5000.
@@ -385,7 +385,7 @@ open VM port 5000.
 
 <CodeBlock language="bash" content={`sudo nano /etc/nginx/nginx.conf`} />
 
-![(a post image sharing more information)](/_9/9_img-35.png)
+![(a post image sharing more information)](/blog/_9/9_img-35.png)
 
 - First thing, scroll(if you have a limited screen) and locate the line with this
   text - "include /etc/nginx/sites-enabled/\*;", then add a hash tag in front of the line to comment it out.
@@ -419,7 +419,7 @@ server {
 
 With some proper spacing arrangements, your Nginx config additions should look like this:
 
-![(a post image sharing more information)](/_9/9_img-34.png)
+![(a post image sharing more information)](/blog/_9/9_img-34.png)
 
 - Save and exit Nano - **CTRL + o** then press **Enter** then **CTRL + x**
 
@@ -445,14 +445,14 @@ automatically re-directed to our API server.
 
 <CodeBlock language="bash" content={`npm run dev`} />
 
-![(a post image sharing more information)](/_9/9_img-27.png)
+![(a post image sharing more information)](/blog/_9/9_img-27.png)
 
 Ensure to be inside of the project(the git repo - "aws-ec2-node-express-deployment-project") directory
 else you'll get an error. Carefully take note of that, in-case you lost your SSH connection at any point.
 
 - Visit the IP address - directly without the port. I.e. **http://13.60.96.165** in my case.
 
-![(a post image sharing more information)](/_9/9_img-28.png)
+![(a post image sharing more information)](/blog/_9/9_img-28.png)
 
 Just as stated, our reverse proxying is now working perfectly.
 
@@ -480,14 +480,14 @@ My domain is currently hosted on AWS Route 53.
 
 > Route 53 is AWS' DNS management service.
 
-![(a post image sharing more information)](/_9/9_img-19.png)
+![(a post image sharing more information)](/blog/_9/9_img-19.png)
 
 Now visit your domain/sub-domain in a browser, but with "http". **"https"** will not work yet since we're yet to get
 an SSL certificate.
 
 You should see that it works perfectly, but with a "Not Secure" warning from the browser.
 
-![(a post image sharing more information)](/_9/9_img-18.png)
+![(a post image sharing more information)](/blog/_9/9_img-18.png)
 
 Now stop the API server, and let's get on SSL certificate for our sub-domain.
 
@@ -502,7 +502,7 @@ Now stop the API server, and let's get on SSL certificate for our sub-domain.
 
 You'll get the below prompt about disk space usage, type "Y" to agree.
 
-![(a post image sharing more information)](/_9/9_img-21.png)
+![(a post image sharing more information)](/blog/_9/9_img-21.png)
 
 Now run:
 
@@ -524,11 +524,11 @@ You'll get another prompt asking you to read and agree to the Let's Encrypt term
 
 One more email marketing-related prompt, Type "Y" to agree.
 
-![(a post image sharing more information)](/_9/9_img-20.png)
+![(a post image sharing more information)](/blog/_9/9_img-20.png)
 
 You should then see a success message that looks similar to the one below.
 
-![(a post image sharing more information)](/_9/9_img-17.png)
+![(a post image sharing more information)](/blog/_9/9_img-17.png)
 
 **Congratulation!!! You just successfully got a free SSL certificate for your domain/sub-domain.**
 
@@ -557,21 +557,21 @@ then
 > Once again, ensure to be inside of the project(the git repo - "aws-ec2-node-express-deployment-project") directory
 > before trying to restart the API server else you'll get an error.
 
-![(a post image sharing more information)](/_9/9_img-15.png)
+![(a post image sharing more information)](/blog/_9/9_img-15.png)
 
 Now return to your browser, and try out an **"https"** connection with you domain/sub-domain.
 It should work just perfectly as mine below. No more "Not Secure" warnings.
 
-![(a post image sharing more information)](/_9/9_img-5.png)
+![(a post image sharing more information)](/blog/_9/9_img-5.png)
 
 Now Let's return to the security groups page on AWS, and close the VM port 5000 since we no longer need it. Hence
 also keeping our VM as secure as possible.
 
 Simply click the delete button, and remove the rule that permits access to the VM port 5000.
 
-![(a post image sharing more information)](/_9/9_img-13.png)
+![(a post image sharing more information)](/blog/_9/9_img-13.png)
 
-![(a post image sharing more information)](/_9/9_img-10.png)
+![(a post image sharing more information)](/blog/_9/9_img-10.png)
 
 Then save.
 
@@ -623,7 +623,7 @@ SyslogIdentifier=PlatformCore01
 WantedBy=multi-user.target
 `}/>
 
-![(a post image sharing more information)](/_9/9_img-72.png)
+![(a post image sharing more information)](/blog/_9/9_img-72.png)
 
 - Save and exit Nano - **CTRL + o** then press **Enter** then **CTRL + x**.
 
@@ -687,7 +687,7 @@ As seen in the service file content, our environmental variables will be at "/et
 
 <CodeBlock language="bash" content={`cat .env`} />
 
-![(a post image sharing more information)](/_9/9_img-8.png)
+![(a post image sharing more information)](/blog/_9/9_img-8.png)
 
 You should see that the file no longer exist - as in the screenshot below.
 
@@ -722,11 +722,11 @@ then
 
 As can be seen in the system service log below, your NodeJs API server is now successfully running as a system service.
 
-![(a post image sharing more information)](/_9/9_img-6.png)
+![(a post image sharing more information)](/blog/_9/9_img-6.png)
 
 Our API should also be responding perfectly.
 
-![(a post image sharing more information)](/_9/9_img-5.png)
+![(a post image sharing more information)](/blog/_9/9_img-5.png)
 
 > With this, even when you're there is any breaking error, the system
 > service will attempt to restart the API server without needing any manual intervention.
@@ -747,11 +747,11 @@ Or
 
 Now let's proceed to postman, and test the API end-points with the live URL.
 
-![(a post image sharing more information)](/_9/9_img-3.png)
+![(a post image sharing more information)](/blog/_9/9_img-3.png)
 
-![(a post image sharing more information)](/_9/9_img-2.png)
+![(a post image sharing more information)](/blog/_9/9_img-2.png)
 
-![(a post image sharing more information)](/_9/9_img-1.png)
+![(a post image sharing more information)](/blog/_9/9_img-1.png)
 
 It all works perfectly!!!
 

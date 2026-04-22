@@ -6,7 +6,7 @@ postIndex: 10
 postCategory: "cloud-and-devops"
 postBrief: "A highly professional guide, that details a standard and complete deployment of
 a production-grade Python API server on AWS EC2"
-postThumbnailUrl: "/post-banners/post-banner_10.png"
+postThumbnailUrl: "/blog/post-banners/post-banner_10.png"
 authorPhotoUrl: "/author_image-1.jpg"
 authorName: Andrew James Okpainmo
 authorBio: "Andrew James Okpainmo is a fullstack software engineer who is passionate about building 
@@ -22,7 +22,7 @@ authorSocials:
   github: https://github.com/Okpainmo
 ---
 
-![post banner](/post-banners/post-banner_10.png)
+![post banner](/blog/post-banners/post-banner_10.png)
 
 This article is a highly professional guide, that details a standard and complete(containerized)
 deployment of a Python(Django - Django Ninja) API server on AWS EC2.
@@ -60,14 +60,14 @@ The project to be deployed, is open and free to access - visit
 The below screenshot is a terminal instance that shows how things should look in our server/virtual machine logs after a
 successful deployment.
 
-![(a post image sharing more information)](/_10/10_img-3.png)
+![(a post image sharing more information)](/blog/_10/10_img-3.png)
 
 The two screenshots below, reveal Postman interfaces with two requests that were made on the local
 deployment of the API on my machine. Once done with our deployment, we'll update the request URLs, and try out with our
 live API URL.
 
-![(a post image sharing more information)](/_10/10_img-4.png)
-![(a post image sharing more information)](/_10/10_img-5.png)
+![(a post image sharing more information)](/blog/_10/10_img-4.png)
+![(a post image sharing more information)](/blog/_10/10_img-5.png)
 
 ## Let's Get A Todo.
 
@@ -106,7 +106,7 @@ Now, let's dive in.
   content={`ssh -i /c/directory-name/another-directory-name/SSH/tutorial-instance-key-pair.pem ubuntu@ec2-13-60-96-165.eu-north-1.compute.amazonaws.com`}
 />
 
-![(a post image sharing more information)](/_10/10_img-1.png)
+![(a post image sharing more information)](/blog/_10/10_img-1.png)
 
 - Perform necessary system update/upgrades.
 
@@ -131,7 +131,7 @@ Now, let's dive in.
   content={`cd aws-ec2-django-deployment-project`}
 />
 
-![(a post image sharing more information)](/_10/10_img-6.png)
+![(a post image sharing more information)](/blog/_10/10_img-6.png)
 
 - Prepare project's Python environment.
 
@@ -165,7 +165,7 @@ Then.
   content={`pip install -r requirements.txt`}
 />
 
-![(a post image sharing more information)](/_10/10_img-7.png)
+![(a post image sharing more information)](/blog/_10/10_img-7.png)
 
 ### 3. Create a temporary .env, and add all environmental variables(not very secure, we will implement in a more secure way on step 14).
 
@@ -178,7 +178,7 @@ Then.
 
 <CodeBlock language="bash" content={`cat .env`} />
 
-![(a post image sharing more information)](/_10/10_img-8.png)
+![(a post image sharing more information)](/blog/_10/10_img-8.png)
 
 - Open the **.env** file with the Nano CLI editor, clear the previous insertion, and add the real environmental variables.
 
@@ -186,7 +186,7 @@ Then.
 
 In my case, it is as in the below screenshot.
 
-![(a post image sharing more information)](/_10/10_img-9.png)
+![(a post image sharing more information)](/blog/_10/10_img-9.png)
 
 - Save Nano and exit - **CTRL + o** then press **Enter** then **CTRL + x**
 
@@ -199,7 +199,7 @@ Now start the API server. Everything should work fine - with the database succes
 
 <CodeBlock language="bash" content={`python3 manage.py runserver`} />
 
-![(a post image sharing more information)](/_10/10_img-10.png)
+![(a post image sharing more information)](/blog/_10/10_img-10.png)
 
 > Note that this is just a temporary process. As expected, we're to handle the project deployment with Docker.
 > This process is simply to ensure that everything(server setup, dependency installation, and all) is
@@ -225,23 +225,23 @@ beginner-friendly approach.
 
 - Proceed to your VM dashboard on EC2.
 
-![(a post image sharing more information)](/_9/9_img-48.png)
+![(a post image sharing more information)](/blog/_9/9_img-48.png)
 
 - Scroll to the bottom of your instance page, and click on security from the menu.
 
-![(a post image sharing more information)](/_9/9_img-47.png)
+![(a post image sharing more information)](/blog/_9/9_img-47.png)
 
 Locate the **Security groups** link ("sg-021b78bebfd80c933 (launch-wizard-2)" in my case) and click on it.
 
-![(a post image sharing more information)](/_9/9_img-46.png)
+![(a post image sharing more information)](/blog/_9/9_img-46.png)
 
 On the Inbound rules section, click on the "Edit inbound rules" button that is towards the right side of the screen.
 
-![(a post image sharing more information)](/_9/9_img-45.png)
+![(a post image sharing more information)](/blog/_9/9_img-45.png)
 
 Click on the "Add rule" button, and update to expose the VM ports **80** and **443**.
 
-![(a post image sharing more information)](/_10/10_img-11.png)
+![(a post image sharing more information)](/blog/_10/10_img-11.png)
 
 - Type: HTTP
 - Port Range: 80(will be automatically selected)
@@ -253,7 +253,7 @@ Then
 - Port Range: 443(will be automatically selected)
 - Source: Anywhere-IPV4
 
-![(a post image sharing more information)](/_9/9_img-10.png)
+![(a post image sharing more information)](/blog/_9/9_img-10.png)
 
 ### 6. Install Nginx, set up as reverse proxy, and access the API server.
 
@@ -289,7 +289,7 @@ be able to keep our VM a lot more secure.
 
 <CodeBlock language="bash" content={`sudo apt install nginx -y`} />
 
-![(a post image sharing more information)](/_9/9_img-40.png)
+![(a post image sharing more information)](/blog/_9/9_img-40.png)
 
 - Refresh/Reload the system service manager - run the below commands.
 
@@ -313,13 +313,13 @@ then
 
 As can be seen below, Nginx is running perfectly.
 
-![(a post image sharing more information)](/_9/9_img-39.png)
+![(a post image sharing more information)](/blog/_9/9_img-39.png)
 
 Now visit your VM address directly without the port(http://vm-ip-address). In my case, that will be: **http://13.60.96.165**.
 
 You can see that Nginx is now sitting in front and intercepting all http connections.
 
-![(a post image sharing more information)](/_9/9_img-36.png)
+![(a post image sharing more information)](/blog/_9/9_img-36.png)
 
 Now that we have Nginx set up, let's configure it to handle routing to our port 8000 internally.
 
@@ -330,7 +330,7 @@ Now that we have Nginx set up, let's configure it to handle routing to our port 
   content={`sudo nano /etc/nginx/nginx.conf`}
 />
 
-![(a post image sharing more information)](/_9/9_img-35.png)
+![(a post image sharing more information)](/blog/_9/9_img-35.png)
 
 - First thing, scroll(if you have a limited screen) and locate the line with this
   text - "include /etc/nginx/sites-enabled/\*;", then add a hash tag in front of the line to comment it out.
@@ -412,11 +412,11 @@ automatically re-directed to our API server.
 
 <CodeBlock language="bash" content={`python3 manage.py runserver`} />
 
-![(a post image sharing more information)](/_10/10_img-13.png)
+![(a post image sharing more information)](/blog/_10/10_img-13.png)
 
 - Visit the IP address - directly without the port. I.e. **http://13.60.96.165** in my case.
 
-![(a post image sharing more information)](/_10/10_img-14.png)
+![(a post image sharing more information)](/blog/_10/10_img-14.png)
 
 Just as stated, our reverse proxying is now working perfectly.
 
@@ -445,7 +445,7 @@ My domain is currently hosted on AWS Route 53.
 
 > Route 53 is AWS' DNS management service.
 
-![(a post image sharing more information)](/_9/9_img-19.png)
+![(a post image sharing more information)](/blog/_9/9_img-19.png)
 
 Now stop the API server, and let's get on SSL certificate for our sub-domain.
 
@@ -460,7 +460,7 @@ Now stop the API server, and let's get on SSL certificate for our sub-domain.
 
 You'll get the below prompt about disk space usage, type "Y" to agree.
 
-![(a post image sharing more information)](/_10/10_img-35.png)
+![(a post image sharing more information)](/blog/_10/10_img-35.png)
 
 Now run:
 
@@ -482,11 +482,11 @@ You'll get another prompt asking you to read and agree to the Let's Encrypt term
 
 One more email marketing-related prompt, Type "Y" to agree.
 
-![(a post image sharing more information)](/_10/10_img-36.png)
+![(a post image sharing more information)](/blog/_10/10_img-36.png)
 
 You should then see a success message that looks similar to the one below.
 
-![(a post image sharing more information)](/_10/10_img-37.png)
+![(a post image sharing more information)](/blog/_10/10_img-37.png)
 
 **Congratulation!!! You just successfully got a free SSL certificate for your domain/sub-domain.**
 
@@ -515,12 +515,12 @@ then
 > Once again, ensure to be inside of the project(the git repo - "aws-ec2-django-deployment-project") directory
 > before trying to restart the API server else you'll get an error.
 
-![(a post image sharing more information)](/_10/10_img-37.png)
+![(a post image sharing more information)](/blog/_10/10_img-37.png)
 
 Now return to your browser, and try out an **"https"** connection with you domain/sub-domain.
 It should work just perfectly as mine below.
 
-![(a post image sharing more information)](/_10/10_img-12.png)
+![(a post image sharing more information)](/blog/_10/10_img-12.png)
 
 ### 9. Install Docker.
 
@@ -546,7 +546,7 @@ echo "deb [arch=\$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker
 sudo apt-get update
 `} />
 
-![(a post image sharing more information)](/_10/10_img-15.png)
+![(a post image sharing more information)](/blog/_10/10_img-15.png)
 
 - Install Docker packages(hence the latest Docker version).
 
@@ -555,21 +555,21 @@ sudo apt-get update
   content={`sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin`}
 />
 
-![(a post image sharing more information)](/_10/10_img-17.png)
+![(a post image sharing more information)](/blog/_10/10_img-17.png)
 
-![(a post image sharing more information)](/_10/10_img-18.png)
+![(a post image sharing more information)](/blog/_10/10_img-18.png)
 
 - Verify that the installation was successfully - run a **hello-world** image.
 
 <CodeBlock language="bash" content={`sudo docker run hello-world`} />
 
-![(a post image sharing more information)](/_10/10_img-19.png)
+![(a post image sharing more information)](/blog/_10/10_img-19.png)
 
 - View list of available Docker images.
 
 <CodeBlock language="bash" content={`sudo docker image ls`} />
 
-![(a post image sharing more information)](/_10/10_img-21.png)
+![(a post image sharing more information)](/blog/_10/10_img-21.png)
 
 We can see that Docker was successfully installed on the VM, and everything is going great.
 
@@ -599,7 +599,7 @@ Now all we have to do, is to build the project image, and run a container.
 
 <CodeBlock language="bash" content={`cat Dockerfile`} />
 
-![(a post image sharing more information)](/_10/10_img-22.png)
+![(a post image sharing more information)](/blog/_10/10_img-22.png)
 
 - Prepare/Build Docker image.
 
@@ -608,9 +608,9 @@ Now all we have to do, is to build the project image, and run a container.
   content={`sudo docker build -t aws-ec2-django-deployment-project .`}
 />
 
-![(a post image sharing more information)](/_10/10_img-23.png)
+![(a post image sharing more information)](/blog/_10/10_img-23.png)
 
-![(a post image sharing more information)](/_10/10_img-24.png)
+![(a post image sharing more information)](/blog/_10/10_img-24.png)
 
 ### 12. Manually run the API server with Docker.
 
@@ -648,19 +648,19 @@ Now let's view the container logs to make sure everything is okay.
   content={`sudo docker logs aws-ec2-django-deployment-project__container`}
 />
 
-![(a post image sharing more information)](/_10/10_img-25.png)
+![(a post image sharing more information)](/blog/_10/10_img-25.png)
 
 As you can see, everything is going great.
 
 > On testing the API server via the server IP and on the provided custom domain, you
 > can see that everything is working fine with out Docker deployment.
 
-![(a post image sharing more information)](/_10/10_img-12.png)
+![(a post image sharing more information)](/blog/_10/10_img-12.png)
 
 Try stopping the running container, then visit the live API URL again,
 you'll get a **502 Bad Gateway** error from Nginx.
 
-![(a post image sharing more information)](/_10/10_img-28.png)
+![(a post image sharing more information)](/blog/_10/10_img-28.png)
 
 <CodeBlock
   language="bash"
@@ -721,7 +721,7 @@ ExecStopPost=/usr/bin/docker rm -f aws-ec2-django-deployment-project**container
 WantedBy=multi-user.target
 `} />
 
-![(a post image sharing more information)](/_10/10_img-29.png)
+![(a post image sharing more information)](/blog/_10/10_img-29.png)
 
 - Save and exit Nano - **CTRL + o** then press **Enter** then **CTRL + x**.
 
@@ -792,7 +792,7 @@ As seen in the service file content, our environmental variables will be at **"/
 
 <CodeBlock language="bash" content={`cat .env`} />
 
-![(a post image sharing more information)](/_10/10_img-30.png)
+![(a post image sharing more information)](/blog/_10/10_img-30.png)
 
 You should see that the file no longer exist - as in the screenshot below.
 
@@ -828,11 +828,11 @@ then
 As can be seen in the system service log below, your containerized Python API server is now successfully running
 as a system service - **using Docker**.
 
-![(a post image sharing more information)](/_10/10_img-31.png)
+![(a post image sharing more information)](/blog/_10/10_img-31.png)
 
 Our API should also be responding perfectly.
 
-![(a post image sharing more information)](/_10/10_img-12.png)
+![(a post image sharing more information)](/blog/_10/10_img-12.png)
 
 > With this, whenever something goes wrong, the service will attempt to restart the API server
 > without needing any manual intervention.
@@ -853,9 +853,9 @@ Or
 
 Now let's proceed to postman, and test the API end-points with the live URL.
 
-![(a post image sharing more information)](/_10/10_img-33.png)
+![(a post image sharing more information)](/blog/_10/10_img-33.png)
 
-![(a post image sharing more information)](/_10/10_img-34.png)
+![(a post image sharing more information)](/blog/_10/10_img-34.png)
 
 It all works perfectly!!!
 

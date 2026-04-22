@@ -5,7 +5,7 @@ postLastUpdated: 'April 20, 2026'
 postIndex: 8
 postCategory: 'cloud-and-devops'
 postBrief: "A detailed article(with practical steps and screenshots) on how to create virtual servers/machines on AWS with EC2"
-postThumbnailUrl: '/post-banners/post-banner_8.png'
+postThumbnailUrl: '/blog/post-banners/post-banner_8.png'
 authorPhotoUrl: '/author_image-1.jpg'
 authorName: Andrew James Okpainmo
 authorBio: "Andrew James Okpainmo is a fullstack software engineer who is passionate about building 
@@ -21,7 +21,7 @@ authorSocials:
   github: https://github.com/Okpainmo
 ---
 
-![post banner](/post-banners/post-banner_8.png)
+![post banner](/blog/post-banners/post-banner_8.png)
 
 EC2 remains one of the most critical AWS cloud services currently available!!!
 
@@ -63,11 +63,11 @@ Let's Dive in.
 
 - On the EC2 home dashboard, look out for any button that says "Launch Instance", and click on it.
 
-![(a post image sharing more information)](/_8/8_img-1.png)
+![(a post image sharing more information)](/blog/_8/8_img-1.png)
 
 You should be brought to a screen that looks like the one below.
 
-![(a post image sharing more information)](/_8/8_img-2.png)
+![(a post image sharing more information)](/blog/_8/8_img-2.png)
 
 Now proceed to setup the instance.
 
@@ -75,7 +75,7 @@ Now proceed to setup the instance.
 
 Simply give your server a name that resonates with your project - I'll call mine "tutorial-instance".
 
-![(a post image sharing more information)](/_8/8_img-3.png)
+![(a post image sharing more information)](/blog/_8/8_img-3.png)
 
 ### 2. Application and OS Images (Amazon Machine Image).
 
@@ -99,7 +99,7 @@ When writing this article, the latest with free-tier support(which I'll be going
 
 - **Architecture**: Ensure that **64-bit x86** is selected.
 
-![(a post image sharing more information)](/_8/8_img-4.png)
+![(a post image sharing more information)](/blog/_8/8_img-4.png)
 
 ### 3. Instance type.
 
@@ -113,7 +113,7 @@ funded project, do your research, and select the perfect fit for the project req
 
 > For this tutorial, I'll go with the free-tier **t3-micro** instance type.
 
-![(a post image sharing more information)](/_8/8_img-5.png)
+![(a post image sharing more information)](/blog/_8/8_img-5.png)
 
 ### 4. Key pair(login).
 
@@ -129,7 +129,7 @@ Now back to the main talk.
 
 Select **Create new key pair** just beside the drop-down menu. 
 
-![(a post image sharing more information)](/_8/8_img-24.png)
+![(a post image sharing more information)](/blog/_8/8_img-24.png)
 
 Proceed to make the below selections on the resulting pop-up to create you key-pair.
 
@@ -142,7 +142,7 @@ Proceed to make the below selections on the resulting pop-up to create you key-p
 
 The image below shed light on why to chose which from the two available options.
 
-![(a post image sharing more information)](/_8/8_img-6.png)
+![(a post image sharing more information)](/blog/_8/8_img-6.png)
 
 Note that the selection to be made, is affected by both the machine you'll be connecting from, and the VM to be created.
 Our instance(VM) to be created, is a modern server, and I believe your local machine is not an 'old-lady' either,
@@ -161,7 +161,7 @@ cryptographic algorithm.
 
 Next, click the button, and create the key-pair.
 
-![(a post image sharing more information)](/_8/8_img-7.png)
+![(a post image sharing more information)](/blog/_8/8_img-7.png)
 
 > The key-pair("tutorial-instance-key-pair.pem" in my case) will be created, and will be downloaded to my computer.
 
@@ -170,20 +170,20 @@ Next, click the button, and create the key-pair.
 For the network settings, we'll leave everything as it is by default. We'll learn more about some or
 all of the default selections(security groups, VPC, Subnets, and more) in subsequent Zed Labs blog articles.
 
-![(a post image sharing more information)](/_8/8_img-8.png)
+![(a post image sharing more information)](/blog/_8/8_img-8.png)
 
 ### 6. Configure storage.
 
 For storage, simply update the pre-inserted space amount from **8** to **30**.
 
-![(a post image sharing more information)](/_8/8_img-10.png)
+![(a post image sharing more information)](/blog/_8/8_img-10.png)
 
 > **Update**: As seen in the image below. AWS added a **file system** sub-section to the "Configure storage" area. For that, 
 > simply avoid making any selection, as doing so will not affect the creation of your EC2 instance.
 > **Ignore the selection that was made in the image**. If its ever necessary to make that addition, I 
 > believe you can always make updates to your instance setting on the EC2 console without any hassle.
 
-![(a post image sharing more information)](/_8/8_img-25.png)
+![(a post image sharing more information)](/blog/_8/8_img-25.png)
 
 ----
 
@@ -191,28 +191,28 @@ And that will be it for all the necessary selections.
 
 View your instance summary on the right side of the screen, and without any further selection, proceed to click **"Launch instance"**.
 
-![(a post image sharing more information)](/_8/8_img-9.png)
+![(a post image sharing more information)](/blog/_8/8_img-9.png)
 
 Once your instance is successfully created, you'll be directed to a this next screen. Scroll to the button of the page, and click on
 **"View all instances"**.
 
-![(a post image sharing more information)](/_8/8_img-11.png)
+![(a post image sharing more information)](/blog/_8/8_img-11.png)
 
-![(a post image sharing more information)](/_8/8_img-14.png)
+![(a post image sharing more information)](/blog/_8/8_img-14.png)
 
 - Click the checkbox next to your newly created instance, to pre-view it's details.
 
-![(a post image sharing more information)](/_8/8_img-15.png)
+![(a post image sharing more information)](/blog/_8/8_img-15.png)
 
 - Click on the "Instance Id" and proceed to the instance page proper.
 
-![(a post image sharing more information)](/_8/8_img-16.png)
+![(a post image sharing more information)](/blog/_8/8_img-16.png)
 
 ## Connecting To The Newly Created EC2 Instance.
 
 On the instance page, Click the "Connect" button to head to the connection screen.
 
-![(a post image sharing more information)](/_8/8_img-17.png)
+![(a post image sharing more information)](/blog/_8/8_img-17.png)
 
 I have two recommendations, with respect to connecting to your EC2 instances
 
@@ -224,7 +224,7 @@ on the newly created virtual machine.
 
 While on it(EC2 Instance Connect), click the "Connect" button to see this in action.
 
-![(a post image sharing more information)](/_8/8_img-17.png)
+![(a post image sharing more information)](/blog/_8/8_img-17.png)
 
 In the resulting shell interface, type the below command and press "Enter" to see the current VM user.
 
@@ -234,7 +234,7 @@ content={`whoami`}/>
 
 You should get the response("ubuntu") as shown in the image below.
 
-![(a post image sharing more information)](/_8/8_img-18.png)
+![(a post image sharing more information)](/blog/_8/8_img-18.png)
 
 > From this in-browser browser shell, you can conveniently use your VM as desired. But due to performance/speed issues
 > and other constraints. I recommend using the **"SSH Client"** option.
@@ -244,7 +244,7 @@ You should get the response("ubuntu") as shown in the image below.
 For the "SSH Client" option, first start by locating the "key-pair" file that was downloaded to your computer earlier, and write out
 the path to the file.
 
-![(a post image sharing more information)](/_8/8_img-19.png)
+![(a post image sharing more information)](/blog/_8/8_img-19.png)
 
 > I prefer saving such inside an "SSH" directory somewhere on my PC.
 >
@@ -281,7 +281,7 @@ content={`ssh -i <path to SSH key-pair> ubuntu@<public IP or Public DNS of the i
 
 > The public DNS can be found on the fourth todo of the current("SSH Client") option screen.
 
-![(a post image sharing more information)](/_8/8_img-23.png)
+![(a post image sharing more information)](/blog/_8/8_img-23.png)
 
 In my case, the resulting command will be:
 
@@ -295,11 +295,11 @@ content={`ssh -i /c/directory-name/another-directory-name/SSH/tutorial-instance-
 
 You'll get a prompt that looks like the one in the screenshot below, type in **yes** and hit "Enter".
 
-![(a post image sharing more information)](/_8/8_img-20.png)
+![(a post image sharing more information)](/blog/_8/8_img-20.png)
 
 And just like that, you'll be logged into your EC2 virtual machine shell interface.
 
-![(a post image sharing more information)](/_8/8_img-21.png)
+![(a post image sharing more information)](/blog/_8/8_img-21.png)
 
 Once again, type in:
 
@@ -309,7 +309,7 @@ content={`whoami`}/>
 
 You should get the response("ubuntu") as shown in the image below.
 
-![(a post image sharing more information)](/_8/8_img-22.png)
+![(a post image sharing more information)](/blog/_8/8_img-22.png)
 
 Congratulations, you just successfully created, and connected to a virtual machine thanks to AWS EC2.
 
