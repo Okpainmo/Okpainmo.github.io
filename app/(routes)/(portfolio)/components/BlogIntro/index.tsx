@@ -7,7 +7,7 @@ import matter from 'gray-matter';
 import fs from 'fs';
 
 // to get blog posts
-const blogPostsBasePath = 'content';
+const blogPostsBasePath = 'blog-content';
 
 function BlogIntro() {
   const blogFiles = fs.readdirSync(blogPostsBasePath);

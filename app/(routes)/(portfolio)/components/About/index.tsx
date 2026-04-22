@@ -86,7 +86,7 @@ function About() {
                   href="#projects"
                   className="italic underline underline-offset-4 text-zinc-900 dark:text-zinc-100 hover:text-black dark:hover:text-white transition-colors"
                 >
-                  check out some of my projects
+                  check out my projects
                 </Link>
               </li>
               <li className="flex items-start gap-3 group">
@@ -95,7 +95,7 @@ function About() {
                   href="/blog"
                   className="italic underline underline-offset-4 text-zinc-900 dark:text-zinc-100 hover:text-black dark:hover:text-white transition-colors"
                 >
-                  read some posts from my blog
+                  read posts from my blog
                 </Link>
               </li>
               <li className="flex items-start gap-3 group">
