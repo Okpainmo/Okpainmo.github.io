@@ -13,7 +13,7 @@ export const categories = [
     categoryId: 'blockchain-infrastructure'
   },
   {
-    categoryName: 'Cryptography',
+    categoryName: 'General Cryptography',
     categoryBrief: `Research on zero-knowledge proofs, encryption standards, and digital signatures in decentralized contexts.`,
     categoryRoute: '/cryptography',
     categoryId: 'cryptography'

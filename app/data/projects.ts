@@ -10,16 +10,19 @@ import {
   HiOutlineDevicePhoneMobile,
   HiOutlineCommandLine,
   HiOutlinePresentationChartLine,
-  HiOutlineFingerPrint
+  HiOutlineFingerPrint,
+  HiOutlineShoppingCart,
+  HiOutlineBriefcase,
+  HiOutlineUserGroup
 } from 'react-icons/hi2';
 
 export interface Project {
   id: string;
   title: string;
   description: string;
-  storyLink: string;
+  storyLink?: string;
   skills: string[];
-  role: string[];
+  contributions: string[];
   tags: string[];
   githubLink?: string;
   liveLink?: string;
@@ -29,199 +32,291 @@ export interface Project {
 export const opensourceProjects: Project[] = [
   {
     id: 'os-1',
-    title: 'RustyCore Engine',
+    title: 'Krabby',
     description:
-      'A high-performance, asynchronous networking core built with Rust for distributed systems.',
-    storyLink: '/blog/rustycore-story',
-    skills: ['Rust', 'Tokio', 'Serde'],
-    role: [
-      'CTO(Zed Labs)',
-      'Back-end Developer',
-      'Project Architect',
-      'Front-end Developer',
+      'A production-grade, open-source suite designed for engineering teams who need full control over their real-time communication infrastructure.',
+    skills: [
+      'Rust | Axum | Tokio',
+      'PostgreSQL | SQLX',
+      'NextJs | ReactJs',
+      'React Native',
+      'Web Sockets',
+      'WebRTC',
+      'Redux Toolkit',
+      'TailwindCSS',
+      'More...'
+    ],
+    contributions: [
+      'Creator',
+      'Opensource Maintainer',
+      'Systems Design',
+      'Fullstack Development',
+      'Mobile Development',
       'Cloud/DevOps'
     ],
-    tags: ['Networking', 'Backend', 'Open Source'],
-    githubLink: 'https://github.com/okpainmo/rustycore',
-    liveLink: 'https://crates.io/crates/rustycore',
+    tags: [
+      'pre-release',
+      'full-stack',
+      'open-source',
+      'real-time-communication',
+      'web sockets',
+      'webrtc',
+      'rust',
+      '...'
+    ],
+    githubLink: 'https://github.com/KrabbyHQ',
     icon: HiOutlineCube
   },
   {
     id: 'os-2',
-    title: 'Zk-Proof Visualizer',
+    title: 'Fidelity',
     description:
-      'A visual tool for understanding and debugging zero-knowledge proofs in real-time.',
-    storyLink: '/blog/zk-visualizer-story',
-    skills: ['TypeScript', 'Three.js', 'SnarkJS'],
-    role: ['Front-end Developer', 'Cloud/DevOps'],
-    tags: ['ZKP', 'Blockchain', 'Visualization'],
-    githubLink: 'https://github.com/okpainmo/zk-visualizer',
-    icon: HiOutlineSquare3Stack3D
-  },
-  {
-    id: 'os-3',
-    title: 'Solana Seed Vault',
-    description:
-      'A Rust library implementing the Seed Vault specification for secure key management.',
-    storyLink: '/blog/solana-seed-vault',
-    skills: ['Rust', 'Anchor', 'Cryptography'],
-    role: ['Back-end Developer', 'Project Architect'],
-    tags: ['Solana', 'Security', 'Wallet'],
-    githubLink: 'https://github.com/okpainmo/seed-vault-rs',
-    icon: HiOutlineFingerPrint
-  },
-  {
-    id: 'os-4',
-    title: 'EVM Gas Tracker',
-    description:
-      'CLI tool for real-time gas monitoring across 15+ EVM-compatible networks.',
-    storyLink: '/blog/evm-gas-tracker',
-    skills: ['Go', 'Web3.js', 'Redis'],
-    role: [
-      'Back-end Developer',
-      'Project Architect',
-      'Cloud/DevOps',
-      'Smart-contract Developer',
-      'Smart-contract Integration Specialist'
+      'A multi-chain cryptocurrency wallet platform designed to provide complete infrastructure for issuing and managing blockchain wallets at scale.',
+    skills: [
+      'Rust | Axum | Tokio',
+      'PostgreSQL | SQLX',
+      'Ethereum',
+      'Solana',
+      'NextJs | ReactJs',
+      'React Native',
+      'Web Sockets',
+      'WebRTC',
+      'Redux Toolkit',
+      'TailwindCSS',
+      'More...'
     ],
-    tags: ['Monitoring', 'DevOps', 'EVM'],
-    githubLink: 'https://github.com/okpainmo/gas-tracker',
-    icon: HiOutlineCommandLine
+    contributions: [
+      'Founder',
+      'Opensource Maintainer',
+      'Blockchain Development',
+      'Systems Design',
+      'Fullstack Development',
+      'Mobile Development',
+      'Cloud/DevOps'
+    ],
+    tags: [
+      'pre-release',
+      'blockchain',
+      'ethereum',
+      'solana',
+      'full-stack',
+      'open-source',
+      'rust',
+      '...'
+    ],
+    githubLink: 'https://github.com/Okpainmo/fidelity',
+    icon: HiOutlineSquare3Stack3D
   }
 ];
 
 export const clientProjects: Project[] = [
   {
     id: 'cp-1',
-    title: 'Nexus DEX Interface',
+    title: 'King Of Pi Mall Blockchain E-Commerce Project',
     description:
-      'A professional-grade trading interface for a decentralized exchange with deep liquidity monitoring.',
-    storyLink: '/projects/nexus-dex',
-    skills: ['Next.js', 'Redux Toolkit', 'Ethers.js'],
-    role: [
-      'Back-end Developer',
-      'Project Architect',
-      'Cloud/DevOps',
-      'Smart-contract Developer',
-      'Smart-contract Integration Specialist'
+      'An e-commerce platform with cryptocurrency payments powered by the Pi Network token.',
+    storyLink:
+      '/blog/categories/project-stories/how-we-built-the-king-of-pi-mall-blockchain-ecommerce-project',
+    skills: [
+      'Python',
+      'Django Ninja',
+      'PostgreSQL',
+      'AWS',
+      'Next.js',
+      'React',
+      'Redux Toolkit',
+      'SWR',
+      'TailwindCSS',
+      'Pi SDK',
+      'More...'
     ],
-    tags: ['DeFi', 'Web3', 'Frontend'],
-    liveLink: 'https://nexus-dex.finance',
-    icon: HiOutlineGlobeAlt
+    contributions: [
+      'CTO',
+      'Systems Design',
+      'Cloud Administration',
+      'Front-end Development',
+      'Backend Engineering',
+      'UI/UX',
+      'Client Management'
+    ],
+    tags: [
+      'zed-labs',
+      'client-project',
+      'blockchain',
+      'e-commerce',
+      'cryptocurrency',
+      'pi-network',
+      'full-stack',
+      '...'
+    ],
+    // liveLink: 'https://kingofpimall.com',
+    icon: HiOutlineShoppingCart
   },
   {
     id: 'cp-2',
-    title: 'AuthGuard API',
+    title: 'Private Practice',
     description:
-      'Secure authentication and authorization middleware for enterprise-scale microservices.',
-    storyLink: '/projects/authguard',
-    role: [
-      'Back-end Developer',
-      'Project Architect',
-      'Cloud/DevOps',
-      'Smart-contract Developer',
-      'Smart-contract Integration Specialist'
+      'A next-generation freelance platform focused on trust and seamless client–professional collaboration.',
+    storyLink: '/blog/categories/project-stories/building-private-practice',
+    skills: [
+      'React',
+      'Next.js',
+      'Rust | Axum | Tokio',
+      'PostgreSQL | SQLX',
+      'MongoDB | Mongoose',
+      'Node.js | Express.js',
+      'AWS',
+      'Paystack',
+      'Redux-Toolkit',
+      'TailwindCSS',
+      'More...'
     ],
-    skills: ['Go', 'gRPC', 'PostgreSQL'],
-    tags: ['Security', 'Infrastructure', 'API'],
-    githubLink: 'https://github.com/client/authguard',
-    icon: HiOutlineShieldCheck
-  },
-  {
-    id: 'cp-3',
-    title: 'Yield Optimizer Dashboard',
-    description:
-      'Analytics platform for monitoring liquidation risks and yield farming strategies across protocols.',
-    storyLink: '/projects/yield-optimizer',
-    skills: ['React', 'D3.js', 'GraphQL'],
-    role: [
-      'Back-end Developer',
-      'Project Architect',
-      'Cloud/DevOps',
-      'Smart-contract Developer',
-      'Smart-contract Integration Specialist'
+    contributions: [
+      'CTO',
+      'Systems Design',
+      'Cloud Administration',
+      'Front-end Development',
+      'Backend Engineering',
+      'UI/UX',
+      'Client Management'
     ],
-    tags: ['Analytics', 'DeFi', 'Dashboard'],
-    liveLink: 'https://yield-opt.app',
-    icon: HiOutlineChartBar
-  },
-  {
-    id: 'cp-4',
-    title: 'Cross-Chain SDK',
-    description:
-      'A developer SDK for seamless asset transfers and message passing between L1 and L2 networks.',
-    storyLink: '/projects/bridge-sdk',
-    skills: ['Node.js', 'Solidity', 'Hardhat'],
-    role: [
-      'Back-end Developer',
-      'Project Architect',
-      'Cloud/DevOps',
-      'Smart-contract Developer',
-      'Smart-contract Integration Specialist'
+    tags: [
+      'zed-labs',
+      'in-progress',
+      'client-project',
+      'full-stack',
+      'microservices',
+      'saas',
+      'rust',
+      '...'
     ],
-    tags: ['Interoperability', 'Web3', 'SDK'],
-    githubLink: 'https://github.com/client/bridge-sdk',
-    icon: HiOutlineCpuChip
+    icon: HiOutlineBriefcase
   }
 ];
 
 export const templateProjects: Project[] = [
   {
     id: 'tp-1',
-    title: 'Premium Portfolio Kit',
+    title: 'Rust Backend Starter',
     description:
-      'A production-ready portfolio template for senior engineers with built-in SEO and analytics.',
-    storyLink: '/templates/portfolio-kit',
-    skills: ['Tailwind CSS', 'Framer Motion', 'Next.js'],
-    role: [
-      'Back-end Developer',
-      'Project Architect',
-      'Cloud/DevOps',
-      'Smart-contract Developer',
-      'Smart-contract Integration Specialist'
+      'A production-ready template for building high-performance backend services with Rust.',
+    // storyLink: '/templates/portfolio-kit',
+    skills: [
+      'Rust | Axum | Tokio',
+      'PostgreSQL | SQLX',
+      'Axum Test',
+      'Bacon',
+      'Json Web Token',
+      'Argon2',
+      'Docker',
+      'More...'
     ],
-    tags: ['Design System', 'Productivity', 'Starter'],
-    githubLink: 'https://github.com/okpainmo/portfolio-kit',
-    icon: HiOutlineCodeBracket
-  },
-  {
-    id: 'tp-2',
-    title: 'Modern SaaS Boilerplate',
-    description:
-      'Complete stack for building SaaS applications with Stripe, Auth.js, and multi-tenant support.',
-    storyLink: '/templates/saas-boilerplate',
-    skills: ['Next.js', 'Prisma', 'Stripe'],
-    role: [
-      'Back-end Developer',
-      'Project Architect',
-      'Smart-contract Integration Specialist'
+    contributions: ['Creator', 'Backend Development'],
+    tags: [
+      'backend-development',
+      'architecture',
+      'template',
+      'rust',
+      'axum',
+      'tokio',
+      'postgres',
+      'sqlx',
+      'bacon',
+      'docker',
+      '...'
     ],
-    tags: ['SaaS', 'Full Stack', 'Boilerplate'],
-    githubLink: 'https://github.com/okpainmo/saas-starter',
-    icon: HiOutlineCircleStack
-  },
-  {
-    id: 'tp-3',
-    title: 'Solana DApp Scaffold',
-    description:
-      'The fastest way to spin up a Solana DApp with WalletAdapter and Anchor integration.',
-    storyLink: '/templates/solana-scaffold',
-    skills: ['React', 'Anchor', 'Web3.js'],
-    role: ['Back-end Developer', 'Project Architect', 'Cloud/DevOps'],
-    tags: ['Solana', 'Scaffold', 'DApp'],
-    githubLink: 'https://github.com/okpainmo/solana-template',
-    icon: HiOutlineDevicePhoneMobile
+    githubLink: 'https://github.com/Okpainmo/rust-backend-starter',
+    icon: HiOutlinePresentationChartLine
   },
   {
     id: 'tp-4',
-    title: 'Docs Studio Template',
+    title: 'Hardhat(Ignition) Project Helper',
     description:
-      'A beautiful documentation site template built with MDX and a focus on developer experience.',
-    storyLink: '/templates/docs-studio',
-    skills: ['MDX', 'Tailwind', 'Contentlayer'],
-    role: ['Back-end Developer', 'Front-end Developer', 'Design Co-ordinator'],
-    tags: ['Documentation', 'UI/UX', 'Template'],
-    liveLink: 'https://docs-studio.demo',
+      'A helper template for building and deploying Solidity smart contracts using the Hardhat(Ignition) framework.',
+    // storyLink: '/templates/docs-studio',
+    skills: ['Hardhat(Ignition)', 'Solidity', 'TypeScript', 'EVM', 'More...'],
+    contributions: ['Creator', 'Smart-Contract Development', 'EVM'],
+    tags: [
+      'blockchain',
+      'template',
+      'smart-contracts',
+      'hardhat',
+      'ignition',
+      'solidity',
+      'typescript',
+      'evm',
+      '...'
+    ],
+    githubLink:
+      'https://github.com/Okpainmo/hardhat-project-helper__hardhat-ignition',
+    icon: HiOutlinePresentationChartLine
+  },
+  {
+    id: 'tp-2',
+    title: 'Multi DB NodeJs/ExpressJs Backend Starter',
+    description:
+      'A fully typed Node/Express backend starter with web sockets and multiple database support.',
+    // storyLink: '/templates/saas-boilerplate',
+    skills: [
+      'Node.js',
+      'Express.js',
+      'TypeScript',
+      'Docker',
+      'Zod',
+      'Web Sockets',
+      'MongoDB',
+      'PostgreSQL',
+      'NodeMailer',
+      'Axios',
+      'More...'
+    ],
+    contributions: ['Creator', 'Backend Development'],
+    tags: [
+      'backend-development',
+      'architecture',
+      'template',
+      'nodejs',
+      'expressjs',
+      'typescript',
+      'web-sockets',
+      'mongodb',
+      'postgresql',
+      'docker',
+      '...'
+    ],
+    githubLink:
+      'https://github.com/Okpainmo/ws__multi-db-nodejs-express-with-typescript-and-zod-template',
+    icon: HiOutlinePresentationChartLine
+  },
+  {
+    id: 'tp-3',
+    title: 'Fast Django Backend Template',
+    description:
+      'A modular and highly flexible Django(Django Ninja) template for building backend services with Python.',
+    // storyLink: '/templates/solana-scaffold',
+    skills: [
+      'Python',
+      'Django',
+      'Django Ninja',
+      'PostgreSQL',
+      'Docker',
+      'Boto3',
+      'Black',
+      'Uvicorn',
+      'Pylint',
+      'More...'
+    ],
+    contributions: ['Creator', 'Back-end Development'],
+    tags: [
+      'architecture',
+      'template',
+      'django',
+      'django-ninja',
+      'postgres',
+      'docker',
+      '...'
+    ],
+    githubLink: 'https://github.com/Okpainmo/fast-django-backend-template',
     icon: HiOutlinePresentationChartLine
   }
 ];
