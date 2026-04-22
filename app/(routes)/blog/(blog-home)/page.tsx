@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import matter from 'gray-matter';
 import fs from 'fs';
 import BlogLayout from '../components/layout/BlogLayout';
+import NoPostsFound from '@/app/components/NoPostsFound';
 
 export const metadata: Metadata = {
   title: 'Andrew Okpainmo | Blog',
@@ -26,24 +27,19 @@ export const metadata: Metadata = {
   ]
 };
 
-// to get blog posts
-const blogPostsBasePath = 'content';
+import PaginatedPostList from '../components/PaginatedPostList';
 
-function BlogHomePage() {
+// to get blog posts
+const blogPostsBasePath = 'blog-content';
+
+async function BlogHomePage() {
   const blogFiles = fs.readdirSync(blogPostsBasePath);
 
   const mdxBlogPosts = blogFiles.filter((file) => file.endsWith('.mdx'));
 
-  const blogPostsFilePaths = mdxBlogPosts.map((each) => {
-    return each;
-  });
-
-  const blogPostsFileContent = blogPostsFilePaths.map((each) => {
+  const blogPostsFileContent = mdxBlogPosts.map((each) => {
     const fileContent = fs.readFileSync(`${blogPostsBasePath}/${each}`, 'utf8');
-
     const matterResult = matter(fileContent);
-
-    // console.log(matterResult.data);
     return matterResult.data;
   });
 
@@ -53,33 +49,28 @@ function BlogHomePage() {
 
   return (
     <BlogLayout>
-      <header>
-        <div className="brand text-2xl font-bold pt-10 pb-0 sm:pt-32 sm:pb-0 text-black dark:text-zinc-50">
+      <header className="flex flex-col gap-4">
+        <div className="brand text-2xl font-bold pt-10 pb-0 sm:pt-32 sm:pb-0 text-black dark:text-zinc-50 poppins text-center">
           ./Okpainmo/blog
+        </div>
+        <div className="max-w-2xl mx-auto px-3 sm:px-0 text-center">
+          <p className="text-zinc-500 dark:text-zinc-400 text-lg leading-relaxed lato">
+            Awesome articles on tech trends, top-quality tutorials, industry
+            insights and more.
+          </p>
         </div>
       </header>
       <div className="flex flex-col gap-12 py-10">
         <CategoriesListWrapper />
-        <section
-          className="px-3 sm:px-[20px] lg:px-0 lg:max-w-6xl grid gap-y-[40px] gap-x-[30px] text-left lg:w-full lg:mb-0
-        sm:grid-cols-2 lg:grid-cols-3 lg:text-left"
-        >
-          {sortedBlogPosts.map((each: any) => {
-            const post = {
-              id: each.postSlug,
-              title: each.postTitle,
-              intro: each.postBrief,
-              category: each.postCategory,
-              tags: each.postTags || [],
-              slug: each.postSlug,
-              thumbnailUrl: each.postThumbnailUrl,
-              date: each.postDate,
-              lastUpdated: each.postLastUpdated,
-              author: each.authorName
-            };
-            return <PostCard key={post.id} post={post} />;
-          })}
-        </section>
+
+        {sortedBlogPosts?.length > 0 ? (
+          <PaginatedPostList posts={sortedBlogPosts} baseUrl="/blog" />
+        ) : (
+          <NoPostsFound
+            message="No blog posts available yet"
+            subMessage="Do check back soon..."
+          />
+        )}
       </div>
     </BlogLayout>
   );
