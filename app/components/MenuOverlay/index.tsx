@@ -26,14 +26,18 @@ function MenuOverlay() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 lg:p-6">
+    <div
+      className="fixed z-[100] flex items-center justify-center p-3 sm:p-4 lg:p-6
+      left-0 right-0
+      top-[env(safe-area-inset-top)]
+      h-[calc(100dvh-env(safe-area-inset-top)-env(safe-area-inset-bottom))]"
+    >
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-3xl transition-opacity 
         duration-500 animate-in fade-in"
         onClick={() => dispatch(closeMenu())}
       />
-
       {/* Content Container */}
       <div
         className="relative w-full h-[97vh] sm:h-full max-w-6xl bg-zinc-100/10 dark:bg-zinc-900/20 backdrop-blur-2xl 
