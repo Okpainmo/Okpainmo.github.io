@@ -125,7 +125,7 @@ export const CodeBlock = ({
             }
           }}
           // @ts-ignore
-          preTagProps={{
+          pretagprops={{
             style: {
               backgroundColor: 'transparent'
             }

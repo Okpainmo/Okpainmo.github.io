@@ -38,8 +38,9 @@ function About() {
               Zed Labs
             </Link>{' '}
             - a creative digital agency delivering software and other services
-            to clients. In less than 2 years we've worked on some pretty cool
-            stuff, like{' '}
+            to clients. In less than 2 years we've worked on some impressive
+            projects across e-commerce, health-tech and edu-tech. Two notable
+            case-studies are{' '}
             <Link
               href="/blog/categories/project-stories/how-we-built-the-king-of-pi-mall-blockchain-ecommerce-project"
               className="italic underline underline-offset-4 text-zinc-900 dark:text-zinc-100"
@@ -51,8 +52,7 @@ function About() {
               href="/blog/categories/project-stories/building-private-practice"
               className="italic underline underline-offset-4 text-zinc-900 dark:text-zinc-100"
             >
-              this other amazing client project called &quot;Private
-              Practice&quot;.
+              this amazing client project called &quot;Private Practice&quot;.
             </Link>
           </p>
           <p className="mb-6">
