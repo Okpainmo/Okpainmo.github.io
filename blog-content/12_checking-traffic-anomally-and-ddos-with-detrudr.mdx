@@ -1,0 +1,207 @@
+---
+postTitle: 'Checking Traffic Anomaly And DDoS With Detrudr'
+postDate: 'April 18, 2026'
+postLastUpdated: 'April 29, 2026'
+postIndex: 12
+postCategory: 'cloud-and-devops'
+subCategories: []
+postBrief: 'An insightful article into the development of Detrudr - a lightweight tool for checking traffic anomalies and DDoS behavior in real time'
+postThumbnailUrl: '/blog/post-banners/post-banner_12.png'
+authorPhotoUrl: '/author_image-1.jpg'
+authorName: Andrew James Okpainmo
+authorBio: "Andrew James Okpainmo is a fullstack software engineer who is passionate about building 
+and scaling awesome products and startups. He currently works as a freelance software engineer 
+(with expertise in fullstack software development, cloud engineering, and DevOps), while leading the team 
+at Zed Labs."
+postTags: ['cloud-engineering', 'devsecops', 'aws', 'ec2', 'python', 'nginx', 'iptables', 'linux-security', 'ddos', 'traffic-anomaly-detection']
+postSlug: 'checking-traffic-anomally-and-ddos-with-detrudr'
+authorSocials:
+  twitter: https://twitter.com/AJ_Okpainmo
+  linkedin: https://www.linkedin.com/in/okpainmo-andrew/
+  github: https://github.com/Okpainmo
+---
+
+![post banner](/blog/post-banners/post-banner_12.png)
+
+Detrudr is a DevSecOps HTTP traffic-anomaly/DDOS detection and counter engine, that runs beside any containerized
+server/application that needs to be protected, tails nginx JSON access logs in real time, learns a rolling traffic
+baseline, detects suspicious spikes, blocks abusive IPs with iptables, and exposes a live dashboard.
+
+## What Detrudr Does(In Plain Terms).
+
+At a high level, the flow of Detrudr's operation is:
+
+```text
+Client request
+  -> Nginx receives request
+  -> Nginx writes JSON log line
+  -> detrudr tails and parses line
+  -> updates windows and baseline
+  -> checks for anomaly
+  -> alerts and/or blocks
+```
+
+The goal is not to replace enterprise WAFs or high-end security products.
+
+The goal is to have a focused, understandable layer that can react quickly enough to reduce damage during abuse spikes.mmediate permanent blocks.
+
+## The Core Architecture.
+
+![project architecture draft](/blog/_12/12_img-1.png)
+
+## 1: Traffic Ingestion From Nginx Logs.
+
+Detrudr does not sit directly in the request path. It reads from Nginx access logs.
+
+That keeps the system simple and resilient. Nginx already sees all inbound traffic, so using its log stream avoids extra in-path complexity.
+
+Each line includes fields like:
+
+- `source_ip`
+- `timestamp`
+- `method`
+- `path`
+- `status`
+- `response_size`
+
+Each parsed line becomes an event the detector can reason on.
+
+## 2: Sliding Window Tracking.
+
+One of the most important internals is the **60-second sliding window** powered by Python `deque`s.
+
+On each new request:
+
+- the request timestamp is appended
+- timestamps older than 60 seconds are dropped
+
+This keeps every metric "fresh" by default.
+
+Why not fixed one-minute buckets?
+
+Because bucket boundaries can hide spikes. Sliding windows continuously answer:
+
+> "What happened in the last 60 seconds from right now?"
+
+Detrudr keeps:
+
+- one global request deque
+- one per-IP request deque
+- one per-IP error deque(for 4xx/5xx)
+
+This supports both global pressure checks and fine-grained per-IP behavior checks.
+
+## 3: Rolling Baseline Learning.
+
+Static thresholds are dangerous because normal differs from server to server.
+
+So detrudr keeps a rolling baseline(from recent traffic samples) and recalculates statistics such as:
+
+- mean
+- standard deviation
+- sample count
+
+This allows detection to be relative to local reality.
+
+### Hour-Aware Sampling.
+
+A useful detail in this build is hour-aware sampling. Traffic at 2 AM is often very different from traffic at 2 PM.
+
+When enough data exists, detrudr prioritizes samples from the current hour slot; otherwise it falls back to broader recent windows.
+
+### Startup Safety Floors.
+
+At startup, data is thin. Without safety floors, almost any traffic can look anomalous.
+
+To avoid noisy false positives, detrudr uses minimum floor values for baseline parameters during warm-up and low-volume periods.
+
+## 4: Detection Logic(Global + Per-IP).
+
+Detrudr combines two practical signals:
+
+1. **Z-score**
+
+```text
+zscore = (current_rate - baseline_mean) / baseline_stddev
+```
+
+2. **Rate multiplier**
+
+```text
+current_rate > baseline_mean * multiplier
+```
+
+A request pattern is flagged when either signal crosses configured limits.
+
+### Global Anomaly Checks.
+
+Global checks look at total incoming traffic and send alerts when server-wide behavior spikes abnormally.
+
+### Per-IP Anomaly Checks.
+
+Per-IP checks are the enforcement path. If one source IP diverges sharply from its baseline, the IP can be banned.
+
+### Error-Weighted Tightening.
+
+Detrudr also tracks per-IP error ratios(4xx/5xx). When error-heavy behavior rises above normal, thresholds are tightened for that IP.
+
+That helps catch path probing and hostile retries earlier than volume-only detection.
+
+## 5: Automated Blocking With `iptables`.
+
+Once an IP is classified as abusive, detrudr inserts a drop rule.
+
+```bash
+iptables -I INPUT -s 198.51.100.10 -j DROP
+```
+
+And when ban duration expires:
+
+```bash
+iptables -D INPUT -s 198.51.100.10 -j DROP
+```
+
+This closes the loop from detection to immediate response.
+
+## Why Progressive Bans.
+
+Immediate permanent bans are often too aggressive for real systems.
+
+I used a simple escalating schedule:
+
+1. First strike: 10 minutes
+2. Second strike: 30 minutes
+3. Third strike: 2 hours
+4. Repeated abuse: permanent ban
+
+This keeps enforcement practical: firm on abuse, but not reckless on first anomalies.
+
+## Monitoring, Auditability, And Visibility.
+
+Defense automation is only trustworthy when you can inspect what it is doing.
+
+Detrudr includes:
+
+- Slack notifications(bans, unbans, global anomaly alerts)
+- audit logging for decisions and actions
+- a lightweight live dashboard
+
+The dashboard shows things like current global request rate, top IPs, active bans, baseline stats, and recent detector events.
+
+For the meantime, the Detrudr dashboard can be accessed at [https://detrudr.xentoprotocol.xyz](https://detrudr.xentoprotocol.xyz). It's currently set up to protect
+a project on [nextcloud.xentoprotocol.xyz](https://nextcloud.xentoprotocol.xyz).
+
+## Conclusion.
+
+That would be it for this article.
+
+I hope this gave you practical and useful insight into building lightweight traffic defense systems with Python, Nginx logs, and `iptables`.
+
+Thanks a lot for reading.
+
+> If you loved this post and would love to send an appreciation, simply use this link to [buy me
+> a cup of coffee](https://paystack.com/pay/11tykgn4-s).
+
+See you in the next article.
+
+Cheers!!!
