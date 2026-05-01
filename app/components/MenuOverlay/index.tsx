@@ -54,7 +54,7 @@ function MenuOverlay() {
                 Core R&D
               </h2>
               <p className="text-xs text-white/50 lato mt-1">
-                Deep Dives - Research & Development
+                Blockchain Research & Development Deep Dives
               </p>
             </div>
           </div>

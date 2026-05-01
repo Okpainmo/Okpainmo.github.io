@@ -27,7 +27,7 @@ function Footer() {
                 </span>
               </div>
               <h3 className="text-xl font-bold text-zinc-900 dark:text-white poppins">
-                Deep Dives - Research & Development
+                Blockchain Research & Development Deep Dives
               </h3>
             </div>
 
