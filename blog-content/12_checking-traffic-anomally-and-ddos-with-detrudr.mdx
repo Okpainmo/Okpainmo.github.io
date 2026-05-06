@@ -31,15 +31,16 @@ baseline, detects suspicious spikes, blocks abusive IPs with iptables, and expos
 
 At a high level, the flow of Detrudr's operation is:
 
-```text
-Client request
+<CodeBlock
+  language="text"
+  content={`Client request
   -> Nginx receives request
   -> Nginx writes JSON log line
   -> detrudr tails and parses line
   -> updates windows and baseline
   -> checks for anomaly
-  -> alerts and/or blocks
-```
+  -> alerts and/or blocks`}
+/>
 
 The goal is not to replace enterprise WAFs or high-end security products.
 
@@ -121,15 +122,11 @@ Detrudr combines two practical signals:
 
 1. **Z-score**
 
-```text
-zscore = (current_rate - baseline_mean) / baseline_stddev
-```
+<CodeBlock language="text" content={`zscore = (current_rate - baseline_mean) / baseline_stddev`} />
 
 2. **Rate multiplier**
 
-```text
-current_rate > baseline_mean * multiplier
-```
+<CodeBlock language="text" content={`current_rate > baseline_mean * multiplier`} />
 
 A request pattern is flagged when either signal crosses configured limits.
 
@@ -151,15 +148,11 @@ That helps catch path probing and hostile retries earlier than volume-only detec
 
 Once an IP is classified as abusive, detrudr inserts a drop rule.
 
-```bash
-iptables -I INPUT -s 198.51.100.10 -j DROP
-```
+<CodeBlock language="bash" content={`iptables -I INPUT -s 198.51.100.10 -j DROP`} />
 
 And when ban duration expires:
 
-```bash
-iptables -D INPUT -s 198.51.100.10 -j DROP
-```
+<CodeBlock language="bash" content={`iptables -D INPUT -s 198.51.100.10 -j DROP`} />
 
 This closes the loop from detection to immediate response.
 
