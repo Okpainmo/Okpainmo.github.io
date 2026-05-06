@@ -25,7 +25,7 @@ authorSocials:
 
 ![post banner](/blog/post-banners/post-banner_6.png)
 
-You must have heard of <WrapperLink href='https://tailwindcss.com' type="text">TailwindCSS</WrapperLink>, the big, awesome 
+You must have heard of <WrapperLink href='https://tailwindcss.com' type="text">TailwindCSS</WrapperLink>, the big, awesome
 thing that have finally become a standard in the Cascading Style Sheet(CSS) world.
 Chances are that you have used it - if no, then(in my opinion), you've been missing out - a lot.
 
@@ -39,7 +39,7 @@ where Tailwind's utility-first methodology could flourish and gain widespread ad
 To make things all perfect, I'll be sharing extremely valuable code samples and screenshots along the way. I'll also be sharing
 some awesome features of Tailwind - showing you real reasons why hating it is simply a bad idea.
 
-<WrapperLink href='https://tailwindcss.com'>
+<WrapperLink href="https://tailwindcss.com">
   ![a screenshot showing a section from the tailwindcss website landing
   page](/blog/_6/06_img-1.png) _Image: a screenshot showing a section from the
   tailwindcss website landing page._
@@ -61,19 +61,19 @@ It was fascinating, and beautiful.
 
 Fast forward a while, and I was building interfaces with <WrapperLink href='https://getbootstrap.com' type="text">Bootstrap</WrapperLink>.
 
-<WrapperLink href='https://getbootstrap.com'>
+<WrapperLink href="https://getbootstrap.com">
   ![a screenshot showing a section from the bootstrap website landing
-  page](/blog/_6/06_img-2.png) _Image: a screenshot showing a section from the bootstrap
-  website landing page._
+  page](/blog/_6/06_img-2.png) _Image: a screenshot showing a section from the
+  bootstrap website landing page._
 </WrapperLink>
 
 Bootstrap was awesome - it saved lives in its prime, Its grid system(back then) was truly revolutionary.
 But one major complaint kept hitting it hard - it produced interfaces that looked
-very similar. This flaw is because Bootstrap is not just a CSS library or framework. It is a complete(HTML, 
-CSS, and Javascript) package for building interfaces. As a UI Library, its components were neat, and beautiful. 
+very similar. This flaw is because Bootstrap is not just a CSS library or framework. It is a complete(HTML,
+CSS, and Javascript) package for building interfaces. As a UI Library, its components were neat, and beautiful.
 They gave you so much power, but with the temptation to just copy-paste them, came other issues.
 
-With Bootstrap, developers seemed to get locked in, barely seeing the need to customize further, thereby 
+With Bootstrap, developers seemed to get locked in, barely seeing the need to customize further, thereby
 delivering interfaces that look similar.
 
 > With copy-pasting Bootstrap components(or simply using provided classes), also came the need to overwrite its CSS classes to obtain more unique UI looks. Overwriting
@@ -106,10 +106,10 @@ likely never bothered about back then - I guess due to my experience level.
 With little or no choice but to write custom CSS(even with Bootstrap), coupled with my constant itch for growth and keeping up with trends,
 I upgraded from writing vanilla/raw CSS to using a CSS preprocessor - <WrapperLink href='https://sass-lang.com' type="text">Sass(Syntactically Awesome Style Sheets)</WrapperLink>.
 
-<WrapperLink href='https://sass-lang.com/'>
+<WrapperLink href="https://sass-lang.com/">
   ![a screenshot showing a section from the sass website landing
-  page](/blog/_6/06_img-3.png) _Image: a screenshot showing a section from the sass
-  website landing page._
+  page](/blog/_6/06_img-3.png) _Image: a screenshot showing a section from the
+  sass website landing page._
 </WrapperLink>
 
 > CSS preprocessors are scripting languages that extend the capabilities of standard CSS. They add features like
@@ -144,7 +144,7 @@ content={`
 beautiful right?
 
 <CodeBlock
-  language='scss'
+  language="scss"
   content={`
     nav {
       background: #333;
@@ -209,7 +209,7 @@ content={`
 **5. Partials and Imports: This would probably be the best feature of Sass. It allows you to split CSS into smaller files and import them.**
 
 <CodeBlock
-  language='scss'
+  language="scss"
   content={`
    // _reset.scss
     * {
@@ -222,7 +222,7 @@ content={`
 Then import and use.
 
 <CodeBlock
-  language='scss'
+  language="scss"
   content={`
     // main.scss
     @use 'reset';
@@ -244,21 +244,21 @@ content={`
     border-radius: 5px;
   }
 
-  // This CSS won't print because %equal-heights is never extended.
-  %equal-heights {
-    display: flex;
-    flex-wrap: wrap;
-  }
+// This CSS won't print because %equal-heights is never extended.
+%equal-heights {
+display: flex;
+flex-wrap: wrap;
+}
 
-  .primary-button {
-  @extend %button-base;
-  background: blue;
-  }
+.primary-button {
+@extend %button-base;
+background: blue;
+}
 
-  .secondary-button {
-  @extend %button-base;
-  background: gray;
-  }
+.secondary-button {
+@extend %button-base;
+background: gray;
+}
 `}/>
 
 > Writing this article, I must confess to this feeling I'm having. I think to say that I honestly miss writing Sass 🤓.
@@ -299,10 +299,10 @@ The preprocessing/compilation step occurs during development or build time, not 
 > My Go-to choice for Sass compilation was <WrapperLink href='https://gulpjs.com' type="text">Gulp</WrapperLink>. Gulp gives you the power to compile Sass into CSS in
 > build-time(in real-time during development).
 
-<WrapperLink href='https://gulpjs.com'>
+<WrapperLink href="https://gulpjs.com">
   ![a screenshot showing a section from the gulp website landing
-  page](/blog/_6/06_img-9.png) _Image: a screenshot showing a section from the gulp
-  website landing page._
+  page](/blog/_6/06_img-9.png) _Image: a screenshot showing a section from the
+  gulp website landing page._
 </WrapperLink>
 
 The code snippet below was my(life-saving) gulp-file - a simple Javascript file that guided gulp on how to handle
@@ -364,7 +364,7 @@ content={`
 With the gulp-file in place(on the root of your project), Sass compilation(into CSS) could begin after running the below command and
 writing + saving any Sass file.
 
-<CodeBlock language='shell' content={`gulp watch`} />
+<CodeBlock language="shell" content={`gulp watch`} />
 
 Sass was nothing short of brilliant, and revolutionary, but it still had its flaws.
 
@@ -420,7 +420,7 @@ Tailwind empowers you with **a design system**, and underlying infrastructure th
 
 It allows you to create unique designs without having to write custom CSS.
 It provides a set of pre-defined classes that can be combined to create complex designs,
-making it easy to build responsive and **adaptive user interfaces**. 
+making it easy to build responsive and **adaptive user interfaces**.
 
 Supporting provisions such as VS Code's tailwind
 CSS IntelliSense, and the it's JIT(Just In Time) compiler, make it even easier and more satisfying to work with.
@@ -504,7 +504,7 @@ hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring
 Then in your HTML or JSX, you can simply use:
 
 <CodeBlock
-  language='html'
+  language="html"
   content={`
 <button class="btn-primary">Save changes</button>
 `}
@@ -650,7 +650,7 @@ for certain elements that are different**.
 > set preferences like media query break-points, your content location, fonts, and more. This(tailwind.config.js) file
 > is the standard configuration/setup file for all tailwind projects.
 
-Below is a sample tailwind.config.js file that should work seamlessly for you. Feel free to copy-paste, and extend, and 
+Below is a sample tailwind.config.js file that should work seamlessly for you. Feel free to copy-paste, and extend, and
 use in your projects.
 
 <CodeBlock
@@ -704,18 +704,18 @@ Tailwind's documentation is excellent, and tools like:
 - The [Tailwind CSS IntelliSense for VS Code]().
 - Third-party cheat sheets like <WrapperLink href='https://www.creative-tim.com/twcomponents/cheatsheet' type="text">this one by Creative Tim</WrapperLink>,
 
-<WrapperLink href='https://www.creative-tim.com/twcomponents/cheatsheet'>
+<WrapperLink href="https://www.creative-tim.com/twcomponents/cheatsheet">
   ![a screenshot showing the tailwind cheatsheet section on the creative tim
-  website](/blog/_6/06_img-10.png) _Image: a screenshot showing the tailwind cheatsheet
-  section on the creative tim website._
+  website](/blog/_6/06_img-10.png) _Image: a screenshot showing the tailwind
+  cheatsheet section on the creative tim website._
 </WrapperLink>
 
 and <WrapperLink href='https://nerdcave.com/tailwind-cheat-sheet' type="text">this one on the Nerdcave website by Jay Elaraj</WrapperLink>.
 
-<WrapperLink href='https://nerdcave.com/tailwind-cheat-sheet'>
+<WrapperLink href="https://nerdcave.com/tailwind-cheat-sheet">
   ![a screenshot showing the tailwind cheatsheet section on the nerdcave website
-  ](/blog/_6/06_img-5.png) _Image: a screenshot showing the tailwind cheatsheet section
-  on the nerdcave website._
+  ](/blog/_6/06_img-5.png) _Image: a screenshot showing the tailwind cheatsheet
+  section on the nerdcave website._
 </WrapperLink>
 
 All help to flatten the learning curve significantly.
@@ -831,7 +831,7 @@ project.
 Usage:
 
 <CodeBlock
-  language='html'
+  language="html"
   content={`
   <h2 class="text-2xl font-bold text-brand text-shadow-sm md:text-shadow">
     Glowing Title
@@ -866,7 +866,7 @@ adaptations and implementations for other platforms:
 1. **React Native**: Libraries like [tailwind-rn](https://www.npmjs.com/package/tailwind-rn) and
    [nativewind](https://www.nativewind.dev) bring Tailwind's utility classes to React Native development.
 
-<WrapperLink href='https://www.nativewind.dev/'>
+<WrapperLink href="https://www.nativewind.dev/">
   ![a screenshot showing a section from the nativewind website landing
   page](/blog/_6/06_img-6.png) _Image: a screenshot showing a section from the
   nativewind website landing page._

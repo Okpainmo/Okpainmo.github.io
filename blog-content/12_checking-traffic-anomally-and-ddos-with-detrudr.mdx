@@ -122,11 +122,17 @@ Detrudr combines two practical signals:
 
 1. **Z-score**
 
-<CodeBlock language="text" content={`zscore = (current_rate - baseline_mean) / baseline_stddev`} />
+<CodeBlock
+  language="text"
+  content={`zscore = (current_rate - baseline_mean) / baseline_stddev`}
+/>
 
 2. **Rate multiplier**
 
-<CodeBlock language="text" content={`current_rate > baseline_mean * multiplier`} />
+<CodeBlock
+  language="text"
+  content={`current_rate > baseline_mean * multiplier`}
+/>
 
 A request pattern is flagged when either signal crosses configured limits.
 
@@ -148,11 +154,17 @@ That helps catch path probing and hostile retries earlier than volume-only detec
 
 Once an IP is classified as abusive, detrudr inserts a drop rule.
 
-<CodeBlock language="bash" content={`iptables -I INPUT -s 198.51.100.10 -j DROP`} />
+<CodeBlock
+  language="bash"
+  content={`iptables -I INPUT -s 198.51.100.10 -j DROP`}
+/>
 
 And when ban duration expires:
 
-<CodeBlock language="bash" content={`iptables -D INPUT -s 198.51.100.10 -j DROP`} />
+<CodeBlock
+  language="bash"
+  content={`iptables -D INPUT -s 198.51.100.10 -j DROP`}
+/>
 
 This closes the loop from detection to immediate response.
 

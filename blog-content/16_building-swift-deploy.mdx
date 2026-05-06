@@ -23,41 +23,45 @@ authorSocials:
 
 ![post banner](/blog/post-banners/post-banner_16.png)
 
-SwiftDeploy started as a small idea: what if a deployment tool could take one plain manifest and generate the boring, fragile infrastructure files around it?
+SwiftDeploy started as a task given to help me get a grasp of how
+composing and shipping infrastructure without the usual boilerplate and operational overhead would look like.
 
-No hand-written `docker-compose.yml`. No manually tuned Nginx config copied between projects. No hidden operational checklist living in somebody's head. Just one source of truth:
+No hand-written `docker-compose.yml`. No manually tuned Nginx config copied between projects.
+No hidden operational checklist living in somebody's head. Just one source of truth:
 
 <CodeBlock
   language="yaml"
-  content={`services:
-  image: "sd-demo-api-1:latest"
-  port: 5000
-  mode: stable
-  version: 1.0.0
-  restart_policy: unless-stopped
-
-nginx:
-  image: "nginx:latest"
-  port: 8080
-  proxy_timeout: 5s
-  contact: ops@swiftdeploy.local
-
-network:
-  name: swiftdeploy-net
-  driver_type: bridge
-
-opa:
-  image: "openpolicyagent/opa:latest"
-  port: 8181
-
-policy_infrastructure:
-  min_disk_free_gb: 10
-  max_cpu_load: 2.0
-
-policy_canary:
-  max_error_rate: 0.01
-  max_p99_latency_ms: 500
-  window_seconds: 30`}
+  content={[
+    'services:',
+    '  image: "sd-demo-api-1:latest"',
+    '  port: 5000',
+    '  mode: stable',
+    '  version: 1.0.0',
+    '  restart_policy: unless-stopped',
+    '',
+    'nginx:',
+    '  image: "nginx:latest"',
+    '  port: 8080',
+    '  proxy_timeout: 5s',
+    '  contact: ops@swiftdeploy.local',
+    '',
+    'network:',
+    '  name: swiftdeploy-net',
+    '  driver_type: bridge',
+    '',
+    'opa:',
+    '  image: "openpolicyagent/opa:latest"',
+    '  port: 8181',
+    '',
+    'policy_infrastructure:',
+    '  min_disk_free_gb: 10',
+    '  max_cpu_load: 2.0',
+    '',
+    'policy_canary:',
+    '  max_error_rate: 0.01',
+    '  max_p99_latency_ms: 500',
+    '  window_seconds: 30'
+  ].join('\n')}
 />
 
 That is the contract. Everything else is generated or derived from it.
@@ -203,9 +207,10 @@ error rate: 0.00%
 uptime: 184.2s
 
 Policy Compliance
+
 - [PASS] infrastructure: policy passed
 - [FAIL] canary: p99 latency 2000.00ms is above allowed 500.00ms`}
-/>
+  />
 
 That is the system doing what it was built to do. The app is still responding, but the canary is not healthy enough to promote. The policy gate catches the condition before it becomes a stable release problem.
 
@@ -232,9 +237,10 @@ error rate: 48.33%
 uptime: 281.7s
 
 Policy Compliance
+
 - [PASS] infrastructure: policy passed
 - [FAIL] canary: error rate 48.33% is above allowed 1.00%`}
-/>
+  />
 
 A promotion during this window is blocked:
 

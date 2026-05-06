@@ -52,7 +52,7 @@ The project to be deployed, is open and free to access - visit
 <GitHubEmbed owner="Okpainmo" repo="fast-django-backend-template" />
 
 > N.B: This guide assumes, that you already created an EC2 instance, and is ready for the API server deployment.
-> In case you haven't and need a guide to go about that, 
+> In case you haven't and need a guide to go about that,
 > [explore this other article](/blog/categories/cloud-and-devops/how-to-create-an-aws-ec2-instance), in
 > which I shared how to create an AWS EC2 instance from scratch. Awesome thing, the EC2 instance I created in that post, is
 > the one I'll be performing this project server deployment on.
@@ -110,10 +110,7 @@ Now, let's dive in.
 
 - Perform necessary system update/upgrades.
 
-<CodeBlock
-  language="bash"
-  content={`sudo apt update && sudo apt upgrade -y`}
-/>
+<CodeBlock language="bash" content={`sudo apt update && sudo apt upgrade -y`} />
 
 ### 2. Clone project repo, prepare project's Python environment, and make all project dependency installations.
 
@@ -126,10 +123,7 @@ Now, let's dive in.
 
 - Navigate to project directory.
 
-<CodeBlock
-  language="bash"
-  content={`cd aws-ec2-django-deployment-project`}
-/>
+<CodeBlock language="bash" content={`cd aws-ec2-django-deployment-project`} />
 
 ![(a post image sharing more information)](/blog/_10/10_img-6.png)
 
@@ -139,10 +133,7 @@ Now, let's dive in.
 
 First install **python3.12-venv**.
 
-<CodeBlock
-  language="bash"
-  content={`sudo apt install python3.12-venv`}
-/>
+<CodeBlock language="bash" content={`sudo apt install python3.12-venv`} />
 
 Then.
 
@@ -160,10 +151,7 @@ First install **python3-pip**.
 
 Then.
 
-<CodeBlock
-  language="bash"
-  content={`pip install -r requirements.txt`}
-/>
+<CodeBlock language="bash" content={`pip install -r requirements.txt`} />
 
 ![(a post image sharing more information)](/blog/_10/10_img-7.png)
 
@@ -216,8 +204,8 @@ We actually don't need to do that in this tutorial by the way. **We will be impl
 
 In case you want a more beginner-friendly guide that provides much detail - explaining the dynamics involved in opening
 and using custom VM ports, feel free to
-[read this previous article](/blog/categories/cloud-and-devops/complete-nodejs-back-end-deployment-on-aws-ec2). Even though 
-that article was a NodeJs/Express project deployment, it'll certainly be very helpful, as a result of it's more in-depth and 
+[read this previous article](/blog/categories/cloud-and-devops/complete-nodejs-back-end-deployment-on-aws-ec2). Even though
+that article was a NodeJs/Express project deployment, it'll certainly be very helpful, as a result of it's more in-depth and
 beginner-friendly approach.
 
 > While we won't be opening the **8000** port to access the API directly, we'll need to open port
@@ -325,10 +313,7 @@ Now that we have Nginx set up, let's configure it to handle routing to our port 
 
 - Open the Nginx config file using the Nano CLI editor.
 
-<CodeBlock
-  language="bash"
-  content={`sudo nano /etc/nginx/nginx.conf`}
-/>
+<CodeBlock language="bash" content={`sudo nano /etc/nginx/nginx.conf`} />
 
 ![(a post image sharing more information)](/blog/_9/9_img-35.png)
 
@@ -337,10 +322,7 @@ Now that we have Nginx set up, let's configure it to handle routing to our port 
 
 I.e.
 
-<CodeBlock
-  language="bash"
-  content={`# include /etc/nginx/sites-enabled/*;`}
-/>
+<CodeBlock language="bash" content={`# include /etc/nginx/sites-enabled/*;`} />
 
 - Secondly, add the snippet below just after that line.
 
@@ -878,10 +860,7 @@ engineer in-charge still needs to:
   content={`ssh -i <path to SSH key-pair> ubuntu@<public IP or Public DNS of the instance>`}
 />
 
-<CodeBlock
-  language="bash"
-  content={`cd aws-ec2-django-deployment-project`}
-/>
+<CodeBlock language="bash" content={`cd aws-ec2-django-deployment-project`} />
 
 <CodeBlock language="bash" content={`git pull`} />
 
