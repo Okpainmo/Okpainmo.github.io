@@ -1,0 +1,278 @@
+---
+postTitle: 'Building SwiftDeploy: Infrastructure That Writes Itself, Then Refuses Unsafe Deploys'
+postDate: 'May 6, 2026'
+postLastUpdated: 'May 6, 2026'
+postIndex: 16
+postCategory: 'cloud-and-devops'
+subCategories: ['backend-development']
+postBrief: 'A practical look at SwiftDeploy, a declarative deployment tool that generates infrastructure from one manifest and blocks unsafe releases with OPA policy gates'
+postThumbnailUrl: '/blog/post-banners/post-banner_16.png'
+authorPhotoUrl: '/author_image-1.jpg'
+authorName: Andrew James Okpainmo
+authorBio: "Andrew James Okpainmo is a fullstack software engineer who is passionate about building 
+and scaling awesome products and startups. He currently works as a freelance software engineer 
+(with expertise in fullstack software development, cloud engineering, and DevOps), while leading the team 
+at Zed Labs."
+postTags: ['swiftdeploy', 'deployment', 'cloud-and-devops', 'backend-development', 'docker-compose', 'nginx', 'open-policy-agent', 'opa', 'canary-deployment', 'platform-engineering']
+postSlug: 'building-swift-deploy'
+authorSocials:
+  twitter: https://twitter.com/AJ_Okpainmo
+  linkedin: https://www.linkedin.com/in/okpainmo-andrew/
+  github: https://github.com/Okpainmo
+---
+
+![post banner](/blog/post-banners/post-banner_16.png)
+
+SwiftDeploy started as a small idea: what if a deployment tool could take one plain manifest and generate the boring, fragile infrastructure files around it?
+
+No hand-written `docker-compose.yml`. No manually tuned Nginx config copied between projects. No hidden operational checklist living in somebody's head. Just one source of truth:
+
+<CodeBlock
+  language="yaml"
+  content={`services:
+  image: "sd-demo-api-1:latest"
+  port: 5000
+  mode: stable
+  version: 1.0.0
+  restart_policy: unless-stopped
+
+nginx:
+  image: "nginx:latest"
+  port: 8080
+  proxy_timeout: 5s
+  contact: ops@swiftdeploy.local
+
+network:
+  name: swiftdeploy-net
+  driver_type: bridge
+
+opa:
+  image: "openpolicyagent/opa:latest"
+  port: 8181
+
+policy_infrastructure:
+  min_disk_free_gb: 10
+  max_cpu_load: 2.0
+
+policy_canary:
+  max_error_rate: 0.01
+  max_p99_latency_ms: 500
+  window_seconds: 30`}
+/>
+
+That is the contract. Everything else is generated or derived from it.
+
+## The Design.
+
+SwiftDeploy is a declarative deployment tool. The operator describes what should exist in `manifest.yaml`, then runs:
+
+<CodeBlock language="bash" content={`./swiftdeploy init`} />
+
+The tool reads the manifest, validates the required fields, builds a rendering context, and writes the infrastructure files from templates:
+
+<CodeBlock
+  language="text"
+  content={`manifest.yaml
+    |
+    v
+swiftdeploy init
+    |
+    +--> nginx.conf
+    +--> docker-compose.yml
+    +--> policies/infrastructure.rego
+    +--> policies/canary.rego`}
+/>
+
+That is the "writes its own infrastructure" part. The repository keeps reusable templates under `templates/`, and the generated files are runtime artifacts. If the manifest changes, `init` can recreate the stack definition consistently.
+
+The generated Docker Compose file defines three services:
+
+- `app`, the FastAPI service.
+- `nginx`, the public ingress.
+- `opa`, the local Open Policy Agent sidecar.
+
+Nginx is the only public entry point. The app is exposed only inside the Compose network, and OPA is bound to loopback on the host:
+
+<CodeBlock
+  language="yaml"
+  content={`opa:
+  image: \${opa_image}
+  container_name: swiftdeploy-opa
+  command:
+    - run
+    - --server
+    - --addr=0.0.0.0:8181
+    - /policies
+  ports:
+    - "127.0.0.1:\${opa_port}:8181"
+  volumes:
+    - ./policies:/policies:ro`}
+/>
+
+That small `127.0.0.1` matters. The CLI can ask OPA for decisions, but the public Nginx port cannot reach or expose the policy API.
+
+The app itself now exposes Prometheus-style metrics:
+
+<CodeBlock
+  language="text"
+  content={`http_requests_total{method="GET",path="/",status_code="200"} 42
+http_request_duration_seconds_bucket{method="GET",path="/",status_code="200",le="0.5"} 42
+app_uptime_seconds 128.403
+app_mode 1
+chaos_active 2`}
+/>
+
+Those metrics give SwiftDeploy eyes. OPA gives it a brain.
+
+## The Guardrails.
+
+The most important rule in the upgrade is this:
+
+> The CLI does not decide whether a deploy or promotion is allowed. OPA does.
+
+The CLI gathers facts, sends those facts to OPA, and prints the answer. It does not compare disk against `10GB`, CPU against `2.0`, error rate against `1%`, or latency against `500ms` as an allow/deny decision. Those comparisons live in Rego.
+
+The policies are split by domain:
+
+<CodeBlock
+  language="text"
+  content={`policies/
+  infrastructure.rego
+  canary.rego`}
+/>
+
+Each domain owns one question:
+
+- Infrastructure policy answers: "Is this host safe for pre-deploy?"
+- Canary policy answers: "Is this canary safe for pre-promote?"
+
+This separation keeps policy changes local. If the canary promotion threshold changes, the infrastructure policy does not need to know. If the disk requirement changes, the canary policy remains untouched.
+
+The infrastructure policy blocks deployment when:
+
+- Disk free is below `10GB`.
+- CPU load is above `2.0`.
+
+The canary policy blocks promotion when:
+
+- Error rate is above `1%`.
+- P99 latency is above `500ms`.
+- The metrics are evaluated as a pre-promotion signal over the configured 30 second policy window.
+
+OPA also never returns a bare boolean. A decision needs a reason:
+
+<CodeBlock
+  language="json"
+  content={`{
+  "allowed": false,
+  "domain": "canary",
+  "question": "pre-promote",
+  "reason": "p99 latency 821.40ms is above allowed 500.00ms",
+  "violations": [
+    "p99 latency 821.40ms is above allowed 500.00ms"
+  ]
+}`}
+/>
+
+That is what makes the gate useful. "Denied" is not operationally helpful. "Denied because P99 latency is 821ms and the limit is 500ms" is something an operator can act on.
+
+The isolation matters for the same reason the decision boundary matters. OPA is powerful. It knows deployment rules, thresholds, and runtime safety state. It should be reachable by the local control plane, not by arbitrary public traffic. Nginx exposes the application. The CLI talks to OPA. Those paths stay separate.
+
+## The Chaos.
+
+The FastAPI app includes a canary-only chaos endpoint:
+
+<CodeBlock
+  language="bash"
+  content={`curl -X POST http://127.0.0.1:8080/chaos \\
+  -H 'Content-Type: application/json' \\
+  -d '{"mode":"slow","duration":2}'`}
+/>
+
+Slow mode adds latency to canary requests. Once traffic hits the service, `/metrics` starts showing larger request durations. The status dashboard turns that into an operator view:
+
+<CodeBlock
+  language="text"
+  content={`swiftdeploy status
+scraped_at: 2026-05-06T19:43:24.328297+00:00
+mode: canary
+chaos: slow
+req/s: 4.50
+p99 latency: 2000.00ms
+error rate: 0.00%
+uptime: 184.2s
+
+Policy Compliance
+- [PASS] infrastructure: policy passed
+- [FAIL] canary: p99 latency 2000.00ms is above allowed 500.00ms`}
+/>
+
+That is the system doing what it was built to do. The app is still responding, but the canary is not healthy enough to promote. The policy gate catches the condition before it becomes a stable release problem.
+
+Error chaos is more direct:
+
+<CodeBlock
+  language="bash"
+  content={`curl -X POST http://127.0.0.1:8080/chaos \\
+  -H 'Content-Type: application/json' \\
+  -d '{"mode":"error","rate":0.5}'`}
+/>
+
+Now a percentage of canary requests intentionally return `500`. The status view captures both the active chaos state and the policy violation:
+
+<CodeBlock
+  language="text"
+  content={`swiftdeploy status
+scraped_at: 2026-05-06T19:45:02.114901+00:00
+mode: canary
+chaos: error
+req/s: 6.00
+p99 latency: 120.00ms
+error rate: 48.33%
+uptime: 281.7s
+
+Policy Compliance
+- [PASS] infrastructure: policy passed
+- [FAIL] canary: error rate 48.33% is above allowed 1.00%`}
+/>
+
+A promotion during this window is blocked:
+
+<CodeBlock
+  language="text"
+  content={`pre-promote policy gate:
+  [BLOCK] canary: error rate 48.33% is above allowed 1.00%
+    - error rate 48.33% is above allowed 1.00%
+error: policy gate blocked 1 signal(s)`}
+/>
+
+Every status scrape is appended to `history.jsonl`, which gives the project a memory. Later, the operator can run:
+
+<CodeBlock language="bash" content={`./swiftdeploy audit`} />
+
+That produces `audit_report.md` with a timeline of mode and chaos changes, plus a dedicated violations section. It is intentionally plain GitHub-flavored Markdown so it can be attached to an incident note, pull request, or release review without conversion.
+
+## The Lessons Learned.
+
+The first lesson is that generation is not only about saving typing. It is about removing ambiguity. If `manifest.yaml` is the source of truth, then Nginx, Compose, and policy files can be recreated any time from the same declared intent.
+
+The second lesson is that observability and policy need each other. Metrics without gates are dashboards people can ignore. Gates without metrics are guesses. SwiftDeploy combines the two: scrape runtime state, calculate useful signals, ask OPA, and surface the reason.
+
+The third lesson is that policy should be modular. The infrastructure policy should not know how canary latency works. The canary policy should not know how much disk the host has. Each domain asks one question, owns one set of data, and returns one reasoned signal.
+
+The fourth lesson is that failure modes deserve design. OPA can be unavailable, unreachable, slow, misconfigured, or return invalid data. The CLI treats those as human-readable outcomes instead of crashing or hanging. A deployment tool should fail closed, but it should explain itself when it does.
+
+The final lesson is that chaos is only useful when it is visible. Injecting latency or errors is easy. Capturing the failure, showing the policy impact, and preserving the audit trail is where the exercise becomes operationally meaningful.
+
+SwiftDeploy is still intentionally small. It is not Kubernetes, Terraform, Prometheus, or a full policy platform. But it demonstrates the core platform engineering loop:
+
+<CodeBlock
+  language="text"
+  content={`Declare intent.
+Generate infrastructure.
+Observe runtime behavior.
+Ask policy for a decision.
+Record what happened.`}
+/>
+
+That loop is the heart of safer deployments.
