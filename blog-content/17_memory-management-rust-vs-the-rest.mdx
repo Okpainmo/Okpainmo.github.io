@@ -1,10 +1,10 @@
 ---
 postTitle: 'Memory Management: Rust Vs The Rest'
-postDate: 'June 8, 2026'
-postLastUpdated: 'June 8, 2026'
+postDate: 'June 10, 2026'
+postLastUpdated: 'June 10, 2026'
 postIndex: 17
 postCategory: 'backend-development'
-subCategories: ['system-design']
+subCategories: ['system-design', 'fullstack-development']
 postBrief: 'A practical comparison of Rust ownership, garbage collection, reference counting, and manual memory management, with the trade-offs that matter in production systems'
 postThumbnailUrl: '/blog/post-banners/post-banner_17.png'
 authorPhotoUrl: '/author_image-1.jpg'
@@ -13,7 +13,7 @@ authorBio: "Andrew James Okpainmo is a fullstack software engineer who is passio
 and scaling awesome products and startups. He currently works as a freelance software engineer 
 (with expertise in fullstack software development, cloud engineering, and DevOps), while leading the team 
 at Zed Labs."
-postTags: ['rust', 'memory-management', 'backend-development', 'systems-programming', 'garbage-collection', 'ownership', 'performance']
+postTags: ['rust', 'memory-management', 'backend-development', 'systems-programming', 'garbage-collection', 'ownership', 'low-level-programming']
 postSlug: 'memory-management-rust-vs-the-rest'
 authorSocials:
   twitter: https://twitter.com/AJ_Okpainmo
@@ -24,8 +24,13 @@ authorSocials:
 ![post banner](/blog/post-banners/post-banner_17.png)
 
 Memory management is not a thing you get to deal with if you only work with high-level programming languages like Python, 
-JavaScript, Ruby, etc. It however becomes a big and serious topic the moment you venture into the world of low-level 
+JavaScript, Ruby, etc. It however becomes a serious topic the moment you venture into the world of low-level 
 programming with languages like C, C++, Rust, etc.
+
+This article is a deep dive into the world of memory management, and how different programming languages handle it.
+
+It covers the four main memory management paradigms, and how they compare to each other - **with a focus on the uniqueness of
+the Rust programming language**.
 
 ## Explaining Memory Management.
 
@@ -39,21 +44,25 @@ When a program runs on a computer, it needs a place to:
 
 - etcetera
 
-This storage area/space is called **memory**.
+This storage space like in other computer-related topics is called **memory**.
 
 ### How a Program Uses Memory.
 
 Memory use happens in two broad categories:
 
-1. **Stack memory**
-2. **Heap memory**
+1. On the Stack.
+2. On the Heap.
 
-#### 1. Stack Memory
+> The `Stack` and `Heap` are special memory regions that exist within the virtual address space of a system process. 
+> They are allocated by the operating system when the program starts. Each serves different purposes and has different management 
+> characteristics.
 
-The stack is fast, limited in size, and automatically managed - memory is allocated and freed in a strict **last-in, 
-first-out order** as functions are called and returned.
+#### 1. On the Stack.
 
-It is used for storing:
+The stack is fast, limited in size, and automatically managed. Memory on the stack is allocated and freed in a strict **last-in, 
+first-out(LIFO) order** as functions are called and returned.
+
+The stack is used for storing:
 
 - local variables
 
@@ -82,7 +91,7 @@ Example:
 
 #### 2. Heap Memory.
 
-The heap is large, flexible, and slower than the stack - memory is manually managed in languages like C/C++, 
+The heap is large, flexible, and slower than the stack. Memory on the heap is manually managed in languages like C/C++, 
 or semi-automatically managed via garbage collection in languages like Java, Python, and JavaScript.
 
 **Used for:**
@@ -119,8 +128,8 @@ though it's no longer needed. The program holds onto it, the Operating System ca
 The stack is never the problem - its LIFO structure makes it self-managing. Functions push frames on call, pop them on 
 return. No programmer involvement is needed.
 
-All memory management strategies(manual, garbage collection, reference counting, and ownership) exist solely to solve 
-the heap problem - because the heap has no inherent structure. You can allocate in any order, return pointers across 
+All memory management strategies(manual, garbage collection, reference counting, and ownership) **exist solely to solve 
+the heap problem** - because the heap has no inherent structure. You can allocate in any order, return pointers across 
 function boundaries, share references across threads, and hold onto memory indefinitely. **There's simply no automatic mechanism 
 to know when you're done with it.**
 
@@ -204,7 +213,8 @@ The programmer **must correctly** handle:
 
 - use-after-free bugs
 
-This is why memory safety issues have historically been such a large source of security vulnerabilities in low-level systems.
+Failure to properly manage memory, is why memory safety issues have historically been such a large source of 
+security vulnerabilities in low-level systems.
 
 Manual memory management is powerful, **but it makes correctness a human responsibility** at a very sharp level.
 
@@ -661,9 +671,11 @@ That is the real story of Rust memory management:
 
 And for many systems, that trade is worth it.
 
+---
+
 Thanks a lot for reading through.
 
-See you in the next article.
+See you in the next.
 
 > If you loved this post and would love to send an appreciation, simply use this link to [buy me
 > a cup of coffee](https://paystack.com/pay/11tykgn4-s).
