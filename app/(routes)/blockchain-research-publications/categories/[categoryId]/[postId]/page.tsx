@@ -78,38 +78,33 @@ async function PostPage({ params }: Props) {
     return matter(content);
   });
 
-  // 2. Filter posts by the current category
-  const categoryPosts = allPosts.filter((post) => {
+  // 2. Find the current publication through the active category route.
+  const currentPost = allPosts.find((post) => {
     const data = post.data;
     return (
-      data.postCategory === categoryId ||
-      data.subCategories?.includes(categoryId)
+      post.data.postSlug === postId &&
+      (data.postCategory === categoryId ||
+        data.subCategories?.includes(categoryId))
     );
   });
-
-  // 3. Sort posts by postIndex (Latest first / Descending)
-  const sortedPosts = categoryPosts.sort(
-    (a, b) => b.data.postIndex - a.data.postIndex
-  );
-
-  // 4. Find current post index in the filtered & sorted list
-  const currentPostIndex = sortedPosts.findIndex(
-    (post) => post.data.postSlug === postId
-  );
-  const currentPost = sortedPosts[currentPostIndex];
 
   if (!currentPost) {
     return <div>Publication not found in this category</div>;
   }
 
-  const N = sortedPosts.length;
-
-  // 5. Cyclic Navigation Logic (Matching swap to match user preference: Next=Newer, Prev=Older)
-  const nextPostIndex = (currentPostIndex - 1 + N) % N;
-  const previousPostIndex = (currentPostIndex + 1) % N;
-
-  const nextPostData = sortedPosts[nextPostIndex]?.data;
-  const previousPostData = sortedPosts[previousPostIndex]?.data;
+  // 3. Navigation follows the global MDX postIndex order.
+  const sortedPosts = [...allPosts].sort(
+    (a, b) => a.data.postIndex - b.data.postIndex
+  );
+  const currentPostIndex = sortedPosts.findIndex(
+    (post) => post.data.postSlug === postId
+  );
+  const previousPostData =
+    currentPostIndex > 0 ? sortedPosts[currentPostIndex - 1]?.data : undefined;
+  const nextPostData =
+    currentPostIndex >= 0 && currentPostIndex < sortedPosts.length - 1
+      ? sortedPosts[currentPostIndex + 1]?.data
+      : undefined;
 
   const {
     authorPhotoUrl,
@@ -142,8 +137,16 @@ async function PostPage({ params }: Props) {
         <PageNavigator
           nextTitle={nextPostData?.postTitle}
           previousTitle={previousPostData?.postTitle}
-          previousPostRoute={`/blockchain-research-publications/categories/${categoryId}/${previousPostData?.postSlug}`}
-          nextPostRoute={`/blockchain-research-publications/categories/${categoryId}/${nextPostData?.postSlug}`}
+          previousPostRoute={
+            previousPostData
+              ? `/blockchain-research-publications/categories/${previousPostData.postCategory}/${previousPostData.postSlug}`
+              : undefined
+          }
+          nextPostRoute={
+            nextPostData
+              ? `/blockchain-research-publications/categories/${nextPostData.postCategory}/${nextPostData.postSlug}`
+              : undefined
+          }
         />
         <AboutAuthorSection
           authorBio={authorBio}
