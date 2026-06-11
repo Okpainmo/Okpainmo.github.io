@@ -39,7 +39,8 @@ function BlogIntro() {
         </div>
         <p className="text-zinc-600 dark:text-zinc-400 text-lg max-w-2xl">
           Thought leadership and technical deep dives into the worlds of
-          development, blockchain architecture, and product design.
+          development, cloud/infrastructure engineering, blockchain R&D, and
+          more.
         </p>
       </div>
 

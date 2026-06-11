@@ -27,7 +27,7 @@ function Top() {
         <div className="leading-[30px] text-zinc-600 dark:text-zinc-400">
           A senior software engineer with deep experience owning systems
           end-to-end - from architecture and full-stack development to cloud
-          infrastructure and product leadership.
+          operations and product leadership.
         </div>
         <div className="flex gap-4 items-center justify-start">
           <a
