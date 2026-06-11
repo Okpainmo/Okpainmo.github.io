@@ -11,14 +11,14 @@ function PageNavigator({
   previousPostRoute,
   nextPostRoute
 }: {
-  nextTitle: string;
-  previousTitle: string;
-  previousPostRoute: string;
-  nextPostRoute: string;
+  nextTitle?: string;
+  previousTitle?: string;
+  previousPostRoute?: string;
+  nextPostRoute?: string;
 }) {
   return (
     <section className="page-navigator flex flex-col sm:flex-row gap-6 mt-20 w-full md:w-[70%] lg:w-[50%] md:mx-auto border-t border-zinc-200 dark:border-zinc-800 pt-12">
-      {previousTitle && (
+      {previousTitle && previousPostRoute && (
         <Link
           href={previousPostRoute}
           className="flex-1 group bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 p-6 rounded-2xl hover:border-black dark:hover:border-white transition-all flex flex-col gap-3"
@@ -33,7 +33,7 @@ function PageNavigator({
         </Link>
       )}
 
-      {nextTitle && (
+      {nextTitle && nextPostRoute && (
         <Link
           href={nextPostRoute}
           className="flex-1 group bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 p-6 rounded-2xl hover:border-black dark:hover:border-white transition-all flex flex-col gap-3 text-right"
