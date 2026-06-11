@@ -1,0 +1,473 @@
+---
+postTitle: 'Building StrongBox: v2 Engineering Design Documentation(EDD)'
+postDate: 'June 11, 2026'
+postLastUpdated: 'June 11, 2026'
+postIndex: 18
+postCategory: 'system-design'
+subCategories: ['backend-development', 'cloud-and-devops']
+postBrief: 'Engineering design documentation for StrongBox v2, covering the architecture, trade-offs, and implementation plan for the next version of the distributed secrets manager'
+postThumbnailUrl: '/blog/post-banners/post-banner_18.png'
+authorPhotoUrl: '/author_image-1.jpg'
+authorName: Andrew James Okpainmo
+authorBio: "Andrew James Okpainmo is a fullstack software engineer who is passionate about building 
+and scaling awesome products and startups. He currently works as a freelance software engineer 
+(with expertise in fullstack software development, cloud engineering, and DevOps), while leading the team 
+at Zed Labs."
+postTags: ['strongbox', 'engineering-design-document', 'system-design', 'backend-development', 'distributed-systems', 'secrets-management', 'security', 'cloud-and-devops']
+postSlug: 'building-strongbox-v2-engineering-design-documentation-edd'
+authorSocials:
+  twitter: https://twitter.com/AJ_Okpainmo
+  linkedin: https://www.linkedin.com/in/okpainmo-andrew/
+  github: https://github.com/Okpainmo
+---
+
+![post banner](/blog/post-banners/post-banner_18.png)
+
+StrongBox v1 proved that the core idea works: a small secrets engine can boot sealed, unseal with Shamir shares, encrypt secret versions, issue scoped bearer tokens, mint dynamic PostgreSQL credentials, and leave behind a tamper-evident audit trail.
+
+That was enough for an engine.
+
+It was not enough for internal production deployment.
+
+V2 is the design for the product layer around that engine. The goal is not to throw v1 away. The goal is to keep v1 as the low-level secrets engine and build a secure, observable, operable system around it: a Rust backend, a clean internal UI, a PostgreSQL control-plane database, Redis-backed session and rate-limit infrastructure, and a queue-backed background workflow for slow or retryable operations.
+
+This document is intentionally direct. StrongBox is a security-focused project, so vague architecture language is not useful here. The design must say what breaks, what changes, what data is stored, and what trade-offs we accept.
+
+## 1. V1 Architecture Critique
+
+### Brief Overview Of V1
+
+StrongBox v1 is a Bash-first distributed secrets manager engine.
+
+At a high level, the system runs as a three-node Docker Compose cluster behind Nginx. Each node starts a `socat` TCP listener and forks a Bash request handler for each HTTP request. Request parsing and routing live in `lib/http.sh`. Persistent state is stored as JSON files under `/var/lib/strongbox`, with namespaces for system metadata, encrypted secrets, policies, auth tokens, leases, cluster state, and audit metadata.
+
+The engine boots sealed. During initialization, it generates master material and a key-encryption key. The key-encryption key is wrapped, the master material is split into Shamir shares, and the root token is returned once. During unseal, a node collects the configured threshold of shares, reconstructs the master material, unwraps the active KEK, and passes that KEK into a per-node crypto daemon through a private FIFO in `/dev/shm`.
+
+Secret writes create versioned records. Each secret version receives a random data-encryption key. The secret payload is encrypted with that DEK, the DEK is wrapped by the active KEK, and the encrypted record is replicated to peer nodes. A leader hint and basic quorum checks control writes. Reads can be served locally by any unsealed node.
+
+V1 also includes opaque bearer tokens, path-based policies, static leases for secret reads, dynamic PostgreSQL credentials, lease revocation, a background lease reaper, and an HMAC-backed audit chain.
+
+This is a strong proof of concept. It is also exactly where the line should be drawn.
+
+### Exact Breaking Points
+
+The first breaking point is that v1 mixes too many responsibilities inside shell scripts. HTTP parsing, authorization, consensus hints, encryption orchestration, persistence, lease lifecycle management, and dynamic credential management all happen in the same execution environment. That made the implementation fast to build and easy to inspect, but it makes the system difficult to harden, test, extend, and reason about under production pressure.
+
+The second breaking point is request handling. `socat` plus one Bash process per request is acceptable for a demo engine, but not for a production control plane. There is no typed request model, no strong middleware boundary, no robust body-size control, no native backpressure strategy, and no clean way to apply consistent timeout, tracing, validation, or error-mapping policies across every route.
+
+The third breaking point is storage. JSON files are simple, portable, and understandable, but they are a poor fit for the product metadata v2 needs: users, organizations, workspaces, roles, permissions, UI sessions, approval workflows, audit search indexes, engine connection records, and reporting queries. File storage also makes transactional updates and relational integrity hard. The v1 storage model can continue to serve the engine, but it should not become the v2 application database.
+
+The fourth breaking point is the cluster and replication model. V1 has leader hints, heartbeat behavior, simple elections, and quorum checks, but it is not a full consensus implementation with a durable replicated log. A majority side can continue while a minority refuses writes, which is useful, but the system does not provide the same guarantees a production-grade Raft implementation would. Reads from followers can be stale. Write replication is based on best-effort HTTP storage mutations. That is acceptable for a learning build; it is not the layer I want human users, teams, and internal automation depending on directly.
+
+The fifth breaking point is operator experience. V1 is driven through curl commands and raw JSON. That is fine for a systems engineer validating the engine. It is not safe for day-to-day internal use by a team. Humans need clear views of secret paths, environment boundaries, policy effects, audit records, lease states, and dangerous operations. Without a UI and strong backend guardrails, accidental misuse becomes part of the threat model.
+
+### Security Blind Spots
+
+The biggest security blind spot in v1 is internal API trust. The `/_internal/replicate`, `/_internal/vote`, and `/_internal/heartbeat` endpoints are intended for node-to-node traffic inside the Compose network, but v1 does not implement strong mutual authentication between nodes. Network placement is doing too much work. In a production environment, internal endpoints need mTLS or an equivalent node identity mechanism, strict network policy, and request authentication independent of "this route is not exposed publicly."
+
+The second blind spot is token administration. V1 uses opaque tokens and stores hashes server-side, which is the right direction, but token lifecycle management is too thin for production. There is no human identity layer, no MFA, no device/session model, no approval workflow for privileged actions, and some routes such as token revocation and lease renewal/revocation require a valid bearer token but do not currently enforce a specific capability. That is risky because "authenticated" and "authorized" are not the same thing.
+
+The third blind spot is input validation. V1 relies heavily on `jq`, shell variables, and path matching. Some values are validated, but there is no centralized typed validation layer. Secret paths, policy documents, TTLs, role names, request body size, JSON depth, and route parameters all need a consistent validation strategy. In a security product, inconsistent validation eventually becomes an exploit path or an operational footgun.
+
+The fourth blind spot is audit durability. The audit hash chain detects tampering inside a single node log, which is valuable. But v1 does not ship audit events to an append-only external sink, does not provide retention policy controls, and does not strongly protect against a compromised host modifying both the log and local audit secret. V2 needs searchable operational audit records in PostgreSQL and a stronger path for exporting high-value events to external storage or a SIEM.
+
+The fifth blind spot is secret exposure through operator workflows. V1 can return secret values through the API with a valid token. That is necessary for some clients, but human UI access must be treated differently. V2 must make secret reveal events explicit, audited, optionally approval-gated, and time-limited. The UI should bias toward metadata, version history, and access workflows rather than casually displaying plaintext.
+
+The short version: v1 built the engine. V2 must build the security boundary around the engine.
+
+## V2 Architecture Blueprint
+
+<CodeBlock
+  language="text"
+  content={`                            Internal Users
+                                      |
+                                      v
+                            Next.js StrongBox UI
+                                      |
+                           HTTPS, secure cookies
+                                      |
+                                      v
+                          Rust Axum Control Plane API
+                    +-----------------+-----------------+
+                    |                 |                 |
+                    v                 v                 v
+              PostgreSQL          Redis            RabbitMQ
+          control-plane DB   sessions, cache,   async jobs:
+          users, RBAC,       rate limits,       audit export,
+          audit index,       short TTL data     engine sync,
+          approvals                            notifications
+                    |
+                    v
+      StrongBox Engine Client Layer
+                    |
+      authenticated internal HTTP
+                    |
+                    v
+StrongBox v1 Engine Cluster Behind Internal 
+Network sealed nodes, Shamir unseal, envelope 
+encryption, leases, dynamic credentials,
+engine-local audit hash chain`}
+/>
+
+The central design decision is separation of concerns. V1 remains the secrets engine. V2 becomes the control plane: identity, policy management, UI workflows, request validation, audit indexing, and operational safety.
+
+The Rust backend is the only component allowed to talk to the engine for normal user-driven workflows. The Next.js frontend talks only to the Rust backend. PostgreSQL stores v2 product metadata. Redis stores short-lived and revocable runtime state. RabbitMQ handles retryable background jobs. Kafka is not part of the initial design; it is reserved for future high-volume event streaming if StrongBox needs to broadcast audit or secret lifecycle events to multiple independent consumers.
+
+## 2. New Features Fully Designed
+
+### Feature 1: Rust Control Plane API
+
+**What it does and why it is needed:**  
+The control plane API is the secure backend that sits between users and the v1 engine. It exposes typed endpoints for login, session management, workspace management, secret metadata, policy editing, approval flows, lease visibility, and audit search. It is needed because the v1 engine should not be the public application API. The engine is intentionally low-level. The control plane gives StrongBox a stable product API with proper validation, middleware, structured errors, rate limiting, and a place to enforce human-facing security rules.
+
+**Architectural integration:**  
+The backend will be a Rust service built with Axum and Tokio, following the controller/service/module style used in my Rust stack. It owns the HTTP boundary, loads environment-specific config, connects to PostgreSQL through SQLx, connects to Redis for session/cache operations, and calls the v1 engine through an internal engine client module. Every route that touches engine data passes through authentication middleware, authorization middleware, request validation, audit context creation, and timeout handling.
+
+The engine client wraps v1 endpoints such as `/v1/sys/health`, `/v1/secrets/{path}`, `/v1/policies/{name}`, `/v1/leases/{id}/revoke`, and `/v1/audit`. It is not a generic pass-through proxy. It exposes intentional methods such as `read_secret_version`, `write_secret_version`, `delete_secret`, `create_engine_policy`, and `revoke_lease`.
+
+**Data model changes:**
+
+<CodeBlock
+  language="sql"
+  content={`create table engine_clusters (
+  id uuid primary key,
+  name text not null unique,
+  base_url text not null,
+  environment text not null,
+  status text not null default 'unknown',
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table engine_requests (
+id uuid primary key,
+cluster_id uuid not null references engine_clusters(id),
+actor_user_id uuid,
+method text not null,
+logical_path text not null,
+engine_status_code integer,
+request_hash text not null,
+response_hash text,
+duration_ms integer,
+created_at timestamptz not null default now()
+);`}
+/>
+
+`request_hash` and `response_hash` allow correlation without storing plaintext secret values.
+
+**Trade-offs:**  
+This adds latency because every UI-driven secret operation goes through an extra backend hop. It also creates another service to deploy and monitor. The gain is worth it: typed validation, centralized authorization, better audit context, safer UI semantics, and the ability to evolve v2 without constantly changing the engine.
+
+### Feature 2: Human Identity, Sessions, And RBAC
+
+**What it does and why it is needed:**  
+V1 has opaque engine tokens. V2 needs human identity. Internal users should log in as users, receive secure sessions, and get access based on roles and permissions. The system must answer: who performed this action, from which session, against which workspace, and under which permission?
+
+**Architectural integration:**  
+The Rust backend owns human authentication and authorization. The browser receives secure, HTTP-only, same-site cookies. Redis stores active session state and revocation markers with TTLs. PostgreSQL stores durable user, role, and permission records. The backend maps human permissions to engine operations. Users do not receive the v1 root token or broad engine tokens.
+
+For initial internal deployment, the system should support password login with Argon2id hashing and an admin bootstrap flow. MFA should be designed into the schema even if rollout happens after the first internal release, because retrofitting MFA into a security product usually creates awkward migrations.
+
+**Data model changes:**
+
+<CodeBlock
+  language="sql"
+  content={`create table users (
+  id uuid primary key,
+  email citext not null unique,
+  name text not null,
+  password_hash text not null,
+  status text not null default 'active',
+  mfa_enabled boolean not null default false,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table sessions (
+id uuid primary key,
+user_id uuid not null references users(id),
+session_hash text not null unique,
+ip_address inet,
+user_agent text,
+expires_at timestamptz not null,
+revoked_at timestamptz,
+created_at timestamptz not null default now()
+);
+
+create table roles (
+id uuid primary key,
+name text not null unique,
+description text,
+created_at timestamptz not null default now()
+);
+
+create table permissions (
+id uuid primary key,
+key text not null unique,
+description text
+);
+
+create table user_roles (
+user_id uuid not null references users(id),
+role_id uuid not null references roles(id),
+primary key (user_id, role_id)
+);
+
+create table role_permissions (
+role_id uuid not null references roles(id),
+permission_id uuid not null references permissions(id),
+primary key (role_id, permission_id)
+);`}
+/>
+
+**Trade-offs:**  
+Server-side sessions are less stateless than JWT-only auth, but they are easier to revoke immediately, easier to inspect, and safer for an internal security dashboard. Redis becomes part of the availability path for fast session checks, so the backend needs a fallback strategy: if Redis is unavailable, privileged operations should fail closed rather than silently bypassing revocation checks.
+
+### Feature 3: Secret Workspace UI And Metadata Layer
+
+**What it does and why it is needed:**  
+The UI gives internal users a safe way to browse secret namespaces, inspect metadata, compare versions, request access, create or update secrets, and view lease/audit state. The UI should not simply be a pretty curl wrapper. It must reduce accidental exposure.
+
+The key rule: metadata is easy to view; plaintext is intentional to reveal.
+
+**Architectural integration:**  
+Next.js renders the internal dashboard and talks to the Rust API. The backend stores product metadata in PostgreSQL and stores encrypted secret values only in the v1 engine. The UI can show paths, owners, tags, environment, last rotation date, version count, and access status without reading plaintext from the engine. Plaintext reveal calls are separate API operations with stricter authorization and audit events.
+
+**Data model changes:**
+
+<CodeBlock
+  language="sql"
+  content={`create table workspaces (
+  id uuid primary key,
+  name text not null unique,
+  slug text not null unique,
+  description text,
+  created_at timestamptz not null default now()
+);
+
+create table secret_records (
+id uuid primary key,
+workspace_id uuid not null references workspaces(id),
+engine_cluster_id uuid not null references engine_clusters(id),
+logical_path text not null,
+display_name text not null,
+environment text not null,
+owner_user_id uuid references users(id),
+rotation_interval_days integer,
+last_rotated_at timestamptz,
+deleted_at timestamptz,
+created_at timestamptz not null default now(),
+updated_at timestamptz not null default now(),
+unique (workspace_id, logical_path)
+);
+
+create table secret_tags (
+secret_id uuid not null references secret_records(id),
+tag text not null,
+primary key (secret_id, tag)
+);
+
+create table secret_version_index (
+id uuid primary key,
+secret_id uuid not null references secret_records(id),
+engine_version integer not null,
+created_by uuid references users(id),
+created_at timestamptz not null default now(),
+unique (secret_id, engine_version)
+);`}
+/>
+
+**Trade-offs:**  
+The metadata layer can drift from the engine if an operation succeeds in v1 but fails before the PostgreSQL transaction completes, or the other way around. The backend should reduce this with careful operation ordering and reconciliation jobs. Strong consistency across the engine and the control-plane database would require a much more complex transactional design, which is not worth it for v2. The acceptable compromise is: engine remains source of truth for encrypted secret data; PostgreSQL is source of truth for product metadata.
+
+### Feature 4: Approval-Gated Sensitive Operations
+
+**What it does and why it is needed:**  
+Some actions should not be one-click operations, even for authenticated users. Revealing a production secret, deleting a secret, changing a high-impact policy, minting long-lived tokens, or revoking important dynamic credentials should be approval-gated based on environment and role.
+
+**Architectural integration:**  
+The backend creates approval requests in PostgreSQL. RabbitMQ carries notification and expiry jobs. The UI shows pending approvals, approvers, reasons, and audit history. When a request is approved, the backend performs the engine operation and records the result. The engine still enforces its own policies, but v2 adds human workflow controls before calling the engine.
+
+**Data model changes:**
+
+<CodeBlock
+  language="sql"
+  content={`create table approval_requests (
+  id uuid primary key,
+  requested_by uuid not null references users(id),
+  action text not null,
+  target_type text not null,
+  target_id uuid,
+  reason text not null,
+  status text not null default 'pending',
+  expires_at timestamptz not null,
+  created_at timestamptz not null default now(),
+  resolved_at timestamptz
+);
+
+create table approval_decisions (
+id uuid primary key,
+approval_request_id uuid not null references approval_requests(id),
+decided_by uuid not null references users(id),
+decision text not null,
+comment text,
+created_at timestamptz not null default now()
+);`}
+/>
+
+**Trade-offs:**  
+Approval workflows slow down operations. That is the point. For production secrets, a small increase in friction is better than silent high-impact changes. The trade-off is developer convenience versus blast-radius reduction. V2 should allow lower environments to use lighter rules while production environments require stricter approval.
+
+### Feature 5: Audit Indexing And Event Export
+
+**What it does and why it is needed:**  
+V1 has an engine-local audit chain. V2 needs searchable audit records tied to users, sessions, requests, approvals, and engine responses. Security teams and internal operators should be able to answer questions quickly: who revealed a secret, who changed policy, which session did it, from what IP, and what was the engine result?
+
+**Architectural integration:**  
+Every backend route creates structured audit context. High-value events are written to PostgreSQL and optionally queued through RabbitMQ for export. V1 audit verification remains useful for engine tamper detection, but v2 audit indexing becomes the day-to-day operational audit surface.
+
+**Data model changes:**
+
+<CodeBlock
+  language="sql"
+  content={`create table audit_events (
+  id uuid primary key,
+  user_id uuid references users(id),
+  session_id uuid references sessions(id),
+  workspace_id uuid references workspaces(id),
+  action text not null,
+  target_type text not null,
+  target_ref text not null,
+  outcome text not null,
+  ip_address inet,
+  user_agent text,
+  metadata jsonb not null default '{}'::jsonb,
+  created_at timestamptz not null default now()
+);
+
+create index audit_events_action_created_at_idx
+on audit_events (action, created_at desc);
+
+create index audit_events_metadata_gin_idx
+on audit_events using gin (metadata);`}
+/>
+
+**Trade-offs:**  
+Writing audit events synchronously improves durability but adds latency to sensitive operations. The design should write security-critical audit records synchronously to PostgreSQL, then use RabbitMQ for secondary export. Losing an export job is recoverable. Losing the primary audit event is not.
+
+## 3. Production Readiness
+
+### Security
+
+V2 treats the Rust backend as the primary application security boundary. The UI never talks directly to the engine. Users never receive root engine credentials. The v1 engine stays on a private network reachable only by the backend and operational tooling.
+
+Authentication uses secure, HTTP-only cookies backed by server-side sessions. Passwords are hashed with Argon2id. Session records are stored durably in PostgreSQL, while Redis stores short-lived session lookup data and revocation markers for fast checks. Privileged operations fail closed if session state cannot be verified.
+
+Authorization is permission-based RBAC. Roles map to explicit permissions such as `secret.metadata.read`, `secret.value.reveal`, `secret.write`, `secret.delete`, `policy.write`, `lease.revoke`, `audit.read`, and `approval.decide`. The backend checks permissions before calling the engine. The engine's own policies remain a second enforcement layer, not the only one.
+
+Secrets management has two rules. First, StrongBox v2 does not store plaintext secret values in PostgreSQL, Redis, logs, queues, or browser state. Second, plaintext reveal is a separate audited action. Responses containing secret values should be marked non-cacheable and should not be persisted in Redux or local storage.
+
+Input validation is centralized at the API boundary. Request bodies get typed Rust structs and validation rules. Secret paths are normalized and constrained. TTLs have minimums and maximums. Role names, policy names, workspace slugs, and environment labels use allowlisted formats. Request body size limits and route timeouts are enforced globally.
+
+The attack surface is minimized by network segmentation, private engine endpoints, least-privilege database users, no direct browser-to-engine path, no public internal admin endpoints, strict CORS, secure cookie flags, structured error responses without secret leakage, and rate limits on login, reveal, write, and approval routes.
+
+### Scalability
+
+The Rust API is horizontally scalable because application state is externalized into PostgreSQL, Redis, RabbitMQ, and the v1 engine. Multiple backend instances can serve UI requests behind a load balancer as long as they share the same database, Redis instance or Redis cluster, and queue.
+
+The strongest scaling boundary is the v1 engine. Secret read and write traffic eventually reaches the engine, so the control plane cannot pretend that infinite API replicas create infinite secret throughput. V2 should cache only metadata and authorization/session data, not secret plaintext.
+
+Redis caching should be used for:
+
+- session lookups, with TTL aligned to session expiry;
+- user permission sets, with short TTLs such as 60 to 300 seconds and explicit invalidation when roles change;
+- rate-limit counters, with natural TTL windows;
+- engine health snapshots, with very short TTLs such as 5 to 15 seconds;
+- non-sensitive dashboard counts, with short TTLs.
+
+Redis eviction should use TTL-first design. The application should not rely on Redis for durable state. If Redis memory pressure evicts cached permissions, the backend recomputes them from PostgreSQL. If Redis evicts a rate-limit key, the system may temporarily be less strict for that key, so high-risk routes should also have database-backed or edge-level protections where needed.
+
+Traffic spikes are handled with layered protection: Nginx or the ingress layer applies coarse request limits, the Rust API applies per-route rate limits, Redis stores counters, and RabbitMQ absorbs slow background work. Operations that call the engine should have timeouts and bounded concurrency so a spike in UI traffic does not exhaust engine capacity.
+
+### Observability
+
+Structured logging uses JSON logs from the Rust backend. Every request receives a request id. Logs include timestamp, level, request id, user id when available, session id hash or id, route, method, status code, latency, engine cluster id, engine path class, and error code. Logs must never include secret values, raw tokens, passwords, or full request bodies for sensitive routes.
+
+Core metrics include:
+
+- HTTP request rate by route and status;
+- p50, p95, and p99 latency by route;
+- engine call latency and error rate;
+- login success/failure rate;
+- secret reveal count by environment;
+- secret write/delete count by environment;
+- approval request age and expiry count;
+- Redis hit/miss rate for sessions and permissions;
+- PostgreSQL pool usage and query latency;
+- RabbitMQ queue depth, publish failures, and consumer lag;
+- v1 engine sealed/unsealed status per node;
+- audit event write failures.
+
+Alerting thresholds should be concrete. Page immediately if audit writes fail, if the engine is sealed unexpectedly in production, if engine error rate exceeds 5% for five minutes, if p95 reveal latency exceeds an agreed threshold such as two seconds for ten minutes, if PostgreSQL connections are exhausted, or if RabbitMQ approval/export queues are growing without consumers. Warn on repeated login failures from the same IP or account, high reveal volume, or unusual production delete attempts.
+
+Distributed error tracking should carry the request id across UI, backend, queue jobs, and engine client calls. The UI should report frontend errors with route and user context, but never with secret values. Backend errors should be grouped by stable error codes. Queue jobs should store retry count, last error class, and last failure timestamp.
+
+## 4. Tech Stack Decisions
+
+### Rust
+
+Rust is the backend language because StrongBox v2 needs predictable performance, strong type boundaries, memory safety, and excellent async concurrency. A security product benefits from making invalid states harder to represent. Rust's type system helps model request validation, permissions, engine responses, and error classes more explicitly than a dynamically typed service would.
+
+### Axum
+
+Axum fits the service because it is lightweight, Tower-based, and composes cleanly with middleware. StrongBox v2 needs consistent middleware for tracing, sessions, authorization, timeouts, rate limits, request size limits, and error handling. Axum gives that without forcing a heavy framework.
+
+### Tokio
+
+Tokio is the async runtime because the backend is I/O heavy: database queries, Redis lookups, queue publishing, and engine HTTP calls. Tokio allows the service to handle high concurrency without one thread per request.
+
+### SQLx
+
+SQLx is the database layer because it supports async PostgreSQL access, connection pooling, compile-time checked queries when configured, and explicit SQL. StrongBox v2's schema matters. I do not want an ORM hiding query cost or relational shape in a security-critical control plane.
+
+### PostgreSQL
+
+PostgreSQL is the control-plane database because the v2 data model is relational: users, sessions, roles, permissions, workspaces, secret metadata, approval workflows, audit records, and engine clusters. PostgreSQL gives transactions, foreign keys, indexes, JSONB for flexible audit metadata, strong consistency, and mature operational tooling. StrongBox v2 should not store plaintext secret values in PostgreSQL; it stores metadata and audit facts.
+
+### Redis
+
+Redis is used for short-lived runtime data where latency matters: session cache, permission cache, rate-limit counters, revocation markers, and small dashboard aggregates. Native TTL support is the key feature. Redis is not the source of truth for durable security decisions; it accelerates checks that can be recomputed or fail closed.
+
+### RabbitMQ
+
+RabbitMQ is the initial queue because v2 needs reliable background jobs more than high-volume event streaming. Approval notifications, audit exports, engine metadata reconciliation, and retryable operational tasks fit RabbitMQ's work-queue model well. It provides acknowledgements, retries, dead-letter queues, and operational simplicity.
+
+### Kafka
+
+Kafka is not required for the first internal v2 deployment. It becomes useful only if StrongBox needs high-throughput event streaming to multiple independent consumers, such as SIEM ingestion, analytics, compliance pipelines, and internal platform event subscribers. Adding Kafka early would increase operational complexity without a proven need.
+
+### Next.js
+
+Next.js is the frontend framework because the StrongBox UI needs a structured app, route groups, server/client component flexibility, and a TypeScript-first developer experience. The UI is an internal tool, so the priority is not marketing-page performance; the priority is maintainable workflows, safe state handling, and clear operational screens.
+
+### TypeScript
+
+TypeScript is required because the UI handles sensitive workflows. Typed API clients, typed form models, and typed UI state reduce mistakes around secret metadata, reveal flows, approvals, and user permissions.
+
+### Tailwind CSS
+
+Tailwind CSS is appropriate because the UI should be fast to build while staying visually consistent. StrongBox should feel like an operational security console: dense, calm, readable, and predictable. Tailwind gives enough control to build that without introducing a large component framework too early.
+
+### Nginx Or Internal Ingress
+
+Nginx or an equivalent internal ingress remains useful for TLS termination, request size limits, coarse rate limiting, and routing. V1 already uses Nginx in Compose. V2 should keep the pattern but harden it for internal production with private networking and strict upstream exposure.
+
+### Cloud Services
+
+This EDD does not select a managed cloud provider. The target is internal production deployment, so the design stays cloud-portable: containerized frontend, Rust API, PostgreSQL, Redis, RabbitMQ, and the existing StrongBox engine cluster. If a cloud provider is chosen later, the decision should be made based on private networking, managed database maturity, secret handling, audit export requirements, and operational cost, not because the application architecture requires a specific vendor.
+
+## Closing Design Position
+
+StrongBox v1 was a successful engine prototype, but it should not be treated as a complete product. The v2 design keeps the engine where it is strongest and adds the missing production layer around it: human identity, typed backend APIs, safe UI workflows, relational metadata, approval gates, runtime caching, background jobs, searchable audit, and serious observability.
+
+The most important v2 principle is simple: the engine protects secrets, while the control plane protects the humans and workflows around those secrets.
