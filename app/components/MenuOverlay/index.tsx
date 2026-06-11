@@ -38,13 +38,21 @@ function MenuOverlay() {
         duration-500 animate-in fade-in"
         onClick={() => dispatch(closeMenu())}
       />
+      <button
+        onClick={() => dispatch(closeMenu())}
+        className="fixed top-6 right-6 z-[120] p-1.5 sm:p-3 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/15 backdrop-blur-xl shadow-2xl transition-all 
+        duration-300 group"
+        aria-label="Close Core R&D menu"
+      >
+        <HiXMark className="text-xl sm:text-2xl group-hover:rotate-90 transition-transform duration-300" />
+      </button>
       {/* Content Container */}
       <div
         className="relative w-full h-[97vh] sm:h-full max-w-6xl bg-zinc-100/10 dark:bg-zinc-900/20 backdrop-blur-2xl 
-      border border-white/10 rounded-2xl shadow-2xl overflow-hidden flex flex-col transform transition-all duration-500 animate-in zoom-in fade-in"
+      border border-white/10 rounded-2xl shadow-2xl overflow-y-auto custom-scrollbar flex flex-col transform transition-all duration-500 animate-in zoom-in fade-in"
       >
         {/* Header */}
-        <div className="sticky top-0 z-50 flex items-center justify-between px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-6 border-b border-white/5 bg-white/5 backdrop-blur-md">
+        <div className="flex items-center justify-between px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-6 pr-14 sm:pr-20 border-b border-white/5 bg-white/5 backdrop-blur-md">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/10">
               <div className="w-5 h-5 border-2 border-white/40 rounded-full border-t-white animate-spin-slow" />
@@ -58,17 +66,10 @@ function MenuOverlay() {
               </p>
             </div>
           </div>
-          <button
-            onClick={() => dispatch(closeMenu())}
-            className="p-1.5 sm:p-3 rounded-full bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-all 
-            duration-300 group"
-          >
-            <HiXMark className="text-xl sm:text-2xl group-hover:rotate-90 transition-transform duration-300" />
-          </button>
         </div>
 
-        {/* Scrollable Grid */}
-        <div className="flex-1 overflow-y-auto custom-scrollbar px-3 sm:px-4 md:px-6 py-4 md:py-10">
+        {/* Grid */}
+        <div className="px-3 sm:px-4 md:px-6 py-4 md:py-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mx-auto">
             {portfolioSegments.map((segment, index) => (
               <Link
