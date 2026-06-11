@@ -1,9 +1,13 @@
-export const skills = [
+export const programmingLanguages = [
   'Rust',
   'Solidity',
-  'JavaScript/Typescript',
+  'JavaScript/TypeScript',
+  'Python'
+];
+
+export const toolsLibrariesFrameworks = [
   'NodeJs/ExpressJs',
-  'Python/Django',
+  'Django',
   'Next.js',
   'React',
   'Anchor(Solana)',
@@ -22,7 +26,9 @@ export const skills = [
   'Prometheus',
   'Grafana',
   'Redis',
-  'RabbitMQ'
+  'RabbitMQ',
+  'Kafka',
+  'More...'
 ];
 
 export const expertiseDomains = [
@@ -32,7 +38,7 @@ export const expertiseDomains = [
   'Ethereum',
   'Solana',
   'E-commerce',
-  'Real-time Communication Systems',
+  // 'Real-time Communication Systems',
   'Smart-contract Integration',
   'Blockchain Protocol Design/Architecture'
 ];
