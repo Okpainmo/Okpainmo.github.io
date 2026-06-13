@@ -1,0 +1,399 @@
+---
+postTitle: 'Securing Production Environments With Detrudr: A Practical Guide'
+postDate: 'May 6, 2026'
+postLastUpdated: 'May 6, 2026'
+postIndex: 13
+postCategory: 'cloud-and-devops'
+subCategories: []
+postBrief: 'A practical guide to using Detrudr as an extra production security layer for monitoring traffic anomalies and responding to suspicious request patterns'
+postThumbnailUrl: '/blog/post-banners/post-banner_13.png'
+authorPhotoUrl: '/author_image-1.jpg'
+authorName: Andrew James Okpainmo
+authorBio: "Andrew James Okpainmo is a fullstack software engineer who is passionate about building 
+and scaling awesome products and startups. He currently works as a freelance software engineer 
+(with expertise in fullstack software development, cloud engineering, and DevOps), while leading the team 
+at Zed Labs."
+postTags: ['cloud-engineering', 'devsecops', 'production-security', 'detrudr', 'nginx', 'linux-security', 'ddos', 'traffic-anomaly-detection']
+postSlug: 'securing-production-environments-with-detrudr-a-practical-guide'
+authorSocials:
+  twitter: https://twitter.com/AJ_Okpainmo
+  linkedin: https://www.linkedin.com/in/okpainmo-andrew/
+  github: https://github.com/Okpainmo
+---
+
+![post banner](/blog/post-banners/post-banner_13.png)
+
+Production security is not one big heroic thing.
+
+Most of the time, it is a stack of small boring controls that make abuse more expensive, make incidents easier to see,
+and give your system a way to respond before a human being has finished reading the alert.
+
+Detrudr is one of those controls.
+
+It is a lightweight HTTP traffic anomaly and DDoS counter engine that sits beside a containerized application, tails
+Nginx JSON access logs, learns what normal traffic looks like, detects suspicious spikes, and can block abusive IPs
+with `iptables`.
+
+<GitHubEmbed owner="Okpainmo" repo="detrudr" />
+
+This article is a practical guide to what Detrudr is doing, why the design is useful, and how I think about using it
+as an extra production security layer.
+
+## The Problem Detrudr Is Solving.
+
+Every public server eventually receives strange traffic.
+
+Sometimes it is harmless noise.
+
+Sometimes it is a bot indexing pages too aggressively.
+
+Sometimes it is credential probing, path scanning, endpoint fuzzing, or a small denial-of-service attempt that is not
+large enough to trigger major cloud-provider protections but is still large enough to hurt a small application.
+
+The dangerous part is not only the request volume. It is the delay between:
+
+- the abuse starting
+
+- the logs showing the pattern
+
+- someone noticing
+
+- someone deciding what to do
+
+- someone applying a block or mitigation
+
+Detrudr compresses that loop.
+
+It watches the traffic stream, measures recent behavior, compares it against a rolling baseline, and reacts when a
+source becomes obviously abusive.
+
+> Detrudr is not a replacement for Cloudflare, AWS WAF, rate limiting, API authentication, good Nginx configuration, or
+> sane application-level security. It is a focused layer that gives smaller production deployments a local, inspectable
+> defense loop.
+
+## The Basic Flow.
+
+The architecture is intentionally simple:
+
+```text
+Client request
+  -> Nginx receives request
+  -> Nginx writes one JSON access log line
+  -> Detrudr tails the log stream
+  -> Detrudr updates recent traffic windows
+  -> Detrudr compares current behavior with baseline behavior
+  -> Detrudr alerts, records, or blocks
+```
+
+That design choice matters.
+
+Detrudr does not need to become a reverse proxy, and it does not need to sit directly in the request path. Nginx remains
+the request gateway. Detrudr reads the evidence Nginx already produces.
+
+This keeps the protection layer understandable.
+
+## Preparing Nginx Logs For Detection.
+
+The first requirement is structured logging.
+
+Plain text access logs are useful for humans, but they are awkward for a detector. Detrudr works better when every
+request becomes a predictable JSON record.
+
+Example Nginx log format:
+
+<CodeBlock
+  language="nginx"
+  content={`log_format detrudr_json escape=json
+  '{'
+    '"timestamp":"$time_iso8601",'
+    '"source_ip":"$remote_addr",'
+    '"method":"$request_method",'
+    '"path":"$uri",'
+    '"status":$status,'
+    '"response_size":$body_bytes_sent,'
+    '"user_agent":"$http_user_agent"'
+  '}';
+
+access_log /var/log/nginx/access.json detrudr_json;`}
+/>
+
+Now every request gives the detector a clean event:
+
+- who sent it
+
+- when it arrived
+
+- what method was used
+
+- what path was requested
+
+- how the server responded
+
+- how large the response was
+
+The detector does not need to guess.
+
+## Why Sliding Windows Are Useful.
+
+A fixed one-minute bucket is easy to implement, but it has an annoying problem: the boundary is artificial.
+
+If traffic spikes across the edge of two buckets, each bucket can look acceptable even though the last 60 seconds were
+clearly hostile.
+
+Sliding windows answer a better question:
+
+> What has happened in the last N seconds from right now?
+
+For Detrudr, that means keeping recent timestamps in memory and dropping old ones as new events arrive.
+
+The simplified shape looks like this:
+
+<CodeBlock
+  language="python"
+  content={`from collections import deque
+from time import time
+
+window = deque()
+WINDOW_SECONDS = 60
+
+def record_request():
+    now = time()
+    window.append(now)
+
+    while window and window[0] < now - WINDOW_SECONDS:
+        window.popleft()
+
+    return len(window)`}
+/>
+
+This gives the detector a constantly fresh request count.
+
+Detrudr applies that idea globally and per IP:
+
+- total recent requests
+
+- recent requests per source IP
+
+- recent error-heavy requests per source IP
+
+Those three views give you a much better signal than global traffic alone.
+
+## Learning A Rolling Baseline.
+
+Static thresholds are tempting.
+
+For example:
+
+```text
+ban any IP with more than 120 requests per minute
+```
+
+That can work for a small private service, but it does not generalize well.
+
+Some applications naturally receive bursts. Some endpoints are noisy. Some hours are quiet. Some hours are busy. A
+threshold that is safe on Monday morning can be ridiculous on Friday evening.
+
+That is why Detrudr treats traffic as relative.
+
+It learns a rolling baseline and compares current behavior against recent historical behavior:
+
+<CodeBlock
+  language="text"
+  content={`zscore = (current_rate - baseline_mean) / baseline_stddev`}
+/>
+
+If current traffic is far outside normal traffic, that is more meaningful than a hard-coded number by itself.
+
+Detrudr can also combine that with a multiplier:
+
+<CodeBlock
+  language="text"
+  content={`current_rate > baseline_mean * multiplier`}
+/>
+
+The point is not mathematical perfection.
+
+The point is to avoid treating every server like it has the same traffic profile.
+
+## Global Signals Versus Per-IP Signals.
+
+There are two different questions the system needs to answer.
+
+The first question is:
+
+> Is the entire server under unusual pressure?
+
+That is the global anomaly path. It is useful for alerts and dashboard visibility.
+
+The second question is:
+
+> Is this specific IP behaving in a way that deserves enforcement?
+
+That is the per-IP path. It is the one that can lead to an actual ban.
+
+This distinction matters because global traffic can spike for legitimate reasons. A newsletter mention, a product launch,
+or a crawler can all increase traffic without meaning one source should be blocked.
+
+Per-IP checks are more actionable.
+
+## Error-Weighted Suspicion.
+
+Request volume is not the only suspicious signal.
+
+An IP producing a high number of `404`, `401`, `403`, or `5xx` responses is often more interesting than an IP producing
+normal successful traffic.
+
+That can indicate:
+
+- endpoint probing
+
+- credential attempts
+
+- path discovery
+
+- broken automation
+
+- hostile retry loops
+
+So Detrudr tightens its view of an IP when the error ratio rises.
+
+This is important because a low-volume attacker can still be noisy in a security sense. Ten requests to ten sensitive
+paths may be more suspicious than fifty requests to the home page.
+
+## Blocking With iptables.
+
+When Detrudr decides that an IP should be banned, the direct response path is `iptables`.
+
+Example:
+
+<CodeBlock
+  language="bash"
+  content={`iptables -I INPUT -s 198.51.100.10 -j DROP`}
+/>
+
+To remove the rule later:
+
+<CodeBlock
+  language="bash"
+  content={`iptables -D INPUT -s 198.51.100.10 -j DROP`}
+/>
+
+That is a blunt instrument, but it is effective.
+
+The important part is to make the ban lifecycle visible and reversible. A security tool that silently blocks traffic
+without auditability becomes its own incident risk.
+
+## Progressive Bans.
+
+Permanent bans on first contact are too aggressive for most systems.
+
+Networks are messy. NAT exists. Proxies exist. Mobile networks rotate addresses. A badly written integration can look
+hostile for a short period and then stop.
+
+A progressive schedule is safer:
+
+1. First strike: short ban.
+
+2. Second strike: longer ban.
+
+3. Third strike: serious ban.
+
+4. Repeated abuse: permanent or operator-reviewed ban.
+
+This lets the system react quickly without pretending every first anomaly is a confirmed attacker.
+
+## What I Would Monitor.
+
+If Detrudr is running in production, I care about these numbers:
+
+- current global request rate
+
+- top IPs by recent request volume
+
+- top IPs by recent error ratio
+
+- active bans
+
+- recent unbans
+
+- global anomaly alerts
+
+- detector warm-up state
+
+- baseline mean and standard deviation
+
+- ban reasons
+
+The dashboard is not just decoration. It is how the operator builds trust in the automation.
+
+## Deployment Notes.
+
+In a real deployment, I would keep Detrudr on the same host or private network segment as the Nginx logs it needs to
+read.
+
+A minimal deployment has these pieces:
+
+- Nginx writing JSON access logs
+
+- the protected application behind Nginx
+
+- Detrudr tailing the access log
+
+- host permissions for `iptables`
+
+- Slack or another alert sink
+
+- persistent storage for audit records and ban state
+
+The `iptables` permission is the sensitive part. You do not want to casually hand network-control privileges to random
+containers. The operational trade-off should be explicit.
+
+## Where Detrudr Fits.
+
+Detrudr is best understood as a local defense layer.
+
+It is useful when:
+
+- you run smaller production services
+
+- you want insight into abusive traffic patterns
+
+- you want automatic short-term blocking
+
+- you want logs, alerts, and a dashboard around traffic anomalies
+
+It is not enough when:
+
+- you need global edge protection
+
+- you are handling very large volumetric attacks
+
+- you need managed bot detection
+
+- you need enterprise compliance features
+
+- you cannot safely grant host-level firewall control
+
+That boundary is healthy. Good tools should know what job they are doing.
+
+## Conclusion.
+
+Detrudr is an attempt to make production defense more inspectable and immediate.
+
+It does not promise magic. It watches the request stream, builds a baseline, detects abnormal behavior, and closes the
+loop with alerts and optional bans.
+
+For small teams, personal infrastructure, internal tools, and early production systems, that can be the difference
+between "we noticed this in the morning" and "the system reacted in the first minute."
+
+That is the kind of security layer I like: simple enough to reason about, useful enough to keep around, and honest about
+its limits.
+
+Thanks a lot for reading.
+
+> If you loved this post and would love to send an appreciation, simply use this link to [buy me
+> a cup of coffee](https://paystack.com/pay/11tykgn4-s).
+
+See you in the next article.
+
+Cheers!!!

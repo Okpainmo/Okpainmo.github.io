@@ -1,0 +1,466 @@
+---
+postTitle: 'Performance Testing With k6 By Grafana Labs'
+postDate: 'May 6, 2026'
+postLastUpdated: 'May 6, 2026'
+postIndex: 14
+postCategory: 'cloud-and-devops'
+subCategories: ['backend-development']
+postBrief: 'A practical introduction to performance testing APIs and back-end systems with k6 by Grafana Labs'
+postThumbnailUrl: '/blog/post-banners/post-banner_14.png'
+authorPhotoUrl: '/author_image-1.jpg'
+authorName: Andrew James Okpainmo
+authorBio: "Andrew James Okpainmo is a fullstack software engineer who is passionate about building 
+and scaling awesome products and startups. He currently works as a freelance software engineer 
+(with expertise in fullstack software development, cloud engineering, and DevOps), while leading the team 
+at Zed Labs."
+postTags: ['performance-testing', 'k6', 'grafana', 'load-testing', 'backend-development', 'api-testing', 'devops', 'observability']
+postSlug: 'performance-testing-with-k6-by-grafana-labs'
+authorSocials:
+  twitter: https://twitter.com/AJ_Okpainmo
+  linkedin: https://www.linkedin.com/in/okpainmo-andrew/
+  github: https://github.com/Okpainmo
+---
+
+![post banner](/blog/post-banners/post-banner_14.png)
+
+Performance testing is one of those engineering practices people usually discover after the first painful production
+incident.
+
+The API was fast on your laptop.
+
+It was fast when one developer clicked through the happy path.
+
+It was even fast when QA tested it with three accounts and a clean database.
+
+Then real traffic arrived, and suddenly the system started telling the truth.
+
+This article is a practical introduction to performance testing backend systems with k6 by Grafana Labs. The goal is
+not to turn every developer into a performance engineer overnight. The goal is to make performance testing feel like a
+normal part of backend development rather than a mysterious thing that happens only after production has started burning.
+
+## What k6 Is.
+
+k6 is an open-source performance testing tool built for engineering workflows.
+
+You write test scripts in JavaScript, run them from the command line, and use the result to understand how your system
+behaves under load.
+
+That simple idea is powerful because performance tests become code.
+
+They can live beside your backend, run in CI, evolve with your endpoints, and document the expectations you have for
+latency, error rates, and throughput.
+
+## Why Performance Testing Matters.
+
+Backend systems usually fail slowly before they fail loudly.
+
+You will see hints:
+
+- average latency starts looking acceptable while p95 gets ugly
+
+- database CPU rises under endpoints that looked harmless
+
+- queues grow faster than workers can drain them
+
+- connection pools start timing out
+
+- retries multiply the original problem
+
+- small memory leaks become visible only after long-running traffic
+
+Performance testing helps you find those limits before your users do.
+
+It answers questions like:
+
+- how many requests can this endpoint handle?
+
+- what does latency look like at realistic traffic?
+
+- where does the system bend?
+
+- where does it break?
+
+- does a new change make performance worse?
+
+Without tests, you are mostly guessing.
+
+## Installing k6.
+
+Install k6 using the method that fits your environment.
+
+On macOS with Homebrew:
+
+<CodeBlock
+  language="bash"
+  content={`brew install k6`}
+/>
+
+On Linux, you can use your distribution's package flow or run it through Docker.
+
+With Docker:
+
+<CodeBlock
+  language="bash"
+  content={`docker run --rm -i grafana/k6 run - <script.js`}
+/>
+
+Once installed, confirm the CLI is available:
+
+<CodeBlock
+  language="bash"
+  content={`k6 version`}
+/>
+
+## The Smallest Useful Test.
+
+Here is a basic k6 script:
+
+<CodeBlock
+  language="javascript"
+  content={`import http from 'k6/http';
+import { check, sleep } from 'k6';
+
+export default function () {
+  const res = http.get('https://api.example.com/health');
+
+  check(res, {
+    'status is 200': (r) => r.status === 200,
+    'response is fast': (r) => r.timings.duration < 300,
+  });
+
+  sleep(1);
+}`}
+/>
+
+Run it:
+
+<CodeBlock
+  language="bash"
+  content={`k6 run health.js`}
+/>
+
+This test is intentionally small, but it already introduces the core model:
+
+- import k6 APIs
+
+- send HTTP requests
+
+- check response behavior
+
+- pause between user actions
+
+- inspect the summary
+
+## Checks Are Not Thresholds.
+
+k6 has both checks and thresholds.
+
+They sound similar, but they solve different problems.
+
+Checks are assertions made during the test:
+
+<CodeBlock
+  language="javascript"
+  content={`check(res, {
+  'login succeeded': (r) => r.status === 200,
+  'token exists': (r) => Boolean(r.json('token')),
+});`}
+/>
+
+They answer:
+
+> Did this individual response behave correctly?
+
+Thresholds define pass/fail expectations for the whole test run:
+
+<CodeBlock
+  language="javascript"
+  content={`export const options = {
+  thresholds: {
+    http_req_failed: ['rate<0.01'],
+    http_req_duration: ['p(95)<500'],
+  },
+};`}
+/>
+
+They answer:
+
+> Did the system meet the performance bar overall?
+
+You usually need both.
+
+Checks protect correctness. Thresholds protect performance expectations.
+
+## A More Realistic API Test.
+
+Most APIs are not one endpoint. A real user flow often includes authentication, reading data, writing data, and fetching
+the result again.
+
+Example:
+
+<CodeBlock
+  language="javascript"
+  content={`import http from 'k6/http';
+import { check, sleep } from 'k6';
+
+export const options = {
+  vus: 20,
+  duration: '1m',
+  thresholds: {
+    http_req_failed: ['rate<0.02'],
+    http_req_duration: ['p(95)<750'],
+  },
+};
+
+const BASE_URL = __ENV.BASE_URL || 'https://api.example.com';
+
+export default function () {
+  const loginRes = http.post(
+    \`\${BASE_URL}/auth/login\`,
+    JSON.stringify({
+      email: 'demo@example.com',
+      password: 'password',
+    }),
+    {
+      headers: { 'Content-Type': 'application/json' },
+    }
+  );
+
+  check(loginRes, {
+    'login status is 200': (r) => r.status === 200,
+  });
+
+  const token = loginRes.json('token');
+
+  const profileRes = http.get(\`\${BASE_URL}/users/me\`, {
+    headers: {
+      Authorization: \`Bearer \${token}\`,
+    },
+  });
+
+  check(profileRes, {
+    'profile status is 200': (r) => r.status === 200,
+  });
+
+  sleep(1);
+}`}
+/>
+
+Run it against a target environment:
+
+<CodeBlock
+  language="bash"
+  content={`BASE_URL=https://staging.example.com k6 run api-flow.js`}
+/>
+
+This is closer to how a backend is actually used.
+
+## VUs, Duration, And Scenarios.
+
+A VU is a virtual user.
+
+If you set:
+
+<CodeBlock
+  language="javascript"
+  content={`export const options = {
+  vus: 50,
+  duration: '5m',
+};`}
+/>
+
+k6 runs 50 virtual users for 5 minutes.
+
+That is fine for simple tests, but scenarios are more expressive when you want realistic traffic phases.
+
+Example:
+
+<CodeBlock
+  language="javascript"
+  content={`export const options = {
+  scenarios: {
+    warm_up: {
+      executor: 'ramping-vus',
+      startVUs: 0,
+      stages: [
+        { duration: '1m', target: 10 },
+        { duration: '2m', target: 10 },
+        { duration: '1m', target: 0 },
+      ],
+    },
+  },
+};`}
+/>
+
+This lets you shape the traffic instead of throwing one flat number at your system.
+
+## Types Of Performance Tests.
+
+Different tests answer different questions.
+
+### Smoke Test.
+
+A smoke test uses very small load.
+
+It answers:
+
+> Does the script work and does the system basically respond?
+
+Run this before larger tests so you do not spend ten minutes load-testing a broken script.
+
+### Load Test.
+
+A load test uses expected traffic.
+
+It answers:
+
+> Can the system handle normal production demand?
+
+This is the test you should run most often.
+
+### Stress Test.
+
+A stress test pushes beyond expected traffic.
+
+It answers:
+
+> Where does the system start to degrade?
+
+This helps you find bottlenecks.
+
+### Spike Test.
+
+A spike test jumps traffic quickly.
+
+It answers:
+
+> What happens when demand arrives suddenly?
+
+This is useful for systems that may receive bursts from launches, campaigns, alerts, or viral traffic.
+
+### Soak Test.
+
+A soak test runs for a long time.
+
+It answers:
+
+> Does the system stay healthy over hours?
+
+This is how you catch slow leaks, queue buildup, and resource exhaustion patterns.
+
+## What To Watch During A Test.
+
+k6 output is useful, but you should also watch the system under test.
+
+At minimum, track:
+
+- CPU usage
+
+- memory usage
+
+- database CPU and connections
+
+- cache hit rate
+
+- queue depth
+
+- error logs
+
+- p95 and p99 latency
+
+- upstream timeout count
+
+- request rate
+
+Performance testing without observability is like driving with the windshield covered.
+
+The test tells you the car hit something. Observability tells you what.
+
+## Reading The Result.
+
+Do not obsess over average latency.
+
+Average latency hides pain.
+
+A system can have a decent average while a meaningful percentage of users are waiting too long.
+
+Pay attention to:
+
+- `http_req_duration`
+
+- `http_req_failed`
+
+- p95 latency
+
+- p99 latency
+
+- request throughput
+
+- dropped iterations
+
+- timeouts
+
+If p95 is rising while average latency looks calm, your system is warning you early.
+
+## Adding k6 To CI.
+
+You do not need to run a massive test on every commit.
+
+A useful CI flow can be:
+
+1. Run smoke performance tests on pull requests.
+
+2. Run average-load tests on staging before release.
+
+3. Run stress or soak tests manually before major launches.
+
+Example CI command:
+
+<CodeBlock
+  language="bash"
+  content={`k6 run tests/performance/smoke.js`}
+/>
+
+If thresholds fail, the command exits with failure. That makes performance expectations enforceable.
+
+## Common Mistakes.
+
+The first mistake is testing production without permission or planning.
+
+Do not surprise your own infrastructure.
+
+The second mistake is using unrealistic test data.
+
+If every virtual user logs in with the same account, hits the same cached endpoint, and reads the same record, your
+result may be too optimistic.
+
+The third mistake is ignoring the database.
+
+Many backend performance issues are database issues wearing an API costume.
+
+The fourth mistake is chasing a single number.
+
+Performance is a shape, not one metric. Look at latency, errors, throughput, and resource behavior together.
+
+## Conclusion.
+
+k6 is useful because it makes performance testing feel like engineering work.
+
+You write scripts. You commit them. You run them locally. You run them in CI. You improve them as the product changes.
+
+The real win is not just discovering that an endpoint is slow.
+
+The real win is building a feedback loop where performance regressions become visible before users are forced to report
+them.
+
+That is the standard I like for backend systems: correctness tests for behavior, performance tests for pressure, and
+observability for the truth in between.
+
+Thanks a lot for reading.
+
+> If you loved this post and would love to send an appreciation, simply use this link to [buy me
+> a cup of coffee](https://paystack.com/pay/11tykgn4-s).
+
+See you in the next article.
+
+Cheers!!!

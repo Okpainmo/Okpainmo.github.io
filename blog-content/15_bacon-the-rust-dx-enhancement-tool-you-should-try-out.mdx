@@ -1,0 +1,351 @@
+---
+postTitle: 'Bacon: The Rust DX Enhancement Tool You Should Try Out'
+postDate: 'May 6, 2026'
+postLastUpdated: 'May 6, 2026'
+postIndex: 15
+postCategory: 'backend-development'
+subCategories: []
+postBrief: 'A focused look at Bacon, the Rust developer experience tool that keeps feedback fast while you build, test, and iterate'
+postThumbnailUrl: '/blog/post-banners/post-banner_15.png'
+authorPhotoUrl: '/author_image-1.jpg'
+authorName: Andrew James Okpainmo
+authorBio: "Andrew James Okpainmo is a fullstack software engineer who is passionate about building 
+and scaling awesome products and startups. He currently works as a freelance software engineer 
+(with expertise in fullstack software development, cloud engineering, and DevOps), while leading the team 
+at Zed Labs."
+postTags: ['rust', 'bacon', 'developer-experience', 'backend-development', 'cargo', 'testing', 'tooling']
+postSlug: 'bacon-the-rust-dx-enhancement-tool-you-should-try-out'
+authorSocials:
+  twitter: https://twitter.com/AJ_Okpainmo
+  linkedin: https://www.linkedin.com/in/okpainmo-andrew/
+  github: https://github.com/Okpainmo
+---
+
+![post banner](/blog/post-banners/post-banner_15.png)
+
+Rust is a beautiful language, but Rust development can sometimes feel like you are having a long, serious conversation
+with the compiler.
+
+That is not a complaint.
+
+Most of the time, the compiler is saving you from future pain.
+
+But feedback speed matters. If you are building a backend service, refactoring a crate, writing tests, or moving through
+a lot of small compile errors, the loop can start to feel heavier than it needs to be.
+
+Bacon helps with that.
+
+It is a background Rust code checker that watches your project and reruns the right Cargo jobs as files change. The
+result is simple: you keep coding while Bacon keeps the feedback visible.
+
+## The Problem With Slow Feedback.
+
+The default Rust workflow is usually something like this:
+
+<CodeBlock
+  language="bash"
+  content={`cargo check
+cargo test
+cargo clippy`}
+/>
+
+That works.
+
+But the friction is not the command itself. The friction is repetition.
+
+You edit a file. You switch to the terminal. You run `cargo check`. You wait. You read the error. You switch back. You
+fix it. You run the command again.
+
+After a while, that small loop becomes a tax on concentration.
+
+And concentration is expensive.
+
+## What Bacon Does.
+
+Bacon runs in the terminal, watches your Rust project, and continuously executes background jobs like:
+
+- `cargo check`
+
+- `cargo test`
+
+- `cargo clippy`
+
+- custom Cargo commands
+
+Instead of manually asking "does this compile now?", you keep a Bacon terminal open and let it answer that question as
+you work.
+
+That sounds small.
+
+It is not small when you are deep in a refactor.
+
+## Installing Bacon.
+
+If you already have Rust and Cargo installed, you can install Bacon with:
+
+<CodeBlock
+  language="bash"
+  content={`cargo install bacon`}
+/>
+
+Then run it from the root of a Rust project:
+
+<CodeBlock
+  language="bash"
+  content={`bacon`}
+/>
+
+By default, Bacon starts with a useful checking workflow. You can switch jobs from the interface or configure your own
+project-specific jobs.
+
+## The Basic Workflow.
+
+My preferred setup is simple:
+
+1. Open the editor.
+
+2. Open a terminal beside it.
+
+3. Run Bacon.
+
+4. Keep coding.
+
+The terminal becomes a live compiler panel.
+
+When something breaks, it shows up quickly. When the error is fixed, the output clears or moves forward. That gives you
+a steady sense of whether the codebase is healthy without turning every small edit into a manual command.
+
+## Why `cargo check` Is The Main Loop.
+
+For day-to-day Rust development, `cargo check` is usually the best default feedback loop.
+
+It type-checks and borrow-checks your project without producing final binaries.
+
+That means it can catch a large class of problems faster than a full build:
+
+- type errors
+
+- lifetime issues
+
+- missing imports
+
+- trait bound problems
+
+- borrow checker failures
+
+- module path mistakes
+
+Example:
+
+<CodeBlock
+  language="bash"
+  content={`bacon check`}
+/>
+
+This is the loop I want running while I am shaping code.
+
+Full builds and tests still matter, but they do not always need to be the first thing that runs after every keystroke.
+
+## Adding Tests To The Loop.
+
+Once the code compiles, tests become the next layer of confidence.
+
+You can run:
+
+<CodeBlock
+  language="bash"
+  content={`bacon test`}
+/>
+
+That is useful when you are working inside a specific behavior area and want immediate test feedback.
+
+For example, imagine a small domain function:
+
+<CodeBlock
+  language="rust"
+  content={`pub fn calculate_retry_delay(attempt: u32) -> u64 {
+    let capped_attempt = attempt.min(5);
+    2_u64.pow(capped_attempt)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn caps_retry_delay_growth() {
+        assert_eq!(calculate_retry_delay(10), 32);
+    }
+}`}
+/>
+
+When Bacon is running the test job, you can keep adjusting the implementation while the result updates in the background.
+
+That makes TDD-style work feel much lighter.
+
+## Using Clippy Without Breaking Flow.
+
+Clippy is Rust's linter, and it catches a lot of suspicious or unidiomatic code.
+
+I like running it before commits, but it is also useful during cleanup work.
+
+With Bacon:
+
+<CodeBlock
+  language="bash"
+  content={`bacon clippy`}
+/>
+
+Clippy is especially useful when you are polishing code after the design has settled.
+
+The distinction matters.
+
+During early exploration, I care about compile feedback. During cleanup, I care about idioms, warnings, needless clones,
+awkward control flow, and maintainability hints.
+
+## Project Configuration.
+
+For project-specific workflows, Bacon can be configured with a `bacon.toml` file.
+
+A simple configuration can define jobs for checking, tests, and Clippy:
+
+<CodeBlock
+  language="toml"
+  content={`default_job = "check"
+
+[jobs.check]
+command = ["cargo", "check", "--all-targets"]
+need_stdout = false
+
+[jobs.test]
+command = ["cargo", "test"]
+need_stdout = true
+
+[jobs.clippy]
+command = ["cargo", "clippy", "--all-targets", "--", "-D", "warnings"]
+need_stdout = false`}
+/>
+
+The exact configuration should match the project.
+
+A small CLI crate, a web backend, and a workspace with multiple services may need different jobs.
+
+## Why Bacon Feels Better Than Manual Commands.
+
+The win is not that Bacon runs a command you could not run yourself.
+
+The win is that it changes the rhythm of development.
+
+Manual flow:
+
+```text
+edit -> stop -> run command -> wait -> inspect -> edit again
+```
+
+Bacon flow:
+
+```text
+edit -> glance at feedback -> keep going
+```
+
+That difference becomes large when the work is mentally dense.
+
+Rust already asks you to hold ownership, lifetimes, traits, modules, error types, and domain logic in your head. A tool
+that protects your focus is worth taking seriously.
+
+## Where Bacon Helps Most.
+
+Bacon is most useful when:
+
+- you are refactoring modules
+
+- you are working through borrow-checker errors
+
+- you are editing a workspace
+
+- you are doing test-driven development
+
+- you are cleaning warnings before a commit
+
+- you want a constant compiler status panel
+
+It is less important when:
+
+- you are making a tiny one-line change
+
+- the project compiles very slowly regardless of `cargo check`
+
+- you need full integration tests that depend on external services
+
+- you prefer editor-integrated diagnostics only
+
+That is fine. Bacon does not need to replace every tool. It just needs to make the common loop smoother.
+
+## A Practical Backend Workflow.
+
+For a Rust backend, I would usually structure the feedback loop like this:
+
+1. Run `bacon check` while actively editing handlers, services, extractors, and domain types.
+
+2. Switch to `bacon test` when working on behavior that has tests.
+
+3. Run `bacon clippy` during cleanup.
+
+4. Run the full project command before commit or deployment.
+
+Example final local pass:
+
+<CodeBlock
+  language="bash"
+  content={`cargo fmt
+cargo clippy --all-targets -- -D warnings
+cargo test
+cargo build --release`}
+/>
+
+Bacon improves the inner loop. It does not remove the need for the final outer loop.
+
+## Things To Watch Out For.
+
+The first thing to watch is noisy jobs.
+
+If your Bacon job prints too much output, you may stop reading it. Keep the default job focused.
+
+The second thing is expensive tests.
+
+If a test suite takes a long time, running it on every change may be counterproductive. In that case, create a narrower
+job for the specific package, module, or test name.
+
+Example:
+
+<CodeBlock
+  language="bash"
+  content={`bacon test -- --package my_backend auth`}
+/>
+
+The third thing is false confidence.
+
+`cargo check` is not the same as `cargo test`, and `cargo test` is not the same as a production build. Use each tool for
+the kind of feedback it is designed to provide.
+
+## Conclusion.
+
+Bacon is not a flashy tool.
+
+That is part of why I like it.
+
+It sits in the terminal, watches the project, and keeps the Rust feedback loop warm while you work.
+
+For a language where compiler feedback is such a central part of the development experience, that kind of tool is
+valuable. It helps you stay in motion without ignoring correctness.
+
+If you write Rust often, especially backend Rust, Bacon is worth trying.
+
+Thanks a lot for reading.
+
+> If you loved this post and would love to send an appreciation, simply use this link to [buy me
+> a cup of coffee](https://paystack.com/pay/11tykgn4-s).
+
+See you in the next article.
+
+Cheers!!!
