@@ -109,7 +109,7 @@ export const opensourceProjects: Project[] = [
   }
 ];
 
-export const clientProjects: Project[] = [
+export const closedSourceProjects: Project[] = [
   {
     id: 'cp-1',
     title: 'King Of Pi Mall Blockchain E-Commerce Project',
@@ -141,7 +141,7 @@ export const clientProjects: Project[] = [
     ],
     tags: [
       'zed-labs',
-      'client-project',
+      'closed-source',
       'blockchain',
       'e-commerce',
       'cryptocurrency',
@@ -183,7 +183,7 @@ export const clientProjects: Project[] = [
     tags: [
       'zed-labs',
       'in-progress',
-      'client-project',
+      'closed-source',
       'full-stack',
       'microservices',
       'saas',

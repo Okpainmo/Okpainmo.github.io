@@ -1,7 +1,7 @@
 import Top from './components/Top';
 import About from './components/About';
 import OpensourceProjects from './components/OpensourceProjects';
-import ClientProjects from './components/ClientProjects';
+import ClosedSourceProjects from './components/ClosedSourceProjects';
 import TemplateProjects from './components/TemplateProjects';
 import BlogIntro from './components/BlogIntro';
 
@@ -16,7 +16,7 @@ export default function Home() {
       </section>
       <section id="projects">
         <OpensourceProjects />
-        <ClientProjects />
+        <ClosedSourceProjects />
         <TemplateProjects />
       </section>
       <BlogIntro />
