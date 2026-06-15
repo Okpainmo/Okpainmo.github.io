@@ -68,18 +68,18 @@ function About() {
           <p className="mb-6">
             Thanks to years of valuable experiences marked by leadership and
             keeping up with new technologies(intentionally optimizing my career
-            to enable me deliver efficiently across the entire engineering
-            stack), I excel and specialize in leading teams - spearheading the
-            delivery of world-class software from ideation, to architecture and
-            design-direction, full-stack development, deployments(cloud/DevOps),
-            and product leadership.
+            to enable me deliver efficiently across the entire software
+            development life-cycle), I excel and specialize in leading teams -
+            spearheading the delivery of world-class software from ideation, to
+            architecture and design-direction, full-stack development,
+            deployments(cloud/DevOps), and product leadership.
           </p>
           <p className="mb-6">
             Deeply goal-oriented, I'm almost always working toward something -
             whether learning a new technology, building a project, working on a
             new idea, or just crushing a problem worth solving. <br /> The last
             couple months has seen me dive quite deep into cloud/infrastructure
-            engineering(DevOps, SRE, Platform Engineering, etc.), which inspired
+            engineering(DevOps, SRE, Platform Engineering, etc), which inspired
             me to build{' '}
             <Link
               href="https://github.com/XopsMaestrosHQ"
