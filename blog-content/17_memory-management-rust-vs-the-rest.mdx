@@ -118,9 +118,9 @@ spikes during garbage collection, or your native extension crashes because one p
 
 ### Why Memory Management is Needed.
 
-**Memory management is a big deal because heap memory does not get freed automatically when you're done using it**. 
-If you keep allocating without freeing, memory accumulates(**memory leak**) until the process hits OOM(Out of Memory) and 
-crashes or gets killed by the OS.
+Memory management is a big deal **because of the heap**. During program execution, heap memory does not get freed 
+automatically when you're done using it. If you keep allocating without freeing, memory accumulates(**memory leak**) 
+until the process hits OOM(Out of Memory) and crashes or gets killed by the OS.
 
 > Memory leak refers to the continuous hold of memory(during program execution) that was allocated but never freed, even 
 though it's no longer needed. The program holds onto it, the Operating System can't reclaim it, and it accumulates over time.
