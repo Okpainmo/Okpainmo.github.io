@@ -10,9 +10,8 @@ function TemplateProjects() {
           /projects/templates
         </div>
         <p className="text-zinc-600 dark:text-zinc-400 text-lg max-w-2xl">
-          Production-ready starter kits and architectural templates designed to
-          accelerate development while maintaining the highest standards of code
-          quality.
+          Starter kits and architectural templates designed to accelerate
+          development while maintaining the high code quality standards.
         </p>
       </div>
 

@@ -1,3 +1,4 @@
+import { HiOutlineArrowsExpand, HiOutlineSupport } from 'react-icons/hi';
 import {
   HiOutlineCodeBracket,
   HiOutlineGlobeAlt,
@@ -13,7 +14,8 @@ import {
   HiOutlineFingerPrint,
   HiOutlineShoppingCart,
   HiOutlineBriefcase,
-  HiOutlineUserGroup
+  HiOutlineUserGroup,
+  HiCubeTransparent
 } from 'react-icons/hi2';
 
 export interface Project {
@@ -25,87 +27,122 @@ export interface Project {
   contributions: string[];
   tags: string[];
   githubLink?: string;
-  liveLink?: string;
+  projectLink?: string;
   icon: any;
 }
 
 export const opensourceProjects: Project[] = [
   {
     id: 'os-1',
-    title: 'Krabby',
+    title: 'Rusty Mesh',
     description:
-      'A production-grade, open-source suite designed for engineering teams who need full control over their real-time communication infrastructure.',
+      'A fast in-memory orchestration layer for microservice/distributed systems. It provides a focused HTTP control plane for service registration, heartbeat-based liveness, semantic version matching, health checks, and sorted round-robin load balancing across compatible instances.',
     skills: [
       'Rust | Axum | Tokio',
       'PostgreSQL | SQLX',
-      'NextJs | ReactJs',
-      'React Native',
-      'Web Sockets',
-      'WebRTC',
-      'Redux Toolkit',
-      'TailwindCSS',
+      'Microservices',
+      'Docker',
       'More...'
     ],
     contributions: [
       'Creator',
       'Opensource Maintainer',
       'Systems Design',
-      'Fullstack Development',
-      'Mobile Development',
-      'Cloud/DevOps'
+      'Platform Engineering',
+      'Backend Development'
     ],
     tags: [
-      'pre-release',
-      'full-stack',
       'open-source',
-      'real-time-communication',
-      'web sockets',
-      'webrtc',
+      'backend-development',
+      'distributed-systems',
+      'platform-engineering',
       'rust',
+      'axum',
+      'containerization',
       '...'
     ],
-    githubLink: 'https://github.com/KrabbyHQ',
-    icon: HiOutlineCube
+    githubLink: 'https://github.com/Okpainmo/rusty-mesh',
+    icon: HiOutlineSquare3Stack3D
   },
   {
     id: 'os-2',
-    title: 'Fidelity',
+    title: 'Detrudr',
     description:
-      'A multi-chain cryptocurrency wallet platform designed to provide complete infrastructure for issuing and managing blockchain wallets at scale.',
+      'An HTTP traffic-anomaly detection and DDOS-prevention engine built with Rust. It is a host-level security daemon that sits beside nginx-fronted services, tails nginx JSON access logs in real time, learns rolling request baselines, detects suspicious spikes...',
+    skills: ['Rust', 'SSR', 'TailwindCSS', 'Docker', 'More...'],
+    contributions: [
+      'Creator',
+      'Opensource Maintainer',
+      'Systems Engineering',
+      'Cloud/DevSecOps'
+    ],
+    tags: [
+      'open-source',
+      'rust',
+      'systems-engineering',
+      'dev-sec-ops',
+      'server-side-rendering',
+      '...'
+    ],
+    githubLink: 'https://github.com/Okpainmo/detrudr',
+    icon: HiOutlineCube
+  },
+  {
+    id: 'os-3',
+    title: 'Lola DAO',
+    description:
+      'A DAO-as-a-service(DaaS) smart-contract project built for managing/controlling custom ERC20 token supplies, among other internal DAO functions.',
+    skills: ['Solidity', 'TypeScript', 'Hardhat', 'More...'],
+    contributions: [
+      'Creator',
+      'Opensource Maintainer',
+      'Smart-contract Engineering',
+      'Blockchain Development'
+    ],
+    tags: [
+      'open-source',
+      'solidity',
+      'typescript',
+      'hardhat',
+      'EVM',
+      'smart-contract-engineering',
+      'blockchain-development',
+      '...'
+    ],
+    githubLink: 'https://github.com/Okpainmo/lola-dao',
+    icon: HiCubeTransparent
+  },
+  {
+    id: 'os-4',
+    title: 'Rusty Auth',
+    description:
+      'A ready-to-integrate Rust auth service built for microservice systems, with JWT auth, secure cookies, session tracking, RBAC, and audit-ready activity logs, and more.',
     skills: [
       'Rust | Axum | Tokio',
       'PostgreSQL | SQLX',
-      'Ethereum',
-      'Solana',
-      'NextJs | ReactJs',
-      'React Native',
-      'Web Sockets',
-      'WebRTC',
-      'Redux Toolkit',
-      'TailwindCSS',
+      'Microservices',
+      'Docker',
       'More...'
     ],
     contributions: [
-      'Founder',
+      'Creator',
       'Opensource Maintainer',
-      'Blockchain Development',
       'Systems Design',
-      'Fullstack Development',
-      'Mobile Development',
-      'Cloud/DevOps'
+      'Backend Development'
     ],
     tags: [
-      'pre-release',
-      'blockchain',
-      'ethereum',
-      'solana',
-      'full-stack',
       'open-source',
+      'auth',
+      'backend-development',
+      'distributed-systems',
+      'RBAC',
       'rust',
+      'axum',
+      'containerization',
       '...'
     ],
-    githubLink: 'https://github.com/Okpainmo/fidelity',
-    icon: HiOutlineSquare3Stack3D
+    githubLink: 'https://github.com/Okpainmo/rusty-auth',
+    icon: HiOutlineShieldCheck
   }
 ];
 
@@ -118,12 +155,10 @@ export const closedSourceProjects: Project[] = [
     storyLink:
       '/blog/categories/project-stories/how-we-built-the-king-of-pi-mall-blockchain-ecommerce-project',
     skills: [
-      'Python',
-      'Django Ninja',
+      'Python | Django Ninja',
       'PostgreSQL',
       'AWS',
-      'Next.js',
-      'React',
+      'React | Next.js',
       'Redux Toolkit',
       'SWR',
       'TailwindCSS',
@@ -134,10 +169,10 @@ export const closedSourceProjects: Project[] = [
       'CTO',
       'Systems Design',
       'Cloud Administration',
-      'Front-end Development',
-      'Backend Engineering',
+      'Full-stack Development',
       'UI/UX',
-      'Client Management'
+      'Client Management',
+      'More...'
     ],
     tags: [
       'zed-labs',
@@ -149,11 +184,79 @@ export const closedSourceProjects: Project[] = [
       'full-stack',
       '...'
     ],
-    // liveLink: 'https://kingofpimall.com',
+    // projectLink: 'https://kingofpimall.com',
     icon: HiOutlineShoppingCart
   },
   {
     id: 'cp-2',
+    title: 'XOps Maestros',
+    description:
+      'A challenge-driven learning and career platform for Ops engineers(DevOps, Platform, SRE, DevSecOps, Cloud, MLOps, etcetera).',
+    // githubLink: 'https://github.com/XopsMaestrosHQ',
+    projectLink: 'https://xopsmaestros.xyz',
+    skills: [
+      'React | Next.js',
+      'Microservices',
+      'Rust | Axum | Tokio',
+      'PostgreSQL | SQLX',
+      'AWS',
+      'More...'
+    ],
+    contributions: [
+      'Co-founder',
+      'Engineering Lead',
+      'Systems Design',
+      'Cloud/DevOps',
+      'Full-stack Development',
+      'More...'
+    ],
+    tags: [
+      'in-progress',
+      'closed-source',
+      'full-stack',
+      'microservices',
+      'rust',
+      '...'
+    ],
+    icon: HiOutlineArrowsExpand
+  },
+  {
+    id: 'cp-3',
+    title: 'Fit Call',
+    description:
+      'A wellness platform that connects users with dedicated personal trainers to help them achieve their fitness goals through live coaching, accountability, and personalized support.',
+    projectLink: 'https://fitcall.me',
+    skills: [
+      'Rust',
+      'Golang',
+      'PostgreSQL',
+      'AWS',
+      'Terraform',
+      'Prometheus',
+      'Grafana',
+      'More...'
+    ],
+    contributions: [
+      'Cloud Engineering',
+      'Platform Engineering',
+      'Systems Engineering',
+      'SRE',
+      'More...'
+    ],
+    tags: [
+      'closed-source',
+      'rust',
+      'golang',
+      'devops-internship',
+      'platform-engineering',
+      'SRE',
+      'systems-engineering',
+      '...'
+    ],
+    icon: HiOutlineSupport
+  },
+  {
+    id: 'cp-4',
     title: 'Private Practice',
     description:
       'A next-generation freelance platform focused on trust and seamless client–professional collaboration.',
@@ -197,17 +300,14 @@ export const closedSourceProjects: Project[] = [
 export const templateProjects: Project[] = [
   {
     id: 'tp-1',
-    title: 'Rust Backend Starter',
+    title: 'Rust Microservice Starter',
     description:
-      'A production-ready template for building high-performance backend services with Rust.',
+      'A starter template for building high-performance microservices with Rust.',
     // storyLink: '/templates/portfolio-kit',
     skills: [
       'Rust | Axum | Tokio',
       'PostgreSQL | SQLX',
-      'Axum Test',
-      'Bacon',
-      'Json Web Token',
-      'Argon2',
+      'Microservices',
       'Docker',
       'More...'
     ],

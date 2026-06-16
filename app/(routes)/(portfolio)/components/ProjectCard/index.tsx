@@ -10,6 +10,7 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const Icon = project.icon;
+  const primaryLink = project.storyLink ?? project.githubLink;
 
   return (
     <div className="bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-700/50 rounded-2xl p-6 flex flex-col gap-6 shadow-sm hover:shadow-md transition-shadow group">
@@ -26,15 +27,28 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
           {project.description}
         </p>
-        <Link
-          href={
-            project.storyLink ? `${project.storyLink}` : `${project.githubLink}`
-          }
-          className="flex items-center gap-1 text-sm font-semibold text-black dark:text-white hover:underline group/story"
-        >
-          {project.storyLink ? 'Read project story' : 'View on GitHub'}
-          <HiArrowUpRight className="text-xs group-hover/story:translate-x-0.5 group-hover/story:-translate-y-0.5 transition-transform" />
-        </Link>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          {primaryLink && (
+            <Link
+              href={primaryLink}
+              className="flex items-center gap-1 text-sm font-semibold text-black dark:text-white hover:underline group/story"
+            >
+              {project.storyLink ? 'Read project story' : 'View on GitHub'}
+              <HiArrowUpRight className="text-xs group-hover/story:translate-x-0.5 group-hover/story:-translate-y-0.5 transition-transform" />
+            </Link>
+          )}
+          {project.projectLink && (
+            <a
+              href={project.projectLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-sm font-semibold text-black dark:text-white hover:underline group/project"
+            >
+              View Project
+              <HiArrowUpRight className="text-xs group-hover/project:translate-x-0.5 group-hover/project:-translate-y-0.5 transition-transform" />
+            </a>
+          )}
+        </div>
       </div>
 
       {/* Role Section */}
@@ -101,13 +115,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             <FaGithub className="text-xl" />
           </a>
         )}
-        {project.liveLink && (
+        {project.projectLink && (
           <a
-            href={project.liveLink}
+            href={project.projectLink}
             target="_blank"
             rel="noopener noreferrer"
             className="text-zinc-500 hover:text-black dark:hover:text-white transition-colors"
-            title="Live Demo"
+            title="View Project"
           >
             <HiOutlineGlobeAlt className="text-xl" />
           </a>

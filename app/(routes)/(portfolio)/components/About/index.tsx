@@ -98,10 +98,13 @@ function About() {
             unfortunately do not believe AI is ever going to make 'real'
             software engineers obsolete.
           </p>
-          <div className="mb-6 text-gray-600 dark:text-gray-400">
+          <p className="mb-6">
             Thank you for taking the time to go through my profile. I&apos;m
             always open to connecting with like-minded individuals, so feel free
-            to reach out. Up next, you can:
+            to reach out.
+          </p>
+          <div className="mb-6 text-gray-600 dark:text-gray-400">
+            Up next, you can:
             <ul className="mt-4 flex flex-col gap-y-3 list-none text-base">
               <li className="flex items-start gap-3 group">
                 <span className="mt-2.5 h-1 w-1 rounded-full bg-zinc-400 dark:bg-zinc-600 shrink-0 group-hover:bg-zinc-900 dark:group-hover:bg-zinc-100 transition-colors" />
