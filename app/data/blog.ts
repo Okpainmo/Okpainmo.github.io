@@ -48,6 +48,12 @@ export const categories = [
     categoryId: 'backend-development'
   },
   {
+    categoryName: 'Rust',
+    categoryBrief: `Practical Rust engineering notes covering backend systems, async programming, tooling, deployment, release workflows, and more`,
+    categoryRoute: '/rust',
+    categoryId: 'rust'
+  },
+  {
     categoryName: 'Full-Stack Development',
     categoryBrief: `End-to-end engineering perspectives that connect front-end, backend, infrastructure, and product thinking.`,
     categoryRoute: '/fullstack-development',
