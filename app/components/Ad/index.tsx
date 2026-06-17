@@ -38,7 +38,7 @@ function Ad({ initialAds }: AdProps) {
 
   return (
     <div
-      className={`hidden xl:flex fixed bottom-6 right-6 z-60 max-w-sm w-full transition-all duration-500 transform ${
+      className={`hidden 2xl:flex fixed bottom-6 right-6 z-60 max-w-sm w-full transition-all duration-500 transform ${
         isVisible
           ? 'translate-y-0 opacity-100'
           : 'translate-y-10 opacity-0 pointer-events-none'
