@@ -75,7 +75,7 @@ function About() {
             deployments(cloud/DevOps), and product leadership.
           </p>
           <p className="mb-6">
-            Deeply goal-oriented, I'm almost always working toward something -
+            Strongly goal-oriented, I'm almost always working toward something -
             whether learning a new technology, building a project, working on a
             new idea, or just crushing a problem worth solving. <br /> The last
             couple months has seen me dive quite deep into cloud/infrastructure
@@ -180,7 +180,7 @@ function About() {
 
           <div>
             <h3 className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 mb-4 uppercase tracking-[0.2em]">
-              Expertise Domains
+              Domains
             </h3>
             <div className="flex flex-wrap gap-2">
               {expertiseDomains.map((each) => (
