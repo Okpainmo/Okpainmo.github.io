@@ -191,9 +191,9 @@ export const closedSourceProjects: Project[] = [
     id: 'cp-2',
     title: 'XOps Maestros',
     description:
-      'A challenge-driven learning and career platform for Ops engineers(DevOps, Platform, SRE, DevSecOps, Cloud, MLOps, etcetera).',
+      'The professional network for Cloud, Ops, and Infra Engineers (DevOps, Platform, SRE, DevSecOps, MLOps, etc.) in the AI era.',
     // githubLink: 'https://github.com/XopsMaestrosHQ',
-    projectLink: 'https://xopsmaestros.xyz',
+    projectLink: 'https://xopsmaestros.com',
     skills: [
       'React | Next.js',
       'Microservices',
