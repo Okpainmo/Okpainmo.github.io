@@ -42,6 +42,8 @@ function About() {
             pivoted and founded{' '}
             <Link
               href="https://www.linkedin.com/company/zedlabs-hq"
+              target="_blank"
+              rel="noopener noreferrer"
               className="italic underline underline-offset-4 text-zinc-900 dark:text-zinc-100"
             >
               Zed Labs
@@ -82,12 +84,15 @@ function About() {
             engineering(DevOps, SRE, Platform Engineering, etc), which inspired
             me to build{' '}
             <Link
-              href="https://github.com/XopsMaestrosHQ"
+              href="https://xopsmaestros.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="italic underline underline-offset-4 text-zinc-900 dark:text-zinc-100"
             >
-              XOps Maestros{' '}
-            </Link>
-            - my latest side project.
+              XOps Maestros
+            </Link>{' '}
+            - the professional network for Cloud, Ops, and Infra Engineers in
+            the AI era.
             <br />
             <br /> Right now, my primary interests lie in blockchain/web3
             technologies. I'm passionate about decentralization, and believe it
