@@ -8,6 +8,7 @@ import CategoriesListWrapper from '@/app/components/CategoriesListWrapper';
 import PostCard from '../../components/PostCard';
 import BlogLayout from '../../components/layout/BlogLayout';
 import NoPostsFound from '@/app/components/NoPostsFound';
+import { isPublishedPost } from '@/app/lib/posts';
 
 import PaginatedPostList from '../../components/PaginatedPostList';
 
@@ -81,11 +82,13 @@ async function CategoryPage({ params }: Props) {
 
   const mdxPosts = files.filter((file) => file.endsWith('.mdx'));
 
-  const allPostFileContent = mdxPosts.map((each) => {
-    const fileContent = fs.readFileSync(`${basePath}/${each}`, 'utf8');
-    const matterResult = matter(fileContent);
-    return matterResult.data;
-  });
+  const allPostFileContent = mdxPosts
+    .map((each) => {
+      const fileContent = fs.readFileSync(`${basePath}/${each}`, 'utf8');
+      const matterResult = matter(fileContent);
+      return matterResult.data;
+    })
+    .filter(isPublishedPost);
 
   const categoryPosts = allPostFileContent.filter((post) => {
     return (

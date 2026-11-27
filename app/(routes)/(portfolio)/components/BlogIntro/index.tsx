@@ -5,6 +5,7 @@ import { HiArrowUpRight } from 'react-icons/hi2';
 import type { Metadata } from 'next';
 import matter from 'gray-matter';
 import fs from 'fs';
+import { isPublishedPost } from '@/app/lib/posts';
 
 // to get blog posts
 const blogPostsBasePath = 'blog-content';
@@ -28,6 +29,7 @@ function BlogIntro() {
   });
 
   const sortedBlogPosts = blogPostsFileContent
+    .filter(isPublishedPost)
     .sort((a: any, b: any) => b.postIndex - a.postIndex)
     .slice(0, 4);
 

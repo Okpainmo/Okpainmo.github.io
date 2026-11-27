@@ -6,6 +6,7 @@ import matter from 'gray-matter';
 import fs from 'fs';
 import BlogLayout from '../components/layout/BlogLayout';
 import NoPostsFound from '@/app/components/NoPostsFound';
+import { isPublishedPost } from '@/app/lib/posts';
 
 export const metadata: Metadata = {
   title: 'Andrew Okpainmo | Blog',
@@ -37,11 +38,16 @@ async function BlogHomePage() {
 
   const mdxBlogPosts = blogFiles.filter((file) => file.endsWith('.mdx'));
 
-  const blogPostsFileContent = mdxBlogPosts.map((each) => {
-    const fileContent = fs.readFileSync(`${blogPostsBasePath}/${each}`, 'utf8');
-    const matterResult = matter(fileContent);
-    return matterResult.data;
-  });
+  const blogPostsFileContent = mdxBlogPosts
+    .map((each) => {
+      const fileContent = fs.readFileSync(
+        `${blogPostsBasePath}/${each}`,
+        'utf8'
+      );
+      const matterResult = matter(fileContent);
+      return matterResult.data;
+    })
+    .filter(isPublishedPost);
 
   const sortedBlogPosts = blogPostsFileContent.sort(
     (a: any, b: any) => b.postIndex - a.postIndex

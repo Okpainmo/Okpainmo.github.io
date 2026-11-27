@@ -9,6 +9,7 @@ import PostPageHeadSection from './components/PostPageHeadSection';
 import AboutAuthorSection from './components/AboutAuthorSection';
 import PostPageLayout from './components/layout/PostPageLayout';
 import PostImageZoomModal from './components/PostImageZoomModal';
+import { isPublishedPost } from '@/app/lib/posts';
 
 export const dynamicParams = false;
 const basePath = 'blog-content';
@@ -82,6 +83,7 @@ async function PostPage({ params }: Props) {
   const currentPost = allPosts.find((post) => {
     const data = post.data;
     return (
+      isPublishedPost(data) &&
       post.data.postSlug === postId &&
       (data.postCategory === categoryId ||
         data.subCategories?.includes(categoryId))
@@ -93,9 +95,9 @@ async function PostPage({ params }: Props) {
   }
 
   // 3. Navigation follows the global MDX postIndex order.
-  const sortedPosts = [...allPosts].sort(
-    (a, b) => a.data.postIndex - b.data.postIndex
-  );
+  const sortedPosts = allPosts
+    .filter((post) => isPublishedPost(post.data))
+    .sort((a, b) => a.data.postIndex - b.data.postIndex);
   const currentPostIndex = sortedPosts.findIndex(
     (post) => post.data.postSlug === postId
   );
@@ -168,6 +170,7 @@ export async function generateStaticParams() {
   mdxPosts.forEach((fileName) => {
     const content = fs.readFileSync(`${basePath}/${fileName}`, 'utf8');
     const { data } = matter(content);
+    if (!isPublishedPost(data)) return;
 
     // Add primary category path
     paths.push({ categoryId: data.postCategory, postId: data.postSlug });

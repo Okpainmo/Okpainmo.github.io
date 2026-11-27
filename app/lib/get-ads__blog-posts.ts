@@ -1,6 +1,7 @@
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
+import { isPublishedPost } from '@/app/lib/posts';
 
 const blogPostsBasePath = path.join(process.cwd(), 'blog-content');
 
@@ -19,9 +20,9 @@ export async function getBlogAds() {
     return data;
   });
 
-  const sortedBlogPosts = blogPostsData.sort(
-    (a: any, b: any) => (b.postIndex || 0) - (a.postIndex || 0)
-  );
+  const sortedBlogPosts = blogPostsData
+    .filter(isPublishedPost)
+    .sort((a: any, b: any) => (b.postIndex || 0) - (a.postIndex || 0));
 
   return sortedBlogPosts.map((each: any) => ({
     id: each.postSlug,

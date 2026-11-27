@@ -20,4 +20,5 @@ export interface Post {
 
   postTags: string[];
   postSlug: string;
+  published?: boolean;
 }
