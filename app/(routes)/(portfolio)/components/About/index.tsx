@@ -40,8 +40,8 @@ function About() {
             couple years making passionate attempts at founding and building
             startups. With multiple 'failures' and priceless lessons learned, I
             pivoted and founded Zed Labs - a creative digital agency delivering
-            software and other services to clients. In less than 2 years we've
-            worked on some impressive projects across e-commerce, health-tech
+            software and other services to clients. In just about 2 years, we've
+            worked on some interesting projects across e-commerce, health-tech
             and ed-tech.{' '}
             {/*Two notable
             case-studies are{' '}
@@ -105,7 +105,7 @@ function About() {
             >
               Salesgee
             </Link>{' '}
-            where we are building the future of e-commerce in Africa. <br />
+            - where we are building the future of e-commerce in Africa. <br />
             <br /> About Artificial Intelligence, I think it's cool - absolutely
             the biggest thing the tech world has ever seen. I build AI systems,
             and I actively utilize AI in my engineering workflows and day-to-day
