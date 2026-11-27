@@ -39,18 +39,10 @@ function About() {
             strong itch for entrepreneurship, I spent a good chunk of the last
             couple years making passionate attempts at founding and building
             startups. With multiple 'failures' and priceless lessons learned, I
-            pivoted and founded{' '}
-            <Link
-              href="https://www.linkedin.com/company/zedlabs-hq"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="italic underline underline-offset-4 text-zinc-900 dark:text-zinc-100"
-            >
-              Zed Labs
-            </Link>{' '}
-            - a creative digital agency delivering software and other services
-            to clients. In less than 2 years we've worked on some impressive
-            projects across e-commerce, health-tech and ed-tech.{' '}
+            pivoted and founded Zed Labs - a creative digital agency delivering
+            software and other services to clients. In less than 2 years we've
+            worked on some impressive projects across e-commerce, health-tech
+            and ed-tech.{' '}
             {/*Two notable
             case-studies are{' '}
             <Link
@@ -92,16 +84,33 @@ function About() {
               XOps Maestros
             </Link>{' '}
             - the professional network for Cloud, Ops, and Infra Engineers in
-            the AI era.
+            the AI era. Also see{' '}
+            <Link
+              href="https://vertuex.xopsmaestros.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="italic underline underline-offset-4 text-zinc-900 dark:text-zinc-100"
+            >
+              Vertuex
+            </Link>
+            .
             <br />
-            <br /> Right now, my primary interests lie in blockchain/web3
-            technologies. I'm passionate about decentralization, and believe it
-            holds the key to a more equitable and transparent future. <br />
+            <br /> For now, I mainly work as a fractional Chief Technology
+            Officer - leading engineering across my startup ventures and{' '}
+            <Link
+              href="https://salesgee.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="italic underline underline-offset-4 text-zinc-900 dark:text-zinc-100"
+            >
+              Salesgee
+            </Link>{' '}
+            where we are building the future of e-commerce in Africa. <br />
             <br /> About Artificial Intelligence, I think it's cool - absolutely
-            the biggest thing the tech world has ever seen. I actively utilize
-            AI in my engineering workflows and day-to-day processes, but I
-            unfortunately do not believe AI is ever going to make 'real'
-            software engineers obsolete.
+            the biggest thing the tech world has ever seen. I build AI systems,
+            and I actively utilize AI in my engineering workflows and day-to-day
+            processes, but I unfortunately do not believe AI is ever going to
+            make 'real' software engineers obsolete.
           </p>
           <p className="mb-6">
             Thank you for taking the time to go through my profile. I&apos;m

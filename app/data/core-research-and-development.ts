@@ -6,7 +6,7 @@ export const portfolioSegments = [
     description:
       'A newsletter that breaks down blockchain and decentralized systems from an engineering and architectural perspective — focusing on design decisions, trade-offs, and real-world implications, not hype cycles.',
     banner: '/_/block_canvas_wide_banner.png',
-    link: 'https://blockcanvas.substack.com/',
+    link: 'https://blockcanvas.substack.com/about',
     icon: HiNewspaper,
     isExternal: true
   },
